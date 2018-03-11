@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        
+    </head>
+
+    <body>
+        login
+        <div class="form-group">
+            <label for="inputsm">e-mail</label>
+            <input class="form-control input-sm" id="txtLoginEmail" type="text">
+        </div>
+        <div class="form-group">
+            <label for="inputdefault">password</label>
+            <input class="form-control" id="txtLoginPassword" type="text">
+        </div>
+        <button class="ui-button ui-widget ui-corner-all" id="btnLogin">Login</button>
+
+        <script>
+            jQuery( "#btnLogin" ).click(function() {
+                var email = jQuery("#txtLoginEmail").val();
+                var password = jQuery("#txtLoginPassword").val();
+                window.parent.login(email, password);
+            });
+        </script>
+    </body>
+</html>
