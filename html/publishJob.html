@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <span class="label-header">รายละเอียดการรับงานสอน</span>
+    <table id="gridClass" class="table table-condensed table-hover table-striped">
+        <thead>
+            <tr>
+                <th data-column-id="id" data-type="numeric" data-order="asc">สำดับ</th>
+                <th data-column-id="class">วิชา</th>
+                <th data-column-id="level">ระดับชั้น</th>
+                <th data-column-id="exp">ประสบการณ์สอน</th>
+                <th data-column-id="commands" data-formatter="commands" data-sortable="false"></th>
+            </tr>
+        </thead>
+    </table>
+    <div>
+        <div class="container-half-left">หลักสูตรที่สามารถสอนได้ :</div>
+        <div class="container-half-right">
+            <input type="checkbox"> สามารถสอนโดยใช้เอกสารประกอบการเรียนเป็นภาษาอังกฤษ </br>
+            <input type="checkbox"> สามารถสอนโดยใช้เอกสารประกอบการเรียนและสนทนาเป็นภาษาอังกฤษได้
+        </div>
+    </div>
+    </br>
+    <div>
+        <div>เวลาเดินทางไปและกลับสูงสุดที่ยอมรับได้</div>    
+    </div>
+    </br>
+    <div>
+        <div>วัน เวลา สถานที่และพาหนะที่ใช้เดินทาง :</div>    
+    </div>
+    <table id="gridDetail" class="table table-condensed table-hover table-striped">
+            <thead>
+                <tr>
+                    <th data-column-id="day">วัน</th>
+                    <th data-column-id="StartTime">เวลาเริ่มเดินทาง</th>
+                    <th data-column-id="startPlace">สถานที่เริ่มต้นเดินทาง</th>
+                    <th data-column-id="endTime">เวลาสิ้นสุดเดินทาง</th>
+                    <th data-column-id="endPlace">สถานที่สิ้นสุดเดินทาง</th>
+                    <th data-column-id="car">รถยนต์ส่วนตัว</th>
+                    <th data-column-id="bus">รถประจำทาง</th>
+                    <th data-column-id="bts">รถไฟฟ้า</th>
+                    <th data-column-id="commands" data-formatter="commands" data-sortable="false"></th>
+                </tr>
+            </thead>
+        </table>
+    
+
+    <script>
+        var grid = $("#gridClass").bootgrid({
+            ajax: false,
+            formatters: {
+                "commands": function (column, row) {
+                    return "<button type=\"button\" class=\"btn btn-xs btn-default command-edit\" data-row-id=\"" + row.id + "\">Edit<span class=\"fa fa-pencil\"></span></button> " +
+                        "<button type=\"button\" class=\"btn btn-xs btn-default command-delete\" data-row-id=\"" + row.id + "\">Delete<span class=\"fa fa-trash-o\"></span></button>";
+                }
+            }
+        }).on("loaded.rs.jquery.bootgrid", function () {
+            grid.find(".command-edit").on("click", function (e) {
+                alert("You pressed edit on row: " + $(this).data("row-id"));
+            }).end().find(".command-delete").on("click", function (e) {
+                alert("You pressed delete on row: " + $(this).data("row-id"));
+            });
+        });
+
+        grid.bootgrid("append", [
+            {
+                "id": 1,
+                "class": "ภาษาอังกฤษ",
+                "level": "มัธยมศึกษาตอนปลาย",
+                "exp": "1 ปี"
+            },
+            {
+                "id": 2,
+                "class": "คณิตศาสตร์",
+                "level": "มัธยมศึกษาตอนต้น",
+                "exp": "1 ปี"
+            },
+            {
+                "id": 3,
+                "class": "คณิตศาสตร์",
+                "level": "มัธยมศึกษาตอนปลาย",
+                "exp": "1 ปี"
+            }
+        ]);
+
+
+        var gridDetail = $("#gridDetail").bootgrid({
+            ajax: false,
+            formatters: {
+                "commands": function (column, row) {
+                    return "<button type=\"button\" class=\"btn btn-xs btn-default command-edit\" data-row-id=\"" + row.id + "\">Edit<span class=\"fa fa-pencil\"></span></button> " +
+                        "<button type=\"button\" class=\"btn btn-xs btn-default command-delete\" data-row-id=\"" + row.id + "\">Delete<span class=\"fa fa-trash-o\"></span></button>";
+                }
+            }
+        }).on("loaded.rs.jquery.bootgrid", function () {
+            gridDetail.find(".command-edit").on("click", function (e) {
+                alert("You pressed edit on row: " + $(this).data("row-id"));
+            }).end().find(".command-delete").on("click", function (e) {
+                alert("You pressed delete on row: " + $(this).data("row-id"));
+            });
+        });
+
+        gridDetail.bootgrid("append", [
+            {
+                "day": "จันทร์",
+                "StartTime": "13.00 น.",
+                "startPlace": "Silom Complex",
+                "endTime": "19.00 น.",
+                "endPlace": "หมูบ้านรวมน้ำใจ ประชาอุทิศ",
+                "car": "",
+                "bus": "",
+                "bts": "",
+                "taxi": ""
+            },
+            {
+                "day": "เสาร์",
+                "StartTime": "9.00 น.",
+                "startPlace": "Silom Complex",
+                "endTime": "12.00 น.",
+                "endPlace": "หมูบ้านรวมน้ำใจ ประชาอุทิศ",
+                "car": "",
+                "bus": "",
+                "bts": "",
+                "taxi": ""
+            }
+        ]);
+
+    </script>
+</body>
+
+</html>
