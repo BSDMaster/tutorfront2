@@ -19,3 +19,12 @@ div font {
 .modal-title {
     margin: 0px auto;
 }
+
+/* override bootgrid (table) */
+.search.form-group{
+    display: none;
+}
+
+.actions.btn-group{
+    display: none;
+}

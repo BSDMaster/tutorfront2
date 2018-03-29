@@ -6,7 +6,13 @@
 </head>
 
 <body>
-    <span class="label-header">รายละเอียดการรับงานสอน</span>
+    <div class="label-header">รายละเอียดการรับงานสอน</div>
+
+    <!-- Button trigger modal -->
+    <button id="btnAddClass" type="button" class="btn btn-primary container-btn-add-right" data-toggle="modal" data-target="#modalAddClass">
+        เพิ่ม
+    </button>
+
     <table id="gridClass" class="table table-condensed table-hover table-striped">
         <thead>
             <tr>
@@ -27,28 +33,171 @@
     </div>
     </br>
     <div>
-        <div>เวลาเดินทางไปและกลับสูงสุดที่ยอมรับได้</div>    
+        <div>เวลาเดินทางไปและกลับสูงสุดที่ยอมรับได้</div>
     </div>
     </br>
     <div>
-        <div>วัน เวลา สถานที่และพาหนะที่ใช้เดินทาง :</div>    
+        <div>วัน เวลา สถานที่และพาหนะที่ใช้เดินทาง :</div>
     </div>
-    <table id="gridDetail" class="table table-condensed table-hover table-striped">
-            <thead>
-                <tr>
-                    <th data-column-id="day">วัน</th>
-                    <th data-column-id="StartTime">เวลาเริ่มเดินทาง</th>
-                    <th data-column-id="startPlace">สถานที่เริ่มต้นเดินทาง</th>
-                    <th data-column-id="endTime">เวลาสิ้นสุดเดินทาง</th>
-                    <th data-column-id="endPlace">สถานที่สิ้นสุดเดินทาง</th>
-                    <th data-column-id="car">รถยนต์ส่วนตัว</th>
-                    <th data-column-id="bus">รถประจำทาง</th>
-                    <th data-column-id="bts">รถไฟฟ้า</th>
-                    <th data-column-id="commands" data-formatter="commands" data-sortable="false"></th>
-                </tr>
-            </thead>
-        </table>
-    
+    <!-- Button trigger modal -->
+    <button id="btnAddJobDetail" type="button" class="btn btn-primary container-btn-add-right" data-toggle="modal" data-target="#modalAddJobDetail">
+        เพิ่ม
+    </button>
+    <table id="gridJobDetail" class="table table-condensed table-hover table-striped">
+        <thead>
+            <tr>
+                <th data-column-id="day">วัน</th>
+                <th data-column-id="StartTime">เวลาเริ่มเดินทาง</th>
+                <th data-column-id="startPlace">สถานที่เริ่มต้นเดินทาง</th>
+                <th data-column-id="endTime">เวลาสิ้นสุดเดินทาง</th>
+                <th data-column-id="endPlace">สถานที่สิ้นสุดเดินทาง</th>
+                <th data-column-id="car">รถยนต์ส่วนตัว</th>
+                <th data-column-id="bus">รถประจำทาง</th>
+                <th data-column-id="bts">รถไฟฟ้า</th>
+                <th data-column-id="commands" data-formatter="commands" data-sortable="false"></th>
+            </tr>
+        </thead>
+    </table>
+
+    <!-- Modal Add Class-->
+    <div class="modal fade" id="modalAddClass" tabindex="-1" role="dialog" aria-labelledby="modalAddClassLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalAddClassLabel">เพิ่มรายวิชา</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">วิชา</label>
+                            <select class="form-control" id="exampleFormControlSelect1">
+                                <option>วิทยาศาสตร์</option>
+                                <option>คณิตศาสตร์</option>
+                                <option>ภาษาอังกฤษ</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">ระดับชั้น</label>
+                            <select class="form-control" id="exampleFormControlSelect1">
+                                <option>ประถมศึกษาตอนต้น</option>
+                                <option>ประถมศึกษาตอนปลาย</option>
+                                <option>มัธยมศึกษาตอนต้น</option>
+                                <option>มัธยมศึกษาตอนปลาย</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">ประสบการณ์สอน</label>
+                            <select class="form-control" id="exampleFormControlSelect1">
+                                <option>ไม่มีประสบการณ์สอน</option>
+                                <option>1 ปี</option>
+                                <option>2 ปี</option>
+                                <option>3 ปี</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">ตกลง</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Add JobDetail-->
+    <div class="modal fade" id="modalAddJobDetail" tabindex="-1" role="dialog" aria-labelledby="modalAddJobDetailLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalAddJobDetailLabel">วัน เวลา สถานที่และพาหนะที่ใช้เดินทาง</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">สำเนามาจาก</label>
+                            <select class="form-control" id="exampleFormControlSelect1">
+                                <option>จันทร์</option>
+                                <option>อังคาร</option>
+                                <option>พุธ</option>
+                                <option>พฤหัสบดี</option>
+                                <option>ศุกร์</option>
+                                <option>เสาร์</option>
+                                <option>อาทิตย์</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">วัน</label>
+                            <select class="form-control" id="exampleFormControlSelect1">
+                                <option>จันทร์</option>
+                                <option>อังคาร</option>
+                                <option>พุธ</option>
+                                <option>พฤหัสบดี</option>
+                                <option>ศุกร์</option>
+                                <option>เสาร์</option>
+                                <option>อาทิตย์</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">เวลาเริ่มต้นเดินทาง</label>
+                            <select class="form-control" id="exampleFormControlSelect1">
+                                <option>8:00 น.</option>
+                                <option>9:00 น.</option>
+                                <option>10:00 น.</option>
+                                <option>11:00 น.</option>
+                                <option>12:00 น.</option>
+                                <option>13:00 น.</option>
+                                <option>14:00 น.</option>
+                                <option>15:00 น.</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">เวลาสิ้นสุดการเดินทาง</label>
+                            <select class="form-control" id="exampleFormControlSelect1">
+                                <option>8:00 น.</option>
+                                <option>9:00 น.</option>
+                                <option>10:00 น.</option>
+                                <option>11:00 น.</option>
+                                <option>12:00 น.</option>
+                                <option>13:00 น.</option>
+                                <option>14:00 น.</option>
+                                <option>15:00 น.</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">สถานที่เริ่มต้นเดินทาง</label>
+                            <select class="form-control" id="exampleFormControlSelect1">
+                                <option>Silom Complex</option>
+                                <option>Siam Paragon</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">สถานทีสิ้นสุดการเดินทาง</label>
+                            <select class="form-control" id="exampleFormControlSelect1">
+                                <option>Silom Complex</option>
+                                <option>Siam Paragon</option>
+                            </select>
+                        </div>
+                        <div style="display:inline;">
+                            <input type="checkbox">รถยนต์ส่วนตัว
+                            <input type="checkbox">รถโดยสารประจำทาง
+                            <input type="checkbox">รถไฟฟ้า
+                            <input type="checkbox">แท็กซี่
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">ตกลง</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
         var grid = $("#gridClass").bootgrid({
@@ -89,7 +238,7 @@
         ]);
 
 
-        var gridDetail = $("#gridDetail").bootgrid({
+        var gridDetail = $("#gridJobDetail").bootgrid({
             ajax: false,
             formatters: {
                 "commands": function (column, row) {
