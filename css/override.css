@@ -8,6 +8,11 @@ div font {
     font-size: inherit;
 }
 
+label {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
 .modal-dialog {
        top: 250px;
 }
