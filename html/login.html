@@ -37,9 +37,15 @@
     <script>
         $(document).ready(function () {
             // The on tab shown event
+            _gUserType = 'student';
+            
             $('.nav-tabs a').on('shown.bs.tab', function (e) {
-                var tabIndex = e.currentTarget.tabIndex;
-                if(tabIndex != null && tabIndex != 0){
+                var tabIndex = parseInt(e.currentTarget.tabIndex);
+                
+                if(tabIndex == 0){
+                    _gUserType = "student";
+                }
+                else{
                     _gUserType = "tutor";
                 }
             });
@@ -49,7 +55,7 @@
             console.log("_gUserType = ", _gUserType);
             var email = jQuery("#txtLoginEmail").val();
             var password = jQuery("#txtLoginPassword").val();
-            window.parent.login(email, password);
+            window.parent.login(email, password, _gUserType);
         });
 
 

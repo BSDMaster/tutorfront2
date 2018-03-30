@@ -64,7 +64,7 @@
                 <th data-column-id="car">รถยนต์ส่วนตัว</th>
                 <th data-column-id="bus">รถประจำทาง</th>
                 <th data-column-id="bts">รถไฟฟ้า</th>
-                <th data-column-id="taxi">รถแท็กซี่</th>
+                <th data-column-id="taxi" data-formatter="taxi" data-sortable="false">รถแท็กซี่</th>
                 <th data-column-id="commands" data-formatter="commands" data-sortable="false"></th>
             </tr>
         </thead>
@@ -263,6 +263,9 @@
         //grid Class
         var gridClass = $("#gridClass").bootgrid({
             formatters: {
+                "taxi": function(column, row){
+                    return "<button type=\"button\" class=\"btn btn-xs btn-default command-edit\" data-row-id=\"" + row.id + "\">Car<span class=\"fa fa-pencil\"></span></button> "
+                },
                 "commands": function (column, row) {
                     console.log("row=", row);
                     return "<button type=\"button\" class=\"btn btn-xs btn-default command-edit\" data-row-id=\"" + row.id + "\">Edit<span class=\"fa fa-pencil\"></span></button> " +

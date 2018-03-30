@@ -40,8 +40,8 @@
       turId: null,
       turName: null
     };
-    _gUser.turId = 11;
-    _gUser.turName = 'Tutor11';
+    _gUser.turId = null;
+    _gUser.turName = null;
 
   </script>
 </head>
@@ -108,12 +108,12 @@
           <li class="nav-item">
             <a class="nav-link" href="javascript:changePage('./html/rate.html');">อัตราค่าเรียน</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" id="nav-itm-publishJob">
             <a class="nav-link" href="javascript:changePage('./html/publishJob.html');">รับงานสอน</a>
           </li>
-          <li class="nav-item">
-              <a class="nav-link" href="javascript:changePage('./html/registerClass.html');">สมัครเรียน</a>
-            </li>
+          <li class="nav-item" id="nav-itm-registerClass">
+            <a class="nav-link" href="javascript:changePage('./html/registerClass.html');">สมัครเรียน</a>
+          </li>
           <li class="nav-item">
             <a class="nav-link" href="javascript:changePage('./html/contact.html');">ติดต่อเรา</a>
           </li>
@@ -174,7 +174,7 @@
     <script src="./library/bootstrap-typeahead.js"></script>-->
 
   <script>
-    
+
     jQuery(document).ready(function () {
       console.log("ready!");
       if (_gUser.turId == null) {
@@ -189,15 +189,14 @@
       jQuery("#divMainContainer").load(page);
     }
 
-    function login(email, password) {
-      console.log("email=", email);
-      console.log("password=", password);
+    function login(email, password, userType) {
       var data = {
         email: email,
         password: password
       }
-      console.log(data);
       //if(_gUserEmail){   //call web service for check user credential
+
+      /*
       $.ajax({
         type: "POST",
         url: "http://localhost:8080/tutormatchingservices-0.0.1-SNAPSHOT/tutor/login",
@@ -219,11 +218,19 @@
           alert('fail' + status.code);
         }
       });
+      */
 
       //testOnly
-      
+      if (userType == "tutor") {
+        _gUser.turId = 1;
+        _gUser.turName = "Tutor1";
+      }
+      else {
+        _gUser.turId = 1;
+        _gUser.turName = "Student1";
+      }
 
-      // }
+      loadMainPage();
     }
 
     function loadMainPage() {
@@ -233,7 +240,15 @@
         jQuery("#divShowUser").html(_gUser.turName);
 
         //_gUserType
-
+        console.log("_gUserType=", _gUserType);
+        if (_gUserType == "tutor") {
+          jQuery("#nav-itm-publishJob").show();
+          jQuery("#nav-itm-registerClass").hide();
+        }
+        else {
+          jQuery("#nav-itm-publishJob").hide();
+          jQuery("#nav-itm-registerClass").show();
+        }
       }
       else {
         console.log("pls check user credential");
