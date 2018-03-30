@@ -47,49 +47,6 @@
 </head>
 
 <body data-gr-c-s-loaded="true">
-  <!--
-  <div id="divMainNavBar" class="navbar navbar-inverse navbar-fixed-top" style="display:none;">
-    <div class="navbar-inner">
-      <div class="container">
-        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="brand" href="javascript:loadMainPage();">Tutor</a>
-        <div class="nav-collapse collapse">
-          <ul class="nav">
-            <li><a href="javascript:changePage('./html/schedule.html');">ตารางสอน</a></li>
-            <li><a href="javascript:changePage('./html/rate.html');">อัตราค่าเรียน</a></li>
-            <li><a href="javascript:changePage('./html/contact.html');">ติดต่อเรา</a></li>
-            <li class="dropdown">
-              <a id="divShowUser" class="dropdown-toggle" data-toggle="dropdown">User <b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a href="javascript:changePage('./html/profile.html');">แก้ไขข้อมูลส่วนตัว</a></li>
-                <li><a href="javascript:logout();">ออกจากระบบ</a></li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>-->
-  <!--
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">WebSiteName</a>
-    </div>
-    <ul class="nav navbar-nav">
-      <li class="active"><a href="#">Home</a></li>
-      <li><a href="#">Page 1</a></li>
-      <li><a href="#">Page 2</a></li>
-      <li><a href="#">Page 3</a></li>
-    </ul>
-  </div>
-</nav>-->
-
-
   <nav id="divMainNavBar" class="navbar navbar-expand-lg navbar-dark bg-primary" style="display:none;">
 
     <div class="container-fluid">
@@ -129,49 +86,13 @@
         </ul>
       </div>
     </div>
-    <!-- 
- <a class="navbar-brand" href="#">Navbar</a>
- <div class="collapse navbar-collapse" id="navbarColor01">
-   <ul class="navbar-nav mr-auto">
-     <li class="nav-item active">
-       <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-     </li>
-     <li class="nav-item">
-       <a class="nav-link" href="#">Features</a>
-     </li>
-     <li class="nav-item">
-       <a class="nav-link" href="#">Pricing</a>
-     </li>
-     <li class="nav-item">
-       <a class="nav-link" href="#">About</a>
-     </li>
-   </ul>
- </div>-->
+
   </nav>
   <div id="divMainContainer" class="container">
 
   </div>
   <!-- /container -->
 
-
-
-  <!-- Le javascript
-================================================== -->
-  <!-- Placed at the end of the document so the pages load faster -->
-  <!--
-    <script src="./library/bootstrap-transition.js"></script>
-   
-    <script src="./library/bootstrap-alert.js"></script>
-    <script src="./library/bootstrap-modal.js"></script>
-    <script src="./library/bootstrap-dropdown.js"></script>
-    <script src="./library/bootstrap-scrollspy.js"></script>
-    <script src="./library/bootstrap-tab.js"></script>
-    <script src="./library/bootstrap-tooltip.js"></script>
-    <script src="./library/bootstrap-popover.js"></script>
-    <script src="./library/bootstrap-button.js"></script>
-    <script src="./library/bootstrap-collapse.js"></script>
-    <script src="./library/bootstrap-carousel.js"></script>
-    <script src="./library/bootstrap-typeahead.js"></script>-->
 
   <script>
 
@@ -235,17 +156,19 @@
 
     function loadMainPage() {
       if (_gUser.turId != null) {
-        jQuery("#divMainContainer").load('./html/main.html');
+        
         jQuery("#divMainNavBar").css('display', '');
         jQuery("#divShowUser").html(_gUser.turName);
 
         //_gUserType
         console.log("_gUserType=", _gUserType);
         if (_gUserType == "tutor") {
+          jQuery("#divMainContainer").load('./html/main.html');
           jQuery("#nav-itm-publishJob").show();
           jQuery("#nav-itm-registerClass").hide();
         }
         else {
+          jQuery("#divMainContainer").load('./html/mainStudent.html');
           jQuery("#nav-itm-publishJob").hide();
           jQuery("#nav-itm-registerClass").show();
         }

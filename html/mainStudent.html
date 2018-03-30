@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <br>
+    <br>
+    <div class="container">
+        <ul class="nav nav-tabs">
+            <li class="nav-item active">
+                <a data-toggle="tab" href="#tabFindingTutor">วิชาที่อยู่ระหว่างจัดหาติวเตอร์&nbsp;&nbsp;
+                    <span class="badge badge-pill badge-danger" id="badgenum"></span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a data-toggle="tab" href="#tabCurrentCourse">คอร์สที่กำลังเรียนอยู่</a>
+            </li>
+            <li class="nav-item">
+                <a data-toggle="tab" href="#tabStudentOther">อื่นๆ</a>
+            </li>
+        </ul>
+
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade in active" id="tabFindingTutor">
+
+            </div>
+            <div class="tab-pane fade" id="tabCurrentCourse">
+
+            </div>
+            <div class="tab-pane fade" id="tabStudentOther">
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        jQuery(document).ready(function () {
+            console.log("ready!");
+            if (_gUser.turId != null) {
+                setUpTable();
+            }
+
+        });
+    </script>
+</body>
+
+</html>
