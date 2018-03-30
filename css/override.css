@@ -33,3 +33,7 @@ label {
 .actions.btn-group{
     display: none;
 }
+
+.form-check-label{
+    margin-left: 20px;
+}

@@ -6,7 +6,89 @@
 </head>
 
 <body>
-    <div class="label-header">สมัครเรียน</div>
+
+    <ul class="nav nav-tabs">
+        <li class="nav-item active">
+            <a data-toggle="tab" href="#tabRegisterClass">ลงทะเบียนเรียน</a>
+        </li>
+        <li class="nav-item">
+            <a data-toggle="tab" href="#tabRegisterStudentDetail">ยืนยันข้อมูลนักเรียน</a>
+        </li>
+    </ul>
+
+    <div id="myTabContent" class="tab-content">
+        <div class="tab-pane fade in active" id="tabRegisterClass">
+            <div class="label-header">วิชาที่ต้องการสมัครเรียน</div>
+            <form>
+                <fieldset class="form-group">
+                    <div class="row">
+                        <div class="col-sm-2">หลักสูตร</div>
+                        <div class="col-sm-10">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+                                <label class="form-check-label" for="gridRadios1">
+                                    ปกติ
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+                                <label class="form-check-label" for="gridRadios2">
+                                    English Program
+                                </label>
+                            </div>
+                            <div class="form-check disabled">
+                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option3" disabled>
+                                <label class="form-check-label" for="gridRadios3">
+                                    International
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">จำนวนผู้เรียน</div>
+                        <select class="custom-select my-1 mr-sm-2" style="width:300px;">
+                            <option selected value="1">1 คน</option>
+                            <option value="2">2 คน</option>
+                            <option value="3">3 คน</option>
+                        </select>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">จำนวนวันที่ต้องการเรียนต่อสัปดาห์</div>
+                        <select class="custom-select my-1 mr-sm-2" style="width:300px;">
+                            <option selected value="1">1 วัน</option>
+                            <option value="2">2 วัน</option>
+                            <option value="3">3 วัน</option>
+                        </select>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">จำนวนชั่วโมงที่ต้องการเรียนต่อครั้ง</div>
+                        <select class="custom-select my-1 mr-sm-2" style="width:300px;">
+                            <option selected value="1">1 ชั่วโมง</option>
+                            <option value="2">2 ชั่วโมง</option>
+                            <option value="3">3 ชั่วโมง</option>
+                        </select>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">จำนวนชั่วโมงที่ต้องการเรียนต่องานสอน</div>
+                        <select class="custom-select my-1 mr-sm-2" style="width:300px;">
+                            <option selected value="1">1 ชั่วโมง</option>
+                            <option value="2">2 ชั่วโมง</option>
+                            <option value="3">3 ชั่วโมง</option>
+                        </select>
+                    </div>
+                </fieldset>
+
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        <button class="btn btn-primary">ถัดไป</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="tab-pane fade" id="tabRegisterStudentDetail">
+            <div class="label-header">ข้อมูลนักเรียน</div>
+        </div>
+    </div>
 </body>
 
 </html>
