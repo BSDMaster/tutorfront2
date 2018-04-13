@@ -251,8 +251,7 @@
         </div>
     </div>
     <script>
-        _isInitGmapStartPlace = false;
-        _isInitGmapEndPlace = false;
+        _isInitGmapStartAndEndPlace = false;
         var subjectDetailForApplyJobViews = [];
         var applySubjects = [];
         var applyDays = [];
@@ -755,16 +754,16 @@
         // Google map
         $("#btnStartGoogleMap").on("click", function (e) {
             console.log("Open Map start");
-            if(_isInitGmapStartPlace == false){
-                _isInitGmapStartPlace = true;
+            if(_isInitGmapStartAndEndPlace == false){
+                _isInitGmapStartAndEndPlace = true;
                 initMap(1);
             }
             
         });
         $("#btnEndGoogleMap").on("click", function (e) {
             console.log("Open Map end");
-            if(_isInitGmapEndPlace == false){
-                _isInitGmapEndPlace = true;
+            if(_isInitGmapStartAndEndPlace == false){
+                _isInitGmapStartAndEndPlace = true;
                 initMap(2);
             }
         });
