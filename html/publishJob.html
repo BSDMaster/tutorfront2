@@ -233,7 +233,9 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content contentmap">
                 <div class="modal-body mapbody">
-                    <input id="pac-input" class="controls" type="text" placeholder="Enter a location">
+                    <div style="display:block">
+                        <input id="pac-input" class="controls" type="text" placeholder="Enter a location">
+                    </div>
                     <!--<input type="text" class="form-control" id="address" value="จุฬาลงกรณ์มหาวิทยาลัย"></input>
                                <button id="btnSubmitAddress" type="button" class="btn btn-default input-group-btn btn-google-search" value="Geocode">
                             ค้นหา
@@ -249,6 +251,8 @@
         </div>
     </div>
     <script>
+        _isInitGmapStartPlace = false;
+        _isInitGmapEndPlace = false;
         var subjectDetailForApplyJobViews = [];
         var applySubjects = [];
         var applyDays = [];
@@ -751,12 +755,18 @@
         // Google map
         $("#btnStartGoogleMap").on("click", function (e) {
             console.log("Open Map start");
-            initMap(1);
+            if(_isInitGmapStartPlace == false){
+                _isInitGmapStartPlace = true;
+                initMap(1);
+            }
+            
         });
         $("#btnEndGoogleMap").on("click", function (e) {
             console.log("Open Map end");
-            initMap(2);
-
+            if(_isInitGmapEndPlace == false){
+                _isInitGmapEndPlace = true;
+                initMap(2);
+            }
         });
 
         function initMap(type) {
@@ -783,7 +793,7 @@
             var options = {
                 types: ['establishment']
             };
-            var autocomplete = new google.maps.places.Autocomplete(input, options);
+            var autocomplete = new google.maps.places.Autocomplete(input);
             autocomplete.bindTo('bounds', map);
             map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
