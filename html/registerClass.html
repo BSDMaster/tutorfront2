@@ -19,6 +19,102 @@
     <div id="myTabContent" class="tab-content">
         <div class="tab-pane fade in active" id="tabRegisterClass">
             <div class="label-header">วิชาที่ต้องการสมัครเรียน</div>
+            <!-- Button trigger modal -->
+            <button id="btnAddClass" type="button" class="btn btn-primary container-btn-add-right" data-toggle="modal" data-target="#modalAddRegisterClass">
+                เพิ่ม
+            </button>
+
+            <table id="gridClass" class="table table-condensed table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th data-column-id="id" data-identifier="true" data-type="numeric">ลำดับ</th>
+                        <th data-column-id="class">วิชา</th>
+                        <th data-column-id="level">ระดับชั้น</th>
+                        <th data-column-id="exp">จำนวนผู้เรียน</th>
+                        <th data-column-id="exp">จำนวนวันเรียนต่อสัปดาห์</th>
+                        <th data-column-id="exp">จำนวนชั่วโมงต่อครั้ง</th>
+                        <th data-column-id="exp">จำนวนชั่วโมงต่องานสอน</th>
+                        <th data-column-id="exp">ราคาต่อชั่วโมงต่อคน</th>
+                        <th data-column-id="exp">ราคารวม</th>
+                        <th data-column-id="commands" data-formatter="commands" data-sortable="false"></th>
+                    </tr>
+                </thead>
+            </table>
+
+            <!-- Modal Add Class-->
+            <div class="modal fade" id="modalAddRegisterClass" tabindex="-1" role="dialog" aria-labelledby="modalAddRegisterClass" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalAddClassLabel">เพิ่มวิชาที่ต้องการเรียน</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label for="dropdownSubject">วิชา</label>
+                                    <select class="form-control" id="dropdownSubject">
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="dropdownClass">ระดับชั้น</label>
+                                    <select class="form-control" id="dropdownClass">
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="dropdownExp">จำนวนผู้เรียน</label>
+                                    <select class="form-control" id="dropdownExp">
+                                        <option selected value="1">1 คน</option>
+                                        <option value="2">2 คน</option>
+                                        <option value="3">3 คน</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="dropdownExp">จำนวนวันเรียนต่อสัปดาห์</label>
+                                    <select class="form-control" id="dropdownExp">
+                                        <option selected value="1">1 วัน</option>
+                                        <option value="2">2 วัน</option>
+                                        <option value="3">3 วัน</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="dropdownExp">จำนวนชั่วโมงต่อครั้ง</label>
+                                    <select class="form-control" id="dropdownExp">
+                                        <option selected value="1">1 ชั่วโมง</option>
+                                        <option value="2">2 ชั่วโมง</option>
+                                        <option value="3">3 ชั่วโมง</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="dropdownExp">จำนวนชั่วโมงต่องานสอน</label>
+                                    <select class="form-control" id="dropdownExp">
+                                        <option selected value="1">1 ชั่วโมง</option>
+                                        <option value="2">2 ชั่วโมง</option>
+                                        <option value="3">3 ชั่วโมง</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="dropdownExp">ราคาต่อชั่วโมงต่อคน</label>
+                                    <input type="email" class="form-control" id="txtStartPlace">
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="dropdownExp">ราคารวม</label>
+                                    <input type="email" class="form-control" id="txtStartPlace">
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="btnSaveAddClass">ตกลง</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <form>
                 <fieldset class="form-group">
                     <div class="row">
@@ -27,56 +123,58 @@
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
                                 <label class="form-check-label" for="gridRadios1">
-                                    ปกติ
+                                    เรียนและใช้เอกสารประกอบการเรียนเป็นภาษาไทย
                                 </label>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
                                 <label class="form-check-label" for="gridRadios2">
-                                    English Program
+                                    เรียนเป็นภาษาไทย และใช้เอกสารประกอบการเรียนเป็นภาษาอังกฤษ
                                 </label>
                             </div>
                             <div class="form-check disabled">
                                 <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option3" disabled>
                                 <label class="form-check-label" for="gridRadios3">
-                                    International
+                                    เรียนและใช้เอกสารประกอบการเรียนเป็นภาษาอังกฤษ
                                 </label>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-3">จำนวนผู้เรียน</div>
-                        <select class="custom-select my-1 mr-sm-2" style="width:300px;">
-                            <option selected value="1">1 คน</option>
-                            <option value="2">2 คน</option>
-                            <option value="3">3 คน</option>
-                        </select>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3">จำนวนวันที่ต้องการเรียนต่อสัปดาห์</div>
-                        <select class="custom-select my-1 mr-sm-2" style="width:300px;">
-                            <option selected value="1">1 วัน</option>
-                            <option value="2">2 วัน</option>
-                            <option value="3">3 วัน</option>
-                        </select>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3">จำนวนชั่วโมงที่ต้องการเรียนต่อครั้ง</div>
-                        <select class="custom-select my-1 mr-sm-2" style="width:300px;">
-                            <option selected value="1">1 ชั่วโมง</option>
-                            <option value="2">2 ชั่วโมง</option>
-                            <option value="3">3 ชั่วโมง</option>
-                        </select>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3">จำนวนชั่วโมงที่ต้องการเรียนต่องานสอน</div>
-                        <select class="custom-select my-1 mr-sm-2" style="width:300px;">
-                            <option selected value="1">1 ชั่วโมง</option>
-                            <option value="2">2 ชั่วโมง</option>
-                            <option value="3">3 ชั่วโมง</option>
-                        </select>
-                    </div>
                 </fieldset>
+
+                <div class="label-header">ข้อมูลติวเตอร์</div>
+                <div class="form-group">
+                    <label for="dropdownExp">เพศของติวเตอร์</label>
+                    <select class="form-control" id="dropdownExp">
+                        <option selected value="1">ไม่ระบุ</option>
+                        <option value="2">ชาย</option>
+                        <option value="3">หญิง</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="dropdownExp">สถาบันของติวเตอร์</label>
+                    <ul>
+                        <li>
+                            <input type="checkbox">จุฬาลงกรณ์มหาวิทยาลัย</li>
+                        <li>
+                            <input type="checkbox">เกษตรศาสตร์</li>
+                        <li>
+                            <input type="checkbox">ธรรมศาสตร์</li>
+                        <li>
+                            <input type="checkbox">มหิดล</li>
+                    </ul>
+                </div>
+                <div class="form-group">
+                    <label for="dropdownExp">คณะของติวเตอร์</label>
+                    <ul>
+                        <li>
+                            <input type="checkbox">ครุศาสตร์</li>
+                        <li>
+                            <input type="checkbox">วิศวกรรมศาสตร์</li>
+                        <li>
+                            <input type="checkbox">วิทยาศาสตร์</li>
+                    </ul>
+                </div>
 
                 <div class="form-group row">
                     <div class="col-sm-10">
