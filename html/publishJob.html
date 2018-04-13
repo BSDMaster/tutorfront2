@@ -2,74 +2,123 @@
 <html>
 
 <head>
-
+    <!--    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3CqYZxIposJwTiB-GAGSYBRRHIi0x6_Y&libraries=places&language=en"></script>
+-->
 </head>
 
 <body>
-    <div class="label-header">รายละเอียดการรับงานสอน</div>
+    <div>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="#">หน้าหลัก</a>
+            </li>
+            <li class="breadcrumb-item active">แก้ไขข้อมูลการรับงานสอน</li>
+        </ol>
+    </div>
+    <br>
+    <div class="label-header">แก้ไขข้อมูลการรับงานสอน</div>
 
     <!-- Button trigger modal -->
     <button id="btnAddClass" type="button" class="btn btn-primary container-btn-add-right" data-toggle="modal" data-target="#modalAddClass">
         เพิ่ม
     </button>
-
-    <table id="gridClass" class="table table-condensed table-hover table-striped">
+    <br>
+    <table id="gridClass" class="table table-condensed table-hover table-striped scroll">
         <thead>
             <tr>
-                <th data-column-id="id" data-identifier="true" data-type="numeric">ลำดับ</th>
-                <th data-column-id="class">วิชา</th>
-                <th data-column-id="level">ระดับชั้น</th>
-                <th data-column-id="exp">ประสบการณ์สอน</th>
-                <th data-column-id="commands" data-formatter="commands" data-sortable="false"></th>
+                <th data-column-id="id" data-width="10%" data-identifier="true" data-type="numeric">#</th>
+                <th data-column-id="class" data-width="30%">วิชา</th>
+                <th data-column-id="level" data-width="30%">ระดับชั้น</th>
+                <th data-column-id="exp" data-width="30%">ประสบการณ์สอน</th>
+                <th data-column-id="action" data-width="10%" data-sortable="false" data-searchable="false">Action</th>
             </tr>
         </thead>
     </table>
     <div style="margin-top:30px;">
-        <div class="container-half-left">หลักสูตรที่สามารถสอนได้ :</div>
-        <div class="container-half-right">
-            <div>
-                <input type="checkbox"> สามารถสอนโดยใช้เอกสารประกอบการเรียนเป็นภาษาอังกฤษ </div>
-            <div>
-                <input type="checkbox"> สามารถสอนโดยใช้เอกสารประกอบการเรียนและสนทนาเป็นภาษาอังกฤษได้ </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <form class="form-horizontal">
+                        <div class="form-group required">
+                            <label class="col-lg-3 labelform">หลักสูตรที่สามารถสอนได้ :</label>
+                            <div class="col-lg-9 checkbox1">
+                                <input type="checkbox"> สามารถสอนโดยใช้เอกสารประกอบการเรียนเป็นภาษาอังกฤษ </input>
+                                <br>
+                                <input type="checkbox"> สามารถสอนโดยใช้เอกสารประกอบการเรียนและสนทนาเป็นภาษาอังกฤษได้ </input>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group required">
+                            <label class="col-lg-3 labelform">เวลาเดินทางไปและกลับสูงสุดที่ยอมรับได้ :</label>
+                            <div class="col-lg-9 checkbox1">
+                                <select class="custom-select" id="optMaxTime" style="width:100px;">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                </select>&nbsp;&nbsp;&nbsp;ชั่วโมง
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group required">
+                            <label class="col-lg-3 labelform">งานสอนสูงสุดต่อวัน :</label>
+                            <div class="col-lg-9 checkbox1">
+                                <select class="custom-select" id="optMaxWorkPerDay" style="width:100px;">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                </select>&nbsp;&nbsp;&nbsp;งานสอน
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group required">
+                            <label class="col-lg-3 labelform">งานสอนสูงสุด :</label>
+                            <div class="col-lg-9 checkbox1">
+                                <select class="custom-select" id="optMaxWork" style="width:100px;">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                </select>&nbsp;&nbsp;&nbsp;งานสอน
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="form-group required">
+                            <label class="col-lg-12 labelform">วัน เวลา สถานที่และพาหนะที่ใช้เดินทาง :</label>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-    </div>
-    </br>
-    <div>
-        <div>เวลาเดินทางไปและกลับสูงสุดที่ยอมรับได้</div>
-        <div class="form-group">
-            <select class="form-control" id="exampleFormControlSelect1" style="width:300px;">
-                <option>1 ชั่วโมง</option>
-                <option>2 ชั่วโมง</option>
-                <option>3 ชั่วโมง</option>
-            </select>
-        </div>
-    </div>
-    </br>
-    <div>
-        <div>วัน เวลา สถานที่และพาหนะที่ใช้เดินทาง :</div>
     </div>
     <!-- Button trigger modal -->
     <button id="btnAddJobDetail" type="button" class="btn btn-primary container-btn-add-right" data-toggle="modal" data-target="#modalAddJobDetail">
         เพิ่ม
     </button>
-    <table id="gridJobDetail" class="table table-condensed table-hover table-striped">
+    <br>
+    <table id="gridJobDetail" class="table table-condensed table-hover table-striped scroll">
         <thead>
             <tr>
-                <th data-column-id="id" data-identifier="true" data-type="numeric">ลำดับ</th>
-                <th data-column-id="day">วัน</th>
-                <th data-column-id="StartTime">เวลาเริ่มเดินทาง</th>
-                <th data-column-id="startPlace">สถานที่เริ่มต้นเดินทาง</th>
-                <th data-column-id="endTime">เวลาสิ้นสุดเดินทาง</th>
-                <th data-column-id="endPlace">สถานที่สิ้นสุดเดินทาง</th>
-                <th data-column-id="car">รถยนต์ส่วนตัว</th>
-                <th data-column-id="bus">รถประจำทาง</th>
-                <th data-column-id="bts">รถไฟฟ้า</th>
-                <th data-column-id="taxi" data-formatter="taxi" data-sortable="false">รถแท็กซี่</th>
-                <th data-column-id="commands" data-formatter="commands" data-sortable="false"></th>
+                <th data-column-id="id" data-width="3%" data-identifier="true" data-type="numeric">#</th>
+                <th data-column-id="day" data-width="5%">วัน</th>
+                <th data-column-id="StartTime" data-width="11%">เวลาเริ่มเดินทาง</th>
+                <th data-column-id="endTime" data-width="11%">เวลาสิ้นสุดเดินทาง</th>
+                <th data-column-id="startPlace" data-width="15%">สถานที่เริ่มต้นเดินทาง</th>
+                <th data-column-id="endPlace" data-width="15%">สถานที่สิ้นสุดเดินทาง</th>
+                <th data-column-id="car" data-width="9%" data-sortable="false">รถยนต์ส่วนตัว</th>
+                <th data-column-id="bus" data-width="9%" data-sortable="false">รถประจำทาง</th>
+                <th data-column-id="bts" data-width="8%" data-sortable="false">รถไฟฟ้า</th>
+                <th data-column-id="taxi" data-width="8%" data-sortable="false">รถแท็กซี่</th>
+                <th data-column-id="action" data-width="6%" data-sortable="false" data-searchable="false">Action</th>
             </tr>
         </thead>
     </table>
-
+    <br>
+    <div class="container-center">
+        <p>
+            <button type="button" class="btn btn-primary">บันทึก</button>
+            <button type="button" class="btn btn-secondary">ยกเลิก</button>
+        </p>
+    </div>
     <!-- Modal Add Class-->
     <div class="modal fade" id="modalAddClass" tabindex="-1" role="dialog" aria-labelledby="modalAddClassLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -82,19 +131,19 @@
                 </div>
                 <div class="modal-body">
                     <form>
-                        <div class="form-group">
-                            <label for="dropdownSubject">วิชา</label>
-                            <select class="form-control" id="dropdownSubject">
+                        <div class="form-group required">
+                            <label for="dropdownSubject" class="labelform">วิชา</label>
+                            <select class="custom-select" id="dropdownSubject" required>
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label for="dropdownClass">ระดับชั้น</label>
-                            <select class="form-control" id="dropdownClass">
+                        <div class="form-group required">
+                            <label for="dropdownClass" class="labelform">ระดับชั้น</label>
+                            <select class="custom-select" id="dropdownClass" required>
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label for="dropdownExp">ประสบการณ์สอน</label>
-                            <select class="form-control" id="dropdownExp">
+                        <div class="form-group  required">
+                            <label for="dropdownExp" class="labelform">ประสบการณ์สอน</label>
+                            <select class="custom-select" id="dropdownExp" required>
                             </select>
                         </div>
                     </form>
@@ -119,33 +168,44 @@
                 </div>
                 <div class="modal-body">
                     <form>
-                        <div class="form-group">
-                            <label for="dropdownCopyFromDay">สำเนามาจาก</label>
-                            <select class="form-control" id="dropdownCopyFromDay">
+                        <div class="form-group required" id='groupCopyFromDay'>
+                            <label for="dropdownCopyFromDay" class="labelform">สำเนาจาก</label>
+                            <select class="custom-select" id="dropdownCopyFromDay">
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label for="dropdownJobDetailDay">วัน</label>
-                            <select class="form-control" id="dropdownJobDetailDay">
+                        <div class="form-group required">
+                            <label for="dropdownJobDetailDay" class="labelform">วัน</label>
+                            <select class="custom-select" id="dropdownJobDetailDay">
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label for="dropdownJobDetailStartTime">เวลาเริ่มต้นเดินทาง</label>
-                            <select class="form-control" id="dropdownJobDetailStartTime">
+                        <div class="form-group required">
+                            <label for="dropdownJobDetailStartTime" class="labelform">เวลาเริ่มต้นเดินทาง</label>
+                            <select class="custom-select" id="dropdownJobDetailStartTime">
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label for="dropdownJobDetailEndTime">เวลาสิ้นสุดการเดินทาง</label>
-                            <select class="form-control" id="dropdownJobDetailEndTime">
+                        <div class="form-group required">
+                            <label for="dropdownJobDetailEndTime" class="labelform">เวลาสิ้นสุดการเดินทาง</label>
+                            <select class="custom-select" id="dropdownJobDetailEndTime">
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label for="txtStartPlace">สถานที่เริ่มต้นเดินทาง</label>
-                            <input type="email" class="form-control" id="txtStartPlace" value="SiamParagon">
+                        <div class="form-group required">
+                            <label for="txtStartPlace" class="labelform">สถานที่เริ่มต้นเดินทาง</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="txtStartPlace">
+                                <button id="btnStartGoogleMap" type="button" class="btn btn-secondary input-group-btn btn-google-pin" data-toggle="modal"
+                                    data-target="#modalGoogleMap">
+                                    <div class="img-google-pin"></div>
+                                </button>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="txtEndPlace">สถานทีสิ้นสุดการเดินทาง</label>
-                            <input type="email" class="form-control" id="txtEndPlace" value="SiamParagon">
+                        <div class="form-group required">
+                            <label for="txtEndPlace" class="labelform">สถานทีสิ้นสุดการเดินทาง</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="txtEndPlace">
+                                <button id="btnEndGoogleMap" type="button" class="btn btn-secondary input-group-btn btn-google-pin" data-toggle="modal" data-target="#modalGoogleMap">
+                                    <div class="img-google-pin"></div>
+                                </button>
+                            </div>
                         </div>
                         <div style="display:inline;">
                             <input type="checkbox" id="chkJobDetailCar">
@@ -165,49 +225,50 @@
                 </div>
             </div>
         </div>
-        <div>
-            <button type="button" class="btn btn-primary">บันทึก</button>
-            <button type="button" class="btn btn-secondary">ยกเลิก</button>
-        </div>
     </div>
 
+
+    <!-- Modal Add Google map-->
+    <div class="modal fade" id="modalGoogleMap" tabindex="-1" role="dialog" aria-labelledby="modalGoogleMapLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content contentmap">
+                <div class="modal-body mapbody">
+                    <input id="pac-input" class="controls" type="text" placeholder="Enter a location">
+                    <!--<input type="text" class="form-control" id="address" value="จุฬาลงกรณ์มหาวิทยาลัย"></input>
+                               <button id="btnSubmitAddress" type="button" class="btn btn-default input-group-btn btn-google-search" value="Geocode">
+                            ค้นหา
+                        </button>-->
+                    <div id="map" class="map"></div>
+                </div>
+                <!--
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnSaveAddDetail">ตกลง</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                </div>-->
+            </div>
+        </div>
+    </div>
     <script>
+        var subjectDetailForApplyJobViews = [];
+        var applySubjects = [];
+        var applyDays = [];
+        var marker = null;
+        var startLocation = null;
+        var endLocation = null;
         //bind master data
-        //subject
-        var dataSubject = [{
-            name: "คณิตศาสตร์", val: "math"
-        }, {
-            name: "ภาษาไทย", val: "thai"
-        }, {
-            name: "ภาษาอังกฤษ", val: "eng"
-        }];
-        for (var i = 0; i < dataSubject.length; i++) {
-            $('#dropdownSubject').append('<option value="' + dataSubject[i].val + '">' + dataSubject[i].name + '</option>');
-        }
-
-        //class
-        var dataClass = [{
-            name: "ประถมศึกษาตอนต้น", val: "c1"
-        }, {
-            name: "ประถมศึกษาตอนปลาย", val: "c2"
-        }, {
-            name: "มัธยมศึกษาตอนต้น", val: "c3"
-        }, {
-            name: "มัธยมศึกษาตอนปลาย", val: "c4"
-        }];
-        for (var i = 0; i < dataClass.length; i++) {
-            $('#dropdownClass').append('<option value="' + dataClass[i].val + '">' + dataClass[i].name + '</option>');
-        }
-
         //exp
         var dataExp = [{
-            name: "ไม่มีประสบการณ์สอน", val: "y0"
+            name: "ไม่มีประสบการณ์สอน", val: "0"
         }, {
-            name: "1 ปี", val: "y1"
+            name: "1 ปี", val: "1"
         }, {
-            name: "2 ปี", val: "y2"
+            name: "2 ปี", val: "2"
         }, {
-            name: "3 ปี", val: "y3"
+            name: "3 ปี", val: "3"
+        }, {
+            name: "4 ปี", val: "4"
+        }, {
+            name: "5 ปีขึ้นไป", val: "5"
         }];
         for (var i = 0; i < dataExp.length; i++) {
             $('#dropdownExp').append('<option value="' + dataExp[i].val + '">' + dataExp[i].name + '</option>');
@@ -215,19 +276,19 @@
 
         //day
         var dataDay = [{
-            name: "จันทร์", val: "monday"
+            name: "จันทร์", val: "1"
         }, {
-            name: "อังคาร", val: "tuesday"
+            name: "อังคาร", val: "2"
         }, {
-            name: "พุธ", val: "wednesday"
+            name: "พุธ", val: "3"
         }, {
-            name: "พฤหัสบดี", val: "thursday"
+            name: "พฤหัสบดี", val: "4"
         }, {
-            name: "ศุกร์", val: "friday"
+            name: "ศุกร์", val: "5"
         }, {
-            name: "เสาร์", val: "satuarday"
+            name: "เสาร์", val: "6"
         }, {
-            name: "อาทิตย์", val: "sunday"
+            name: "อาทิตย์", val: "7"
         }];
         for (var i = 0; i < dataDay.length; i++) {
             $('#dropdownCopyFromDay').append('<option value="' + dataDay[i].val + '">' + dataDay[i].name + '</option>');
@@ -236,45 +297,184 @@
 
         //time
         var dataTime = [{
-            name: "8:00 น.", val: "800"
+            name: "8.00 น.", val: "8"
         }, {
-            name: "8:30 น.", val: "830"
+            name: "8.15 น.", val: "8.15"
         }, {
-            name: "9:00 น.", val: "900"
+            name: "8.30 น.", val: "8.3"
         }, {
-            name: "9:30 น.", val: "930"
+            name: "8.45 น.", val: "8.45"
         }, {
-            name: "10:00 น.", val: "1000"
+            name: "9.00 น.", val: "9"
         }, {
-            name: "10:30 น.", val: "1030"
+            name: "9.15 น.", val: "9.15"
         }, {
-            name: "11:00 น.", val: "1100"
+            name: "9.30 น.", val: "9.3"
         }, {
-            name: "11:30 น.", val: "1130"
+            name: "9.45 น.", val: "9.45"
         }, {
-            name: "12:00 น.", val: "1200"
+            name: "10.00 น.", val: "10"
+        }, {
+            name: "10.15 น.", val: "10.15"
+        }, {
+            name: "10.30 น.", val: "10.3"
+        }, {
+            name: "10.45 น.", val: "10.45"
+        }, {
+            name: "11.00 น.", val: "11"
+        }, {
+            name: "11.15 น.", val: "11.15"
+        }, {
+            name: "11.30 น.", val: "11.3"
+        }, {
+            name: "11.45 น.", val: "11.45"
+        }, {
+            name: "12.00 น.", val: "12"
+        }, {
+            name: "12.15 น.", val: "12.15"
+        }, {
+            name: "12.30 น.", val: "12.3"
+        }, {
+            name: "12.45 น.", val: "12.45"
+        }, {
+            name: "13.00 น.", val: "13"
+        }, {
+            name: "13.15 น.", val: "13.15"
+        }, {
+            name: "13.30 น.", val: "13.3"
+        }, {
+            name: "13.45 น.", val: "13.45"
+        }, {
+            name: "14.00 น.", val: "14"
+        }, {
+            name: "14.15 น.", val: "14.15"
+        }, {
+            name: "14.30 น.", val: "14.3"
+        }, {
+            name: "14.45 น.", val: "14.45"
+        }, {
+            name: "15.00 น.", val: "15"
+        }, {
+            name: "15.15 น.", val: "15.15"
+        }, {
+            name: "15.30 น.", val: "15.3"
+        }, {
+            name: "15.45 น.", val: "15.45"
+        }, {
+            name: "16.00 น.", val: "16"
+        }, {
+            name: "16.15 น.", val: "16.15"
+        }, {
+            name: "16.30 น.", val: "16.3"
+        }, {
+            name: "16.45 น.", val: "16.45"
+        }, {
+            name: "17.00 น.", val: "17"
+        }, {
+            name: "17.15 น.", val: "17.15"
+        }, {
+            name: "17.30 น.", val: "17.3"
+        }, {
+            name: "17.45 น.", val: "17.45"
+        }, {
+            name: "18.00 น.", val: "18"
+        }, {
+            name: "18.15 น.", val: "18.15"
+        }, {
+            name: "18.30 น.", val: "18.3"
+        }, {
+            name: "18.45 น.", val: "18.45"
+        }, {
+            name: "19.00 น.", val: "19"
+        }, {
+            name: "19.15 น.", val: "19.15"
+        }, {
+            name: "19.30 น.", val: "19.3"
+        }, {
+            name: "19.45 น.", val: "19.45"
+        }, {
+            name: "20.00 น.", val: "20"
         }];
-        for (var i = 0; i < dataDay.length; i++) {
+        for (var i = 0; i < dataTime.length; i++) {
             $('#dropdownJobDetailStartTime').append('<option value="' + dataTime[i].val + '">' + dataTime[i].name + '</option>');
             $('#dropdownJobDetailEndTime').append('<option value="' + dataTime[i].val + '">' + dataTime[i].name + '</option>');
         }
 
+        $(document).ready(function () {
+            getSubjectForApplyJob();
+            onloadtable();
+            $('#btnAddClass').click(function () {
+                addApplyJobList();
+            });
+            $('#btnAddJobDetail').click(function () {
+                addApplyDayList();
+            });
+        });
+
+        function onloadtable() {
+            var $table = $('table.scroll'),
+                $bodyCells = $table.find('tbody tr:first').children(),
+                colWidth;
+
+            // Adjust the width of thead cells when window resizes
+            $(window).resize(function () {
+                // Get the tbody columns width array
+                colWidth = $bodyCells.map(function () {
+                    return $(this).width();
+                }).get();
+
+                // Set the width of thead columns
+                $table.find('thead tr').children().each(function (i, v) {
+                    $(v).width(colWidth[i]);
+                });
+            }).resize(); // Trigger resize handler*/
+
+        }
+
+        function initialData() {
+            console.log('initial data');
+            $.ajax({
+                type: "GET",
+                url: _gServiceURL + "tutor/getworkdetail/" + _gUser.turId,
+                contentType: "application/json; charset=utf-8",
+                crossDomain: true,
+                dataType: "json",
+                success: function (data, status, jqXHR) {
+                    var tutorView = data.data.tutorView;
+                    console.log(tutorView);
+                    var messages = data.message;
+                    var alert;
+                    if (tutorView != null) {
+                        applySubjects = tutorView.subjectDetailViews;
+                        applyDays = tutorView.tutorAvailableTimeloacations;
+                        for (var i = 0; i < applySubjects.length; i++) {
+                            console.log("data : " + applySubjects[i]);
+                            appendApplySubjectList(applySubjects[i], i);
+                        }
+                        for (var j = 0; j < applyDays.length; j++) {
+                            console.log("data : " + applyDays[j]);
+                            appendApplyDayList(applyDays[j], j);
+                        }
+                    }
+
+                },
+                error: function (jqXHR, status) {
+                    console.log(jqXHR);
+                    alert('fail' + status.code);
+                }
+            });
+        }
 
         //grid Class
         var gridClass = $("#gridClass").bootgrid({
-            formatters: {
-                "taxi": function(column, row){
-                    return "<button type=\"button\" class=\"btn btn-xs btn-default command-edit\" data-row-id=\"" + row.id + "\">Car<span class=\"fa fa-pencil\"></span></button> "
-                },
-                "commands": function (column, row) {
-                    console.log("row=", row);
-                    return "<button type=\"button\" class=\"btn btn-xs btn-default command-edit\" data-row-id=\"" + row.id + "\">Edit<span class=\"fa fa-pencil\"></span></button> " +
-                        "<button type=\"button\" class=\"btn btn-xs btn-default command-delete\" data-row-id=\"" + row.id + "\">Delete<span class=\"fa fa-trash-o\"></span></button>";
-                }
+            navigation: 0,
+            labels: {
+                noResults: 'ไม่พบรายการ'
             }
         }).on("loaded.rs.jquery.bootgrid", function () {
             gridClass.find(".command-edit").on("click", function (e) {
-                alert("You pressed edit on row: " + $(this).data("row-id"));
+                var i = $(this).data("row-id");
+                editApplyJobList(i);
             }).end().find(".command-delete").on("click", function (e) {
                 var rows = [];
                 rows[0] = parseInt($(this).data("row-id"));
@@ -282,66 +482,155 @@
             });
         });
 
-        /*
-        gridClass.bootgrid("append", [
-            {
-                "id": 1,
-                "class": "ภาษาอังกฤษ",
-                "level": "มัธยมศึกษาตอนปลาย",
-                "exp": "1 ปี"
-            }
-        ]);
-        */
 
         //grid Job Detail
         var gridDetail = $("#gridJobDetail").bootgrid({
-            ajax: false,
-            formatters: {
-                "commands": function (column, row) {
-                    return "<button type=\"button\" class=\"btn btn-xs btn-default command-edit\" data-row-id=\"" + row.id + "\">Edit<span class=\"fa fa-pencil\"></span></button> " +
-                        "<button type=\"button\" class=\"btn btn-xs btn-default command-delete\" data-row-id=\"" + row.id + "\">Delete<span class=\"fa fa-trash-o\"></span></button>";
-                }
+            navigation: 0,
+            labels: {
+                noResults: 'ไม่พบรายการ'
             }
         }).on("loaded.rs.jquery.bootgrid", function () {
             gridDetail.find(".command-edit").on("click", function (e) {
-                alert("You pressed edit on row: " + $(this).data("row-id"));
+                var i = $(this).data("row-id");
+                editApplyDayList(i);
             }).end().find(".command-delete").on("click", function (e) {
                 var rows = [];
                 rows[0] = parseInt($(this).data("row-id"));
                 //var id = $(this).data("row-id");
-                console.log("rows=",rows);
+                console.log("rows=", rows);
                 gridDetail.bootgrid('remove', rows);
             });
         });
 
-        /*
-        gridDetail.bootgrid("append", [
-            {
-                "id": 1,
-                "day": "จันทร์",
-                "StartTime": "13.00 น.",
-                "startPlace": "Silom Complex",
-                "endTime": "19.00 น.",
-                "endPlace": "หมูบ้านรวมน้ำใจ ประชาอุทิศ",
-                "car": "",
-                "bus": "",
-                "bts": "",
-                "taxi": ""
+        function appendApplySubjectList(applySubject, i) {
+            gridClass.bootgrid("append", [
+                {
+                    "id": i,
+                    "class": applySubject.subject.subjName,
+                    "level": applySubject.subjectCatagory.subcName,
+                    "exp": applySubject.exp,
+                    "action": "<button id='editBtn' type='button' class='btn btn-xs btn-default command-edit' data-row-id='" + i + "'><div class='fa-pencil'></div></button> "
+                        + "<button id='deleteBtn' type='button' class='btn btn-xs btn-default command-delete' data-row-id='" + i + "'><div class='fa-trash-o'></div></button>"
+                }
+            ]);
+        }
+        function appendApplyDayList(applyDay, i) {
+            var dayId = applyDay.tavDayId;
+            var divSignActive = "<div class='signActive'></div>";
+            var divSignInactive = "<div class='signInActive'></div>";
+            if (applyDay.tavTraDrive == 'Y') {
+                chkCar = divSignActive;
+            } else {
+                chkCar = divSignInactive;
             }
-        ]);
-        */
+            if (applyDay.tavTraBus == 'Y') {
+                chkBus = divSignActive;
+            } else {
+                chkBus = divSignInactive;
+            }
+            if (applyDay.tavTraTrain == 'Y') {
+                chkBTS = divSignActive;
+            } else {
+                chkBTS = divSignInactive;
+            }
+            if (applyDay.tavTraTaxi == 'Y') {
+                chkTaxi = divSignActive;
+            } else {
+                chkTaxi = divSignInactive;
+            }
+            gridDetail.bootgrid("append", [
+                {
+                    "id": i,
+                    "day": dataDay[applyDay.tavDayId - 1].name,
+                    "StartTime": applyDay.tavStartTime,
+                    "endTime": applyDay.tavEndTime,
+                    "startPlace": applyDay.tavStartLocation,
+                    "endPlace": applyDay.tavEndLocation,
+                    "car": chkCar,
+                    "bus": chkBus,
+                    "bts": chkBTS,
+                    "taxi": chkTaxi,
+                    "action": "<button id='editBtn' type='button' class='btn btn-xs btn-default command-edit' data-row-id='" + i + "'><div class='fa-pencil'></div></button> "
+                        + "<button id='deleteBtn' type='button' class='btn btn-xs btn-default command-delete' data-row-id='" + i + "'><div class='fa-trash-o'></div></button>"
+
+                }
+            ]);
+        }
+
+        function addApplyJobList() {
+            $('#modalAddClass').find('#modalAddClassLabel').text('เพิ่มวิชา');
+            $('#modalAddClass').find('#dropdownSubject').val($("#dropdownSubject option:first").val());
+            $('#modalAddClass').find('#dropdownClass').val($("#dropdownClass option:first").val());
+            $('#modalAddClass').find('#dropdownExp').val($("#dropdownExp option:first").val());
+        }
+
+        function addApplyDayList() {
+            $('#modalAddJobDetail').find('#modalAddJobDetailLabel').text('เพิ่มวัน เวลา สถานที่และพาหนะที่ใช้เดินทาง');
+            $('#modalAddJobDetail').find('#dropdownJobDetailDay').val(0);
+            $('#modalAddJobDetail').find('#dropdownJobDetailStartTime').val($("#dropdownJobDetailStartTime option:first").val());
+            $('#modalAddJobDetail').find('#dropdownJobDetailEndTime').val($("#dropdownJobDetailEndTime option:first").val());
+            $('#modalAddJobDetail').find('#txtStartPlace').val('');
+            $('#modalAddJobDetail').find('#txtEndPlace').val('');
+            $('#chkJobDetailCar').prop('checked', false);
+            $('#chkJobDetailBus').prop('checked', false);
+            $('#chkJobDetailBTS').prop('checked', false);
+            $('#chkJobDetailTaxi').prop('checked', false);
+            $('#modalAddJobDetail').find('#groupCopyFromDay').show();
+        }
+
+        function editApplyJobList(i) {
+            $('#modalAddClass').find('#modalAddClassLabel').text('แก้ไขวิชา');
+            $('#modalAddClass').find('#dropdownSubject').val(applySubjects[i].subject.subjId);
+            $('#modalAddClass').find('#dropdownClass').val(applySubjects[i].subjectCatagory.subcId);
+            $('#modalAddClass').find('#dropdownExp').val(applySubjects[i].exp);
+            $('#modalAddClass').modal('show');
+        }
+
+        function editApplyDayList(i) {
+            $('#modalAddJobDetail').find('#modalAddJobDetailLabel').text('แก้ไขวัน เวลา สถานที่และพาหนะที่ใช้เดินทาง');
+            $('#modalAddJobDetail').find('#dropdownJobDetailDay').val(applyDays[i].tavDayId);
+            $('#modalAddJobDetail').find('#dropdownJobDetailStartTime').val(applyDays[i].tavStartTime);
+            $('#modalAddJobDetail').find('#dropdownJobDetailEndTime').val(applyDays[i].tavEndTime);
+            $('#modalAddJobDetail').find('#txtStartPlace').val(applyDays[i].tavStartLocation);
+            $('#modalAddJobDetail').find('#txtEndPlace').val(applyDays[i].tavEndLocation);
+            if (applyDays[i].tavTraDrive == 'Y') {
+                $('#chkJobDetailCar').prop('checked', true);
+            } else {
+                $('#chkJobDetailCar').prop('checked', false);
+            }
+            if (applyDays[i].tavTraBus == 'Y') {
+                $('#chkJobDetailBus').prop('checked', true);
+            } else {
+                $('#chkJobDetailBus').prop('checked', false);
+            }
+            if (applyDays[i].tavTraTrain == 'Y') {
+                $('#chkJobDetailBTS').prop('checked', true);
+            } else {
+                $('#chkJobDetailBTS').prop('checked', false);
+            }
+            if (applyDays[i].tavTraTaxi == 'Y') {
+                $('#chkJobDetailTaxi').prop('checked', true);
+            } else {
+                $('#chkJobDetailTaxi').prop('checked', false);
+            }
+            $('#modalAddJobDetail').find('#groupCopyFromDay').hide();
+            $('#modalAddJobDetail').modal('show');
+        }
 
         $("#btnSaveAddClass").on("click", function (e) {
             var selectedSubject = $("#dropdownSubject option:selected").text();
             var selectedClass = $("#dropdownClass option:selected").text();
             var selectedExp = $("#dropdownExp option:selected").text();
             if (selectedSubject && selectedClass && selectedExp) {
+                var i = gridClass.bootgrid("getTotalRowCount") + 1;
                 gridClass.bootgrid("append", [
                     {
-                        "id": gridClass.bootgrid("getTotalRowCount") + 1,
+                        "id": i,
                         "class": selectedSubject,
                         "level": selectedClass,
-                        "exp": selectedExp
+                        "exp": selectedExp,
+                        "action": "<button id='editBtn' type='button' class='btn btn-xs btn-default command-edit' data-row-id='" + i + "'><div class='fa-pencil'></div></button> "
+                            + "<button id='deleteBtn' type='button' class='btn btn-xs btn-default command-delete' data-row-id='" + i + "'><div class='fa-trash-o'></div></button>"
                     }
                 ]);
             }
@@ -357,8 +646,30 @@
             var chkBus = "";
             var chkBTS = "";
             var chkTaxi = "";
-            
+            var divSignActive = "<div class='signActive'></div>";
+            var divSignInactive = "<div class='signInActive'></div>";
+            if ($("#chkJobDetailCar").is(':checked')) {
+                chkCar = divSignActive;
+            } else {
+                chkCar = divSignInactive;
+            }
+            if ($("#chkJobDetailBus").is(':checked')) {
+                chkBus = divSignActive;
+            } else {
+                chkBus = divSignInactive;
+            }
+            if ($("#chkJobDetailBTS").is(':checked')) {
+                chkBTS = divSignActive;
+            } else {
+                chkBTS = divSignInactive;
+            }
+            if ($("#chkJobDetailTaxi").is(':checked')) {
+                chkTaxi = divSignActive;
+            } else {
+                chkTaxi = divSignInactive;
+            }
 
+            var i = gridDetail.bootgrid("getTotalRowCount") + 1;
             if (selectedJobDetailDay && selectedJobDetailStartTime && selectedJobDetailEndTime && txtStartPlace && txtEndPlace) {
                 gridDetail.bootgrid("append", [
                     {
@@ -371,13 +682,203 @@
                         "car": chkCar,
                         "bus": chkBus,
                         "bts": chkBTS,
-                        "taxi": chkTaxi
+                        "taxi": chkTaxi,
+                        "action": "<button id='editBtn' type='button' class='btn btn-xs btn-default command-edit' data-row-id='" + i + "'><div class='fa-pencil'></div></button> "
+                            + "<button id='deleteBtn' type='button' class='btn btn-xs btn-default command-delete' data-row-id='" + i + "'><div class='fa-trash-o'></div></button>"
+
                     }
                 ]);
             }
         });
 
+        // load subject list
+        $("#dropdownSubject").change(function () {
+            $('#dropdownClass').empty();
+            var subjId = this.value;
+            var subjectDetailForApplyJobViewsBySubjid = subjectDetailForApplyJobViews.filter(function (el) {
+                return el.subjId == subjId;
+            });
+            console.log(subjectDetailForApplyJobViewsBySubjid);
 
+            if (subjectDetailForApplyJobViewsBySubjid[0]) {
+                var subjectCatagories = subjectDetailForApplyJobViewsBySubjid[0].subjectCatagories;
+                console.log(subjectCatagories);
+                for (var i = 0; i < subjectCatagories.length; i++) {
+                    $('#dropdownClass').append('<option value="' + subjectCatagories[i].subcId + '">' + subjectCatagories[i].subcName + '</option>');
+                }
+            }
+
+        });
+        function getSubjectForApplyJob() {
+            subjectDetailForApplyJobViews = [];
+            console.log("initial data for subject list");
+            $.ajax({
+                type: "GET",
+                url: _gServiceURL + "subjectdetail/listforapplyjob",
+                contentType: "application/json; charset=utf-8",
+                crossDomain: true,
+                dataType: "json",
+                success: function (data, status, jqXHR) {
+                    console.log(data.data.subjectDetailForApplyJobViews);
+                    var messages = data.message;
+                    var alert;
+                    if (data.status == 200) {
+                        subjectDetailForApplyJobViews = data.data.subjectDetailForApplyJobViews;
+                        for (var i = 0; i < subjectDetailForApplyJobViews.length; i++) {
+                            $('#dropdownSubject').append('<option value="' + subjectDetailForApplyJobViews[i].subject.subjId + '">' + subjectDetailForApplyJobViews[i].subject.subjName + '</option>');
+                        }
+                        if (subjectDetailForApplyJobViews[0]) {
+                            var subjectCatagories = subjectDetailForApplyJobViews[0].subjectCatagories;
+                            console.log(subjectCatagories);
+                            for (var i = 0; i < subjectCatagories.length; i++) {
+                                $('#dropdownClass').append('<option value="' + subjectCatagories[i].subcId + '">' + subjectCatagories[i].subcName + '</option>');
+                            }
+                        }
+                        initialData();
+                        alert = $(".alert-success");
+                    } else {
+                        alert = $(".alert-danger");
+                    }
+                    alert.find("strong").text(messages);
+                    alert.show();
+                },
+                error: function (jqXHR, status) {
+                    console.log(jqXHR);
+                    alert('fail' + status.code);
+                }
+            });
+        }
+        // Google map
+        $("#btnStartGoogleMap").on("click", function (e) {
+            console.log("Open Map start");
+            initMap(1);
+        });
+        $("#btnEndGoogleMap").on("click", function (e) {
+            console.log("Open Map end");
+            initMap(2);
+
+        });
+
+        function initMap(type) {
+            console.log("INIT MAP");
+            var geocoder = new google.maps.Geocoder;
+            var latLog = new google.maps.LatLng(13.736334, 100.531102);
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: latLog,
+                zoom: 15,
+                disableDefaultUI: true
+            });
+            // Set marker
+            marker = new google.maps.Marker({
+                map: map,
+                position: latLog
+            });
+            google.maps.event.addListener(map, 'click', function (event) {
+                console.log('type : ' + type);
+                setPlaceMarker(event.latLng, geocoder, type);
+            });
+
+            // Search box and auto complete
+            var input = document.getElementById('pac-input');
+            var options = {
+                types: ['establishment']
+            };
+            var autocomplete = new google.maps.places.Autocomplete(input, options);
+            autocomplete.bindTo('bounds', map);
+            map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+            autocomplete.addListener('place_changed', function () {
+                console.log("Place Changed");
+                var place = autocomplete.getPlace();
+                placeChangedByAutoComplete(autocomplete.getPlace(), map, geocoder);
+            });
+
+        }
+
+        function setPlaceMarker(location, geocoder, type) {
+            marker.setPosition(location);
+            console.log(location);
+            findAddressFromLocation(location, geocoder, type);
+        }
+
+        function placeChangedByAutoComplete(place, map, geocoder) {
+            console.log(place);
+            console.log(place.place_id);
+            if (!place.place_id) {
+                return;
+            }
+            geocoder.geocode({ 'placeId': place.place_id }, function (results, status) {
+                if (status !== 'OK') {
+                    window.alert('Geocoder failed due to: ' + status);
+                    return;
+                }
+                console.log(place.place_id);
+                map.setZoom(11);
+                map.setCenter(results[0].geometry.location);
+                // Set the position of the marker using the place ID and location.
+                marker.setPlace({
+                    placeId: place.place_id,
+                    location: results[0].geometry.location
+                });
+            });
+        }
+
+        function findAddressFromLocation(latLng, geocoder, type) {
+            geocoder.geocode({ 'latLng': latLng }, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    console.log(results[0]);
+                    var address = results[0].formatted_address;
+                    $('#pac-input').val(address);
+                    if (type == 1) {
+                        $('#modalAddJobDetail').find('#txtStartPlace').val(address);
+                    } else {
+                        $('#modalAddJobDetail').find('#txtEndPlace').val(address);
+                    }
+
+                    $('#modalGoogleMap').modal('hide');
+
+                    //   $('#address').html('Address:' + results[0].formatted_address);
+                }
+                else {
+                    //    $('#address').html('Geocoding failed: ' + status);
+                    console.log("Geocoding failed: " + status);
+                }
+            });
+        }
+
+        function findLocationFromAddress() {
+
+        }
+
+        function geocodeAddress(geocoder, resultsMap) {
+            var address = document.getElementById('address').value;
+            geocoder.geocode({ 'address': address }, function (results, status) {
+                if (status === 'OK') {
+                    resultsMap.setCenter(results[0].geometry.location);
+
+                    var marker = new google.maps.Marker({
+                        map: resultsMap,
+                        position: results[0].geometry.location
+                    });
+                } else {
+                    alert('Geocode was not successful for the following reason: ' + status);
+                }
+            });
+        }
+        function geocodePlaceId(geocoder, map, placeId) {
+            geocoder.geocode({ 'placeId': placeId }, function (results, status) {
+                if (status === 'OK') {
+                    console.log('PLACE');
+                    if (results[0]) {
+                        console.log(results[0]);
+                    } else {
+                        window.alert('No results found');
+                    }
+                } else {
+                    window.alert('Geocoder failed due to: ' + status);
+                }
+            });
+        }
 
     </script>
 </body>

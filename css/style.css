@@ -37,3 +37,140 @@
 .login-container{
     width: 500px;
 }
+
+.signActive{
+    width: 20px;
+    height: 20px;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+ /*   background-color: green;*/
+    background-image: url("../images/icons8-checked_checkbox.png");
+}
+
+.signInActive{
+    width: 20px;
+    height: 20px;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+ /*   background-color: red;*/
+    background-image: url("../images/icons8-unchecked_checkbox.png");
+}
+
+
+.fa-pencil{
+    width: 20px;
+    height: 20px;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-image: url("../images/icons8-edit_property.png");
+}
+.fa-trash-o{
+    width: 20px;
+    height: 20px;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-image: url("../images/icons8-trash.png");
+}
+.fixedHeightContainer
+{
+  float:left;
+  height: 250px;
+  width: 100%;
+  padding:5px; 
+}
+.content
+{
+  height:224px;
+   overflow:auto;
+}
+
+.map {
+    height:94%;
+    
+}
+
+.searchPanel{
+    position: absolute;
+    top: 10px;
+    padding: 0px;
+    z-index: -1; position:relative;
+    padding: 5px;
+    padding-right: 25px;
+    text-align: center;
+    line-height: 30px;
+}
+
+.btn-google-pin{
+    width: 34px;
+    height: 34px;
+}
+
+
+.btn-google-search{
+    top: 2px;
+    width: 45px;
+    height: 30px;
+    text-align: center;
+}
+
+.img-google-pin {
+    width: 20px;
+    height: 20px;
+    padding-left: 0px;
+    padding-right: 0px;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-image: url("../images/icons8-marker.png");
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+}
+/*
+.checkbox1 {
+    font-size: 1.3rem;
+    font-weight: 500;
+}*/
+
+.form-group.required .labelform:before { 
+    color: #d00;
+    content: "*";
+    position: absolute;
+    margin-left: -7px;
+    
+}
+/* table scroll*/
+table.scroll {
+    /* width: 100%; */ /* Optional */
+    /* border-collapse: collapse; */
+    border-spacing: 0;
+    border: 1px solid lightgray;
+}
+
+table.scroll tbody,
+table.scroll thead { display: block; }
+
+thead tr th { 
+    height: 30px;
+    line-height: 30px;
+    /* text-align: left; */
+}
+
+table.scroll tbody {
+    height: 120px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+div.container-center {
+    position: relative }
+div.container-center p {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%) }

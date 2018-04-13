@@ -41,16 +41,22 @@
 
 <script>
 
-
+        _cntLoadMain = 0;
         jQuery( document ).ready(function() {
-          console.log( "ready!" );
-          if(_gUser.turId != null){
-            setUpTable();
+          console.log( "ready!",  _cntLoadMain);
+          if(_cntLoadMain==0){
+            _cntLoadMain++;
+         //   $('#waitingtable').empty();
+            if(_gUser.turId != null){
+                setUpTable();
+            }
           }
+           
 
         });
         function setUpTable(){
-            var url = "http://localhost:8080/tutormatchingservices-0.0.1-SNAPSHOT/rectutor/waitingacceptlist/"+_gUser.turId
+            //table_obj.empty();
+            var url = _gServiceURL+"rectutor/waitingacceptlist/"+_gUser.turId
             console.log(url);
             $.getJSON(url, function(json_data){
                 console.log(json_data);

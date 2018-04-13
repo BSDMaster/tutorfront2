@@ -29,6 +29,9 @@
   <link href="./css/bootstrap.min.css" rel="stylesheet">
   <link href="./css/style.css" rel="stylesheet">
   <link href="./css/override.css" rel="stylesheet">
+  <!--Google Map-->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3CqYZxIposJwTiB-GAGSYBRRHIi0x6_Y&libraries=places&language=th-TH"></script>
+
   <script>
     //_gUserEmail = 'tutor1@gmail.com';  //bypass login
     _gUserType = 'student';
@@ -42,6 +45,8 @@
     };
     _gUser.turId = null;
     _gUser.turName = null;
+    _gNoResultFound = 'ไม่พบรายการ';
+    _gServiceURL = 'http://localhost:8080/tutormatchingservices-0.0.1-SNAPSHOT/';
 
   </script>
 </head>
@@ -59,17 +64,20 @@
     </div>-->
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="nav navbar-nav ml-auto">
-          <li class="nav-item">
+          <li class="nav-item" id="nav-itm-student-schedule">
             <a class="nav-link" href="javascript:changePage('./html/schedule.html');">ตารางสอน</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" id="nav-itm-tutor-schedule">
+              <a class="nav-link" href="javascript:changePage('./html/schedule.html');">ตารางสอน</a>
+            </li>
+          <li class="nav-item" id="nav-itm-rate">
             <a class="nav-link" href="javascript:changePage('./html/rate.html');">อัตราค่าเรียน</a>
           </li>
           <li class="nav-item" id="nav-itm-publishJob">
-            <a class="nav-link" href="javascript:changePage('./html/publishJob.html');">รับงานสอน</a>
+            <a class="nav-link" href="javascript:changePage('./html/publishJob.html');">แก้ไขข้อมูลการรับงานสอน</a>
           </li>
           <li class="nav-item" id="nav-itm-registerClass">
-            <a class="nav-link" href="javascript:changePage('./html/registerClass.html');">สมัครเรียน</a>
+            <a class="nav-link" href="javascript:changePage('./html/registerClass.html');">สมัครเรียนเพิ่มเติม</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="javascript:changePage('./html/contact.html');">ติดต่อเรา</a>
@@ -79,7 +87,6 @@
             <a id="divShowUser" class="nav-link dropdown-toggle" data-toggle="dropdown">User</a>
             <div class="dropdown-menu">
               <a class="dropdown-item" href="javascript:changePage('./html/profile.html');">ข้อมูลส่วนตัว</a>
-              <a class="dropdown-item" href="javascript:changePage('./html/profile.html');">ข้อมูลการรับงาน</a>
               <a class="dropdown-item" href="javascript:logout();">ออกจากระบบ</a>
             </div>
           </li>
@@ -117,10 +124,10 @@
       }
       //if(_gUserEmail){   //call web service for check user credential
 
-      /*
+      
       $.ajax({
         type: "POST",
-        url: "http://localhost:8080/tutormatchingservices-0.0.1-SNAPSHOT/tutor/login",
+        url: _gServiceURL+"tutor/login",
         data: JSON.stringify(data),
         contentType: "application/json; charset=utf-8",
         crossDomain: true,
@@ -139,7 +146,7 @@
           alert('fail' + status.code);
         }
       });
-      */
+      
 
       //testOnly
       if (userType == "tutor") {
@@ -164,11 +171,17 @@
         console.log("_gUserType=", _gUserType);
         if (_gUserType == "tutor") {
           jQuery("#divMainContainer").load('./html/main.html');
+          jQuery("#nav-itm-student-schedule").hide();
+          jQuery("#nav-itm-tutor-schedule").show();
+          jQuery("#nav-itm-rate").hide();
           jQuery("#nav-itm-publishJob").show();
           jQuery("#nav-itm-registerClass").hide();
         }
         else {
           jQuery("#divMainContainer").load('./html/mainStudent.html');
+          jQuery("#nav-itm-student-schedule").show();
+          jQuery("#nav-itm-tutor-schedule").hide();
+          jQuery("#nav-itm-rate").show();
           jQuery("#nav-itm-publishJob").hide();
           jQuery("#nav-itm-registerClass").show();
         }
