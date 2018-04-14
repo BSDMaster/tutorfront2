@@ -131,4 +131,13 @@ option font {
     z-index: 9999 !important;
 }
 
-
+/*
+td.text-left {
+    display:inline-block;
+    overflow:hidden !important;
+    text-overflow: ellipsis;
+}*/
+/*
+.bootgrid-table td {
+    white-space: nowrap; 
+}*/

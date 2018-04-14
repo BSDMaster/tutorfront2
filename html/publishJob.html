@@ -16,6 +16,14 @@
         </ol>
     </div>
     <br>
+    <div class="alert alert-dismissible alert-success" style="display: none;">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>บันทึกข้อมูลสำเร็จ</strong>
+    </div>
+    <div class="alert alert-dismissible alert-danger" style="display: none;">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>ไม่สามารถบันทึกข้อมูลได้</strong>
+    </div>
     <div class="label-header">แก้ไขข้อมูลการรับงานสอน</div>
 
     <!-- Button trigger modal -->
@@ -29,7 +37,7 @@
                 <th data-column-id="id" data-width="10%" data-identifier="true" data-type="numeric">#</th>
                 <th data-column-id="class" data-width="30%">วิชา</th>
                 <th data-column-id="level" data-width="30%">ระดับชั้น</th>
-                <th data-column-id="exp" data-width="30%">ประสบการณ์สอน</th>
+                <th data-column-id="exp" data-width="20%">ประสบการณ์สอน</th>
                 <th data-column-id="action" data-width="10%" data-sortable="false" data-searchable="false">Action</th>
             </tr>
         </thead>
@@ -42,9 +50,9 @@
                         <div class="form-group required">
                             <label class="col-lg-3 labelform">หลักสูตรที่สามารถสอนได้ :</label>
                             <div class="col-lg-9 checkbox1">
-                                <input type="checkbox"> สามารถสอนโดยใช้เอกสารประกอบการเรียนเป็นภาษาอังกฤษ </input>
+                                <input type="checkbox" id="chkEnglishFlag"> สามารถสอนโดยใช้เอกสารประกอบการเรียนเป็นภาษาอังกฤษ </input>
                                 <br>
-                                <input type="checkbox"> สามารถสอนโดยใช้เอกสารประกอบการเรียนและสนทนาเป็นภาษาอังกฤษได้ </input>
+                                <input type="checkbox" id="chkInterFlag"> สามารถสอนโดยใช้เอกสารประกอบการเรียนและสนทนาเป็นภาษาอังกฤษได้ </input>
                             </div>
                         </div>
                         <br>
@@ -105,17 +113,17 @@
                 <th data-column-id="startPlace" data-width="15%">สถานที่เริ่มต้นเดินทาง</th>
                 <th data-column-id="endPlace" data-width="15%">สถานที่สิ้นสุดเดินทาง</th>
                 <th data-column-id="car" data-width="9%" data-sortable="false">รถยนต์ส่วนตัว</th>
-                <th data-column-id="bus" data-width="9%" data-sortable="false">รถประจำทาง</th>
-                <th data-column-id="bts" data-width="8%" data-sortable="false">รถไฟฟ้า</th>
+                <th data-column-id="bus" data-width="8%" data-sortable="false">รถประจำทาง</th>
+                <th data-column-id="bts" data-width="7%" data-sortable="false">รถไฟฟ้า</th>
                 <th data-column-id="taxi" data-width="8%" data-sortable="false">รถแท็กซี่</th>
-                <th data-column-id="action" data-width="6%" data-sortable="false" data-searchable="false">Action</th>
+                <th data-column-id="action" data-width="8%" data-sortable="false" data-searchable="false">Action</th>
             </tr>
         </thead>
     </table>
     <br>
     <div class="container-center">
         <p>
-            <button type="button" class="btn btn-primary">บันทึก</button>
+            <button type="button" class="btn btn-primary"  id="btnUpdateTutor">บันทึก</button>
             <button type="button" class="btn btn-secondary">ยกเลิก</button>
         </p>
     </div>
@@ -191,7 +199,7 @@
                         <div class="form-group required">
                             <label for="txtStartPlace" class="labelform">สถานที่เริ่มต้นเดินทาง</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" id="txtStartPlace">
+                                <input type="text" class="form-control" id="txtStartPlace" readonly>
                                 <button id="btnStartGoogleMap" type="button" class="btn btn-secondary input-group-btn btn-google-pin" data-toggle="modal"
                                     data-target="#modalGoogleMap">
                                     <div class="img-google-pin"></div>
@@ -201,7 +209,7 @@
                         <div class="form-group required">
                             <label for="txtEndPlace" class="labelform">สถานทีสิ้นสุดการเดินทาง</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" id="txtEndPlace">
+                                <input type="text" class="form-control" id="txtEndPlace" readonly>
                                 <button id="btnEndGoogleMap" type="button" class="btn btn-secondary input-group-btn btn-google-pin" data-toggle="modal" data-target="#modalGoogleMap">
                                     <div class="img-google-pin"></div>
                                 </button>
@@ -252,12 +260,13 @@
     </div>
     <script>
         _isInitGmapStartAndEndPlace = false;
+        _googleMapType = 1;
         var subjectDetailForApplyJobViews = [];
         var applySubjects = [];
         var applyDays = [];
         var marker = null;
-        var startLocation = null;
-        var endLocation = null;
+ //       var startLocation = null;
+ //       var endLocation = null;
         //bind master data
         //exp
         var dataExp = [{
@@ -293,10 +302,11 @@
         }, {
             name: "อาทิตย์", val: "7"
         }];
+        /*
         for (var i = 0; i < dataDay.length; i++) {
             $('#dropdownCopyFromDay').append('<option value="' + dataDay[i].val + '">' + dataDay[i].name + '</option>');
             $('#dropdownJobDetailDay').append('<option value="' + dataDay[i].val + '">' + dataDay[i].name + '</option>');
-        }
+        }*/
 
         //time
         var dataTime = [{
@@ -405,7 +415,7 @@
 
         $(document).ready(function () {
             getSubjectForApplyJob();
-            onloadtable();
+          //  onloadtable();
             $('#btnAddClass').click(function () {
                 addApplyJobList();
             });
@@ -413,7 +423,7 @@
                 addApplyDayList();
             });
         });
-
+/*
         function onloadtable() {
             var $table = $('table.scroll'),
                 $bodyCells = $table.find('tbody tr:first').children(),
@@ -430,9 +440,9 @@
                 $table.find('thead tr').children().each(function (i, v) {
                     $(v).width(colWidth[i]);
                 });
-            }).resize(); // Trigger resize handler*/
+            }).resize();
 
-        }
+        }*/ 
 
         function initialData() {
             console.log('initial data');
@@ -448,6 +458,16 @@
                     var messages = data.message;
                     var alert;
                     if (tutorView != null) {
+                        if (tutorView.englishFlag == 'Y') {
+                            $('#chkEnglishFlag').prop('checked', true);
+                        }
+                        if (tutorView.interFlag == 'Y') {
+                            $('#chkInterFlag').prop('checked', true);
+                        }
+                        console.log('tutorView.maxClsPerDay');
+                        console.log(tutorView.maxClsPerDay);
+                        $('#optMaxWorkPerDay').val(tutorView.maxClsPerDay);
+                        $('#optMaxWork').val(tutorView.maxCls);
                         applySubjects = tutorView.subjectDetailViews;
                         applyDays = tutorView.tutorAvailableTimeloacations;
                         for (var i = 0; i < applySubjects.length; i++) {
@@ -476,12 +496,16 @@
             }
         }).on("loaded.rs.jquery.bootgrid", function () {
             gridClass.find(".command-edit").on("click", function (e) {
-                var i = $(this).data("row-id");
+                var i = parseInt($(this).data("row-id"));
                 editApplyJobList(i);
             }).end().find(".command-delete").on("click", function (e) {
-                var rows = [];
-                rows[0] = parseInt($(this).data("row-id"));
-                gridClass.bootgrid('remove', rows);
+                var i = parseInt($(this).data("row-id"));
+                var result = confirm("ต้องการลบรายการ "+applySubjects[i].subject.subjName+ " "+applySubjects[i].subjectCatagory.subcName+" ใช่หรือไม่?");
+                if (result) {  
+                    applySubjects.splice(i,1);
+                    refreshGridClassSubjectList();
+                }
+                
             });
         });
 
@@ -497,27 +521,54 @@
                 var i = $(this).data("row-id");
                 editApplyDayList(i);
             }).end().find(".command-delete").on("click", function (e) {
-                var rows = [];
-                rows[0] = parseInt($(this).data("row-id"));
-                //var id = $(this).data("row-id");
-                console.log("rows=", rows);
-                gridDetail.bootgrid('remove', rows);
+                var i = $(this).data("row-id");
+                var dayName = dataDay[applyDays[i].tavDayId - 1].name;
+                var result = confirm("ต้องการลบรายการ "+dayName+" ใช่หรือไม่?");
+                if (result) {  
+                    applyDays.splice(i,1);
+                    refreshGridDetailDayList();
+                }
             });
         });
 
+        function refreshGridClassSubjectList() {
+            gridClass.bootgrid('clear');
+            for (var j = 0; j < applySubjects.length; j++) {
+                console.log("data : " + applySubjects[j]);
+                appendApplySubjectList(applySubjects[j], j);
+            }
+        }
+
+        function refreshGridDetailDayList(){
+            gridDetail.bootgrid('clear');
+            for (var j = 0; j < applyDays.length; j++) {
+                console.log("data : " + applyDays[j]);
+                appendApplyDayList(applyDays[j], j);
+            }
+        }
+
         function appendApplySubjectList(applySubject, i) {
+            console.log(applySubject);
+            var exps = dataExp.filter(function (el) {
+                return el.val == applySubject.exp;
+            });
+            var exp = 0;
+            if (exps[0]) {
+                exp = exps[0];
+            }
             gridClass.bootgrid("append", [
                 {
-                    "id": i,
+                    "id": i+1,
                     "class": applySubject.subject.subjName,
                     "level": applySubject.subjectCatagory.subcName,
-                    "exp": applySubject.exp,
+                    "exp": exp.name,
                     "action": "<button id='editBtn' type='button' class='btn btn-xs btn-default command-edit' data-row-id='" + i + "'><div class='fa-pencil'></div></button> "
                         + "<button id='deleteBtn' type='button' class='btn btn-xs btn-default command-delete' data-row-id='" + i + "'><div class='fa-trash-o'></div></button>"
                 }
             ]);
         }
         function appendApplyDayList(applyDay, i) {
+            console.log(applyDay);
             var dayId = applyDay.tavDayId;
             var divSignActive = "<div class='signActive'></div>";
             var divSignInactive = "<div class='signInActive'></div>";
@@ -541,12 +592,26 @@
             } else {
                 chkTaxi = divSignInactive;
             }
+            var startTimes = dataTime.filter(function (el) {
+                return el.val == applyDay.tavStartTime;
+            });
+            var startTime = "";
+            if (startTimes[0]) {
+                startTime = startTimes[0];
+            }
+            var endTimes = dataTime.filter(function (el) {
+                return el.val == applyDay.tavEndTime;
+            });
+            var endTime = "";
+            if (endTimes[0]) {
+                endTime = endTimes[0];
+            }
             gridDetail.bootgrid("append", [
                 {
-                    "id": i,
+                    "id": i+1,
                     "day": dataDay[applyDay.tavDayId - 1].name,
-                    "StartTime": applyDay.tavStartTime,
-                    "endTime": applyDay.tavEndTime,
+                    "StartTime": startTime.name,
+                    "endTime": endTime.name,
                     "startPlace": applyDay.tavStartLocation,
                     "endPlace": applyDay.tavEndLocation,
                     "car": chkCar,
@@ -561,15 +626,19 @@
         }
 
         function addApplyJobList() {
+            $('#btnSaveAddClass').val(-1);
             $('#modalAddClass').find('#modalAddClassLabel').text('เพิ่มวิชา');
+            $('#modalAddClass').find('#dropdownSubject').prop('disabled', false);
             $('#modalAddClass').find('#dropdownSubject').val($("#dropdownSubject option:first").val());
             $('#modalAddClass').find('#dropdownClass').val($("#dropdownClass option:first").val());
             $('#modalAddClass').find('#dropdownExp').val($("#dropdownExp option:first").val());
         }
 
         function addApplyDayList() {
+            assignDropDownValueDayAdd();
+            $('#btnSaveAddDetail').val(-1);
             $('#modalAddJobDetail').find('#modalAddJobDetailLabel').text('เพิ่มวัน เวลา สถานที่และพาหนะที่ใช้เดินทาง');
-            $('#modalAddJobDetail').find('#dropdownJobDetailDay').val(0);
+            $('#modalAddJobDetail').find('#dropdownJobDetailDay').prop('disabled', false);
             $('#modalAddJobDetail').find('#dropdownJobDetailStartTime').val($("#dropdownJobDetailStartTime option:first").val());
             $('#modalAddJobDetail').find('#dropdownJobDetailEndTime').val($("#dropdownJobDetailEndTime option:first").val());
             $('#modalAddJobDetail').find('#txtStartPlace').val('');
@@ -582,7 +651,9 @@
         }
 
         function editApplyJobList(i) {
+            $('#btnSaveAddClass').val(i);
             $('#modalAddClass').find('#modalAddClassLabel').text('แก้ไขวิชา');
+            $('#modalAddClass').find('#dropdownSubject').prop('disabled', true);
             $('#modalAddClass').find('#dropdownSubject').val(applySubjects[i].subject.subjId);
             $('#modalAddClass').find('#dropdownClass').val(applySubjects[i].subjectCatagory.subcId);
             $('#modalAddClass').find('#dropdownExp').val(applySubjects[i].exp);
@@ -590,12 +661,20 @@
         }
 
         function editApplyDayList(i) {
+            assignDropDownValueDayEdit();
+            $('#btnSaveAddDetail').val(i);
+            var startLocation = new google.maps.LatLng(applyDays[i].tavStartLat, applyDays[i].tavStartLong);
+            var endLocation = new google.maps.LatLng(applyDays[i].tavEndLat, applyDays[i].tavEndLong);
             $('#modalAddJobDetail').find('#modalAddJobDetailLabel').text('แก้ไขวัน เวลา สถานที่และพาหนะที่ใช้เดินทาง');
             $('#modalAddJobDetail').find('#dropdownJobDetailDay').val(applyDays[i].tavDayId);
+            $('#modalAddJobDetail').find('#dropdownJobDetailDay').prop('disabled', true);
             $('#modalAddJobDetail').find('#dropdownJobDetailStartTime').val(applyDays[i].tavStartTime);
             $('#modalAddJobDetail').find('#dropdownJobDetailEndTime').val(applyDays[i].tavEndTime);
             $('#modalAddJobDetail').find('#txtStartPlace').val(applyDays[i].tavStartLocation);
             $('#modalAddJobDetail').find('#txtEndPlace').val(applyDays[i].tavEndLocation);
+            $('#modalAddJobDetail').find('#btnStartGoogleMap').val(startLocation);
+            $('#modalAddJobDetail').find('#btnEndGoogleMap').val(endLocation);
+            
             if (applyDays[i].tavTraDrive == 'Y') {
                 $('#chkJobDetailCar').prop('checked', true);
             } else {
@@ -620,78 +699,192 @@
             $('#modalAddJobDetail').modal('show');
         }
 
+        function assignDropDownValueDayAdd(){
+            $('#dropdownCopyFromDay').empty();
+            $('#dropdownJobDetailDay').empty();
+            for (var i = 0; i < dataDay.length; i++) {
+                var days = applyDays.filter(function (el) {
+                    return el.tavDayId == dataDay[i].val;
+                });
+                if (days.length > 0) {
+                    $('#dropdownCopyFromDay').append('<option value="' + dataDay[i].val + '">' + dataDay[i].name + '</option>');
+                } else {
+                    $('#dropdownJobDetailDay').append('<option value="' + dataDay[i].val + '">' + dataDay[i].name + '</option>');
+                }
+            }
+        }
+
+        function assignDropDownValueDayEdit(){
+            $('#dropdownCopyFromDay').empty();
+            $('#dropdownJobDetailDay').empty();
+            for (var i = 0; i < dataDay.length; i++) {
+                $('#dropdownCopyFromDay').append('<option value="' + dataDay[i].val + '">' + dataDay[i].name + '</option>');
+                $('#dropdownJobDetailDay').append('<option value="' + dataDay[i].val + '">' + dataDay[i].name + '</option>');
+            }
+        }
+
+        $("#dropdownCopyFromDay").change(function () {
+            var coppiedDay = $(this).val();
+            var days = applyDays.filter(function (el) {
+                return el.tavDayId == coppiedDay;
+            });
+            if (days) {
+                var applyDay = days[0];
+                var startLocation = new google.maps.LatLng(applyDay.tavStartLat, applyDay.tavStartLong);
+                var endLocation = new google.maps.LatLng(applyDay.tavEndLat, applyDay.tavEndLong);
+                $('#modalAddJobDetail').find('#dropdownJobDetailStartTime').val(applyDay.tavStartTime);
+                $('#modalAddJobDetail').find('#dropdownJobDetailEndTime').val(applyDay.tavEndTime);
+                $('#modalAddJobDetail').find('#txtStartPlace').val(applyDay.tavStartLocation);
+                $('#modalAddJobDetail').find('#txtEndPlace').val(applyDay.tavEndLocation);
+                $('#modalAddJobDetail').find('#btnStartGoogleMap').val(startLocation);
+                $('#modalAddJobDetail').find('#btnEndGoogleMap').val(endLocation);
+                if (applyDay.tavTraDrive == 'Y') {
+                    $('#chkJobDetailCar').prop('checked', true);
+                } else {
+                    $('#chkJobDetailCar').prop('checked', false);
+                }
+                if (applyDay.tavTraBus == 'Y') {
+                    $('#chkJobDetailBus').prop('checked', true);
+                } else {
+                    $('#chkJobDetailBus').prop('checked', false);
+                }
+                if (applyDay.tavTraTrain == 'Y') {
+                    $('#chkJobDetailBTS').prop('checked', true);
+                } else {
+                    $('#chkJobDetailBTS').prop('checked', false);
+                }
+                if (applyDay.tavTraTaxi == 'Y') {
+                    $('#chkJobDetailTaxi').prop('checked', true);
+                } else {
+                    $('#chkJobDetailTaxi').prop('checked', false);
+                }
+            }
+
+        });
+
         $("#btnSaveAddClass").on("click", function (e) {
-            var selectedSubject = $("#dropdownSubject option:selected").text();
-            var selectedClass = $("#dropdownClass option:selected").text();
-            var selectedExp = $("#dropdownExp option:selected").text();
-            if (selectedSubject && selectedClass && selectedExp) {
-                var i = gridClass.bootgrid("getTotalRowCount") + 1;
-                gridClass.bootgrid("append", [
-                    {
-                        "id": i,
-                        "class": selectedSubject,
-                        "level": selectedClass,
-                        "exp": selectedExp,
-                        "action": "<button id='editBtn' type='button' class='btn btn-xs btn-default command-edit' data-row-id='" + i + "'><div class='fa-pencil'></div></button> "
-                            + "<button id='deleteBtn' type='button' class='btn btn-xs btn-default command-delete' data-row-id='" + i + "'><div class='fa-trash-o'></div></button>"
+            var index = $(this).val();
+            var selectedSubjectVal = $("#dropdownSubject option:selected").val();
+            var selectedClassVal = $("#dropdownClass option:selected").val();
+            var selectedExpVal = $("#dropdownExp option:selected").val();
+            var selectedSubjectText = $("#dropdownSubject option:selected").text();
+            var selectedClassText = $("#dropdownClass option:selected").text();
+            var selectedExpText = $("#dropdownExp option:selected").text();
+            var duplicatedApplySubjects = applySubjects.filter(function (el) {
+                return el.subject.subjId == selectedSubjectVal && el.subjectCatagory.subcId == selectedClassVal;
+            });
+            if (duplicatedApplySubjects.length > 0 && index == -1) {
+                alert("พบรายการวิชา "+selectedSubjectText+" กลุ่มวิชา"+selectedClassText+" อยู่ในรายการแล้ว");
+            } else {
+                if (selectedSubjectText && selectedClassText && selectedExpText) {
+                    
+                    if (index == -1) {
+                        var newSubject = {
+                            subject: {
+                                subjId: parseInt(selectedSubjectVal),
+                                subjName: selectedSubjectText
+                            },
+                            subjectCatagory: {
+                                subcId: parseInt(selectedClassVal),
+                                subcName: selectedClassText
+                            },
+                            exp: parseInt(selectedExpVal)
+                        };
+                        console.log(newSubject);
+                        applySubjects.push(newSubject);
+                    } else {
+                        var updateSubject = applySubjects[index];
+                        updateSubject.subject.subjId = parseInt(selectedSubjectVal);
+                        updateSubject.subject.subjName = selectedSubjectText;
+                        updateSubject.subjectCatagory.subcId = parseInt(selectedClassVal);
+                        updateSubject.subjectCatagory.subcName = selectedClassText;
+                        updateSubject.exp = parseInt(selectedExpVal);
+                        applySubjects[index] = updateSubject;
                     }
-                ]);
+                    refreshGridClassSubjectList();
+                    $('#modalAddClass').modal('hide');
+                }
             }
         });
 
+
         $("#btnSaveAddDetail").on("click", function (e) {
-            var selectedJobDetailDay = $("#dropdownJobDetailDay option:selected").text();
-            var selectedJobDetailStartTime = $("#dropdownJobDetailStartTime option:selected").text();
-            var selectedJobDetailEndTime = $("#dropdownJobDetailEndTime option:selected").text();
+            var selectedJobDetailDay = $("#dropdownJobDetailDay option:selected").val();
+            var selectedJobDetailStartTime = $("#dropdownJobDetailStartTime option:selected").val();
+            var selectedJobDetailEndTime = $("#dropdownJobDetailEndTime option:selected").val();
             var txtStartPlace = $("#txtStartPlace").val();
             var txtEndPlace = $("#txtEndPlace").val();
+            var startLocation = $('#btnStartGoogleMap').val();
+            var endLocation = $('#btnEndGoogleMap').val();
+            startLocation = startLocation.replace('(','');
+            startLocation = startLocation.replace(')','');
+            var startloc = startLocation.split(",");
+            endLocation = endLocation.replace('(','');
+            endLocation = endLocation.replace(')','');
+            var endloc = endLocation.split(",");
             var chkCar = "";
             var chkBus = "";
             var chkBTS = "";
             var chkTaxi = "";
-            var divSignActive = "<div class='signActive'></div>";
-            var divSignInactive = "<div class='signInActive'></div>";
+            var active = "Y";
+            var inactive = "N";
             if ($("#chkJobDetailCar").is(':checked')) {
-                chkCar = divSignActive;
+                chkCar = active;
             } else {
-                chkCar = divSignInactive;
+                chkCar = inactive;
             }
             if ($("#chkJobDetailBus").is(':checked')) {
-                chkBus = divSignActive;
+                chkBus = active;
             } else {
-                chkBus = divSignInactive;
+                chkBus = inactive;
             }
             if ($("#chkJobDetailBTS").is(':checked')) {
-                chkBTS = divSignActive;
+                chkBTS = active;
             } else {
-                chkBTS = divSignInactive;
+                chkBTS = inactive;
             }
             if ($("#chkJobDetailTaxi").is(':checked')) {
-                chkTaxi = divSignActive;
+                chkTaxi = active;
             } else {
-                chkTaxi = divSignInactive;
+                chkTaxi = inactive;
             }
-
-            var i = gridDetail.bootgrid("getTotalRowCount") + 1;
-            if (selectedJobDetailDay && selectedJobDetailStartTime && selectedJobDetailEndTime && txtStartPlace && txtEndPlace) {
-                gridDetail.bootgrid("append", [
-                    {
-                        "id": gridDetail.bootgrid("getTotalRowCount") + 1,
-                        "day": selectedJobDetailDay,
-                        "StartTime": selectedJobDetailStartTime,
-                        "startPlace": txtStartPlace,
-                        "endTime": selectedJobDetailEndTime,
-                        "endPlace": txtEndPlace,
-                        "car": chkCar,
-                        "bus": chkBus,
-                        "bts": chkBTS,
-                        "taxi": chkTaxi,
-                        "action": "<button id='editBtn' type='button' class='btn btn-xs btn-default command-edit' data-row-id='" + i + "'><div class='fa-pencil'></div></button> "
-                            + "<button id='deleteBtn' type='button' class='btn btn-xs btn-default command-delete' data-row-id='" + i + "'><div class='fa-trash-o'></div></button>"
-
-                    }
-                ]);
+            var index = $(this).val();
+            if (index == -1) {
+                var newDay = { 
+                    tavDayId : parseInt(selectedJobDetailDay),
+                    tavStartLat : parseFloat(startloc[0]),
+                    tavStartLong : parseFloat(startloc[1]),
+                    tavEndLat : parseFloat(endloc[0]),
+                    tavEndLong : parseFloat(endloc[1]),
+                    tavStartLocation : txtStartPlace,
+                    tavEndLocation : txtEndPlace,
+                    tavStartTime : selectedJobDetailStartTime,
+                    tavEndTime : selectedJobDetailEndTime,
+                    tavTraDrive : chkCar,
+                    tavTraBus : chkBus,
+                    tavTraTrain : chkBTS,
+                    tavTraTaxi : chkTaxi
+                };
+                applyDays.push(newDay);
+            } else {
+                var updateDay = applyDays[index];
+                updateDay.tavStartLat = parseFloat(startloc[0]);
+                updateDay.tavStartLong = parseFloat(startloc[1]);
+                updateDay.tavEndLat = parseFloat(endloc[0]);
+                updateDay.tavEndLong = parseFloat(endloc[1]);
+                updateDay.tavStartLocation = txtStartPlace;
+                updateDay.tavEndLocation = txtEndPlace;
+                updateDay.tavStartTime = selectedJobDetailStartTime;
+                updateDay.tavEndTime = selectedJobDetailEndTime;
+                updateDay.tavTraDrive = chkCar;
+                updateDay.tavTraBus = chkBus;
+                updateDay.tavTraTrain = chkBTS;
+                updateDay.tavTraTaxi = chkTaxi;
+                applyDays[index] = updateDay;
             }
+            refreshGridDetailDayList();
+            $('#modalAddJobDetail').modal('hide');
+            
         });
 
         // load subject list
@@ -738,10 +931,7 @@
                             }
                         }
                         initialData();
-                        alert = $(".alert-success");
-                    } else {
-                        alert = $(".alert-danger");
-                    }
+                    } 
                     alert.find("strong").text(messages);
                     alert.show();
                 },
@@ -753,22 +943,59 @@
         }
         // Google map
         $("#btnStartGoogleMap").on("click", function (e) {
-            console.log("Open Map start");
-            if(_isInitGmapStartAndEndPlace == false){
-                _isInitGmapStartAndEndPlace = true;
-                initMap(1);
+         //   console.log("Open Map start "+startLocation);
+            _googleMapType = 1;
+            if ($('#modalAddJobDetail').find('#txtStartPlace')) {
+                var address = $('#modalAddJobDetail').find('#txtStartPlace').val();
+                $('#pac-input').val(address);
+            } else {
+                $('#pac-input').val("");
             }
-            
+            if (_isInitGmapStartAndEndPlace == false) {
+                _isInitGmapStartAndEndPlace = true;
+                initMap();
+            }
+            var startLocation = $(this).val();
+            if (startLocation) {
+                startLocation = startLocation.replace('(','');
+                startLocation = startLocation.replace(')','');
+                var loc = startLocation.split(",");
+                var lat = parseFloat(loc[0]);
+                var lng = parseFloat(loc[1]);
+                var latLog = new google.maps.LatLng(lat, lng);
+                marker.setPosition(latLog);
+                var map = marker.map;
+                map.setCenter(latLog);
+            }
         });
         $("#btnEndGoogleMap").on("click", function (e) {
-            console.log("Open Map end");
-            if(_isInitGmapStartAndEndPlace == false){
+            //console.log("Open Map end");
+            _googleMapType = 2;
+            if ($('#modalAddJobDetail').find('#txtEndPlace')) {
+                var address = $('#modalAddJobDetail').find('#txtEndPlace').val();
+                $('#pac-input').val(address);
+            } else {
+                $('#pac-input').val("");
+            }
+            if (_isInitGmapStartAndEndPlace == false) {
                 _isInitGmapStartAndEndPlace = true;
-                initMap(2);
+                initMap();
+            }
+            var endLocation = $(this).val();
+            if (endLocation) {
+                endLocation = endLocation.replace('(','');
+                endLocation = endLocation.replace(')','');
+                var loc = endLocation.split(",");
+                var lat = parseFloat(loc[0]);
+                var lng = parseFloat(loc[1]);
+                var latLog = new google.maps.LatLng(lat, lng);
+                marker.setPosition(latLog);
+                var map = marker.map;
+                map.setCenter(latLog);
             }
         });
 
-        function initMap(type) {
+        function initMap() {
             console.log("INIT MAP");
             var geocoder = new google.maps.Geocoder;
             var latLog = new google.maps.LatLng(13.736334, 100.531102);
@@ -783,8 +1010,7 @@
                 position: latLog
             });
             google.maps.event.addListener(map, 'click', function (event) {
-                console.log('type : ' + type);
-                setPlaceMarker(event.latLng, geocoder, type);
+                setPlaceMarker(event.latLng, geocoder);
             });
 
             // Search box and auto complete
@@ -804,10 +1030,10 @@
 
         }
 
-        function setPlaceMarker(location, geocoder, type) {
+        function setPlaceMarker(location, geocoder) {
             marker.setPosition(location);
             console.log(location);
-            findAddressFromLocation(location, geocoder, type);
+            findAddressFromLocation(location, geocoder);
         }
 
         function placeChangedByAutoComplete(place, map, geocoder) {
@@ -822,28 +1048,42 @@
                     return;
                 }
                 console.log(place.place_id);
-                map.setZoom(11);
+                map.setZoom(15);
                 map.setCenter(results[0].geometry.location);
                 // Set the position of the marker using the place ID and location.
                 marker.setPlace({
                     placeId: place.place_id,
                     location: results[0].geometry.location
                 });
+                var address = $('#pac-input').val();
+                console.log("_googleMapType :" + _googleMapType);
+                if (_googleMapType == 1) {
+                    $('#btnStartGoogleMap').val(results[0].geometry.location);
+                    $('#modalAddJobDetail').find('#txtStartPlace').val(address);
+                } else {
+                    $('#btnEndGoogleMap').val(results[0].geometry.location);
+                    $('#modalAddJobDetail').find('#txtEndPlace').val(address);
+                }
+
+                $('#modalGoogleMap').modal('hide');
+
             });
         }
 
-        function findAddressFromLocation(latLng, geocoder, type) {
+        function findAddressFromLocation(latLng, geocoder) {
             geocoder.geocode({ 'latLng': latLng }, function (results, status) {
                 if (status == google.maps.GeocoderStatus.OK) {
                     console.log(results[0]);
                     var address = results[0].formatted_address;
                     $('#pac-input').val(address);
-                    if (type == 1) {
+                    if (_googleMapType == 1) {
+                        $('#btnStartGoogleMap').val(latLng);
                         $('#modalAddJobDetail').find('#txtStartPlace').val(address);
                     } else {
+                        $('#btnEndGoogleMap').val(latLng);
                         $('#modalAddJobDetail').find('#txtEndPlace').val(address);
                     }
-
+                    
                     $('#modalGoogleMap').modal('hide');
 
                     //   $('#address').html('Address:' + results[0].formatted_address);
@@ -887,6 +1127,51 @@
                     window.alert('Geocoder failed due to: ' + status);
                 }
             });
+        }
+
+        // update job
+        $("#btnUpdateTutor").on("click", function (e) {
+            var englishFlag = "N";
+            var interFlag = "N";
+            if ($('#chkEnglishFlag').is(':checked')) {
+                englishFlag = "Y";
+            } 
+            if ($('#chkInterFlag').is(':checked')) {
+                interFlag = "Y";
+            } 
+            var updateTutorView = {
+                turId : _gUser.turId,
+                tutorAvailableTimeloacations : applyDays,
+                subjectDetailViews : applySubjects,
+                englishFlag : englishFlag,
+                interFlag : interFlag,
+                maxClsPerDay : parseInt($('#optMaxWorkPerDay option:selected').val()),
+                maxCls : parseInt($('#optMaxWork option:selected').val()), 
+            }
+            console.log(updateTutorView);
+            updateApply(updateTutorView);
+        });
+
+        function updateApply(updateTutorView){
+            
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:8080/tutormatchingservices-0.0.1-SNAPSHOT/tutor/updateapplyjob",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(updateTutorView),
+                crossDomain: true,
+                dataType: "json",
+                success: function (data, status, jqXHR) {
+                    $(".alert-success").show();
+                    $('html, body').animate({ scrollTop: $('.breadcrumb').offset().top }, 'fast');
+                },
+                error: function (jqXHR, status) {
+                    $(".alert-danger").show();
+                    $('html, body').animate({ scrollTop: $('.breadcrumb').offset().top }, 'fast');
+                }
+                
+            });
+            
         }
 
     </script>
