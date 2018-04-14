@@ -71,6 +71,13 @@
     background-repeat: no-repeat;
     background-image: url("../images/icons8-trash.png");
 }
+.fa-calendar-times-o{
+    width: 15px;
+    height: auto;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-image: url("../images/icons8-calendar.png");
+}
 .fixedHeightContainer
 {
   float:left;
@@ -187,4 +194,10 @@ div.container-center p {
     top: 50%;
     left: 50%;
     margin-right: -50%;
-    transform: translate(-50%, -50%) }
+    transform: translate(-50%, -50%) 
+}
+
+.h2.inner-tab {
+    margin-left:-40px;
+    padding:10px;
+}

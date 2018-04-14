@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <div>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="#">หน้าหลัก</a>
+            </li>
+            <li class="breadcrumb-item active">ข้อมูลส่วนตัว</li>
+        </ol>
+    </div>
+    <br>
+    <div class="alert alert-dismissible alert-success" style="display: none;">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>บันทึกข้อมูลสำเร็จ</strong>
+    </div>
+    <div class="alert alert-dismissible alert-danger" style="display: none;">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>ไม่สามารถบันทึกข้อมูลได้</strong>
+    </div>
+    <div class="label-header">ข้อมูลส่วนตัว</div>
+    <br>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <form class="form-horizontal">
+                    <div class="form-group required">
+                        <label for="txtFirstName" class="col-lg-2 labelform">ชื่อ</label>
+                        <div class="col-lg-4">
+                            <input type="text" class="form-control" id="txtFirstName">
+                        </div>
+                        <div class="col-lg-6"></div>
+                    </div>
+                    <div class="form-group required">
+                        <label for="txtLastName" class="col-lg-2 labelform">นามสกุล</label>
+                        <div class="col-lg-4">
+                            <input type="text" class="form-control" id="txtLastName">
+                        </div>
+                        <div class="col-lg-6"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtNickname" class="col-lg-2">ชื่อเล่น</label>
+                        <div class="col-lg-4">
+                            <input type="text" class="form-control" id="txtNickname">
+                        </div>
+                        <div class="col-lg-6"></div>
+                    </div>
+                    <div class="form-group required">
+                        <label for="txtEmail" class="col-lg-2 labelform">อีเมล์</label>
+                        <div class="col-lg-4">
+                            <input type="text" class="form-control" id="txtEmail" readonly>
+                        </div>
+                        <div class="col-lg-6"></div>
+                    </div>
+                    <div class="form-group required">
+                        <label for="txtTel" class="col-lg-2 labelform">เบอร์โทรมือถือ</label>
+                        <div class="col-lg-4">
+                            <input type="text" class="form-control" id="txtTel">
+                        </div>
+                        <div class="col-lg-6"></div>
+                    </div>
+                    <div class="form-group required">
+                        <label for="dropdownSex" class="col-lg-2 labelform">เพศ</label>
+                        <div class="col-lg-4">
+                            <select class="custom-select" id="dropdownSex" required></select>
+                        </div>
+                        <div class="col-lg-6"></div>
+                    </div>
+                    <div class="form-group required">
+                        <label for="dropdownUniversity" class="col-lg-2 labelform">สถาบันศึกษา</label>
+                        <div class="col-lg-4">
+                            <select class="custom-select" id="dropdownUniversity" required></select>
+                        </div>
+                        <div class="col-lg-6"></div>
+                    </div>
+                    <div class="form-group required">
+                        <label for="dropdownFaculty" class="col-lg-2 labelform">คณะ</label>
+                        <div class="col-lg-4">
+                            <select class="custom-select" id="dropdownFaculty" required></select>
+                        </div>
+                        <div class="col-lg-6"></div>
+                    </div>
+                    <div class="form-group required">
+                        <label for="pickerBirthdate" class="col-lg-2 labelform">วัน เดือน ปีเกิด</label>
+                        <div class="col-lg-4">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <div class="fa fa-calendar-times-o"></div>
+                                </div>
+                                <input class="form-control" id="pickerBirthdate" name="date" placeholder="DD/MM/YYY" type="text" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6"></div>
+                    </div>    
+                    <div class="form-group required">
+                        <label for="" class="col-lg-2 labelform">เอกสารสำเนาบัตรประชาชน</label>
+                        <div class="col-lg-4">
+                            <input type="file" class="form-control-file" id="inputIDCardFile">
+                        </div>
+                        <div class="col-lg-6"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtAddress" class="col-lg-2 ">ที่อยู่ปัจจุบัน</label>
+                        <div class="col-lg-4">
+                            <textarea class="form-control" id="txtAddress" rows="3"></textarea>
+                        </div>
+                        <div class="col-lg-6"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtClip" class="col-lg-2">คลิปตัวอย่างงานสอน</label>
+                        <div class="col-lg-4">
+                            <input type="text" class="form-control" id="txtClip">
+                        </div>
+                        <div class="col-lg-6"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtOthers" class="col-lg-2">ข้อมูลงานสอนเพิ่มเติม</label>
+                        <div class="col-lg-4">
+                            <textarea class="form-control" id="txtOthers" rows="3"></textarea>
+                        </div>
+                        <div class="col-lg-6"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="col-lg-2">รูปโปรไฟล์</label>
+                        <div class="col-lg-4">
+                            <input type="file" class="form-control-file" id="txtProfilePic">
+                        </div>
+                        <div class="col-lg-6"></div>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="form-group">
+                        <div class="col-lg-4"></div>
+                        <div class="col-lg-4">
+                            <button type="button" class="btn btn-primary" id="btnUpdateTutor">บันทึก</button>
+                            <button type="button" class="btn btn-secondary" href="javascript:loadMainPage();">ยกเลิก</button>
+                        </div>
+                        <div class="col-lg-4"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br>
+
+</body>
+<script>
+    var dataSex = [{
+        name: "ชาย", val: "M"
+    }, {
+        name: "หญิง", val: "F"
+    }];
+    for (var i = 0; i < dataSex.length; i++) {
+        $('#dropdownSex').append('<option value="' + dataSex[i].val + '">' + dataSex[i].name + '</option>');
+    }
+    var dataUniversities = [];
+    var dataFaculties = [];
+
+
+    jQuery(document).ready(function () {
+        $('#txtEmail').val(_gUserEmail);
+        var date_input = $('input[name="date"]'); //our date input has the name "date"
+        var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+        date_input.datepicker({
+            format: 'dd/mm/yyyy',
+            container: container,
+            todayHighlight: true,
+            autoclose: true,
+        })
+        initialUniversities();
+    });
+
+    function initialUniversities() {
+        dataUniversities = [];
+        console.log("initial universities list");
+        $.ajax({
+            type: "GET",
+            url: _gServiceURL + "facultyofuniversity/list",
+            contentType: "application/json; charset=utf-8",
+            crossDomain: true,
+            dataType: "json",
+            success: function (data, status, jqXHR) {
+                console.log(data.data.dataUniversities);
+                var messages = data.message;
+                var alert;
+                if (data.status == 200) {
+                    dataUniversities = data.data.universityViews;
+                    for (var i = 0; i < dataUniversities.length; i++) {
+                        $('#dropdownUniversity').append('<option value="' + dataUniversities[i].uniId + '">' + dataUniversities[i].uniName + '</option>');
+                    }
+                    if (dataUniversities[0]) {
+                        var dataFaculties = dataUniversities[0].faculties;
+                        console.log(dataFaculties);
+                        for (var i = 0; i < dataFaculties.length; i++) {
+                            $('#dropdownFaculty').append('<option value="' + dataFaculties[i].facId + '">' + dataFaculties[i].facName + '</option>');
+                        }
+                    }
+                }
+                initialTutorProfile();
+            },
+            error: function (jqXHR, status) {
+                console.log(jqXHR);
+            }
+        });
+    }
+
+    $("#dropdownUniversity").change(function () {
+        $('#dropdownFaculty').empty();
+        var uniId = this.value;
+        var university = dataUniversities.filter(function (el) {
+            return el.uniId == uniId;
+        });
+        if (university.length > 0) {
+            dataFaculties = university[0].faculties;
+            for (var i = 0; i < dataFaculties.length; i++) {
+                $('#dropdownFaculty').append('<option value="' + dataFaculties[i].facId + '">' + dataFaculties[i].facName + '</option>');
+            }
+        }
+    });
+
+    function initialTutorProfile(){
+        
+        $.ajax({
+            type: "GET",
+            url: _gServiceURL + "tutor/getprofile/"+_gUser.turId,
+            contentType: "application/json; charset=utf-8",
+            crossDomain: true,
+            dataType: "json",
+            success: function (data, status, jqXHR) {
+                var tutor = data.data.tutorProfileView;
+                console.log(tutor);
+                $('#txtFirstName').val(tutor.turFirstname);
+                $('#txtLastName').val(tutor.turLastname);
+                $('#txtNickname').val(tutor.turNickname);
+                $('#txtTel').val(tutor.turTel);
+                $('#txtAddress').val(tutor.turAddress);
+                // $('#pickerBirthdate').val();
+                $('#dropdownSex').val(tutor.turSex);
+                $('#dropdownUniversity').val(tutor.university.uniId);
+                $('#dropdownFaculty').val(tutor.faculty.facId);
+                $('#txtClip').val(tutor.turClip);
+            },
+            error: function (jqXHR, status) {
+            }
+
+        });
+    }
+
+    $("#btnUpdateTutor").on("click", function (e) {
+        var txtFirstName = $('#txtFirstName').val();
+        var txtLastName = $('#txtLastName').val();
+        var txtNickname = $('#txtNickname').val();
+        var txtTel = $('#txtTel').val();
+        var txtAddress = $('#txtAddress').val();
+        var pickerBirthdate = $('#pickerBirthdate').val();
+        var sex = $('#dropdownSex option:selected').val();
+        var uniId = parseInt($('#dropdownUniversity option:selected').val());
+        var facId = parseInt($('#dropdownFaculty option:selected').val());
+        var turClip = "";//$('#txtClip').val();
+        var inputIDCardFile = $('#inputIDCardFile').val();
+        var bodyRequest = {
+            turId: parseInt(_gUser.turId),
+            turFirstname: txtFirstName,
+            turLastname: txtLastName,
+            turNickname: txtNickname,
+            turAddress: txtAddress,
+            turBirthdate: pickerBirthdate,
+            turClip: turClip,
+            turFile: inputIDCardFile,
+            turSex: sex,
+            turUniId: uniId,
+            turFacId: facId,
+            turTel: txtTel
+        };
+        console.log(bodyRequest);
+        $.ajax({
+            type: "POST",
+            url: _gServiceURL + "tutor/updateprofilepic",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(bodyRequest),
+            crossDomain: true,
+            dataType: "json",
+            success: function (data, status, jqXHR) {
+                $(".alert-success").show();
+                $('html, body').animate({ scrollTop: $('.breadcrumb').offset().top }, 'fast');
+            },
+            error: function (jqXHR, status) {
+                $(".alert-danger").show();
+                $('html, body').animate({ scrollTop: $('.breadcrumb').offset().top }, 'fast');
+            }
+
+        });
+    });
+</script>
+
+</html>

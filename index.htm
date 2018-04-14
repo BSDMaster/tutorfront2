@@ -45,9 +45,13 @@
   <link href="./css/override.css" rel="stylesheet">
   <!--Google Map-->
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3CqYZxIposJwTiB-GAGSYBRRHIi0x6_Y&libraries=places&language=th-TH"></script>
+  <!-- Bootstrap Date-Picker Plugin -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"
+  />
 
   <script>
-    //_gUserEmail = 'tutor1@gmail.com';  //bypass login
+    _gUserEmail = 'tutor1@gmail.com';  //bypass login
     _gUserType = 'student';
     _gRec = {
       recId: null,
@@ -65,7 +69,32 @@
   </script>
 </head>
 
-<body data-gr-c-s-loaded="true">
+<body data-gr-c-s-loaded="true" style="padding-top: 0px;">
+  <nav id="divFirstNavBar" class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+      <a class="navbar-brand mb-0 h1"></a>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="nav navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="javascript:changePage('./html/rate.html');">อัตราค่าเรียน</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="javascript:changePage('./html/registerClass.html');">สมัครเรียน</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="javascript:changePage('./html/registertutor.html');">สมัครติวเตอร์</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="javascript:changePage('./html/contact.html');">ติดต่อเรา</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="javascript:changePage('./html/login.html');">เข้าสู่ระบบ</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </nav>
   <nav id="divMainNavBar" class="navbar navbar-expand-lg navbar-dark bg-primary" style="display:none;">
 
     <div class="container-fluid">
@@ -82,8 +111,8 @@
             <a class="nav-link" href="javascript:changePage('./html/schedule.html');">ตารางสอน</a>
           </li>
           <li class="nav-item" id="nav-itm-tutor-schedule">
-              <a class="nav-link" href="javascript:changePage('./html/schedule.html');">ตารางสอน</a>
-            </li>
+            <a class="nav-link" href="javascript:changePage('./html/schedule.html');">ตารางสอน</a>
+          </li>
           <li class="nav-item" id="nav-itm-rate">
             <a class="nav-link" href="javascript:changePage('./html/rate.html');">อัตราค่าเรียน</a>
           </li>
@@ -100,7 +129,9 @@
 
             <a id="divShowUser" class="nav-link dropdown-toggle" data-toggle="dropdown">User</a>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="javascript:changePage('./html/profile.html');">ข้อมูลส่วนตัว</a>
+              <a class="dropdown-item" id="nav-itm-student-profile" href="javascript:changePage('./html/studentprofile.html');">ข้อมูลส่วนตัว</a>
+              <a class="dropdown-item" id="nav-itm-tutor-profile" href="javascript:changePage('./html/tutorprofile.html');">ข้อมูลส่วนตัว</a>
+              <a class="dropdown-item" href="javascript:changePage('./html/changepassword.html');">เปลี่ยนรหัสผ่าน</a>
               <a class="dropdown-item" href="javascript:logout();">ออกจากระบบ</a>
             </div>
           </li>
@@ -120,7 +151,7 @@
     jQuery(document).ready(function () {
       console.log("ready!");
       if (_gUser.turId == null) {
-        jQuery("#divMainContainer").load('./html/login.html');
+        jQuery("#divMainContainer").load('./html/rate.html');
       }
       else {
         loadMainPage();
@@ -132,16 +163,17 @@
     }
 
     function login(email, password, userType) {
+      _gUserEmail = email;
       var data = {
         email: email,
         password: password
       }
       //if(_gUserEmail){   //call web service for check user credential
 
-      
+
       $.ajax({
         type: "POST",
-        url: _gServiceURL+"tutor/login",
+        url: _gServiceURL + "tutor/login",
         data: JSON.stringify(data),
         contentType: "application/json; charset=utf-8",
         crossDomain: true,
@@ -160,7 +192,7 @@
           alert('fail' + status.code);
         }
       });
-      
+
 
       //testOnly
       if (userType == "tutor") {
@@ -177,7 +209,7 @@
 
     function loadMainPage() {
       if (_gUser.turId != null) {
-        
+        jQuery("#divFirstNavBar").css('display', 'none');
         jQuery("#divMainNavBar").css('display', '');
         jQuery("#divShowUser").html(_gUser.turName);
 
@@ -190,6 +222,8 @@
           jQuery("#nav-itm-rate").hide();
           jQuery("#nav-itm-publishJob").show();
           jQuery("#nav-itm-registerClass").hide();
+          jQuery("#nav-itm-student-profile").hide();
+          jQuery("#nav-itm-tutor-profile").show();
         }
         else {
           jQuery("#divMainContainer").load('./html/mainStudent.html');
@@ -198,6 +232,8 @@
           jQuery("#nav-itm-rate").show();
           jQuery("#nav-itm-publishJob").hide();
           jQuery("#nav-itm-registerClass").show();
+          jQuery("#nav-itm-student-profile").show();
+          jQuery("#nav-itm-tutor-profile").hide();
         }
       }
       else {
@@ -207,8 +243,10 @@
 
     function logout() {
       //_gUserEmail = null;
-      jQuery("#divMainContainer").load('./html/login.html');
+      jQuery("#divMainContainer").load('./html/rate.html');
       jQuery("#divMainNavBar").css('display', 'none');
+      jQuery("#divFirstNavBar").css('display', '');
+
     }
   </script>
 

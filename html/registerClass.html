@@ -6,7 +6,17 @@
 </head>
 
 <body>
-
+    <div>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="#">หน้าหลัก</a>
+            </li>
+            <li class="breadcrumb-item active">วิชาที่ต้องการสมัครเรียน</li>
+        </ol>
+    </div>
+    <br>
+    <div class="label-header">วิชาที่ต้องการสมัครเรียน</div>
+    <br>
     <ul class="nav nav-tabs">
         <li class="nav-item active">
             <a data-toggle="tab" href="#tabRegisterClass">ลงทะเบียนเรียน</a>
@@ -15,10 +25,8 @@
             <a data-toggle="tab" href="#tabRegisterStudentDetail">ยืนยันข้อมูลนักเรียน</a>
         </li>
     </ul>
-
     <div id="myTabContent" class="tab-content">
         <div class="tab-pane fade in active" id="tabRegisterClass">
-            <div class="label-header">วิชาที่ต้องการสมัครเรียน</div>
             <!-- Button trigger modal -->
             <button id="btnAddClass" type="button" class="btn btn-primary container-btn-add-right" data-toggle="modal" data-target="#modalAddRegisterClass">
                 เพิ่ม

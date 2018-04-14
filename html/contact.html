@@ -2,107 +2,23 @@
 <html>
 
 <head>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-8">
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3CqYZxIposJwTiB-GAGSYBRRHIi0x6_Y&libraries=places&language=en&callback=initMap"></script>
-
 </head>
 
 <body>
-    ติดต่อเรา
-    <div class="form-group">
-        <label for="txtStartPlace">สถานที่เริ่มต้นเดินทาง</label>
-        <div class="input-group">
-            <input type="text" class="form-control" id="txtStartPlace" value="SiamParagon" readonly>
-            <button id="btnStartGoogleMap" type="button" class="btn btn-secondary input-group-btn btn-google-pin" data-toggle="modal"
-                data-target="#modalGoogleMap">
-                <div class="img-google-pin"></div>
-            </button>
-        </div>
+    <div>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="#">หน้าหลัก</a>
+            </li>
+            <li class="breadcrumb-item active">ติดต่อเรา</li>
+        </ol>
     </div>
-    <div class="modal fade" id="modalGoogleMap" tabindex="-1" role="dialog" aria-labelledby="modalGoogleMapLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-body" style="width:500px;height:500px">
-                    <input id="pac-input" class="controls" type="text" placeholder="Enter a location">
-                    <!--<input type="text" class="form-control" id="address" value="จุฬาลงกรณ์มหาวิทยาลัย"></input>
-                                   <button id="btnSubmitAddress" type="button" class="btn btn-default input-group-btn btn-google-search" value="Geocode">
-                                ค้นหา
-                            </button>-->
-                    <div id="map" class="map"></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="btnSaveAddDetail">ตกลง</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <br>
+    <div class="label-header">ติดต่อเรา</div>
+    <br>
 </body>
 <script>
-    var marker = null;
-    function placeMarker(location) {
-        marker.setPosition(location);
-        console.log(location);
-    }
-    function initMap() {
-        console.log("INIT MAP");
-        var map = new google.maps.Map(document.getElementById('map'), {
-            center: { lat: 13.736334, lng: 100.531102 },
-            zoom: 15,
-            disableDefaultUI: true
-        });
 
-
-        var input = document.getElementById('pac-input');
-        var options = {
-            types: ['establishment']
-        };
-
-        var autocomplete = new google.maps.places.Autocomplete(input, options);
-
-
-        autocomplete.bindTo('bounds', map);
-
-        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-        var geocoder = new google.maps.Geocoder;
-        marker = new google.maps.Marker({
-            map: map
-        });
-
-        google.maps.event.addListener(map, 'click', function (event) {
-            placeMarker(event.latLng);
-        });
-
-        autocomplete.addListener('place_changed', function () {
-            console.log("Place Changed");
-            var place = autocomplete.getPlace();
-            console.log(place);
-            console.log(place.place_id);
-            if (!place.place_id) {
-                return;
-            }
-            geocoder.geocode({ 'placeId': place.place_id }, function (results, status) {
-
-                if (status !== 'OK') {
-                    window.alert('Geocoder failed due to: ' + status);
-                    return;
-                }
-                console.log(place.place_id);
-                map.setZoom(11);
-                map.setCenter(results[0].geometry.location);
-                // Set the position of the marker using the place ID and location.
-                marker.setPlace({
-                    placeId: place.place_id,
-                    location: results[0].geometry.location
-                });
-                marker.setVisible(true);
-            });
-        });
-
-
-    }
 
 </script>
 
