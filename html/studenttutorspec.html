@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <div>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="#">หน้าหลัก</a>
+            </li>
+            <li class="breadcrumb-item active">ลำดับปัจจัยที่ใช้ในการคัดเลือกติวเตอร์</li>
+        </ol>
+    </div>
+    <br>
+    <div class="alert alert-dismissible alert-success" style="display: none;">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>บันทึกข้อมูลสำเร็จ</strong>
+    </div>
+    <div class="alert alert-dismissible alert-danger" style="display: none;">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>ไม่สามารถบันทึกข้อมูลได้</strong>
+    </div>
+    <div class="label-header">ลำดับปัจจัยที่ใช้ในการคัดเลือกติวเตอร์</div>
+    <br>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="form-group col-lg-12">
+                <div class="col-lg-7">
+                    <table class="table table-bordered pagin-table">
+                        <thead>
+                            <tr>
+                                <th width="50px">#</th>
+                                <th>ปัจจัย</th>
+                            </tr>
+                        </thead>
+                        <tbody id="sort-table">
+                            <tr>
+                                <td>1</td>
+                                <td>เพศของติวเตอร์</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>สถาบันของติวเตอร์</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>คณะของติวเตอร์</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>ประสบการณ์ของติวเตอร์</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>คะแนนประเมินของติวเตอร์</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-lg-5"></div>
+            </div>
+            <div class="form-group col-lg-12">
+                <div class="col-lg-4"></div>
+                <div class="col-lg-4">
+                    <button type="button" class="btn btn-primary" id="btnUpdateProfile">บันทึก</button>
+                    <button type="button" class="btn btn-secondary" href="javascript:loadMainPage();">ยกเลิก</button>
+                </div>
+                <div class="col-lg-4"></div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+   
+    $('#sort-table').sortable();
+    $("#btnUpdateProfile").on("click", function (e) {
+        // create new class
+        var row1 = $('#sort-table tr:nth-child(1) td:nth-child(1)').text();
+        var row2 = $('#sort-table tr:nth-child(2) td:nth-child(1)').text();
+        var row3 = $('#sort-table tr:nth-child(3) td:nth-child(1)').text();
+        var row4 = $('#sort-table tr:nth-child(4) td:nth-child(1)').text();
+        var row5 = $('#sort-table tr:nth-child(5) td:nth-child(1)').text();
+        var tutorSpecOrder = [row1, row2, row3, row4, row5];
+
+    });
+</script>
+
+</html>

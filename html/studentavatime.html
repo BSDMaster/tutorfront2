@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <div>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="#">หน้าหลัก</a>
+            </li>
+            <li class="breadcrumb-item active">เวลาว่างของนักเรียน</li>
+        </ol>
+    </div>
+    <br>
+    <div class="alert alert-dismissible alert-success" style="display: none;">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>บันทึกข้อมูลสำเร็จ</strong>
+    </div>
+    <div class="alert alert-dismissible alert-danger" style="display: none;">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>ไม่สามารถบันทึกข้อมูลได้</strong>
+    </div>
+    <br>
+    <div class="label-header">เวลาว่างของนักเรียน</div>
+    <button id="btnAddStuTime" type="button" class="btn btn-primary container-btn-add-right" data-toggle="modal" data-target="#modalTimeDetail">
+        เพิ่ม
+    </button>
+
+    <table id="gridStuTime" class="table table-condensed table-hover table-striped scroll">
+        <thead>
+            <tr>
+                <th data-column-id="id" data-identifier="true" data-type="numeric" data-width="5%">#</th>
+                <th data-column-id="day" data-width="10%">วัน</th>
+                <th data-column-id="startTime" data-width="20%">เวลาเริ่ม</th>
+                <th data-column-id="endTime" data-width="20%">เวลาสิ้นสุด</th>
+                <th data-column-id="location" data-width="35%">สถานที่เรียน</th>
+                <th data-column-id="action" data-sortable="false" data-searchable="false" data-width="10%">Action</th>
+            </tr>
+        </thead>
+    </table>
+
+    <br>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="form-group col-lg-12">
+                <div class="col-lg-4"></div>
+                <div class="col-lg-4">
+                    <button type="button" class="btn btn-primary" id="btnUpdateStudentTime">บันทึก</button>
+                    <button type="button" class="btn btn-secondary" href="javascript:loadMainPage();">ยกเลิก</button>
+                </div>
+                <div class="col-lg-4"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Add JobDetail-->
+    <div class="modal fade" id="modalTimeDetail" tabindex="-1" role="dialog" aria-labelledby="modalTimeDetailLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTimeDetailLabel">เพิ่มวัน เวลา สถานที่เรียน</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group required" id='groupCopyFromDay'>
+                            <label for="dropdownCopyFromDay" class="labelform">สำเนาจาก</label>
+                            <select class="custom-select" id="dropdownCopyFromDay">
+                            </select>
+                        </div>
+                        <div class="form-group required">
+                            <label for="dropdownDay" class="labelform">วัน</label>
+                            <select class="custom-select" id="dropdownDay">
+                            </select>
+                        </div>
+                        <div class="form-group required">
+                            <label for="dropdownStartTime" class="labelform">เวลาเริ่มต้น</label>
+                            <select class="custom-select" id="dropdownStartTime">
+                            </select>
+                        </div>
+                        <div class="form-group required">
+                            <label for="dropdownEndTime" class="labelform">เวลาสิ้นสุด</label>
+                            <select class="custom-select" id="dropdownEndTime">
+                            </select>
+                        </div>
+                        <div class="form-group required">
+                            <label for="txtPlace" class="labelform">สถานที่เรียน</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="txtPlace" readonly>
+                                <button id="btnStudentGoogleMap" type="button" class="btn btn-secondary input-group-btn btn-google-pin" data-toggle="modal"
+                                    data-target="#modalStudentGoogleMap">
+                                    <div class="img-google-pin"></div>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnSaveAddTime">ตกลง</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal Add Google map-->
+    <div class="modal fade" id="modalStudentGoogleMap" tabindex="-1" role="dialog" aria-labelledby="modalStudentGoogleMapLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content contentmap">
+                <div class="modal-body mapbody">
+                    <div style="display:block">
+                        <input id="pac-input" class="controls" type="text" placeholder="Enter a location">
+                    </div>
+                    <div id="map" class="map"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    _isInitGmapStartAndEndPlace = false;
+    var marker = null;
+    var avatimes = [];
+
+    for (var i = 0; i < dataTime.length; i++) {
+        $('#dropdownStartTime').append('<option value="' + dataTime[i].val + '">' + dataTime[i].name + '</option>');
+        $('#dropdownEndTime').append('<option value="' + dataTime[i].val + '">' + dataTime[i].name + '</option>');
+    }
+
+    jQuery(document).ready(function () {
+        initialStudentTime();
+    });
+
+
+    function initialStudentTime() {
+
+        $.ajax({
+            type: "GET",
+            url: _gServiceURL + "student/getprofile/" + _gUser.stuId,
+            contentType: "application/json; charset=utf-8",
+            crossDomain: true,
+            dataType: "json",
+            success: function (data, status, jqXHR) {
+                avatimes = data.data.student.studentAvailableTimelocations;
+                console.log(avatimes);
+                for (var i = 0; i < avatimes.length; i++) {
+                    appendTime(avatimes[i], i);
+                }
+            },
+            error: function (jqXHR, status) {
+            }
+
+        });
+    }
+
+
+    var gridStuTime = $("#gridStuTime").bootgrid({
+        navigation: 0,
+        labels: {
+            noResults: 'ไม่พบรายการ'
+        }
+    }).on("loaded.rs.jquery.bootgrid", function () {
+        gridStuTime.find(".command-edit").on("click", function (e) {
+            var i = parseInt($(this).data("row-id"));
+            //initialEditPopup(i);
+            edittime(i);
+        }).end().find(".command-delete").on("click", function (e) {
+            var i = parseInt($(this).data("row-id"));
+            var dayName = dataDay[avatimes[i].savDayId - 1].name;
+            var result = confirm("ต้องการลบรายการ " + dayName + " ใช่หรือไม่?");
+            if (result) {
+                avatimes.splice(i, 1);
+                refreshGridDetailDayList();
+            }
+        });
+    });
+
+
+    function appendTime(time, i) {
+        var dayName = dataDay[time.savDayId - 1].name;
+        console.log("time.savStartTime " + time.savStartTime);
+        console.log("time.savEndTime " + time.savEndTime);
+        var startTimes = dataTime.filter(function (el) {
+            return el.val == time.savStartTime;
+        });
+        var startTime = "";
+        if (startTimes[0]) {
+            startTime = startTimes[0];
+        }
+        var endTimes = dataTime.filter(function (el) {
+            return el.val == time.savEndTime;
+        });
+        var endTime = "";
+        if (endTimes[0]) {
+            endTime = endTimes[0];
+        }
+        console.log(startTime);
+        console.log(endTime);
+
+        gridStuTime.bootgrid("append", [
+            {
+                "id": i + 1,
+                "day": dayName,
+                "startTime": startTime.name,
+                "endTime": endTime.name,
+                "location": time.savLocation,
+                "action": "<button id='btnEditAvaTime' type='button' class='btn btn-xs btn-default command-edit' data-row-id='" + i + "'><div class='fa-pencil'></div></button> "
+                    + "<button id='btnDeleteAvaTime' type='button' class='btn btn-xs btn-default command-delete' data-row-id='" + i + "'><div class='fa-trash-o'></div></button>"
+            }
+        ]);
+    }
+
+    function edittime(i) {
+        assignDropDownValueDayEdit();
+        $('#btnSaveAddTime').val(i);
+        var location = new google.maps.LatLng(avatimes[i].savLat, avatimes[i].savLong);
+        $('#modalTimeDetailLabel').text('แก้ไขวัน เวลา สถานที่เรียน');
+        $('#dropdownDay').val(avatimes[i].savDayId);
+        $('#dropdownDay').prop('disabled', true);
+        $('#dropdownStartTime').val(avatimes[i].savStartTime);
+        $('#dropdownEndTime').val(avatimes[i].savEndTime);
+        $('#txtPlace').val(avatimes[i].savLocation);
+        $('#btnStudentGoogleMap').val(location);
+        $('#groupCopyFromDay').hide();
+        $('#modalTimeDetail').modal('show');
+    }
+
+
+
+    $("#btnAddStuTime").on("click", function (e) {
+        assignDropDownValueDayAdd();
+        $('#btnSaveAddTime').val(-1);
+        $('#modalTimeDetailLabel').text('เพิ่มวัน เวลา สถานที่เรียน');
+        $('#dropdownCopyFromDay').val($("#dropdownCopyFromDay option:first").val());
+        $('#dropdownDay').val($("#dropdownDay option:first").val());
+        $('#dropdownDay').prop('disabled', false);
+        $('#dropdownStartTime').val($("#dropdownStartTime option:first").val());
+        $('#dropdownEndTime').val($("#dropdownEndTime option:first").val());
+        $('#txtPlace').val("");
+        var days = avatimes.filter(function (el) {
+            return el.savDayId == $('#dropdownCopyFromDay').val();
+        });
+        if (days) {
+            var applyDay = days[0];
+            var location = new google.maps.LatLng(applyDay.savLat, applyDay.savLong);
+            $('#dropdownStartTime').val(applyDay.savStartTime);
+            $('#dropdownEndTime').val(applyDay.savEndTime);
+            $('#txtPlace').val(applyDay.savLocation);
+            $('#btnStudentGoogleMap').val(location);
+        }
+        $('#groupCopyFromDay').show();
+    });
+    $("#btnEditAvaTime").on("click", function (e) {
+        //assignDropDownValueDayEdit();
+    });
+    function assignDropDownValueDayAdd() {
+        $('#dropdownCopyFromDay').empty();
+        $('#dropdownDay').empty();
+        for (var i = 0; i < dataDay.length; i++) {
+            var days = avatimes.filter(function (el) {
+                return el.savDayId == dataDay[i].val;
+            });
+            if (days.length > 0) {
+                $('#dropdownCopyFromDay').append('<option value="' + dataDay[i].val + '">' + dataDay[i].name + '</option>');
+            } else {
+                $('#dropdownDay').append('<option value="' + dataDay[i].val + '">' + dataDay[i].name + '</option>');
+            }
+        }
+    }
+
+    function assignDropDownValueDayEdit() {
+        $('#dropdownCopyFromDay').empty();
+        $('#dropdownDay').empty();
+        for (var i = 0; i < dataDay.length; i++) {
+            $('#dropdownCopyFromDay').append('<option value="' + dataDay[i].val + '">' + dataDay[i].name + '</option>');
+            $('#dropdownDay').append('<option value="' + dataDay[i].val + '">' + dataDay[i].name + '</option>');
+        }
+    }
+
+    $("#dropdownCopyFromDay").change(function () {
+        var coppiedDay = $(this).val();
+        var days = avatimes.filter(function (el) {
+            return el.savDayId == coppiedDay;
+        });
+        if (days) {
+            var applyDay = days[0];
+            var location = new google.maps.LatLng(applyDay.savLat, applyDay.savLong);
+            $('#dropdownStartTime').val(applyDay.savStartTime);
+            $('#dropdownEndTime').val(applyDay.savEndTime);
+            $('#txtPlace').val(applyDay.savLocation);
+            $('#btnStudentGoogleMap').val(location);
+        }
+    });
+    $("#btnStudentGoogleMap").on("click", function (e) {
+        var address = $('#txtPlace').val();
+        $('#pac-input').val(address);
+
+        if (_isInitGmapStartAndEndPlace == false) {
+            _isInitGmapStartAndEndPlace = true;
+            initMap();
+        }
+        var location = $(this).val();
+        if (location) {
+            location = location.replace('(', '');
+            location = location.replace(')', '');
+            var loc = location.split(",");
+            var lat = parseFloat(loc[0]);
+            var lng = parseFloat(loc[1]);
+            var latLog = new google.maps.LatLng(lat, lng);
+            marker.setPosition(latLog);
+            var map = marker.map;
+            map.setCenter(latLog);
+        }
+    });
+
+    function initMap() {
+        console.log("INIT MAP");
+        var geocoder = new google.maps.Geocoder;
+        var latLog = new google.maps.LatLng(13.736334, 100.531102);
+        var map = new google.maps.Map(document.getElementById('map'), {
+            center: latLog,
+            zoom: 15,
+            disableDefaultUI: true
+        });
+        // Set marker
+        marker = new google.maps.Marker({
+            map: map,
+            position: latLog
+        });
+        google.maps.event.addListener(map, 'click', function (event) {
+            setPlaceMarker(event.latLng, geocoder);
+        });
+
+        // Search box and auto complete
+        var input = document.getElementById('pac-input');
+        var options = {
+            types: ['establishment']
+        };
+        var autocomplete = new google.maps.places.Autocomplete(input);
+        autocomplete.bindTo('bounds', map);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        autocomplete.addListener('place_changed', function () {
+            console.log("Place Changed");
+            var place = autocomplete.getPlace();
+            placeChangedByAutoComplete(autocomplete.getPlace(), map, geocoder);
+        });
+
+    }
+
+    function setPlaceMarker(location, geocoder) {
+        marker.setPosition(location);
+        console.log(location);
+        findAddressFromLocation(location, geocoder);
+    }
+
+    function placeChangedByAutoComplete(place, map, geocoder) {
+        console.log(place);
+        console.log(place.place_id);
+        if (!place.place_id) {
+            return;
+        }
+        geocoder.geocode({ 'placeId': place.place_id }, function (results, status) {
+            if (status !== 'OK') {
+                window.alert('Geocoder failed due to: ' + status);
+                return;
+            }
+            console.log(place.place_id);
+            map.setZoom(15);
+            map.setCenter(results[0].geometry.location);
+            // Set the position of the marker using the place ID and location.
+            marker.setPlace({
+                placeId: place.place_id,
+                location: results[0].geometry.location
+            });
+            var address = $('#pac-input').val();
+            $('#btnStudentGoogleMap').val(results[0].geometry.location);
+            $('#txtPlace').val(address);
+
+            $('#modalStudentGoogleMap').modal('hide');
+
+        });
+    }
+
+    function findAddressFromLocation(latLng, geocoder) {
+        geocoder.geocode({ 'latLng': latLng }, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                console.log(results[0]);
+                var address = results[0].formatted_address;
+                $('#pac-input').val(address);
+                $('#btnStudentGoogleMap').val(latLng);
+                $('#txtPlace').val(address);
+                $('#modalStudentGoogleMap').modal('hide');
+            }
+            else {
+                console.log("Geocoding failed: " + status);
+            }
+        });
+    }
+
+
+    function geocodeAddress(geocoder, resultsMap) {
+        var address = document.getElementById('address').value;
+        geocoder.geocode({ 'address': address }, function (results, status) {
+            if (status === 'OK') {
+                resultsMap.setCenter(results[0].geometry.location);
+
+                var marker = new google.maps.Marker({
+                    map: resultsMap,
+                    position: results[0].geometry.location
+                });
+            } else {
+                alert('Geocode was not successful for the following reason: ' + status);
+            }
+        });
+    }
+    function geocodePlaceId(geocoder, map, placeId) {
+        geocoder.geocode({ 'placeId': placeId }, function (results, status) {
+            if (status === 'OK') {
+                console.log('PLACE');
+                if (results[0]) {
+                    console.log(results[0]);
+                } else {
+                    window.alert('No results found');
+                }
+            } else {
+                window.alert('Geocoder failed due to: ' + status);
+            }
+        });
+    }
+    $("#btnSaveAddTime").on("click", function (e) {
+        var selectedDay = $("#dropdownDay option:selected").val();
+        var selectedStartTime = $("#dropdownStartTime option:selected").val();
+        var selectedEndTime = $("#dropdownEndTime option:selected").val();
+        var txtPlace = $("#txtPlace").val();
+        console.log(txtPlace);
+        var location = $('#btnStudentGoogleMap').val();
+        location = location.replace('(', '');
+        location = location.replace(')', '');
+        var loc = location.split(",");
+        console.log(loc);
+        var i = $(this).val();
+
+        if (i == -1) {
+            var timeloc = {
+                "savDayId": selectedDay,
+                "savEndTime": selectedEndTime,
+                "savLat": loc[0],
+                "savLocation": txtPlace,
+                "savLong": loc[1],
+                "savStartTime": selectedStartTime,
+                "savStuId": _gUser.stuId
+            };
+            console.log(timeloc);
+            avatimes.push(timeloc);
+        } else {
+            var timeloc = avatimes[i];
+            timeloc.savLocation = txtPlace;
+            timeloc.savLat = loc[0];
+            timeloc.savLong = loc[1];
+            timeloc.savStartTime = selectedStartTime;
+            timeloc.savEndTime = selectedEndTime;
+            avatimes[i] = timeloc;
+        }
+        refreshGridDetailDayList();
+        $('#modalTimeDetail').modal('hide');
+    });
+
+    function refreshGridDetailDayList() {
+        gridStuTime.bootgrid('clear');
+        for (var j = 0; j < avatimes.length; j++) {
+            console.log("data : " + avatimes[j]);
+            appendTime(avatimes[j], j);
+        }
+    }
+
+    $("#btnUpdateStudentTime").on("click", function (e) {
+       
+        var updateStudent = {
+            stuId: parseInt(_gUser.stuId),
+            studentAvailableTimelocations: avatimes
+        }
+        console.log(updateStudent);
+
+        $.ajax({
+            type: "POST",
+            url: _gServiceURL + "student/updateavatimes",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(updateStudent),
+            crossDomain: true,
+            dataType: "json",
+            success: function (data, status, jqXHR) {
+                $(".alert-danger").hide();
+                $(".alert-success").show();
+                $('html, body').animate({ scrollTop: $('.breadcrumb').offset().top }, 'fast');
+            },
+            error: function (jqXHR, status) {
+                $(".alert-success").hide();
+                $(".alert-danger").show();
+                $('html, body').animate({ scrollTop: $('.breadcrumb').offset().top }, 'fast');
+            }
+
+        });
+
+    });
+
+</script>
+
+</html>

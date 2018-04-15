@@ -201,3 +201,10 @@ div.container-center p {
     margin-left:-40px;
     padding:10px;
 }
+.box-scroll{
+    border-spacing: 0;
+    border: 1px solid lightgray;
+    width: 100%;
+    height: 100px;
+    overflow-y: auto;
+}

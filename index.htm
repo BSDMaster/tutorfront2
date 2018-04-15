@@ -50,8 +50,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"
   />
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.css" rel="stylesheet">
+
+
   <script>
-    _gUserEmail = 'tutor1@gmail.com';  //bypass login
+    _gUserEmail = 'student1@gmail.com';  //bypass login
     _gUserType = 'student';
     _gRec = {
       recId: null,
@@ -59,13 +63,132 @@
     };
     _gUser = {
       turId: null,
-      turName: null
+      turName: null,
+      stuId: null,
+      stuName: null
     };
     _gUser.turId = null;
     _gUser.turName = null;
+    _gUser.stuId = null;
+    _gUser.stuName = null;
     _gNoResultFound = 'ไม่พบรายการ';
     _gServiceURL = 'http://localhost:8080/tutormatchingservices-0.0.1-SNAPSHOT/';
-
+    //day
+    dataDay = [{
+      name: "จันทร์", val: "1"
+    }, {
+      name: "อังคาร", val: "2"
+    }, {
+      name: "พุธ", val: "3"
+    }, {
+      name: "พฤหัสบดี", val: "4"
+    }, {
+      name: "ศุกร์", val: "5"
+    }, {
+      name: "เสาร์", val: "6"
+    }, {
+      name: "อาทิตย์", val: "7"
+    }];
+    //time
+    dataTime = [{
+      name: "8.00 น.", val: "8"
+    }, {
+      name: "8.15 น.", val: "8.15"
+    }, {
+      name: "8.30 น.", val: "8.3"
+    }, {
+      name: "8.45 น.", val: "8.45"
+    }, {
+      name: "9.00 น.", val: "9"
+    }, {
+      name: "9.15 น.", val: "9.15"
+    }, {
+      name: "9.30 น.", val: "9.3"
+    }, {
+      name: "9.45 น.", val: "9.45"
+    }, {
+      name: "10.00 น.", val: "10"
+    }, {
+      name: "10.15 น.", val: "10.15"
+    }, {
+      name: "10.30 น.", val: "10.3"
+    }, {
+      name: "10.45 น.", val: "10.45"
+    }, {
+      name: "11.00 น.", val: "11"
+    }, {
+      name: "11.15 น.", val: "11.15"
+    }, {
+      name: "11.30 น.", val: "11.3"
+    }, {
+      name: "11.45 น.", val: "11.45"
+    }, {
+      name: "12.00 น.", val: "12"
+    }, {
+      name: "12.15 น.", val: "12.15"
+    }, {
+      name: "12.30 น.", val: "12.3"
+    }, {
+      name: "12.45 น.", val: "12.45"
+    }, {
+      name: "13.00 น.", val: "13"
+    }, {
+      name: "13.15 น.", val: "13.15"
+    }, {
+      name: "13.30 น.", val: "13.3"
+    }, {
+      name: "13.45 น.", val: "13.45"
+    }, {
+      name: "14.00 น.", val: "14"
+    }, {
+      name: "14.15 น.", val: "14.15"
+    }, {
+      name: "14.30 น.", val: "14.3"
+    }, {
+      name: "14.45 น.", val: "14.45"
+    }, {
+      name: "15.00 น.", val: "15"
+    }, {
+      name: "15.15 น.", val: "15.15"
+    }, {
+      name: "15.30 น.", val: "15.3"
+    }, {
+      name: "15.45 น.", val: "15.45"
+    }, {
+      name: "16.00 น.", val: "16"
+    }, {
+      name: "16.15 น.", val: "16.15"
+    }, {
+      name: "16.30 น.", val: "16.3"
+    }, {
+      name: "16.45 น.", val: "16.45"
+    }, {
+      name: "17.00 น.", val: "17"
+    }, {
+      name: "17.15 น.", val: "17.15"
+    }, {
+      name: "17.30 น.", val: "17.3"
+    }, {
+      name: "17.45 น.", val: "17.45"
+    }, {
+      name: "18.00 น.", val: "18"
+    }, {
+      name: "18.15 น.", val: "18.15"
+    }, {
+      name: "18.30 น.", val: "18.3"
+    }, {
+      name: "18.45 น.", val: "18.45"
+    }, {
+      name: "19.00 น.", val: "19"
+    }, {
+      name: "19.15 น.", val: "19.15"
+    }, {
+      name: "19.30 น.", val: "19.3"
+    }, {
+      name: "19.45 น.", val: "19.45"
+    }, {
+      name: "20.00 น.", val: "20"
+    }];
   </script>
 </head>
 
@@ -119,8 +242,14 @@
           <li class="nav-item" id="nav-itm-publishJob">
             <a class="nav-link" href="javascript:changePage('./html/publishJob.html');">แก้ไขข้อมูลการรับงานสอน</a>
           </li>
+          <li class="nav-item" id="nav-itm-stu-avatime">
+            <a class="nav-link" href="javascript:changePage('./html/studentavatime.html');">แก้ไขวันและเวลาว่างของนักเรียน</a>
+          </li>
+          <li class="nav-item" id="nav-itm-stu-tutorspec">
+            <a class="nav-link" href="javascript:changePage('./html/studenttutorspec.html');">แก้ไขลำดับปัจจัยที่ใช้ในการคัดเลือกติวเตอร์</a>
+          </li>
           <li class="nav-item" id="nav-itm-registerClass">
-            <a class="nav-link" href="javascript:changePage('./html/registerClass.html');">สมัครเรียนเพิ่มเติม</a>
+            <a class="nav-link" href="javascript:changePage('./html/studenteditclass.html');">สมัครเรียนเพิ่มเติม</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="javascript:changePage('./html/contact.html');">ติดต่อเรา</a>
@@ -168,9 +297,17 @@
         email: email,
         password: password
       }
-      //if(_gUserEmail){   //call web service for check user credential
 
+      //testOnly
+      if (userType == "tutor") {
+        tutorLogin(data);
+      }
+      else {
+        studentLogin(data);
+      }
+    }
 
+    function tutorLogin(data) {
       $.ajax({
         type: "POST",
         url: _gServiceURL + "tutor/login",
@@ -181,72 +318,112 @@
         success: function (data, status, jqXHR) {
           _gUser.turId = data.data.id;
           _gUser.turName = data.data.name;
+          jQuery("#divShowUser").html(_gUser.turName);
           console.log(_gUser.turId);
           loadMainPage();
-          // alert("Tutor ID : " + data.data.id);
         },
 
         error: function (jqXHR, status) {
           // error handler
           console.log(jqXHR);
-          alert('fail' + status.code);
+          //alert('fail' + status.code);
         }
       });
+    }
 
+    function studentLogin(data) {
+      $.ajax({
+        type: "POST",
+        url: _gServiceURL + "student/login",
+        data: JSON.stringify(data),
+        contentType: "application/json; charset=utf-8",
+        crossDomain: true,
+        dataType: "json",
+        success: function (data, status, jqXHR) {
+          _gUser.stuId = data.data.id;
+          _gUser.stuName = data.data.name;
+          jQuery("#divShowUser").html(_gUser.stuName);
+          console.log(_gUser.stuId);
+          console.log(_gUser.stuName);
+          loadMainPage();
+        },
 
-      //testOnly
-      if (userType == "tutor") {
-        _gUser.turId = 1;
-        _gUser.turName = "Tutor1";
-      }
-      else {
-        _gUser.turId = 1;
-        _gUser.turName = "Student1";
-      }
+        error: function (jqXHR, status) {
+          // error handler
+          console.log(jqXHR);
+        }
+      });
+    }
 
-      loadMainPage();
+    function parentLogin(data) {
+      $.ajax({
+        type: "POST",
+        url: _gServiceURL + "parent/login",
+        data: JSON.stringify(data),
+        contentType: "application/json; charset=utf-8",
+        crossDomain: true,
+        dataType: "json",
+        success: function (data, status, jqXHR) {
+          //   _gUser.parId = data.data.id;
+          //   _gUser.parName = data.data.name;
+          //    jQuery("#divShowUser").html(_gUser.parName);
+          //    console.log(_gUser.parId);
+          //    console.log(_gUser.parName);
+          loadMainPage();
+        },
+
+        error: function (jqXHR, status) {
+          // error handler
+          console.log(jqXHR);
+        }
+      });
     }
 
     function loadMainPage() {
-      if (_gUser.turId != null) {
-        jQuery("#divFirstNavBar").css('display', 'none');
-        jQuery("#divMainNavBar").css('display', '');
-        jQuery("#divShowUser").html(_gUser.turName);
+      //   if (_gUser.turId != null) {
+      jQuery("#divFirstNavBar").css('display', 'none');
+      jQuery("#divMainNavBar").css('display', '');
+      //        jQuery("#divShowUser").html(_gUser.turName);
 
-        //_gUserType
-        console.log("_gUserType=", _gUserType);
-        if (_gUserType == "tutor") {
-          jQuery("#divMainContainer").load('./html/main.html');
-          jQuery("#nav-itm-student-schedule").hide();
-          jQuery("#nav-itm-tutor-schedule").show();
-          jQuery("#nav-itm-rate").hide();
-          jQuery("#nav-itm-publishJob").show();
-          jQuery("#nav-itm-registerClass").hide();
-          jQuery("#nav-itm-student-profile").hide();
-          jQuery("#nav-itm-tutor-profile").show();
-        }
-        else {
-          jQuery("#divMainContainer").load('./html/mainStudent.html');
-          jQuery("#nav-itm-student-schedule").show();
-          jQuery("#nav-itm-tutor-schedule").hide();
-          jQuery("#nav-itm-rate").show();
-          jQuery("#nav-itm-publishJob").hide();
-          jQuery("#nav-itm-registerClass").show();
-          jQuery("#nav-itm-student-profile").show();
-          jQuery("#nav-itm-tutor-profile").hide();
-        }
+      //_gUserType
+      console.log("_gUserType=", _gUserType);
+      if (_gUserType == "tutor") {
+        jQuery("#divMainContainer").load('./html/main.html');
+        jQuery("#nav-itm-student-schedule").hide();
+        jQuery("#nav-itm-tutor-schedule").show();
+        jQuery("#nav-itm-rate").hide();
+        jQuery("#nav-itm-publishJob").show();
+        jQuery("#nav-itm-registerClass").hide();
+        jQuery("#nav-itm-student-profile").hide();
+        jQuery("#nav-itm-tutor-profile").show();
+        jQuery("#nav-itm-stu-avatime").hide();
+        jQuery("#nav-itm-stu-tutorspec").hide();
+
       }
       else {
-        console.log("pls check user credential");
+        jQuery("#divMainContainer").load('./html/mainStudent.html');
+        jQuery("#nav-itm-student-schedule").show();
+        jQuery("#nav-itm-tutor-schedule").hide();
+        jQuery("#nav-itm-rate").show();
+        jQuery("#nav-itm-publishJob").hide();
+        jQuery("#nav-itm-registerClass").show();
+        jQuery("#nav-itm-student-profile").show();
+        jQuery("#nav-itm-tutor-profile").hide();
+        jQuery("#nav-itm-stu-avatime").show();
+        jQuery("#nav-itm-stu-tutorspec").show();
       }
     }
+    /*    else {
+          console.log("pls check user credential");
+        }
+      }*/
 
     function logout() {
       //_gUserEmail = null;
       jQuery("#divMainContainer").load('./html/rate.html');
       jQuery("#divMainNavBar").css('display', 'none');
       jQuery("#divFirstNavBar").css('display', '');
-
+      _gUserType = 'student';
     }
   </script>
 
