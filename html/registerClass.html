@@ -11,40 +11,216 @@
             <li class="breadcrumb-item">
                 <a href="#">หน้าหลัก</a>
             </li>
-            <li class="breadcrumb-item active">วิชาที่ต้องการสมัครเรียน</li>
+            <li class="breadcrumb-item active">สมัครเรียน</li>
         </ol>
     </div>
     <br>
-    <div class="label-header">วิชาที่ต้องการสมัครเรียน</div>
+    <div class="alert alert-dismissible alert-success" style="display: none;">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>บันทึกข้อมูลสำเร็จ</strong>
+    </div>
+    <div class="alert alert-dismissible alert-danger" style="display: none;">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>ไม่สามารถบันทึกข้อมูลได้</strong>
+    </div>
+    <div class="label-header">สมัครเรียน</div>
     <br>
     <ul class="nav nav-tabs">
         <li class="nav-item active">
-            <a data-toggle="tab" href="#tabRegisterClass">ลงทะเบียนเรียน</a>
+            <a data-toggle="tab" href="#tabRegisterStudentDetail">1. ข้อมูลส่วนตัว</a>
         </li>
         <li class="nav-item">
-            <a data-toggle="tab" href="#tabRegisterStudentDetail">ยืนยันข้อมูลนักเรียน</a>
+            <a data-toggle="tab" href="#tabRegisterClass">2. ลงทะเบียนเรียน</a>
         </li>
     </ul>
-    <div id="myTabContent" class="tab-content">
-        <div class="tab-pane fade in active" id="tabRegisterClass">
+    <br>
+    <div id="studentDetailTabContent" class="tab-content">
+        <div class="tab-pane fade in active" id="tabRegisterStudentDetail">
+            <div class="container-fluid">
+                <div class="row" style="padding-left: 30px;">
+                    <div class="col-lg-12">
+                        <form class="form-horizontal">
+                            <div class="form-group required">
+                                <label for="txtEmail" class="col-lg-2 labelform">อีเมล์</label>
+                                <div class="col-lg-4">
+                                    <input type="text" class="form-control" id="txtEmail">
+                                </div>
+                                <div class="col-lg-6"></div>
+                            </div>
+                            <div class="form-group required">
+                                <label for="txtNewPassword" class="col-lg-2 labelform">รหัสผ่านใหม่</label>
+                                <div class="col-lg-4">
+                                    <input type="password" class="form-control" id="txtNewPassword">
+                                </div>
+                                <div class="col-lg-6"></div>
+                            </div>
+                            <div class="form-group required">
+                                <label for="txtConfirmPassword" class="col-lg-2 labelform">ยืนยันรหัสผ่าน</label>
+                                <div class="col-lg-4">
+                                    <input type="password" class="form-control" id="txtConfirmPassword">
+                                </div>
+                                <div class="col-lg-6"></div>
+                            </div>
+                            <div class="h2 inner-tab">ข้อมูลส่วนตัว</div>
+                            <br>
+                            <div class="form-group required">
+                                <label for="txtFirstName" class="col-lg-2 labelform">ชื่อ</label>
+                                <div class="col-lg-4">
+                                    <input type="text" class="form-control" id="txtFirstName">
+                                </div>
+                                <div class="col-lg-6"></div>
+                            </div>
+                            <div class="form-group required">
+                                <label for="txtLastName" class="col-lg-2 labelform">นามสกุล</label>
+                                <div class="col-lg-4">
+                                    <input type="text" class="form-control" id="txtLastName">
+                                </div>
+                                <div class="col-lg-6"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtNickname" class="col-lg-2">ชื่อเล่น</label>
+                                <div class="col-lg-4">
+                                    <input type="text" class="form-control" id="txtNickname">
+                                </div>
+                                <div class="col-lg-6"></div>
+                            </div>
+                            <div class="form-group required">
+                                <label for="txtTel" class="col-lg-2 labelform">เบอร์โทรมือถือ</label>
+                                <div class="col-lg-4">
+                                    <input type="text" class="form-control" id="txtTel">
+                                </div>
+                                <div class="col-lg-6"></div>
+                            </div>
+                            <div class="form-group required">
+                                <label for="dropdownSex" class="col-lg-2 labelform">เพศ</label>
+                                <div class="col-lg-4">
+                                    <select class="custom-select" id="dropdownSex" required></select>
+                                </div>
+                                <div class="col-lg-6"></div>
+                            </div>
+                            <div class="form-group required">
+                                <label for="dropdownLevel" class="col-lg-2 labelform">ระดับชั้น</label>
+                                <div class="col-lg-4">
+                                    <select class="custom-select" id="dropdownLevel" required></select>
+                                </div>
+                                <div class="col-lg-6"></div>
+                            </div>
+                            <div class="form-group required">
+                                <label for="txtSchool" class="col-lg-2 labelform">สถานศึกษา</label>
+                                <div class="col-lg-4">
+                                    <input type="text" class="form-control" id="txtSchool">
+                                </div>
+                                <div class="col-lg-6"></div>
+                            </div>
+                            <div class="h2 inner-tab">วัน เวลาว่างและสถานที่เรียน</div>
+                            <br>
+                            <button id="btnAddStuTime" type="button" class="btn btn-primary container-btn-add-right" data-toggle="modal" data-target="#modalTimeDetail">
+                                เพิ่ม
+                            </button>
+
+                            <table id="gridStuTime" class="table table-condensed table-hover table-striped scroll">
+                                <thead>
+                                    <tr>
+                                        <th data-column-id="id" data-identifier="true" data-type="numeric" data-width="5%">#</th>
+                                        <th data-column-id="day" data-width="10%">วัน</th>
+                                        <th data-column-id="startTime" data-width="20%">เวลาเริ่ม</th>
+                                        <th data-column-id="endTime" data-width="20%">เวลาสิ้นสุด</th>
+                                        <th data-column-id="location" data-width="35%">สถานที่เรียน</th>
+                                        <th data-column-id="action" data-sortable="false" data-searchable="false" data-width="10%">Action</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                            <div class="modal fade" id="modalTimeDetail" tabindex="-1" role="dialog" aria-labelledby="modalTimeDetailLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="modalTimeDetailLabel">เพิ่มวัน เวลา สถานที่เรียน</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form>
+                                                <div class="form-group required" id='groupCopyFromDay'>
+                                                    <label for="dropdownCopyFromDay" class="labelform">สำเนาจาก</label>
+                                                    <select class="custom-select" id="dropdownCopyFromDay">
+                                                    </select>
+                                                </div>
+                                                <div class="form-group required">
+                                                    <label for="dropdownDay" class="labelform">วัน</label>
+                                                    <select class="custom-select" id="dropdownDay">
+                                                    </select>
+                                                </div>
+                                                <div class="form-group required">
+                                                    <label for="dropdownStartTime" class="labelform">เวลาเริ่มต้น</label>
+                                                    <select class="custom-select" id="dropdownStartTime">
+                                                    </select>
+                                                </div>
+                                                <div class="form-group required">
+                                                    <label for="dropdownEndTime" class="labelform">เวลาสิ้นสุด</label>
+                                                    <select class="custom-select" id="dropdownEndTime">
+                                                    </select>
+                                                </div>
+                                                <div class="form-group required">
+                                                    <label for="txtPlace" class="labelform">สถานที่เรียน</label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" id="txtPlace" readonly>
+                                                        <button id="btnStudentGoogleMap" type="button" class="btn btn-secondary input-group-btn btn-google-pin" data-toggle="modal"
+                                                            data-target="#modalStudentGoogleMap">
+                                                            <div class="img-google-pin"></div>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary" id="btnSaveAddTime">ตกลง</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- Modal Add Google map-->
+                            <div class="modal fade" id="modalStudentGoogleMap" tabindex="-1" role="dialog" aria-labelledby="modalStudentGoogleMapLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content contentmap">
+                                        <div class="modal-body mapbody">
+                                            <div style="display:block">
+                                                <input id="pac-input" class="controls" type="text" placeholder="Enter a location">
+                                            </div>
+                                            <div id="map" class="map"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="tab-pane fade" id="tabRegisterClass">
             <!-- Button trigger modal -->
-            <button id="btnAddClass" type="button" class="btn btn-primary container-btn-add-right" data-toggle="modal" data-target="#modalAddRegisterClass">
+            <button id="btnAddNewClass" type="button" class="btn btn-primary container-btn-add-right" data-toggle="modal" data-target="#modalAddRegisterClass">
                 เพิ่ม
             </button>
 
-            <table id="gridClass" class="table table-condensed table-hover table-striped">
+            <table id="gridEditClass" class="table table-condensed table-hover table-striped scroll">
                 <thead>
                     <tr>
-                        <th data-column-id="id" data-identifier="true" data-type="numeric">ลำดับ</th>
-                        <th data-column-id="class">วิชา</th>
-                        <th data-column-id="level">ระดับชั้น</th>
-                        <th data-column-id="exp">จำนวนผู้เรียน</th>
-                        <th data-column-id="exp">จำนวนวันเรียนต่อสัปดาห์</th>
-                        <th data-column-id="exp">จำนวนชั่วโมงต่อครั้ง</th>
-                        <th data-column-id="exp">จำนวนชั่วโมงต่องานสอน</th>
-                        <th data-column-id="exp">ราคาต่อชั่วโมงต่อคน</th>
-                        <th data-column-id="exp">ราคารวม</th>
-                        <th data-column-id="commands" data-formatter="commands" data-sortable="false"></th>
+                        <th data-column-id="id" data-identifier="true" data-type="numeric" data-width="3%">#</th>
+                        <th data-column-id="class" data-width="10%">วิชา</th>
+                        <th data-column-id="level" data-width="15%">ระดับชั้น</th>
+                        <th data-column-id="numStu" data-width="10%">จำนวนนักเรียน</th>
+                        <th data-column-id="numDay" data-width="13%">จำนวนวันเรียน/สัปดาห์</th>
+                        <th data-column-id="hoursPerDay" data-width="13%">จำนวนชั่วโมงเรียน/ครั้ง</th>
+                        <th data-column-id="totalHours" data-width="17%">จำนวนชั่วโมงเรียนโดยประมาณ</th>
+                        <th data-column-id="pricePerson" data-width="11%">ราคา/ชั่วโมง/คน</th>
+                        <th data-column-id="action" data-sortable="false" data-searchable="false" data-width="8%">Action</th>
                     </tr>
                 </thead>
             </table>
@@ -54,7 +230,7 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="modalAddClassLabel">เพิ่มวิชาที่ต้องการเรียน</h5>
+                            <h5 class="modal-title" id="modalAddSubjectClassLabel">เพิ่มวิชา</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -72,129 +248,921 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="dropdownExp">จำนวนผู้เรียน</label>
-                                    <select class="form-control" id="dropdownExp">
+                                    <label for="dropdownNumStu">จำนวนผู้เรียน</label>
+                                    <select class="form-control" id="dropdownNumStu">
                                         <option selected value="1">1 คน</option>
                                         <option value="2">2 คน</option>
                                         <option value="3">3 คน</option>
+                                        <option value="4">4 คนขึ้นไป</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="dropdownExp">จำนวนวันเรียนต่อสัปดาห์</label>
-                                    <select class="form-control" id="dropdownExp">
+                                    <label for="dropdownNumDayPerWeek">จำนวนวันเรียนต่อสัปดาห์</label>
+                                    <select class="form-control" id="dropdownNumDayPerWeek">
                                         <option selected value="1">1 วัน</option>
                                         <option value="2">2 วัน</option>
                                         <option value="3">3 วัน</option>
+                                        <option value="4">4 วัน</option>
+                                        <option value="5">5 วัน</option>
+                                        <option value="6">6 วัน</option>
+                                        <option value="3">7 วัน</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="dropdownExp">จำนวนชั่วโมงต่อครั้ง</label>
-                                    <select class="form-control" id="dropdownExp">
-                                        <option selected value="1">1 ชั่วโมง</option>
-                                        <option value="2">2 ชั่วโมง</option>
+                                    <label for="dropdownHours">จำนวนชั่วโมงเรียนต่อครั้ง</label>
+                                    <select class="form-control" id="dropdownHours">
+                                        <option selected value="2">2 ชั่วโมง</option>
                                         <option value="3">3 ชั่วโมง</option>
+                                        <option value="4">4 ชั่วโมง</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="dropdownExp">จำนวนชั่วโมงต่องานสอน</label>
-                                    <select class="form-control" id="dropdownExp">
-                                        <option selected value="1">1 ชั่วโมง</option>
-                                        <option value="2">2 ชั่วโมง</option>
-                                        <option value="3">3 ชั่วโมง</option>
+                                    <label for="dropdownTotalHours">จำนวนชั่วโมงเรียนโดยประมาณ</label>
+                                    <select class="form-control" id="dropdownTotalHours">
+                                        <option selected value="15">15 ชั่วโมง</option>
+                                        <option value="20">20 ชั่วโมง</option>
+                                        <option value="30">30 ชั่วโมง</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="dropdownExp">ราคาต่อชั่วโมงต่อคน</label>
-                                    <input type="email" class="form-control" id="txtStartPlace">
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="dropdownExp">ราคารวม</label>
-                                    <input type="email" class="form-control" id="txtStartPlace">
+                                    <label for="txtPrice">ราคาต่อชั่วโมงต่อคน</label>
+                                    <input type="text" class="form-control" id="txtPrice" readonly>
                                     </select>
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" id="btnSaveAddClass">ตกลง</button>
+                            <button type="button" class="btn btn-primary" id="btnSaveSubject">ตกลง</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
                         </div>
                     </div>
                 </div>
             </div>
-
+            <div>** หากเรียนมากกว่า 1 วิชาและต้องการระบุหลักสูตรหรือคุณสมบัติติวเตอร์แตกต่างกัน กรุณาเลือกเมนู "สมัครเรียนเพิ่มเติม"
+                หลังจากที่สมัครเรียนแล้ว
+            </div>
+            <br>
             <form>
-                <fieldset class="form-group">
+                <div class="container-fluid">
                     <div class="row">
-                        <div class="col-sm-2">หลักสูตร</div>
-                        <div class="col-sm-10">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
-                                <label class="form-check-label" for="gridRadios1">
-                                    เรียนและใช้เอกสารประกอบการเรียนเป็นภาษาไทย
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
-                                <label class="form-check-label" for="gridRadios2">
-                                    เรียนเป็นภาษาไทย และใช้เอกสารประกอบการเรียนเป็นภาษาอังกฤษ
-                                </label>
-                            </div>
-                            <div class="form-check disabled">
-                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option3" disabled>
-                                <label class="form-check-label" for="gridRadios3">
-                                    เรียนและใช้เอกสารประกอบการเรียนเป็นภาษาอังกฤษ
-                                </label>
+                        <div class="col-lg-12">
+                            <form class="form-horizontal">
+                                <div class="form-group required">
+                                    <label class="col-lg-1 labelform">หลักสูตร :</label>
+                                    <div class="col-lg-11">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="1" checked>
+                                            <label class="form-check-label" for="gridRadios1">
+                                                เรียนและใช้เอกสารประกอบการเรียนเป็นภาษาไทย
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="2">
+                                            <label class="form-check-label" for="gridRadios2">
+                                                เรียนเป็นภาษาไทย และใช้เอกสารประกอบการเรียนเป็นภาษาอังกฤษ
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="3">
+                                            <label class="form-check-label" for="gridRadios3">
+                                                เรียนและใช้เอกสารประกอบการเรียนเป็นภาษาอังกฤษ
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <form>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-12">
+
+                                <form class="form-horizontal">
+                                    <div class="h2 inner-tab">ข้อมูลส่วนตัว</div>
+                                    <div class="form-group col-lg-12">
+                                        <input type="checkbox" id="chkTutorSpec" checked>&nbsp&nbspระบุติวเตอร์</input>
+                                    </div>
+                                    <div id="divspecifictutor">
+                                        <div class="form-group col-lg-12">
+                                            <label for="dropdownTutorName" class="col-lg-2">ชื่อติวเตอร์ :</label>
+                                            <select class="form-control col-lg-5" id="dropdownTutorName">
+                                                <option selected value="null">ไม่ระบุ</option>
+                                                <option value="M">ชาย</option>
+                                                <option value="F">หญิง</option>
+                                            </select>
+                                            <div class="col-lg-5"></div>
+                                        </div>
+                                    </div>
+                                    <div id="divnonspecifictutor">
+                                        <div class="form-group col-lg-12">
+                                            <label for="dropdownTutorSex" class="col-lg-2">เพศของติวเตอร์ :</label>
+                                            <select class="form-control col-lg-5" id="dropdownTutorSex">
+                                                <option selected value="null">ไม่ระบุ</option>
+                                                <option value="M">ชาย</option>
+                                                <option value="F">หญิง</option>
+                                            </select>
+                                            <div class="col-lg-5"></div>
+                                        </div>
+                                        <div class="form-group col-lg-12" style="margin-bottom:1px;">
+                                            <label class="col-lg-2"></label>
+                                            <div class="col-lg-5" style="display: inline-block;text-align:right;width: 100%;">
+                                                <button type="button" id="selectalluni" class="btn btn-secondary  btn-sm">Select All</button>
+                                                <button type="button" id="deselectalluni" class="btn btn-secondary  btn-sm">Deselect All</button>
+                                            </div>
+                                            <div class="col-lg-5"></div>
+                                        </div>
+                                        <div class="form-group col-lg-12" for="chkTutorUni">
+                                            <label class="col-lg-2">สถาบันของติวเตอร์ :</label>
+                                            <div id="chkTutorUni" class="col-lg-5 box-scroll"></div>
+                                            <div class="col-lg-5"></div>
+                                        </div>
+                                        <div class="form-group col-lg-12" style="margin-bottom:1px;">
+                                            <label class="col-lg-2"></label>
+                                            <div class="col-lg-5" style="display: inline-block;text-align:right;width: 100%;">
+                                                <button type="button" id="selectallfac" class="btn btn-secondary  btn-sm">Select All</button>
+                                                <button type="button" id="deselectallfac" class="btn btn-secondary  btn-sm">Deselect All</button>
+                                            </div>
+                                            <div class="col-lg-5"></div>
+                                        </div>
+                                        <div class="form-group col-lg-12" for="chkTutorFac">
+                                            <label class="col-lg-2">คณะของติวเตอร์ :</label>
+                                            <div id="chkTutorFac" class="col-lg-5 box-scroll"></div>
+                                            <div class="col-lg-5"></div>
+                                        </div>
+                                        <div class="form-group col-lg-12">
+                                            <input type="checkbox" id="chkExp">&nbsp&nbspต้องการติวเตอร์มีประสบการณ์</input>
+                                        </div>
+
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
-                </fieldset>
-
-                <div class="label-header">ข้อมูลติวเตอร์</div>
-                <div class="form-group">
-                    <label for="dropdownExp">เพศของติวเตอร์</label>
-                    <select class="form-control" id="dropdownExp">
-                        <option selected value="1">ไม่ระบุ</option>
-                        <option value="2">ชาย</option>
-                        <option value="3">หญิง</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="dropdownExp">สถาบันของติวเตอร์</label>
-                    <ul>
-                        <li>
-                            <input type="checkbox">จุฬาลงกรณ์มหาวิทยาลัย</li>
-                        <li>
-                            <input type="checkbox">เกษตรศาสตร์</li>
-                        <li>
-                            <input type="checkbox">ธรรมศาสตร์</li>
-                        <li>
-                            <input type="checkbox">มหิดล</li>
-                    </ul>
-                </div>
-                <div class="form-group">
-                    <label for="dropdownExp">คณะของติวเตอร์</label>
-                    <ul>
-                        <li>
-                            <input type="checkbox">ครุศาสตร์</li>
-                        <li>
-                            <input type="checkbox">วิศวกรรมศาสตร์</li>
-                        <li>
-                            <input type="checkbox">วิทยาศาสตร์</li>
-                    </ul>
-                </div>
-
-                <div class="form-group row">
-                    <div class="col-sm-10">
-                        <button class="btn btn-primary">ถัดไป</button>
-                    </div>
-                </div>
+                </form>
             </form>
+
         </div>
-        <div class="tab-pane fade" id="tabRegisterStudentDetail">
-            <div class="label-header">ข้อมูลนักเรียน</div>
+        <br>
+        <br>
+        <br>
+        <div class="container-center">
+            <p>
+                <button type="button" class="btn btn-primary btn-lg" id="btnSaveNewStudent">บันทึก</button>
+                <button type="button" class="btn btn-secondary btn-lg">ยกเลิก</button>
+            </p>
         </div>
-    </div>
 </body>
+<script>
+    _isInitGmapStartAndEndPlace = false;
+    var marker = null;
+    var avatimes = [];
+
+    /*----------- PAGE 1 -------------*/
+    var dataSex = [{
+        name: "ชาย", val: "M"
+    }, {
+        name: "หญิง", val: "F"
+    }];
+    for (var i = 0; i < dataSex.length; i++) {
+        $('#dropdownSex').append('<option value="' + dataSex[i].val + '">' + dataSex[i].name + '</option>');
+    }
+
+    for (var i = 0; i < dataLevel.length; i++) {
+        $('#dropdownLevel').append('<option value="' + dataLevel[i].val + '">' + dataLevel[i].name + '</option>');
+    }
+
+
+
+    for (var i = 0; i < dataTime.length; i++) {
+        $('#dropdownStartTime').append('<option value="' + dataTime[i].val + '">' + dataTime[i].name + '</option>');
+        $('#dropdownEndTime').append('<option value="' + dataTime[i].val + '">' + dataTime[i].name + '</option>');
+    }
+    $('#sort-table').sortable();
+
+    var gridStuTime = $("#gridStuTime").bootgrid({
+        navigation: 0,
+        labels: {
+            noResults: 'ไม่พบรายการ'
+        }
+    }).on("loaded.rs.jquery.bootgrid", function () {
+        gridStuTime.find(".command-edit").on("click", function (e) {
+            var i = parseInt($(this).data("row-id"));
+            edittime(i);
+        }).end().find(".command-delete").on("click", function (e) {
+            var i = parseInt($(this).data("row-id"));
+            var dayName = dataDay[avatimes[i].savDayId - 1].name;
+            var result = confirm("ต้องการลบรายการ " + dayName + " ใช่หรือไม่?");
+            if (result) {
+                avatimes.splice(i, 1);
+                refreshGridDetailDayList();
+            }
+        });
+    });
+
+
+    function appendTime(time, i) {
+        var dayName = dataDay[time.savDayId - 1].name;
+        console.log("time.savStartTime " + time.savStartTime);
+        console.log("time.savEndTime " + time.savEndTime);
+        var startTimes = dataTime.filter(function (el) {
+            return el.val == time.savStartTime;
+        });
+        var startTime = "";
+        if (startTimes[0]) {
+            startTime = startTimes[0];
+        }
+        var endTimes = dataTime.filter(function (el) {
+            return el.val == time.savEndTime;
+        });
+        var endTime = "";
+        if (endTimes[0]) {
+            endTime = endTimes[0];
+        }
+        console.log(startTime);
+        console.log(endTime);
+
+        gridStuTime.bootgrid("append", [
+            {
+                "id": i + 1,
+                "day": dayName,
+                "startTime": startTime.name,
+                "endTime": endTime.name,
+                "location": time.savLocation,
+                "action": "<button id='btnEditAvaTime' type='button' class='btn btn-xs btn-default command-edit' data-row-id='" + i + "'><div class='fa-pencil'></div></button> "
+                    + "<button id='btnDeleteAvaTime' type='button' class='btn btn-xs btn-default command-delete' data-row-id='" + i + "'><div class='fa-trash-o'></div></button>"
+            }
+        ]);
+    }
+
+    function edittime(i) {
+        assignDropDownValueDayEdit();
+        $('#btnSaveAddTime').val(i);
+        var location = new google.maps.LatLng(avatimes[i].savLat, avatimes[i].savLong);
+        $('#modalTimeDetailLabel').text('แก้ไขวัน เวลา สถานที่เรียน');
+        $('#dropdownDay').val(avatimes[i].savDayId);
+        $('#dropdownDay').prop('disabled', true);
+        $('#dropdownStartTime').val(avatimes[i].savStartTime);
+        $('#dropdownEndTime').val(avatimes[i].savEndTime);
+        $('#txtPlace').val(avatimes[i].savLocation);
+        $('#btnStudentGoogleMap').val(location);
+        $('#groupCopyFromDay').hide();
+        $('#modalTimeDetail').modal('show');
+    }
+
+
+
+    $("#btnAddStuTime").on("click", function (e) {
+        console.log("เพิ่ม");
+        assignDropDownValueDayAdd();
+        $('#btnSaveAddTime').val(-1);
+        $('#modalTimeDetailLabel').text('เพิ่มวัน เวลา สถานที่เรียน');
+        $('#dropdownCopyFromDay').val($("#dropdownCopyFromDay option:first").val());
+        $('#dropdownDay').val($("#dropdownDay option:first").val());
+        $('#dropdownDay').prop('disabled', false);
+        $('#dropdownStartTime').val($("#dropdownStartTime option:first").val());
+        $('#dropdownEndTime').val($("#dropdownEndTime option:first").val());
+        $('#txtPlace').val("");
+        var days = avatimes.filter(function (el) {
+            return el.savDayId == $('#dropdownCopyFromDay').val();
+        });
+        if (days) {
+            var applyDay = days[0];
+            var location = new google.maps.LatLng(applyDay.savLat, applyDay.savLong);
+            $('#dropdownStartTime').val(applyDay.savStartTime);
+            $('#dropdownEndTime').val(applyDay.savEndTime);
+            $('#txtPlace').val(applyDay.savLocation);
+            $('#btnStudentGoogleMap').val(location);
+        }
+        $('#groupCopyFromDay').show();
+    });
+    function assignDropDownValueDayAdd() {
+        $('#dropdownCopyFromDay').empty();
+        $('#dropdownDay').empty();
+        for (var i = 0; i < dataDay.length; i++) {
+            var days = avatimes.filter(function (el) {
+                return el.savDayId == dataDay[i].val;
+            });
+            if (days.length > 0) {
+                $('#dropdownCopyFromDay').append('<option value="' + dataDay[i].val + '">' + dataDay[i].name + '</option>');
+            } else {
+                $('#dropdownDay').append('<option value="' + dataDay[i].val + '">' + dataDay[i].name + '</option>');
+            }
+        }
+    }
+
+    function assignDropDownValueDayEdit() {
+        $('#dropdownCopyFromDay').empty();
+        $('#dropdownDay').empty();
+        for (var i = 0; i < dataDay.length; i++) {
+            $('#dropdownCopyFromDay').append('<option value="' + dataDay[i].val + '">' + dataDay[i].name + '</option>');
+            $('#dropdownDay').append('<option value="' + dataDay[i].val + '">' + dataDay[i].name + '</option>');
+        }
+    }
+
+    $("#dropdownCopyFromDay").change(function () {
+        var coppiedDay = $(this).val();
+        var days = avatimes.filter(function (el) {
+            return el.savDayId == coppiedDay;
+        });
+        if (days) {
+            var applyDay = days[0];
+            var location = new google.maps.LatLng(applyDay.savLat, applyDay.savLong);
+            $('#dropdownStartTime').val(applyDay.savStartTime);
+            $('#dropdownEndTime').val(applyDay.savEndTime);
+            $('#txtPlace').val(applyDay.savLocation);
+            $('#btnStudentGoogleMap').val(location);
+        }
+    });
+    $("#btnStudentGoogleMap").on("click", function (e) {
+        var address = $('#txtPlace').val();
+        $('#pac-input').val(address);
+
+        if (_isInitGmapStartAndEndPlace == false) {
+            _isInitGmapStartAndEndPlace = true;
+            initMap();
+        }
+        var location = $(this).val();
+        if (location) {
+            location = location.replace('(', '');
+            location = location.replace(')', '');
+            var loc = location.split(",");
+            var lat = parseFloat(loc[0]);
+            var lng = parseFloat(loc[1]);
+            var latLog = new google.maps.LatLng(lat, lng);
+            marker.setPosition(latLog);
+            var map = marker.map;
+            map.setCenter(latLog);
+        }
+    });
+
+    function initMap() {
+        console.log("INIT MAP");
+        var geocoder = new google.maps.Geocoder;
+        var latLog = new google.maps.LatLng(13.736334, 100.531102);
+        var map = new google.maps.Map(document.getElementById('map'), {
+            center: latLog,
+            zoom: 15,
+            disableDefaultUI: true
+        });
+        // Set marker
+        marker = new google.maps.Marker({
+            map: map,
+            position: latLog
+        });
+        google.maps.event.addListener(map, 'click', function (event) {
+            setPlaceMarker(event.latLng, geocoder);
+        });
+
+        // Search box and auto complete
+        var input = document.getElementById('pac-input');
+        var options = {
+            types: ['establishment']
+        };
+        var autocomplete = new google.maps.places.Autocomplete(input);
+        autocomplete.bindTo('bounds', map);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        autocomplete.addListener('place_changed', function () {
+            console.log("Place Changed");
+            var place = autocomplete.getPlace();
+            placeChangedByAutoComplete(autocomplete.getPlace(), map, geocoder);
+        });
+
+    }
+
+    function setPlaceMarker(location, geocoder) {
+        marker.setPosition(location);
+        console.log(location);
+        findAddressFromLocation(location, geocoder);
+    }
+
+    function placeChangedByAutoComplete(place, map, geocoder) {
+        console.log(place);
+        console.log(place.place_id);
+        if (!place.place_id) {
+            return;
+        }
+        geocoder.geocode({ 'placeId': place.place_id }, function (results, status) {
+            if (status !== 'OK') {
+                window.alert('Geocoder failed due to: ' + status);
+                return;
+            }
+            console.log(place.place_id);
+            map.setZoom(15);
+            map.setCenter(results[0].geometry.location);
+            // Set the position of the marker using the place ID and location.
+            marker.setPlace({
+                placeId: place.place_id,
+                location: results[0].geometry.location
+            });
+            var address = $('#pac-input').val();
+            $('#btnStudentGoogleMap').val(results[0].geometry.location);
+            $('#txtPlace').val(address);
+
+            $('#modalStudentGoogleMap').modal('hide');
+
+        });
+    }
+
+    function findAddressFromLocation(latLng, geocoder) {
+        geocoder.geocode({ 'latLng': latLng }, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                console.log(results[0]);
+                var address = results[0].formatted_address;
+                $('#pac-input').val(address);
+                $('#btnStudentGoogleMap').val(latLng);
+                $('#txtPlace').val(address);
+                $('#modalStudentGoogleMap').modal('hide');
+            }
+            else {
+                console.log("Geocoding failed: " + status);
+            }
+        });
+    }
+
+
+    function geocodeAddress(geocoder, resultsMap) {
+        var address = document.getElementById('address').value;
+        geocoder.geocode({ 'address': address }, function (results, status) {
+            if (status === 'OK') {
+                resultsMap.setCenter(results[0].geometry.location);
+
+                var marker = new google.maps.Marker({
+                    map: resultsMap,
+                    position: results[0].geometry.location
+                });
+            } else {
+                alert('Geocode was not successful for the following reason: ' + status);
+            }
+        });
+    }
+    function geocodePlaceId(geocoder, map, placeId) {
+        geocoder.geocode({ 'placeId': placeId }, function (results, status) {
+            if (status === 'OK') {
+                console.log('PLACE');
+                if (results[0]) {
+                    console.log(results[0]);
+                } else {
+                    window.alert('No results found');
+                }
+            } else {
+                window.alert('Geocoder failed due to: ' + status);
+            }
+        });
+    }
+    $("#btnSaveAddTime").on("click", function (e) {
+        var selectedDay = $("#dropdownDay option:selected").val();
+        var selectedStartTime = $("#dropdownStartTime option:selected").val();
+        var selectedEndTime = $("#dropdownEndTime option:selected").val();
+        var txtPlace = $("#txtPlace").val();
+        console.log(txtPlace);
+        var location = $('#btnStudentGoogleMap').val();
+        location = location.replace('(', '');
+        location = location.replace(')', '');
+        var loc = location.split(",");
+        console.log(loc);
+        var i = $(this).val();
+
+        if (i == -1) {
+            var timeloc = {
+                "savDayId": selectedDay,
+                "savEndTime": selectedEndTime,
+                "savLat": loc[0],
+                "savLocation": txtPlace,
+                "savLong": loc[1],
+                "savStartTime": selectedStartTime,
+                "savStuId": _gUser.stuId
+            };
+            console.log(timeloc);
+            avatimes.push(timeloc);
+        } else {
+            var timeloc = avatimes[i];
+            timeloc.savLocation = txtPlace;
+            timeloc.savLat = loc[0];
+            timeloc.savLong = loc[1];
+            timeloc.savStartTime = selectedStartTime;
+            timeloc.savEndTime = selectedEndTime;
+            avatimes[i] = timeloc;
+        }
+        refreshGridDetailDayList();
+        $('#modalTimeDetail').modal('hide');
+    });
+
+    function refreshGridDetailDayList() {
+        gridStuTime.bootgrid('clear');
+        for (var j = 0; j < avatimes.length; j++) {
+            console.log("data : " + avatimes[j]);
+            appendTime(avatimes[j], j);
+        }
+    }
+
+
+    /*----------- PAGE 2 -------------*/
+
+    var universities = [];
+    var faculties = [];
+    var subjects = [];
+    var childcatagories = [];
+    var applySubjects = [];
+
+
+    $(document).ready(function () {
+        //    appendApplySubjectList(null, 0);
+        $('#chkTutorSpec').prop("checked", false);
+        $('#divnonspecifictutor').show();
+        $('#divspecifictutor').hide();
+        initialUniList();
+        initialFacList();
+        initialSubjectDetailList();
+
+    });
+
+    var gridEditClass = $("#gridEditClass").bootgrid({
+        navigation: 0,
+        labels: {
+            noResults: 'ไม่พบรายการ'
+        }
+    }).on("loaded.rs.jquery.bootgrid", function () {
+        gridEditClass.find(".command-edit").on("click", function (e) {
+            var i = parseInt($(this).data("row-id"));
+            initialEditPopup(i);
+        }).end().find(".command-delete").on("click", function (e) {
+            var i = parseInt($(this).data("row-id"));
+            var subjectBySubjid = subjects.filter(function (el) {
+                return el.subjId == applySubjects[i].subjId;
+            });
+            var subjName = "";
+            if (subjectBySubjid[0]) {
+                subjName = subjectBySubjid[0].subject.subjName;
+            }
+            var catBySubcid = childcatagories.filter(function (el) {
+                return el.subcId == applySubjects[i].subcId;
+            });
+            var subcName = "";
+            if (catBySubcid[0]) {
+                subcName = catBySubcid[0].subcName;
+            }
+
+            var result = confirm("ต้องการลบรายการ " + subjName + " " + subcName + " ใช่หรือไม่?");
+            if (result) {
+                applySubjects.splice(i, 1);
+                reloadlist();
+            }
+        });
+    });
+
+    function initialUniList() {
+        console.log("initial university");
+        universities = [];
+        $.ajax({
+            type: "GET",
+            url: _gServiceURL + "university/list",
+            contentType: "application/json; charset=utf-8",
+            crossDomain: true,
+            dataType: "json",
+            success: function (data, status, jqXHR) {
+                console.log(data.data.universities);
+                universities = data.data.universities;
+                for (var i = 0; i < universities.length; i++) {
+                    $('#chkTutorUni').append('<label><input type="checkbox" name="' + universities[i].uniId + '" id="chkTutorUni' + i + '" checked>&nbsp&nbsp' + universities[i].uniName + '</label><br>');
+                }
+            },
+            error: function (jqXHR, status) {
+                console.log(jqXHR);
+                alert('fail' + status.code);
+            }
+        });
+    }
+
+    function initialFacList() {
+        console.log("initial faculty");
+        faculties = [];
+        $.ajax({
+            type: "GET",
+            url: _gServiceURL + "faculty/list",
+            contentType: "application/json; charset=utf-8",
+            crossDomain: true,
+            dataType: "json",
+            success: function (data, status, jqXHR) {
+                console.log(data.data.faculties);
+                faculties = data.data.faculties;
+                for (var i = 0; i < faculties.length; i++) {
+                    $('#chkTutorFac').append('<label><input type="checkbox" name="' + faculties[i].facId + '" id="chkTutorFac' + i + '" checked>&nbsp&nbsp' + faculties[i].facName + '</label><br>');
+                }
+            },
+            error: function (jqXHR, status) {
+                console.log(jqXHR);
+                alert('fail' + status.code);
+            }
+        });
+    }
+
+    function initialSubjectDetailList() {
+        console.log("initial subject detail");
+        subjects = [];
+        $.ajax({
+            type: "GET",
+            url: _gServiceURL + "subjectdetail/listforclass",
+            contentType: "application/json; charset=utf-8",
+            crossDomain: true,
+            dataType: "json",
+            success: function (data, status, jqXHR) {
+                console.log(data.data.subjectDetailForApplyJobViews);
+                subjects = data.data.subjectDetailForApplyJobViews;
+                for (var i = 0; i < subjects.length; i++) {
+                    $('#dropdownSubject').append('<option value="' + subjects[i].subjId + '">' + subjects[i].subject.subjName + '</option>');
+                }
+                if (subjects.length > 0) {
+                    childcatagories = subjects[0].subjectCatagories;
+                    for (var i = 0; i < childcatagories.length; i++) {
+                        $('#dropdownClass').append('<option value="' + childcatagories[i].subcId + '">' + childcatagories[i].subcName + '</option>');
+                    }
+                }
+            },
+            error: function (jqXHR, status) {
+                console.log(jqXHR);
+                alert('fail' + status.code);
+            }
+        });
+    }
+
+    $("#btnSaveSubject").on("click", function (e) {
+        var i = $(this).val();
+        var subjId = parseInt($('#dropdownSubject option:selected').val());
+        var subcId = parseInt($('#dropdownClass option:selected').val());
+        var numStu = parseInt($('#dropdownNumStu option:selected').val());
+        var dayPerWeek = parseInt($('#dropdownNumDayPerWeek option:selected').val());
+        var hours = parseInt($('#dropdownHours option:selected').val());
+        var totalhours = parseInt($('#dropdownTotalHours option:selected').val());
+        var price = $('#txtPrice').val();
+        var applySubject = {
+            subjId: subjId,
+            subcId: subcId,
+            numStu: numStu,
+            dayPerWeek: dayPerWeek,
+            hours: hours,
+            totalhours: totalhours,
+            price: price
+        }
+        if (i == -1) {
+            applySubjects.push(applySubject);
+        } else {
+            applySubjects[i] = applySubject;
+        }
+        reloadlist();
+        $('#modalAddRegisterClass').modal('hide');
+    });
+
+    function reloadlist() {
+        gridEditClass.bootgrid('clear');
+        for (var j = 0; j < applySubjects.length; j++) {
+            console.log("data : " + applySubjects[j]);
+            appendApplyAddSubjectList(applySubjects[j], j);
+        }
+    }
+
+
+    function initialEditPopup(i) {
+        $("#btnSaveSubject").val(i);
+        $('#modalAddSubjectClassLabel').text("แก้ไขวิชา");
+        $('#dropdownSubject').val(applySubjects[i].subjId);
+        $('#dropdownClass').val(applySubjects[i].subcId);
+        $('#dropdownNumStu ').val(applySubjects[i].numStu);
+        $('#dropdownNumDayPerWeek').val(applySubjects[i].dayPerWeek);
+        $('#dropdownHours').val(applySubjects[i].hours);
+        $('#dropdownTotalHours').val(applySubjects[i].totalhours);
+        $('#txtPrice').val(applySubjects[i].price);
+        $('#modalAddRegisterClass').modal('show');
+    }
+
+    function initialAddPopup() {
+        $('#modalAddSubjectClassLabel').text("เพิ่มวิชา");
+        $("#btnSaveSubject").val(-1);
+        $("#dropdownSubject").val($("#dropdownSubject option:first").val());
+        $("#dropdownClass").val($("#dropdownClass option:first").val());
+        $("#dropdownNumStu").val($("#dropdownNumStu option:first").val());
+        $('#dropdownNumDayPerWeek').val($('#dropdownNumDayPerWeek option:first').val());
+        $('#dropdownHours').val($('#dropdownHours option:first').val());
+        $('#dropdownTotalHours').val($('#dropdownTotalHours option:first').val());
+        getPrice();
+    }
+
+    function appendApplyAddSubjectList(applySubject, i) {
+        console.log(applySubject);
+        var subjectBySubjid = subjects.filter(function (el) {
+            return el.subjId == applySubject.subjId;
+        });
+        var subjName = "";
+        if (subjectBySubjid[0]) {
+            subjName = subjectBySubjid[0].subject.subjName;
+        }
+        var catBySubcid = childcatagories.filter(function (el) {
+            return el.subcId == applySubject.subcId;
+        });
+        var subcName = "";
+        if (catBySubcid[0]) {
+            subcName = catBySubcid[0].subcName;
+        }
+
+        gridEditClass.bootgrid("append", [
+            {
+                "id": i + 1,
+                "class": subjName,
+                "level": subcName,
+                "numStu": applySubject.numStu,
+                "numDay": applySubject.dayPerWeek,
+                "hoursPerDay": applySubject.hours,
+                "totalHours": applySubject.totalhours,
+                "pricePerson": applySubject.price,
+                "action": "<button id='editSubjectClassBtn' type='button' class='btn btn-xs btn-default command-edit' data-row-id='" + i + "'><div class='fa-pencil'></div></button> "
+                    + "<button id='deleteSubjectClassBtn' type='button' class='btn btn-xs btn-default command-delete' data-row-id='" + i + "'><div class='fa-trash-o'></div></button>"
+            }
+        ]);
+    }
+
+    $('#chkTutorSpec').change(function () {
+        if (this.checked) {
+            $('#divnonspecifictutor').hide();
+            $('#divspecifictutor').show();
+        } else {
+            $('#divnonspecifictutor').show();
+            $('#divspecifictutor').hide();
+        }
+    });
+
+    $("#dropdownSubject").change(function () {
+        $('#dropdownClass').empty();
+        var subjId = this.value;
+        var subjectBySubjid = subjects.filter(function (el) {
+            return el.subjId == subjId;
+        });
+        console.log(subjectBySubjid);
+
+        if (subjectBySubjid[0]) {
+            var subjectCatagories = subjectBySubjid[0].subjectCatagories;
+            console.log(subjectCatagories);
+            for (var i = 0; i < subjectCatagories.length; i++) {
+                $('#dropdownClass').append('<option value="' + subjectCatagories[i].subcId + '">' + subjectCatagories[i].subcName + '</option>');
+            }
+        }
+    });
+
+    $("#dropdownClass").change(function () {
+        getPrice();
+    });
+
+    $("#dropdownNumStu").change(function () {
+        getPrice();
+    });
+
+    $("#btnAddNewClass").on("click", function (e) {
+        initialAddPopup();
+    });
+
+    function getPrice() {
+        var subjId = parseInt($('#dropdownSubject option:selected').val());
+        var subcId = parseInt($('#dropdownClass option:selected').val());
+        var numStu = parseInt($('#dropdownNumStu option:selected').val());
+        console.log(_gServiceURL + "subjectprice/getprice/" + subjId + "/" + subcId + "/" + numStu);
+        $.ajax({
+            type: "GET",
+            url: _gServiceURL + "subjectprice/getprice/" + subjId + "/" + subcId + "/" + numStu,
+            contentType: "application/json; charset=utf-8",
+            crossDomain: true,
+            dataType: "json",
+            success: function (data, status, jqXHR) {
+                console.log(data.data);
+                var subjectPrice = data.data.subjectPrice;
+                $('#txtPrice').val(subjectPrice.sprPrice);
+            },
+            error: function (jqXHR, status) {
+                console.log(jqXHR);
+                alert('fail' + status.code);
+            }
+        });
+    }
+
+    $("#selectalluni").on("click", function (e) {
+        $("#chkTutorUni").find("input[type='checkbox']").each(function () {
+            $(this).prop('checked', true);
+        });
+    });
+    $("#selectallfac").on("click", function (e) {
+        $("#chkTutorFac").find("input[type='checkbox']").each(function () {
+            $(this).prop('checked', true);
+        });
+    });
+    $("#deselectalluni").on("click", function (e) {
+        $("#chkTutorUni").find("input[type='checkbox']").each(function () {
+            $(this).prop('checked', false);
+        });
+    });
+    $("#deselectallfac").on("click", function (e) {
+        $("#chkTutorFac").find("input[type='checkbox']").each(function () {
+            $(this).prop('checked', false);
+        });
+    });
+    $("#btnSaveNewStudent").on("click", function (e) {
+        var txtEmail = $('#txtEmail').val();
+        var txtPassword = $('#txtNewPassword').val();
+        var txtConfirmPassword = $('#txtConfirmPassword').val();
+        var txtFirstName = $('#txtFirstName').val();
+        var txtLastName = $('#txtLastName').val();
+        var txtNickname = $('#txtNickname').val();
+        var txtTel = $('#txtTel').val();
+        var sex = $('#dropdownSex option:selected').val();
+        var level = $('#dropdownLevel option:selected').val();
+        var school = $('#txtSchool').val();
+        console.log('txtSchool : '+school);
+        // create new class
+        if (txtPassword != txtConfirmPassword) {
+            $(".alert-danger").find("strong").text('รหัสผ่านไม่ถูกต้อง');
+            $(".alert-danger").show();
+            $('html, body').animate({ scrollTop: $('.breadcrumb').offset().top }, 'fast');
+        } else if (!txtEmail || !txtPassword || !txtFirstName || !txtLastName || !txtTel
+            || !sex || avatimes.length == 0 || applySubjects.length == 0) {
+            $(".alert-danger").find("strong").text('โปรดระบุข้อมูลให้ครบถ้วน');
+            $(".alert-danger").show();
+            $('html, body').animate({ scrollTop: $('.breadcrumb').offset().top }, 'fast');
+        }
+        else {
+            if ($('#chkTutorSpec').checked) {
+
+            } else {
+                savenotspecifictutors(txtEmail, txtPassword, txtFirstName, txtLastName, txtNickname, txtTel, sex, level, school);
+            }
+        }
+    });
+
+
+    function savenotspecifictutors(txtEmail, txtPassword, txtFirstName, txtLastName, txtNickname, txtTel, sex, level, school) {
+
+        var programId = $("input[name='gridRadios']:checked").val();;
+        var tutorSex = $('#dropdownTutorSex option:selected').val();
+        var universityChecked = [];
+        $("#chkTutorUni").find("input[type='checkbox']:checked").each(function () {
+            console.log("uniid :" + this.name);
+            universityChecked.push(parseInt(this.name));
+        });
+        var facultyChecked = [];
+        $("#chkTutorFac").find("input[type='checkbox']:checked").each(function () {
+            console.log("facId :" + this.name);
+            facultyChecked.push(parseInt(this.name));
+        });
+        var exp = "N";
+        if ($('#chkExp').checked) {
+            exp = "Y";
+        }
+        console.log('txtSchool : '+school);
+
+        var bodyRequest = {
+            stuEmail: txtEmail,
+            stuPassword: txtPassword,
+            stuFirstname: txtFirstName,
+            stuLastname: txtLastName,
+            stuNickname: txtNickname,
+            stuPhonenum: txtTel,
+            stuSex: sex,
+            stuLevel: parseInt(level),
+            stuSchool: school,
+            studentAvailableTimelocations: avatimes,
+            subjectlist: applySubjects,
+            programId: parseInt(programId),
+            tutorSex: tutorSex,
+            universityChecked: universityChecked,
+            facultyChecked: facultyChecked,
+            tutorExp: exp
+        }
+        console.log(bodyRequest);
+        callrequestnewstudent(bodyRequest);
+    }
+
+    function callrequestnewstudent(bodyRequest) {
+        console.log(bodyRequest);
+        $.ajax({
+            type: "POST",
+            url: _gServiceURL + "student/register",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(bodyRequest),
+            crossDomain: true,
+            dataType: "json",
+            success: function (data, status, jqXHR) {
+                $(".alert-danger").hide();
+                $(".alert-success").show();
+                $('html, body').animate({ scrollTop: $('.breadcrumb').offset().top }, 'fast');
+            },
+            error: function (jqXHR, status) {
+                $(".alert-success").hide();
+                $(".alert-danger").show();
+                $('html, body').animate({ scrollTop: $('.breadcrumb').offset().top }, 'fast');
+            }
+
+        });
+    }
+</script>
 
 </html>
