@@ -40,7 +40,7 @@
 </div>
 
 <script>
-
+        _selectedRecId = 0;
         _cntLoadMain = 0;
         jQuery( document ).ready(function() {
           console.log( "ready!",  _cntLoadMain);
@@ -94,7 +94,8 @@
             });
         }
         function loadClassDetail(id,type){
-            
+            _selectedRecId = id;
+            console.log(_selectedRecId);
             if (type=='M') {
                 jQuery("#divMainContainer").load('./html/mergedclassdetail.html');
             } else {

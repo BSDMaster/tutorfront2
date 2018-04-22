@@ -78,6 +78,14 @@
     background-repeat: no-repeat;
     background-image: url("../images/icons8-calendar.png");
 }
+
+.fa-waypoint{
+    width: 20px;
+    height: 20px;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-image: url("../images/icons8-treasure_map.png");
+}
 .fixedHeightContainer
 {
   float:left;

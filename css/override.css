@@ -130,7 +130,9 @@ option font {
 .pac-container{
     z-index: 9999 !important;
 }
-
+.labelnormal {
+    font-weight: normal !important;
+}
 /*
 td.text-left {
     display:inline-block;

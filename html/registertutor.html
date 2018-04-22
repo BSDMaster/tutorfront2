@@ -37,373 +37,363 @@
     <br>
     <div id="regisTutorTabContent" class="tab-content">
         <div class="tab-pane fade in active" id="tabProfile">
-                <div class="container-fluid">
-                        <div class="row" style="padding-left: 30px;">
-                            <div class="col-lg-12">
-                                <form class="form-horizontal">
-                                    <div class="form-group required">
-                                        <label for="txtEmail" class="col-lg-2 labelform">อีเมล์</label>
-                                        <div class="col-lg-4">
-                                            <input type="text" class="form-control" id="txtEmail">
-                                        </div>
-                                        <div class="col-lg-6"></div>
-                                    </div>
-                                    <div class="form-group required">
-                                        <label for="txtNewPassword" class="col-lg-2 labelform">รหัสผ่านใหม่</label>
-                                        <div class="col-lg-4">
-                                            <input type="password" class="form-control" id="txtNewPassword">
-                                        </div>
-                                        <div class="col-lg-6"></div>
-                                    </div>
-                                    <div class="form-group required">
-                                        <label for="txtConfirmPassword" class="col-lg-2 labelform">ยืนยันรหัสผ่าน</label>
-                                        <div class="col-lg-4">
-                                            <input type="password" class="form-control" id="txtConfirmPassword">
-                                        </div>
-                                        <div class="col-lg-6"></div>
-                                    </div>
-                                    <div class="h2 inner-tab">ข้อมูลส่วนตัว</div>
-                                    <br>
-                                    <div class="form-group required">
-                                        <label for="txtFirstName" class="col-lg-2 labelform">ชื่อ</label>
-                                        <div class="col-lg-4">
-                                            <input type="text" class="form-control" id="txtFirstName">
-                                        </div>
-                                        <div class="col-lg-6"></div>
-                                    </div>
-                                    <div class="form-group required">
-                                        <label for="txtLastName" class="col-lg-2 labelform">นามสกุล</label>
-                                        <div class="col-lg-4">
-                                            <input type="text" class="form-control" id="txtLastName">
-                                        </div>
-                                        <div class="col-lg-6"></div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="txtNickname" class="col-lg-2">ชื่อเล่น</label>
-                                        <div class="col-lg-4">
-                                            <input type="text" class="form-control" id="txtNickname">
-                                        </div>
-                                        <div class="col-lg-6"></div>
-                                    </div>
-                                    <div class="form-group required">
-                                        <label for="txtTel" class="col-lg-2 labelform">เบอร์โทรมือถือ</label>
-                                        <div class="col-lg-4">
-                                            <input type="text" class="form-control" id="txtTel">
-                                        </div>
-                                        <div class="col-lg-6"></div>
-                                    </div>
-                                    <div class="form-group required">
-                                        <label for="dropdownSex" class="col-lg-2 labelform">เพศ</label>
-                                        <div class="col-lg-4">
-                                            <select class="custom-select" id="dropdownSex" required></select>
-                                        </div>
-                                        <div class="col-lg-6"></div>
-                                    </div>
-                                    <div class="form-group required">
-                                        <label for="dropdownUniversity" class="col-lg-2 labelform">สถาบันศึกษา</label>
-                                        <div class="col-lg-4">
-                                            <select class="custom-select" id="dropdownUniversity" required></select>
-                                        </div>
-                                        <div class="col-lg-6"></div>
-                                    </div>
-                                    <div class="form-group required">
-                                        <label for="dropdownFaculty" class="col-lg-2 labelform">คณะ</label>
-                                        <div class="col-lg-4">
-                                            <select class="custom-select" id="dropdownFaculty" required></select>
-                                        </div>
-                                        <div class="col-lg-6"></div>
-                                    </div>
-                                    <div class="form-group required">
-                                        <label for="pickerBirthdate" class="col-lg-2 labelform">วัน เดือน ปีเกิด</label>
-                                        <div class="col-lg-4">
-                                            <div class="input-group">
-                                                <div class="input-group-addon">
-                                                    <div class="fa fa-calendar-times-o"></div>
-                                                </div>
-                                                <input class="form-control" id="pickerBirthdate" name="date" placeholder="DD/MM/YYY" type="text" />
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6"></div>
-                                    </div>
-                                    <div class="form-group required">
-                                        <label for="" class="col-lg-2 labelform">เอกสารสำเนาบัตรประชาชน</label>
-                                        <div class="col-lg-4">
-                                            <input type="file" class="form-control-file" id="inputIDCardFile">
-                                        </div>
-                                        <div class="col-lg-6"></div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="txtAddress" class="col-lg-2 ">ที่อยู่ปัจจุบัน</label>
-                                        <div class="col-lg-4">
-                                            <textarea class="form-control" id="txtAddress" rows="3"></textarea>
-                                        </div>
-                                        <div class="col-lg-6"></div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="txtClip" class="col-lg-2">คลิปตัวอย่างงานสอน</label>
-                                        <div class="col-lg-4">
-                                            <input type="text" class="form-control" id="txtClip">
-                                        </div>
-                                        <div class="col-lg-6"></div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="txtOthers" class="col-lg-2">ข้อมูลงานสอนเพิ่มเติม</label>
-                                        <div class="col-lg-4">
-                                            <textarea class="form-control" id="txtOthers" rows="3"></textarea>
-                                        </div>
-                                        <div class="col-lg-6"></div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="" class="col-lg-2">รูปโปรไฟล์</label>
-                                        <div class="col-lg-4">
-                                            <input type="file" class="form-control-file" id="txtProfilePic">
-                                        </div>
-                                        <div class="col-lg-6"></div>
-                                    </div>
-                                    <br>
-                                    <br>
-                                </form>
+            <div class="container-fluid">
+                <div class="row" style="padding-left: 30px;">
+                    <div class="col-lg-12">
+                        <form class="form-horizontal">
+                            <div class="form-group required">
+                                <label for="txtEmail" class="col-lg-2 labelform">อีเมล์</label>
+                                <div class="col-lg-4">
+                                    <input type="text" class="form-control" id="txtEmail">
+                                </div>
+                                <div class="col-lg-6"></div>
                             </div>
-                        </div>
+                            <div class="form-group required">
+                                <label for="txtNewPassword" class="col-lg-2 labelform">รหัสผ่านใหม่</label>
+                                <div class="col-lg-4">
+                                    <input type="password" class="form-control" id="txtNewPassword">
+                                </div>
+                                <div class="col-lg-6"></div>
+                            </div>
+                            <div class="form-group required">
+                                <label for="txtConfirmPassword" class="col-lg-2 labelform">ยืนยันรหัสผ่าน</label>
+                                <div class="col-lg-4">
+                                    <input type="password" class="form-control" id="txtConfirmPassword">
+                                </div>
+                                <div class="col-lg-6"></div>
+                            </div>
+                            <div class="h2 inner-tab">ข้อมูลส่วนตัว</div>
+                            <br>
+                            <div class="form-group required">
+                                <label for="txtFirstName" class="col-lg-2 labelform">ชื่อ</label>
+                                <div class="col-lg-4">
+                                    <input type="text" class="form-control" id="txtFirstName">
+                                </div>
+                                <div class="col-lg-6"></div>
+                            </div>
+                            <div class="form-group required">
+                                <label for="txtLastName" class="col-lg-2 labelform">นามสกุล</label>
+                                <div class="col-lg-4">
+                                    <input type="text" class="form-control" id="txtLastName">
+                                </div>
+                                <div class="col-lg-6"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtNickname" class="col-lg-2">ชื่อเล่น</label>
+                                <div class="col-lg-4">
+                                    <input type="text" class="form-control" id="txtNickname">
+                                </div>
+                                <div class="col-lg-6"></div>
+                            </div>
+                            <div class="form-group required">
+                                <label for="txtTel" class="col-lg-2 labelform">เบอร์โทรมือถือ</label>
+                                <div class="col-lg-4">
+                                    <input type="text" class="form-control" id="txtTel">
+                                </div>
+                                <div class="col-lg-6"></div>
+                            </div>
+                            <div class="form-group required">
+                                <label for="dropdownSex" class="col-lg-2 labelform">เพศ</label>
+                                <div class="col-lg-4">
+                                    <select class="custom-select" id="dropdownSex" required></select>
+                                </div>
+                                <div class="col-lg-6"></div>
+                            </div>
+                            <div class="form-group required">
+                                <label for="dropdownUniversity" class="col-lg-2 labelform">สถาบันศึกษา</label>
+                                <div class="col-lg-4">
+                                    <select class="custom-select" id="dropdownUniversity" required></select>
+                                </div>
+                                <div class="col-lg-6"></div>
+                            </div>
+                            <div class="form-group required">
+                                <label for="dropdownFaculty" class="col-lg-2 labelform">คณะ</label>
+                                <div class="col-lg-4">
+                                    <select class="custom-select" id="dropdownFaculty" required></select>
+                                </div>
+                                <div class="col-lg-6"></div>
+                            </div>
+                            <div class="form-group required">
+                                <label for="pickerBirthdate" class="col-lg-2 labelform">วัน เดือน ปีเกิด</label>
+                                <div class="col-lg-4">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <div class="fa fa-calendar-times-o"></div>
+                                        </div>
+                                        <input class="form-control" id="pickerBirthdate" name="date" placeholder="DD/MM/YYY" type="text" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-6"></div>
+                            </div>
+                            <div class="form-group required">
+                                <label for="" class="col-lg-2 labelform">เอกสารสำเนาบัตรประชาชน</label>
+                                <div class="col-lg-4">
+                                    <input type="file" class="form-control-file" id="inputIDCardFile">
+                                </div>
+                                <div class="col-lg-6"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtAddress" class="col-lg-2 ">ที่อยู่ปัจจุบัน</label>
+                                <div class="col-lg-4">
+                                    <textarea class="form-control" id="txtAddress" rows="3"></textarea>
+                                </div>
+                                <div class="col-lg-6"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtClip" class="col-lg-2">คลิปตัวอย่างงานสอน</label>
+                                <div class="col-lg-4">
+                                    <input type="text" class="form-control" id="txtClip">
+                                </div>
+                                <div class="col-lg-6"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtOthers" class="col-lg-2">ข้อมูลงานสอนเพิ่มเติม</label>
+                                <div class="col-lg-4">
+                                    <textarea class="form-control" id="txtOthers" rows="3"></textarea>
+                                </div>
+                                <div class="col-lg-6"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="col-lg-2">รูปโปรไฟล์</label>
+                                <div class="col-lg-4">
+                                    <input type="file" class="form-control-file" id="txtProfilePic">
+                                </div>
+                                <div class="col-lg-6"></div>
+                            </div>
+                            <br>
+                            <br>
+                        </form>
                     </div>
+                </div>
+            </div>
+            <div class="container-center">
+                <p>
+                    <button type="button" class="btn btn-primary btn-lg" id="btnNextPage1" data-toggle="tab" href="#tabRegisClass">ถัดไป</button>
+                </p>
+            </div>
         </div>
         <div class="tab-pane fade" id="tabRegisClass">
             <!-- Button trigger modal -->
             <button id="btnAddClass" type="button" class="btn btn-primary container-btn-add-right" data-toggle="modal" data-target="#modalAddClass">
-                    เพิ่ม
-                </button>
-                <br>
-                <table id="gridClass" class="table table-condensed table-hover table-striped scroll">
-                    <thead>
-                        <tr>
-                            <th data-column-id="id" data-width="10%" data-identifier="true" data-type="numeric">#</th>
-                            <th data-column-id="class" data-width="30%">วิชา</th>
-                            <th data-column-id="level" data-width="30%">ระดับชั้น</th>
-                            <th data-column-id="exp" data-width="20%">ประสบการณ์สอน</th>
-                            <th data-column-id="action" data-width="10%" data-sortable="false" data-searchable="false">Action</th>
-                        </tr>
-                    </thead>
-                </table>
-                <div style="margin-top:30px;">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <form class="form-horizontal">
-                                    <div class="form-group required">
-                                        <label class="col-lg-3 labelform">หลักสูตรที่สามารถสอนได้ :</label>
-                                        <div class="col-lg-9 checkbox1">
-                                            <input type="checkbox" id="chkEnglishFlag"> สามารถสอนโดยใช้เอกสารประกอบการเรียนเป็นภาษาอังกฤษ </input>
-                                            <br>
-                                            <input type="checkbox" id="chkInterFlag"> สามารถสอนโดยใช้เอกสารประกอบการเรียนและสนทนาเป็นภาษาอังกฤษได้ </input>
-                                        </div>
+                เพิ่ม
+            </button>
+            <br>
+            <table id="gridClass" class="table table-condensed table-hover table-striped scroll">
+                <thead>
+                    <tr>
+                        <th data-column-id="id" data-width="10%" data-identifier="true" data-type="numeric">#</th>
+                        <th data-column-id="class" data-width="30%">วิชา</th>
+                        <th data-column-id="level" data-width="30%">ระดับชั้น</th>
+                        <th data-column-id="exp" data-width="20%">ประสบการณ์สอน</th>
+                        <th data-column-id="action" data-width="10%" data-sortable="false" data-searchable="false">Action</th>
+                    </tr>
+                </thead>
+            </table>
+            <div style="margin-top:30px;">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <form class="form-horizontal">
+                                <div class="form-group required">
+                                    <label class="col-lg-3 labelform">หลักสูตรที่สามารถสอนได้ :</label>
+                                    <div class="col-lg-9 checkbox1">
+                                        <input type="checkbox" id="chkEnglishFlag"> สามารถสอนโดยใช้เอกสารประกอบการเรียนเป็นภาษาอังกฤษ </input>
+                                        <br>
+                                        <input type="checkbox" id="chkInterFlag"> สามารถสอนโดยใช้เอกสารประกอบการเรียนและสนทนาเป็นภาษาอังกฤษได้ </input>
                                     </div>
-                                    <br>
-                                    <div class="form-group required">
-                                        <label class="col-lg-3 labelform">เวลาเดินทางไปและกลับสูงสุดที่ยอมรับได้ :</label>
-                                        <div class="col-lg-9 checkbox1">
-                                            <select class="custom-select" id="optMaxTime" style="width:100px;">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                            </select>&nbsp;&nbsp;&nbsp;ชั่วโมง
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="form-group required">
-                                        <label class="col-lg-3 labelform">งานสอนสูงสุดต่อวัน :</label>
-                                        <div class="col-lg-9 checkbox1">
-                                            <select class="custom-select" id="optMaxWorkPerDay" style="width:100px;">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                            </select>&nbsp;&nbsp;&nbsp;งานสอน
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="form-group required">
-                                        <label class="col-lg-3 labelform">งานสอนสูงสุด :</label>
-                                        <div class="col-lg-9 checkbox1">
-                                            <select class="custom-select" id="optMaxWork" style="width:100px;">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                            </select>&nbsp;&nbsp;&nbsp;งานสอน
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <br>
-                                    <div class="form-group required">
-                                        <label class="col-lg-12 labelform">วัน เวลา สถานที่และพาหนะที่ใช้เดินทาง :</label>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Button trigger modal -->
-                <button id="btnAddJobDetail" type="button" class="btn btn-primary container-btn-add-right" data-toggle="modal" data-target="#modalAddJobDetail">
-                    เพิ่ม
-                </button>
-                <br>
-                <table id="gridJobDetail" class="table table-condensed table-hover table-striped scroll">
-                    <thead>
-                        <tr>
-                            <th data-column-id="id" data-width="3%" data-identifier="true" data-type="numeric">#</th>
-                            <th data-column-id="day" data-width="5%">วัน</th>
-                            <th data-column-id="StartTime" data-width="11%">เวลาเริ่มเดินทาง</th>
-                            <th data-column-id="endTime" data-width="11%">เวลาสิ้นสุดเดินทาง</th>
-                            <th data-column-id="startPlace" data-width="15%">สถานที่เริ่มต้นเดินทาง</th>
-                            <th data-column-id="endPlace" data-width="15%">สถานที่สิ้นสุดเดินทาง</th>
-                            <th data-column-id="car" data-width="9%" data-sortable="false">รถยนต์ส่วนตัว</th>
-                            <th data-column-id="bus" data-width="8%" data-sortable="false">รถประจำทาง</th>
-                            <th data-column-id="bts" data-width="7%" data-sortable="false">รถไฟฟ้า</th>
-                            <th data-column-id="taxi" data-width="8%" data-sortable="false">รถแท็กซี่</th>
-                            <th data-column-id="action" data-width="8%" data-sortable="false" data-searchable="false">Action</th>
-                        </tr>
-                    </thead>
-                </table>
-                <br>
-                <!-- Modal Add Class-->
-                <div class="modal fade" id="modalAddClass" tabindex="-1" role="dialog" aria-labelledby="modalAddClassLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="modalAddClassLabel">เพิ่มรายวิชา</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form>
-                                    <div class="form-group required">
-                                        <label for="dropdownSubject" class="labelform">วิชา</label>
-                                        <select class="custom-select" id="dropdownSubject" required>
-                                        </select>
-                                    </div>
-                                    <div class="form-group required">
-                                        <label for="dropdownClass" class="labelform">ระดับชั้น</label>
-                                        <select class="custom-select" id="dropdownClass" required>
-                                        </select>
-                                    </div>
-                                    <div class="form-group  required">
-                                        <label for="dropdownExp" class="labelform">ประสบการณ์สอน</label>
-                                        <select class="custom-select" id="dropdownExp" required>
-                                        </select>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" id="btnSaveAddClass">ตกลง</button>
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        
-                <!-- Modal Add JobDetail-->
-                <div class="modal fade" id="modalAddJobDetail" tabindex="-1" role="dialog" aria-labelledby="modalAddJobDetailLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="modalAddJobDetailLabel">วัน เวลา สถานที่และพาหนะที่ใช้เดินทาง</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form>
-                                    <div class="form-group required" id='groupCopyFromDay'>
-                                        <label for="dropdownCopyFromDay" class="labelform">สำเนาจาก</label>
-                                        <select class="custom-select" id="dropdownCopyFromDay">
-                                        </select>
-                                    </div>
-                                    <div class="form-group required">
-                                        <label for="dropdownJobDetailDay" class="labelform">วัน</label>
-                                        <select class="custom-select" id="dropdownJobDetailDay">
-                                        </select>
-                                    </div>
-                                    <div class="form-group required">
-                                        <label for="dropdownJobDetailStartTime" class="labelform">เวลาเริ่มต้นเดินทาง</label>
-                                        <select class="custom-select" id="dropdownJobDetailStartTime">
-                                        </select>
-                                    </div>
-                                    <div class="form-group required">
-                                        <label for="dropdownJobDetailEndTime" class="labelform">เวลาสิ้นสุดการเดินทาง</label>
-                                        <select class="custom-select" id="dropdownJobDetailEndTime">
-                                        </select>
-                                    </div>
-                                    <div class="form-group required">
-                                        <label for="txtStartPlace" class="labelform">สถานที่เริ่มต้นเดินทาง</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" id="txtStartPlace" readonly>
-                                            <button id="btnStartGoogleMap" type="button" class="btn btn-secondary input-group-btn btn-google-pin" data-toggle="modal"
-                                                data-target="#modalGoogleMap">
-                                                <div class="img-google-pin"></div>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="form-group required">
-                                        <label for="txtEndPlace" class="labelform">สถานทีสิ้นสุดการเดินทาง</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" id="txtEndPlace" readonly>
-                                            <button id="btnEndGoogleMap" type="button" class="btn btn-secondary input-group-btn btn-google-pin" data-toggle="modal" data-target="#modalGoogleMap">
-                                                <div class="img-google-pin"></div>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div style="display:inline;">
-                                        <input type="checkbox" id="chkJobDetailCar">
-                                        <label>รถยนต์ส่วนตัว</label>
-                                        <input type="checkbox" id="chkJobDetailBus">
-                                        <label>รถโดยสารประจำทาง</label>
-                                        <input type="checkbox" id="chkJobDetailBTS">
-                                        <label>รถไฟฟ้า</label>
-                                        <input type="checkbox" id="chkJobDetailTaxi">
-                                        <label>แท็กซี่</label>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" id="btnSaveAddDetail">ตกลง</button>
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        
-        
-                <!-- Modal Add Google map-->
-                <div class="modal fade" id="modalGoogleMap" tabindex="-1" role="dialog" aria-labelledby="modalGoogleMapLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content contentmap">
-                            <div class="modal-body mapbody">
-                                <div style="display:block">
-                                    <input id="pac-input" class="controls" type="text" placeholder="Enter a location">
                                 </div>
-                                <!--<input type="text" class="form-control" id="address" value="จุฬาลงกรณ์มหาวิทยาลัย"></input>
-                                       <button id="btnSubmitAddress" type="button" class="btn btn-default input-group-btn btn-google-search" value="Geocode">
-                                    ค้นหา
-                                </button>-->
-                                <div id="map" class="map"></div>
-                            </div>
-                            <!--
+                                <br>
+                                <div class="form-group required">
+                                    <label class="col-lg-3 labelform">งานสอนสูงสุดต่อวัน :</label>
+                                    <div class="col-lg-9 checkbox1">
+                                        <select class="custom-select" id="optMaxWorkPerDay" style="width:100px;">
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                        </select>&nbsp;&nbsp;&nbsp;งานสอน
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="form-group required">
+                                    <label class="col-lg-3 labelform">งานสอนสูงสุด :</label>
+                                    <div class="col-lg-9 checkbox1">
+                                        <select class="custom-select" id="optMaxWork" style="width:100px;">
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                        </select>&nbsp;&nbsp;&nbsp;งานสอน
+                                    </div>
+                                </div>
+                                <br>
+                                <br>
+                                <div class="form-group required">
+                                    <label class="col-lg-12 labelform">วัน เวลา สถานที่และพาหนะที่ใช้เดินทาง :</label>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Button trigger modal -->
+            <button id="btnAddJobDetail" type="button" class="btn btn-primary container-btn-add-right" data-toggle="modal" data-target="#modalAddJobDetail">
+                เพิ่ม
+            </button>
+            <br>
+            <table id="gridJobDetail" class="table table-condensed table-hover table-striped scroll">
+                <thead>
+                    <tr>
+                        <th data-column-id="id" data-width="3%" data-identifier="true" data-type="numeric">#</th>
+                        <th data-column-id="day" data-width="5%">วัน</th>
+                        <th data-column-id="StartTime" data-width="11%">เวลาเริ่มเดินทาง</th>
+                        <th data-column-id="endTime" data-width="11%">เวลาสิ้นสุดเดินทาง</th>
+                        <th data-column-id="startPlace" data-width="15%">สถานที่เริ่มต้นเดินทาง</th>
+                        <th data-column-id="endPlace" data-width="15%">สถานที่สิ้นสุดเดินทาง</th>
+                        <th data-column-id="car" data-width="9%" data-sortable="false">รถยนต์ส่วนตัว</th>
+                        <th data-column-id="bus" data-width="8%" data-sortable="false">รถประจำทาง</th>
+                        <th data-column-id="bts" data-width="7%" data-sortable="false">รถไฟฟ้า</th>
+                        <th data-column-id="taxi" data-width="8%" data-sortable="false">รถแท็กซี่</th>
+                        <th data-column-id="action" data-width="8%" data-sortable="false" data-searchable="false">Action</th>
+                    </tr>
+                </thead>
+            </table>
+            <br>
+            <!-- Modal Add Class-->
+            <div class="modal fade" id="modalAddClass" tabindex="-1" role="dialog" aria-labelledby="modalAddClassLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalAddClassLabel">เพิ่มรายวิชา</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group required">
+                                    <label for="dropdownSubject" class="labelform">วิชา</label>
+                                    <select class="custom-select" id="dropdownSubject" required>
+                                    </select>
+                                </div>
+                                <div class="form-group required">
+                                    <label for="dropdownClass" class="labelform">ระดับชั้น</label>
+                                    <select class="custom-select" id="dropdownClass" required>
+                                    </select>
+                                </div>
+                                <div class="form-group  required">
+                                    <label for="dropdownExp" class="labelform">ประสบการณ์สอน</label>
+                                    <select class="custom-select" id="dropdownExp" required>
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="btnSaveAddClass">ตกลง</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Add JobDetail-->
+            <div class="modal fade" id="modalAddJobDetail" tabindex="-1" role="dialog" aria-labelledby="modalAddJobDetailLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalAddJobDetailLabel">วัน เวลา สถานที่และพาหนะที่ใช้เดินทาง</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group required" id='groupCopyFromDay'>
+                                    <label for="dropdownCopyFromDay" class="labelform">สำเนาจาก</label>
+                                    <select class="custom-select" id="dropdownCopyFromDay">
+                                    </select>
+                                </div>
+                                <div class="form-group required">
+                                    <label for="dropdownJobDetailDay" class="labelform">วัน</label>
+                                    <select class="custom-select" id="dropdownJobDetailDay">
+                                    </select>
+                                </div>
+                                <div class="form-group required">
+                                    <label for="dropdownJobDetailStartTime" class="labelform">เวลาเริ่มต้นเดินทาง</label>
+                                    <select class="custom-select" id="dropdownJobDetailStartTime">
+                                    </select>
+                                </div>
+                                <div class="form-group required">
+                                    <label for="dropdownJobDetailEndTime" class="labelform">เวลาสิ้นสุดการเดินทาง</label>
+                                    <select class="custom-select" id="dropdownJobDetailEndTime">
+                                    </select>
+                                </div>
+                                <div class="form-group required">
+                                    <label for="txtStartPlace" class="labelform">สถานที่เริ่มต้นเดินทาง</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="txtStartPlace" readonly>
+                                        <button id="btnStartGoogleMap" type="button" class="btn btn-secondary input-group-btn btn-google-pin" data-toggle="modal"
+                                            data-target="#modalGoogleMap">
+                                            <div class="img-google-pin"></div>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="form-group required">
+                                    <label for="txtEndPlace" class="labelform">สถานทีสิ้นสุดการเดินทาง</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="txtEndPlace" readonly>
+                                        <button id="btnEndGoogleMap" type="button" class="btn btn-secondary input-group-btn btn-google-pin" data-toggle="modal" data-target="#modalGoogleMap">
+                                            <div class="img-google-pin"></div>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div style="display:inline;">
+                                    <input type="checkbox" id="chkJobDetailCar">
+                                    <label>รถยนต์ส่วนตัว</label>
+                                    <input type="checkbox" id="chkJobDetailBus">
+                                    <label>รถโดยสารประจำทาง</label>
+                                    <input type="checkbox" id="chkJobDetailBTS">
+                                    <label>รถไฟฟ้า</label>
+                                    <input type="checkbox" id="chkJobDetailTaxi">
+                                    <label>แท็กซี่</label>
+                                </div>
+                            </form>
+                        </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-primary" id="btnSaveAddDetail">ตกลง</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
-                        </div>-->
                         </div>
                     </div>
                 </div>
+            </div>
+
+
+            <!-- Modal Add Google map-->
+            <div class="modal fade" id="modalGoogleMap" tabindex="-1" role="dialog" aria-labelledby="modalGoogleMapLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content contentmap">
+                        <div class="modal-body mapbody">
+                            <div style="display:block">
+                                <input id="pac-input" class="controls" type="text" placeholder="Enter a location">
+                            </div>
+                            <!--<input type="text" class="form-control" id="address" value="จุฬาลงกรณ์มหาวิทยาลัย"></input>
+                                       <button id="btnSubmitAddress" type="button" class="btn btn-default input-group-btn btn-google-search" value="Geocode">
+                                    ค้นหา
+                                </button>-->
+                            <div id="map" class="map"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-center">
+                <p>
+                    <button type="button" class="btn btn-primary btn-lg" id="btnAddTutor">บันทึก</button>
+                    <button type="button" class="btn btn-secondary btn-lg">ยกเลิก</button>
+                </p>
+            </div>
         </div>
-        <div class="container-center">
-            <p>
-                <button type="button" class="btn btn-primary btn-lg" id="btnAddTutor">บันทึก</button>
-                <button type="button" class="btn btn-secondary btn-lg">ยกเลิก</button>
-            </p>
-        </div>
-        </div>
+
+    </div>
     <script>
-    /*----------- PAGE 1 -------------*/
+        /*----------- PAGE 1 -------------*/
         var dataSex = [{
             name: "ชาย", val: "M"
         }, {
@@ -475,7 +465,7 @@
         });
 
 
-    /*----------- PAGE 2 -------------*/
+        /*----------- PAGE 2 -------------*/
         _isInitGmapStartAndEndPlace = false;
         _googleMapType = 1;
         var subjectDetailForApplyJobViews = [];
@@ -500,7 +490,7 @@
             $('#dropdownExp').append('<option value="' + dataExp[i].val + '">' + dataExp[i].name + '</option>');
         }
 
- 
+
         for (var i = 0; i < dataTime.length; i++) {
             $('#dropdownJobDetailStartTime').append('<option value="' + dataTime[i].val + '">' + dataTime[i].name + '</option>');
             $('#dropdownJobDetailEndTime').append('<option value="' + dataTime[i].val + '">' + dataTime[i].name + '</option>');
@@ -508,7 +498,7 @@
 
         $(document).ready(function () {
             getSubjectForApplyJob();
-          //  onloadtable();
+            //  onloadtable();
             $('#btnAddClass').click(function () {
                 addApplyJobList();
             });
@@ -573,12 +563,12 @@
                 editApplyJobList(i);
             }).end().find(".command-delete").on("click", function (e) {
                 var i = parseInt($(this).data("row-id"));
-                var result = confirm("ต้องการลบรายการ "+applySubjects[i].subject.subjName+ " "+applySubjects[i].subjectCatagory.subcName+" ใช่หรือไม่?");
-                if (result) {  
-                    applySubjects.splice(i,1);
+                var result = confirm("ต้องการลบรายการ " + applySubjects[i].subject.subjName + " " + applySubjects[i].subjectCatagory.subcName + " ใช่หรือไม่?");
+                if (result) {
+                    applySubjects.splice(i, 1);
                     refreshGridClassSubjectList();
                 }
-                
+
             });
         });
 
@@ -596,9 +586,9 @@
             }).end().find(".command-delete").on("click", function (e) {
                 var i = $(this).data("row-id");
                 var dayName = dataDay[applyDays[i].tavDayId - 1].name;
-                var result = confirm("ต้องการลบรายการ "+dayName+" ใช่หรือไม่?");
-                if (result) {  
-                    applyDays.splice(i,1);
+                var result = confirm("ต้องการลบรายการ " + dayName + " ใช่หรือไม่?");
+                if (result) {
+                    applyDays.splice(i, 1);
                     refreshGridDetailDayList();
                 }
             });
@@ -612,7 +602,7 @@
             }
         }
 
-        function refreshGridDetailDayList(){
+        function refreshGridDetailDayList() {
             gridDetail.bootgrid('clear');
             for (var j = 0; j < applyDays.length; j++) {
                 console.log("data : " + applyDays[j]);
@@ -631,7 +621,7 @@
             }
             gridClass.bootgrid("append", [
                 {
-                    "id": i+1,
+                    "id": i + 1,
                     "class": applySubject.subject.subjName,
                     "level": applySubject.subjectCatagory.subcName,
                     "exp": exp.name,
@@ -681,7 +671,7 @@
             }
             gridDetail.bootgrid("append", [
                 {
-                    "id": i+1,
+                    "id": i + 1,
                     "day": dataDay[applyDay.tavDayId - 1].name,
                     "StartTime": startTime.name,
                     "endTime": endTime.name,
@@ -747,7 +737,7 @@
             $('#modalAddJobDetail').find('#txtEndPlace').val(applyDays[i].tavEndLocation);
             $('#modalAddJobDetail').find('#btnStartGoogleMap').val(startLocation);
             $('#modalAddJobDetail').find('#btnEndGoogleMap').val(endLocation);
-            
+
             if (applyDays[i].tavTraDrive == 'Y') {
                 $('#chkJobDetailCar').prop('checked', true);
             } else {
@@ -772,7 +762,7 @@
             $('#modalAddJobDetail').modal('show');
         }
 
-        function assignDropDownValueDayAdd(){
+        function assignDropDownValueDayAdd() {
             $('#dropdownCopyFromDay').empty();
             $('#dropdownJobDetailDay').empty();
             for (var i = 0; i < dataDay.length; i++) {
@@ -787,7 +777,7 @@
             }
         }
 
-        function assignDropDownValueDayEdit(){
+        function assignDropDownValueDayEdit() {
             $('#dropdownCopyFromDay').empty();
             $('#dropdownJobDetailDay').empty();
             for (var i = 0; i < dataDay.length; i++) {
@@ -847,10 +837,10 @@
                 return el.subject.subjId == selectedSubjectVal && el.subjectCatagory.subcId == selectedClassVal;
             });
             if (duplicatedApplySubjects.length > 0 && index == -1) {
-                alert("พบรายการวิชา "+selectedSubjectText+" กลุ่มวิชา"+selectedClassText+" อยู่ในรายการแล้ว");
+                alert("พบรายการวิชา " + selectedSubjectText + " กลุ่มวิชา" + selectedClassText + " อยู่ในรายการแล้ว");
             } else {
                 if (selectedSubjectText && selectedClassText && selectedExpText) {
-                    
+
                     if (index == -1) {
                         var newSubject = {
                             subject: {
@@ -889,11 +879,11 @@
             var txtEndPlace = $("#txtEndPlace").val();
             var startLocation = $('#btnStartGoogleMap').val();
             var endLocation = $('#btnEndGoogleMap').val();
-            startLocation = startLocation.replace('(','');
-            startLocation = startLocation.replace(')','');
+            startLocation = startLocation.replace('(', '');
+            startLocation = startLocation.replace(')', '');
             var startloc = startLocation.split(",");
-            endLocation = endLocation.replace('(','');
-            endLocation = endLocation.replace(')','');
+            endLocation = endLocation.replace('(', '');
+            endLocation = endLocation.replace(')', '');
             var endloc = endLocation.split(",");
             var chkCar = "";
             var chkBus = "";
@@ -923,20 +913,20 @@
             }
             var index = $(this).val();
             if (index == -1) {
-                var newDay = { 
-                    tavDayId : parseInt(selectedJobDetailDay),
-                    tavStartLat : parseFloat(startloc[0]),
-                    tavStartLong : parseFloat(startloc[1]),
-                    tavEndLat : parseFloat(endloc[0]),
-                    tavEndLong : parseFloat(endloc[1]),
-                    tavStartLocation : txtStartPlace,
-                    tavEndLocation : txtEndPlace,
-                    tavStartTime : selectedJobDetailStartTime,
-                    tavEndTime : selectedJobDetailEndTime,
-                    tavTraDrive : chkCar,
-                    tavTraBus : chkBus,
-                    tavTraTrain : chkBTS,
-                    tavTraTaxi : chkTaxi
+                var newDay = {
+                    tavDayId: parseInt(selectedJobDetailDay),
+                    tavStartLat: parseFloat(startloc[0]),
+                    tavStartLong: parseFloat(startloc[1]),
+                    tavEndLat: parseFloat(endloc[0]),
+                    tavEndLong: parseFloat(endloc[1]),
+                    tavStartLocation: txtStartPlace,
+                    tavEndLocation: txtEndPlace,
+                    tavStartTime: selectedJobDetailStartTime,
+                    tavEndTime: selectedJobDetailEndTime,
+                    tavTraDrive: chkCar,
+                    tavTraBus: chkBus,
+                    tavTraTrain: chkBTS,
+                    tavTraTaxi: chkTaxi
                 };
                 applyDays.push(newDay);
             } else {
@@ -957,7 +947,7 @@
             }
             refreshGridDetailDayList();
             $('#modalAddJobDetail').modal('hide');
-            
+
         });
 
         // load subject list
@@ -1003,8 +993,8 @@
                                 $('#dropdownClass').append('<option value="' + subjectCatagories[i].subcId + '">' + subjectCatagories[i].subcName + '</option>');
                             }
                         }
-              //          initialData();
-                    } 
+                        //          initialData();
+                    }
                 },
                 error: function (jqXHR, status) {
                     console.log(jqXHR);
@@ -1014,7 +1004,7 @@
         }
         // Google map
         $("#btnStartGoogleMap").on("click", function (e) {
-         //   console.log("Open Map start "+startLocation);
+            //   console.log("Open Map start "+startLocation);
             _googleMapType = 1;
             if ($('#modalAddJobDetail').find('#txtStartPlace')) {
                 var address = $('#modalAddJobDetail').find('#txtStartPlace').val();
@@ -1028,8 +1018,8 @@
             }
             var startLocation = $(this).val();
             if (startLocation) {
-                startLocation = startLocation.replace('(','');
-                startLocation = startLocation.replace(')','');
+                startLocation = startLocation.replace('(', '');
+                startLocation = startLocation.replace(')', '');
                 var loc = startLocation.split(",");
                 var lat = parseFloat(loc[0]);
                 var lng = parseFloat(loc[1]);
@@ -1054,8 +1044,8 @@
             }
             var endLocation = $(this).val();
             if (endLocation) {
-                endLocation = endLocation.replace('(','');
-                endLocation = endLocation.replace(')','');
+                endLocation = endLocation.replace('(', '');
+                endLocation = endLocation.replace(')', '');
                 var loc = endLocation.split(",");
                 var lat = parseFloat(loc[0]);
                 var lng = parseFloat(loc[1]);
@@ -1154,7 +1144,7 @@
                         $('#btnEndGoogleMap').val(latLng);
                         $('#modalAddJobDetail').find('#txtEndPlace').val(address);
                     }
-                    
+
                     $('#modalGoogleMap').modal('hide');
 
                     //   $('#address').html('Address:' + results[0].formatted_address);
@@ -1221,14 +1211,14 @@
                 $(".alert-danger").find("strong").text('รหัสผ่านไม่ถูกต้อง');
                 $(".alert-danger").show();
                 $('html, body').animate({ scrollTop: $('.breadcrumb').offset().top }, 'fast');
-            } else if (!txtEmail || !txtPassword || !txtFirstName || !txtLastName || !txtTel || !sex 
-                        || !uniId || !facId || applyDays.length == 0 || applySubjects.length == 0) {
+            } else if (!txtEmail || !txtPassword || !txtFirstName || !txtLastName || !txtTel || !sex
+                || !uniId || !facId || applyDays.length == 0 || applySubjects.length == 0) {
                 $(".alert-danger").find("strong").text('โปรดระบุข้อมูลให้ครบถ้วน');
                 $(".alert-danger").show();
                 $('html, body').animate({ scrollTop: $('.breadcrumb').offset().top }, 'fast');
             }
             else {
-                
+
 
                 var englishFlag = "N";
                 var interFlag = "N";
@@ -1239,8 +1229,8 @@
                     interFlag = "Y";
                 }
                 var tutorView = {
-                    turEmail:txtEmail,
-                    turPassword:txtPassword,
+                    turEmail: txtEmail,
+                    turPassword: txtPassword,
                     turFirstname: txtFirstName,
                     turLastname: txtLastName,
                     turNickname: txtNickname,
@@ -1261,12 +1251,12 @@
                 }
                 console.log(tutorView);
                 applyJob(tutorView);
-            } 
-            
+            }
+
         });
 
-        function applyJob(tutorView){
-            
+        function applyJob(tutorView) {
+
             $.ajax({
                 type: "POST",
                 url: _gServiceURL + "tutor/register",
@@ -1284,9 +1274,9 @@
                     $(".alert-danger").show();
                     $('html, body').animate({ scrollTop: $('.breadcrumb').offset().top }, 'fast');
                 }
-                
+
             });
-            
+
         }
 
     </script>

@@ -1,10 +1,218 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        
-    </head>
 
-    <body>
-        รายละเอียดงานสอน
-    </body>
+<head>
+
+</head>
+
+<body>
+    <div>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="#">หน้าหลัก</a>
+            </li>
+            <li class="breadcrumb-item active">แนะนำงานสอน</li>
+        </ol>
+    </div>
+    <br>
+    <div class="alert alert-dismissible alert-success" style="display: none;">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>บันทึกข้อมูลสำเร็จ</strong>
+    </div>
+    <div class="alert alert-dismissible alert-danger" style="display: none;">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>ไม่สามารถบันทึกข้อมูลได้</strong>
+    </div>
+    <div class="label-header">แนะนำงานสอน</div>
+    <div style="margin-top:30px;">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-lg-3">วิชา :</label>
+                            <label class="col-lg-9 labelnormal" id="lblSubjectCat">คณิตศาสตร์</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3">ภาษาที่ใช้สอน :</label>
+                            <label class="col-lg-9 labelnormal" id="lblProgram">ปกติ</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3">ค่าแนะนำงานสอน :</label>
+                            <label class="col-lg-9 labelnormal" id="lblPrice">2000.00</label>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="label-header">ข้อมูลนักเรียน</div>
+    <div style="margin-top:30px;">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-lg-3">เพศ :</label>
+                            <label class="col-lg-9 labelnormal" id="lblStuSex">ชาย</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3">ระดับชั้น :</label>
+                            <label class="col-lg-9 labelnormal" id="lblLevel">ประถมศึกษาปีที่ 6</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3">สถานศึกษา :</label>
+                            <label class="col-lg-9 labelnormal" id="lblSchool">โรงเรียน</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3">จำนวนนักเรียน :</label>
+                            <label class="col-lg-9 labelnormal" id="lblNumOfStudent">1</label>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="label-header">ข้อมูลวัน เวลา สถานที่เรียน</div>
+    <div style="margin-top:30px;">
+        <table id="gridTime" class="table table-condensed table-hover table-striped scroll">
+            <thead>
+                <tr>
+                    <th data-column-id="day" data-width="10%">วัน</th>
+                    <th data-column-id="time" data-width="30%">เวลา</th>
+                    <th data-column-id="location" data-width="50%">สถานที่</th>
+                    <th data-column-id="map" data-width="10%" data-sortable="false" data-searchable="false">แนะนำเส้นทาง</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <br>
+    <div class="modal fade" id="modalGoogleDirectionMap" tabindex="-1" role="dialog" aria-labelledby="modalGoogleDirectionLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content contentmap">
+                <div class="modal-body mapbody">
+                    <div id="divMapClass" class="map"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-center">
+        <p>
+            <button type="button" class="btn btn-primary btn-lg" id="btnPay">ชำระเงิน</button>
+            <button type="button" class="btn btn-secondary btn-lg">ปฏิเสธงานสอน</button>
+        </p>
+    </div>
+    <br>
+    <br>
+</body>
+<script>
+    var _mapClassDetail;
+    var directionsDisplay;
+    var times = [];
+    jQuery(document).ready(function () {
+        console.log("ready!", _cntLoadMain);
+        console.log("POST" + _selectedRecId);
+        initialData();
+    });
+
+    var gridTime = $("#gridTime").bootgrid({
+        navigation: 0,
+        labels: {
+            noResults: 'ไม่พบรายการ'
+        }
+    }).on("loaded.rs.jquery.bootgrid", function () {
+        gridTime.find(".command-open").on("click", function (e) {
+            var i = parseInt($(this).data("row-id"));
+            openmap(i);
+        });
+    });
+
+    function initialData() {
+
+        $.ajax({
+            type: "GET",
+            url: _gServiceURL + "rectutor/classdetail/" + _selectedRecId,
+            contentType: "application/json; charset=utf-8",
+            crossDomain: true,
+            dataType: "json",
+            success: function (data, status, jqXHR) {
+                var classDetail = data.data.classDetailView;
+                $('#lblSubjectCat').text(classDetail.subjectAndGroupDetailName);
+                $('#lblProgram').text(classDetail.program);
+                $('#lblPrice').text(classDetail.recPrice);
+                $('#lblStuSex').text(classDetail.stuSex);
+                $('#lblLevel').text(classDetail.stuLevel);
+                $('#lblSchool').text(classDetail.stuSchool);
+                $('#lblNumOfStudent').text(classDetail.numOfStu);
+                times = classDetail.recommendTimelocationList;
+                for (var i = 0; i < times.length; i++) {
+                    appendTime(times[i], i);
+                }
+                initmap();
+            },
+            error: function (jqXHR, status) {
+            }
+
+        });
+
+    }
+
+    function appendTime(time, i) {
+        gridTime.bootgrid("append", [
+            {
+                "day": time.day,
+                "time": time.time,
+                "location": time.location,
+                "map": "<button id='mapBtn' type='button' class='btn btn-xs btn-default command-open' data-row-id='" + i + "'><div class='fa-waypoint'></div></button> "
+            }
+        ]);
+    }
+    function initmap() {
+        directionsDisplay = new google.maps.DirectionsRenderer();
+        var latLog = new google.maps.LatLng(13.736334, 100.531102);
+        _mapClassDetail = new google.maps.Map(document.getElementById('divMapClass'), {
+            center: latLog,
+            zoom: 15
+            //,disableDefaultUI: true
+        });
+        directionsDisplay.setMap(_mapClassDetail);
+    }
+
+
+    function openmap(id) {
+        console.log("OPENMAP");
+        var time = times[id];
+        var travelMode = 'DRIVING';
+        if (time.travelType == 'T') {
+            travelMode = 'TRANSIT';
+        }
+        console.log(time);
+        var startlatLog = new google.maps.LatLng(time.startLat, time.startLong);
+        var endlatLog = new google.maps.LatLng(time.latitude, time.longitude);
+        var directionsService = new google.maps.DirectionsService();
+        
+        directionsService.route({
+            origin: startlatLog,
+            destination: endlatLog,
+            travelMode: travelMode
+        }, function (response, status) {
+            if (status === 'OK') {
+                console.log("direction display");
+                console.log(_mapClassDetail);
+                
+                directionsDisplay.setDirections(response);
+                _mapClassDetail.setZoom(20);
+            } else {
+                window.alert('Directions request failed due to ' + status);
+            }
+        });
+        
+        $("#modalGoogleDirectionMap").modal('show');
+
+    }
+</script>
+
 </html>
