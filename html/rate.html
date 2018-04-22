@@ -9,7 +9,7 @@
     <div>
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a href="#">หน้าหลัก</a>
+                <a href="javascript:loadMainPage();">หน้าหลัก</a>
             </li>
             <li class="breadcrumb-item active">อัตราค่าเรียนพิเศษ</li>
         </ol>
@@ -23,7 +23,7 @@
                 <th data-column-id="subcId" data-identifier="true" data-type="numeric" data-width="10%">ลำดับ</th>
                 <th data-column-id="groupCourseName" data-width="30%">ชื่อกลุ่มวิชาเรียน</th>
                 <th data-column-id="onePerson" data-searchable="false" data-width="15%">1 คน</th>
-                <th data-column-id="twoPerson" data-searchable="false"data-width="15%" >2 คน</th>
+                <th data-column-id="twoPerson" data-searchable="false" data-width="15%">2 คน</th>
                 <th data-column-id="threePerson" data-searchable="false" data-width="15%">3 คน</th>
                 <th data-column-id="upperFourPerson" data-searchable="false" data-width="15%">4 คนขึ้นไป</th>
             </tr>
@@ -31,54 +31,55 @@
     </table>
 </body>
 <script>
-        var subjectprices = [];
-        jQuery(document).ready(function () {
-            console.log("Load on edit group course page");
-            initialParentCatData();
-        });
+    var subjectprices = [];
+    jQuery(document).ready(function () {
+        console.log("Load on edit group course page");
+        initialParentCatData();
+    });
 
-        var _gridDetail = $("#gridGroupCourse").bootgrid({
-            navigation: 0,
-            labels: {
-                noResults: 'ไม่พบรายการ'
+    var _gridDetail = $("#gridGroupCourse").bootgrid({
+        navigation: 0,
+        labels: {
+            noResults: 'ไม่พบรายการ'
+        }
+    })
+
+    function initialParentCatData() {
+        console.log("initial parent cat data");
+        subjectprices = [];
+        $.ajax({
+            type: "GET",
+            url: _gServiceURL + "subjectprice/list",
+            contentType: "application/json; charset=utf-8",
+            crossDomain: true,
+            dataType: "json",
+            success: function (data, status, jqXHR) {
+                console.log(data.data.subjectPriceViews);
+                subjectprices = data.data.subjectPriceViews;
+                for (var i = 0; i < subjectprices.length; i++) {
+                    appendSubjectPrice(subjectprices[i], i);
+                }
+            },
+            error: function (jqXHR, status) {
+                console.log(jqXHR);
+                alert('fail' + status.code);
             }
-        })
+        });
+    }
 
-        function initialParentCatData() {
-            console.log("initial parent cat data");
-            subjectprices = [];
-            $.ajax({
-                type: "GET",
-                url: _gServiceURL+"subjectprice/list",
-                contentType: "application/json; charset=utf-8",
-                crossDomain: true,
-                dataType: "json",
-                success: function (data, status, jqXHR) {
-                    console.log(data.data.subjectPriceViews);
-                    subjectprices = data.data.subjectPriceViews;
-                    for (var i = 0; i < subjectprices.length; i++) {
-                        appendSubjectPrice(subjectprices[i], i);
-                    }
-                },
-                error: function (jqXHR, status) {
-                    console.log(jqXHR);
-                    alert('fail' + status.code);
-                }
-            });
-        }
-
-        function appendSubjectPrice(subjectprice, i) {
-            _gridDetail.bootgrid("append", [
-                {
-                    "subcId": i+1,
-                    "groupCourseName": subjectprice.subcName,
-                    "onePerson": subjectprice.price1,
-                    "twoPerson": subjectprice.price2,
-                    "threePerson": subjectprice.price3,
-                    "upperFourPerson": subjectprice.price4
-                }
-            ]);
-        }
+    function appendSubjectPrice(subjectprice, i) {
+        _gridDetail.bootgrid("append", [
+            {
+                "subcId": i + 1,
+                "groupCourseName": subjectprice.subcName,
+                "onePerson": subjectprice.price1,
+                "twoPerson": subjectprice.price2,
+                "threePerson": subjectprice.price3,
+                "upperFourPerson": subjectprice.price4
+            }
+        ]);
+    }
 
 </script>
+
 </html>

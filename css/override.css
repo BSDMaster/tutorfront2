@@ -143,3 +143,10 @@ td.text-left {
 .bootgrid-table td {
     white-space: nowrap; 
 }*/
+/*
+.table-striped tbody tr{
+    cursor: pointer;
+}*/
+.table-hover tbody tr{
+    cursor: pointer;
+}

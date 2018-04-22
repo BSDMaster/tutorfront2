@@ -9,7 +9,7 @@
     <div>
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a href="#">หน้าหลัก</a>
+                <a href="javascript:loadMainPage();">หน้าหลัก</a>
             </li>
             <li class="breadcrumb-item active">เวลาว่างของนักเรียน</li>
         </ol>
@@ -481,7 +481,7 @@
     }
 
     $("#btnUpdateStudentTime").on("click", function (e) {
-       
+
         var updateStudent = {
             stuId: parseInt(_gUser.stuId),
             studentAvailableTimelocations: avatimes

@@ -9,7 +9,7 @@
     <div>
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a href="#">หน้าหลัก</a>
+                <a href="javascript:loadMainPage();">หน้าหลัก</a>
             </li>
             <li class="breadcrumb-item active">ข้อมูลส่วนตัว</li>
         </ol>
@@ -165,7 +165,7 @@
             stuPhonenum: txtTel,
             stuSex: sex,
             stuLevel: parseInt(level),
-            stuSchool : school
+            stuSchool: school
         };
         console.log(bodyRequest);
         $.ajax({

@@ -9,9 +9,9 @@
     <div>
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a href="#">หน้าหลัก</a>
+                <a href="javascript:loadMainPage();">หน้าหลัก</a>
             </li>
-            <li class="breadcrumb-item active">แนะนำงานสอน</li>
+            <li class="breadcrumb-item active" id="breadcrumbrecmerged">รายการแนะนำงานสอนเลขที่ </li>
         </ol>
     </div>
     <br>
@@ -24,7 +24,7 @@
         <strong>ไม่สามารถบันทึกข้อมูลได้</strong>
     </div>
 
-    <div class="label-header">แนะนำงานสอน</div>
+    <div class="label-header" id="headerrecmerged">แนะนำงานสอน</div>
     <br>
     <ul class="nav nav-tabs">
         <li class="nav-item active">
@@ -42,6 +42,10 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-lg-3">รหัสงานสอน :</label>
+                                    <label class="col-lg-9 labelnormal" id="lblClsId1">คณิตศาสตร์</label>
+                                </div>
                                 <div class="form-group">
                                     <label class="col-lg-3">วิชา :</label>
                                     <label class="col-lg-9 labelnormal" id="lblSubjectCat1">คณิตศาสตร์</label>
@@ -109,6 +113,10 @@
                         <div class="col-lg-12">
                             <form class="form-horizontal">
                                 <div class="form-group">
+                                    <label class="col-lg-3">รหัสงานสอน :</label>
+                                    <label class="col-lg-9 labelnormal" id="lblClsId2">คณิตศาสตร์</label>
+                                </div>
+                                <div class="form-group">
                                     <label class="col-lg-3">วิชา :</label>
                                     <label class="col-lg-9 labelnormal" id="lblSubjectCat2">คณิตศาสตร์</label>
                                 </div>
@@ -155,7 +163,7 @@
             </div>
             <br>
             <div class="label-header">ข้อมูลวัน เวลา สถานที่เรียน</div>
-            <div style="margin-top:30px;">
+            <div style="margin:30px;">
                 <table id="gridTime2" class="table table-condensed table-hover table-striped scroll">
                     <thead>
                         <tr>
@@ -169,6 +177,15 @@
             </div>
         </div>
     </div>
+    <br>
+    <div class="container-center">
+        <p>
+            <button type="button" class="btn btn-primary btn-lg" id="btnPaymentMergedClass">ชำระเงิน</button>
+            <button type="button" class="btn btn-secondary btn-lg">ปฏิเสธงานสอน</button>
+        </p>
+    </div>
+    <br>
+    <br>
     <div class="modal fade" id="modalGoogleDirectionMergedMap" tabindex="-1" role="dialog" aria-labelledby="modalGoogleDirectionMergedLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -179,20 +196,18 @@
             </div>
         </div>
     </div>
-    <div class="container-center">
-        <p>
-            <button type="button" class="btn btn-primary btn-lg" id="btnPayMerged">ชำระเงิน</button>
-            <button type="button" class="btn btn-secondary btn-lg">ปฏิเสธงานสอน</button>
-        </p>
-    </div>
+
+
 </body>
 <script>
+
     var _times1;
     var _times2;
     jQuery(document).ready(function () {
+
         console.log("ready!", _cntLoadMain);
-        console.log("POST" + _selectedRecId);
-        initialData();
+        console.log("POST", _selectedRecId);
+        initialMapMergedData();
     });
     var gridTime1 = $("#gridTime1").bootgrid({
         navigation: 0,
@@ -202,7 +217,7 @@
     }).on("loaded.rs.jquery.bootgrid", function () {
         gridTime1.find(".command-open").on("click", function (e) {
             var i = parseInt($(this).data("row-id"));
-            openmap1(i);
+            //       openmap1(i);
         });
     });
 
@@ -214,12 +229,11 @@
     }).on("loaded.rs.jquery.bootgrid", function () {
         gridTime2.find(".command-open").on("click", function (e) {
             var i = parseInt($(this).data("row-id"));
-            openmap2(i);
+            //        openmap2(i);
         });
     });
 
-    function initialData() {
-
+    function initialMapMergedData() {
         $.ajax({
             type: "GET",
             url: _gServiceURL + "rectutor/mergedclassdetail/" + _selectedRecId,
@@ -227,7 +241,10 @@
             crossDomain: true,
             dataType: "json",
             success: function (data, status, jqXHR) {
+                $('#breadcrumbrecmerged').text('รายการแนะนำงานสอนเลขที่ ' + data.data.recId);
+                $('#headerrecmerged').text('รายการแนะนำงานสอนเลขที่ ' + data.data.recId);
                 var classDetail1 = data.data.classDetailView1;
+                $('#lblClsId1').text(classDetail1.clsId);
                 $('#lblSubjectCat1').text(classDetail1.subjectAndGroupDetailName);
                 $('#lblProgram1').text(classDetail1.program);
                 $('#lblPrice1').text(classDetail1.recPrice);
@@ -240,6 +257,7 @@
                     appendTime1(_times1[i], i);
                 }
                 var classDetail2 = data.data.classDetailView2;
+                $('#lblClsId2').text(classDetail2.clsId);
                 $('#lblSubjectCat2').text(classDetail2.subjectAndGroupDetailName);
                 $('#lblProgram2').text(classDetail2.program);
                 $('#lblPrice2').text(classDetail2.recPrice);
@@ -248,10 +266,10 @@
                 $('#lblSchool2').text(classDetail2.stuSchool);
                 $('#lblNumOfStudent2').text(classDetail2.numOfStu);
                 _times2 = classDetail2.recommendTimelocationList;
-                for (var i = 0; i < _times2.length; i++) {
-                    appendTime2(_times2[i], i);
+                for (var j = 0; j < _times2.length; j++) {
+                    appendTime2(_times2[j], j);
                 }
-                initmap();
+                initmapformerged();
             },
             error: function (jqXHR, status) {
             }
@@ -281,7 +299,8 @@
             }
         ]);
     }
-    function initmap() {
+    function initmapformerged() {
+        /*
         directionsDisplay = new google.maps.DirectionsRenderer();
         var latLog = new google.maps.LatLng(13.736334, 100.531102);
         _mapClassDetail = new google.maps.Map(document.getElementById('divMapClass'), {
@@ -289,7 +308,7 @@
             zoom: 15
             //,disableDefaultUI: true
         });
-        directionsDisplay.setMap(_mapClassDetail);
+        directionsDisplay.setMap(_mapClassDetail);*/
     }
 
 
@@ -325,6 +344,13 @@
         $("#modalGoogleDirectionMergedMap").modal('show');
 
     }
+
+    $("#btnPaymentMergedClass").on("click", function (e) {
+        console.log('Payment Merged');
+        _gRec.recId = _selectedRecId;
+        _gRec.recType = 'M';
+        jQuery("#divMainContainer").load("./html/pay.html");
+    });
 </script>
 
 </html>

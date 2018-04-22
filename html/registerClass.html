@@ -9,7 +9,7 @@
     <div>
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a href="#">หน้าหลัก</a>
+                <a href="javascript:loadMainPage();">หน้าหลัก</a>
             </li>
             <li class="breadcrumb-item active">สมัครเรียน</li>
         </ol>
@@ -1077,7 +1077,7 @@
         var sex = $('#dropdownSex option:selected').val();
         var level = $('#dropdownLevel option:selected').val();
         var school = $('#txtSchool').val();
-        console.log('txtSchool : '+school);
+        console.log('txtSchool : ' + school);
         // create new class
         if (txtPassword != txtConfirmPassword) {
             $(".alert-danger").find("strong").text('รหัสผ่านไม่ถูกต้อง');
@@ -1117,7 +1117,7 @@
         if ($('#chkExp').checked) {
             exp = "Y";
         }
-        console.log('txtSchool : '+school);
+        console.log('txtSchool : ' + school);
 
         var bodyRequest = {
             stuEmail: txtEmail,
