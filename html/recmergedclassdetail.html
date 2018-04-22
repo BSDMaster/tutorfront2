@@ -11,7 +11,7 @@
             <li class="breadcrumb-item">
                 <a href="javascript:loadMainPage();">หน้าหลัก</a>
             </li>
-            <li class="breadcrumb-item active" id="breadcrumbmerged">งานสอนเลขที่ </li>
+            <li class="breadcrumb-item active" id="breadcrumbrecmerged">รายการแนะนำงานสอนเลขที่ </li>
         </ol>
     </div>
     <br>
@@ -24,19 +24,19 @@
         <strong>ไม่สามารถบันทึกข้อมูลได้</strong>
     </div>
 
-    <div class="label-header" id="headermerged">งานสอน</div>
+    <div class="label-header" id="headerrecmerged">แนะนำงานสอน</div>
     <br>
     <ul class="nav nav-tabs">
         <li class="nav-item active">
-            <a data-toggle="tab" href="#tabMergedClass1">งานสอนที่ 1</a>
+            <a data-toggle="tab" href="#tabClass1">งานสอนที่ 1</a>
         </li>
         <li class="nav-item">
-            <a data-toggle="tab" href="#tabMergedClass2">งานสอนที่ 2</a>
+            <a data-toggle="tab" href="#tabClass2">งานสอนที่ 2</a>
         </li>
     </ul>
     <br>
-    <div id="mergedClassDetailTabContent" class="tab-content">
-        <div class="tab-pane fade in active" id="tabMergedClass1">
+    <div id="mergedClassTabContent" class="tab-content">
+        <div class="tab-pane fade in active" id="tabClass1">
             <div style="margin-top:30px;">
                 <div class="container-fluid">
                     <div class="row">
@@ -44,19 +44,19 @@
                             <form class="form-horizontal">
                                 <div class="form-group">
                                     <label class="col-lg-3">รหัสงานสอน :</label>
-                                    <label class="col-lg-9 labelnormal" id="lblMerClsId1">คณิตศาสตร์</label>
+                                    <label class="col-lg-9 labelnormal" id="lblClsId1">คณิตศาสตร์</label>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-lg-3">วิชา :</label>
-                                    <label class="col-lg-9 labelnormal" id="lblMerSubjectCat1">คณิตศาสตร์</label>
+                                    <label class="col-lg-9 labelnormal" id="lblSubjectCat1">คณิตศาสตร์</label>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-lg-3">ภาษาที่ใช้สอน :</label>
-                                    <label class="col-lg-9 labelnormal" id="lblMerProgram1">ปกติ</label>
+                                    <label class="col-lg-9 labelnormal" id="lblProgram1">ปกติ</label>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-lg-3">ค่าแนะนำงานสอน :</label>
-                                    <label class="col-lg-9 labelnormal" id="lblMerPrice1">2000.00</label>
+                                    <label class="col-lg-9 labelnormal" id="lblPrice1">2000.00</label>
                                 </div>
                             </form>
                         </div>
@@ -71,32 +71,20 @@
                         <div class="col-lg-12">
                             <form class="form-horizontal">
                                 <div class="form-group">
-                                    <label class="col-lg-3">ชื่อ :</label>
-                                    <label class="col-lg-9 labelnormal" id="lblMerStuName1"></label>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-lg-3">เบอร์โทรติดต่อ :</label>
-                                    <label class="col-lg-9 labelnormal" id="lblMerStuTel1"></label>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-lg-3">เบอร์โทรติดต่อ :</label>
-                                    <label class="col-lg-9 labelnormal" id="lblMerStuEmail1"></label>
-                                </div>
-                                <div class="form-group">
                                     <label class="col-lg-3">เพศ :</label>
-                                    <label class="col-lg-9 labelnormal" id="lblMerStuSex1">ชาย</label>
+                                    <label class="col-lg-9 labelnormal" id="lblStuSex1">ชาย</label>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-lg-3">ระดับชั้น :</label>
-                                    <label class="col-lg-9 labelnormal" id="lblMerLevel1">ประถมศึกษาปีที่ 6</label>
+                                    <label class="col-lg-9 labelnormal" id="lblLevel1">ประถมศึกษาปีที่ 6</label>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-lg-3">สถานศึกษา :</label>
-                                    <label class="col-lg-9 labelnormal" id="lblMerSchool1">โรงเรียน</label>
+                                    <label class="col-lg-9 labelnormal" id="lblSchool1">โรงเรียน</label>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-lg-3">จำนวนนักเรียน :</label>
-                                    <label class="col-lg-9 labelnormal" id="lblMerNumOfStudent1">1</label>
+                                    <label class="col-lg-9 labelnormal" id="lblNumOfStudent1">1</label>
                                 </div>
                             </form>
                         </div>
@@ -106,7 +94,7 @@
             <br>
             <div class="label-header">ข้อมูลวัน เวลา สถานที่เรียน</div>
             <div style="margin-top:30px;">
-                <table id="merGridTime1" class="table table-condensed table-hover table-striped scroll">
+                <table id="gridTime1" class="table table-condensed table-hover table-striped scroll">
                     <thead>
                         <tr>
                             <th data-column-id="day" data-width="10%">วัน</th>
@@ -118,7 +106,7 @@
                 </table>
             </div>
         </div>
-        <div class="tab-pane fade" id="tabMergedClass2">
+        <div class="tab-pane fade" id="tabClass2">
             <div style="margin-top:30px;">
                 <div class="container-fluid">
                     <div class="row">
@@ -126,19 +114,19 @@
                             <form class="form-horizontal">
                                 <div class="form-group">
                                     <label class="col-lg-3">รหัสงานสอน :</label>
-                                    <label class="col-lg-9 labelnormal" id="lblMerClsId2">คณิตศาสตร์</label>
+                                    <label class="col-lg-9 labelnormal" id="lblClsId2">คณิตศาสตร์</label>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-lg-3">วิชา :</label>
-                                    <label class="col-lg-9 labelnormal" id="lblMerSubjectCat2">คณิตศาสตร์</label>
+                                    <label class="col-lg-9 labelnormal" id="lblSubjectCat2">คณิตศาสตร์</label>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-lg-3">ภาษาที่ใช้สอน :</label>
-                                    <label class="col-lg-9 labelnormal" id="lblMerProgram2">ปกติ</label>
+                                    <label class="col-lg-9 labelnormal" id="lblProgram2">ปกติ</label>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-lg-3">ค่าแนะนำงานสอน :</label>
-                                    <label class="col-lg-9 labelnormal" id="lblMerPrice2">2000.00</label>
+                                    <label class="col-lg-9 labelnormal" id="lblPrice2">2000.00</label>
                                 </div>
                             </form>
                         </div>
@@ -153,32 +141,20 @@
                         <div class="col-lg-12">
                             <form class="form-horizontal">
                                 <div class="form-group">
-                                    <label class="col-lg-3">ชื่อ :</label>
-                                    <label class="col-lg-9 labelnormal" id="lblMerStuName2"></label>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-lg-3">เบอร์โทรติดต่อ :</label>
-                                    <label class="col-lg-9 labelnormal" id="lblMerStuTel2"></label>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-lg-3">เบอร์โทรติดต่อ :</label>
-                                    <label class="col-lg-9 labelnormal" id="lblMerStuEmail2"></label>
-                                </div>
-                                <div class="form-group">
                                     <label class="col-lg-3">เพศ :</label>
-                                    <label class="col-lg-9 labelnormal" id="lblMerStuSex2">ชาย</label>
+                                    <label class="col-lg-9 labelnormal" id="lblStuSex2">ชาย</label>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-lg-3">ระดับชั้น :</label>
-                                    <label class="col-lg-9 labelnormal" id="lblMerLevel2">ประถมศึกษาปีที่ 6</label>
+                                    <label class="col-lg-9 labelnormal" id="lblLevel2">ประถมศึกษาปีที่ 6</label>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-lg-3">สถานศึกษา :</label>
-                                    <label class="col-lg-9 labelnormal" id="lblMerSchool2">โรงเรียน</label>
+                                    <label class="col-lg-9 labelnormal" id="lblSchool2">โรงเรียน</label>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-lg-3">จำนวนนักเรียน :</label>
-                                    <label class="col-lg-9 labelnormal" id="lblMerNumOfStudent2">1</label>
+                                    <label class="col-lg-9 labelnormal" id="lblNumOfStudent2">1</label>
                                 </div>
                             </form>
                         </div>
@@ -188,7 +164,7 @@
             <br>
             <div class="label-header">ข้อมูลวัน เวลา สถานที่เรียน</div>
             <div style="margin:30px;">
-                <table id="merGridTime2" class="table table-condensed table-hover table-striped scroll">
+                <table id="gridTime2" class="table table-condensed table-hover table-striped scroll">
                     <thead>
                         <tr>
                             <th data-column-id="day" data-width="10%">วัน</th>
@@ -202,13 +178,20 @@
         </div>
     </div>
     <br>
+    <div class="container-center">
+        <p>
+            <button type="button" class="btn btn-primary btn-lg" id="btnPaymentMergedClass">ชำระเงิน</button>
+            <button type="button" class="btn btn-secondary btn-lg">ปฏิเสธงานสอน</button>
+        </p>
+    </div>
     <br>
-    <div class="modal fade" id="modalGoogleDirectionMergedDetailMap" tabindex="-1" role="dialog" aria-labelledby="modalGoogleDirectionMergedDetailLabel"
+    <br>
+    <div class="modal fade" id="modalGoogleDirectionMergedMap" tabindex="-1" role="dialog" aria-labelledby="modalGoogleDirectionMergedLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content contentmap">
                 <div class="modal-body mapbody">
-                    <div id="divMapMergedClassDetail" class="map"></div>
+                    <div id="divMapMergedClass" class="map"></div>
                 </div>
             </div>
         </div>
@@ -217,79 +200,76 @@
 
 </body>
 <script>
-    var _mapMergedClassDetail;
-    var _directionsDisplayMergedDetail;
-    var _mertimes1;
-    var _mertimes2;
+    var _mapRecMergedClass;
+    var _directionsDisplayMerged;
+    var _times1;
+    var _times2;
     jQuery(document).ready(function () {
+
+        console.log("ready!", _cntLoadMain);
+        console.log("POST", _selectedRecId);
         initialMapMergedData();
     });
-    var merGridTime1 = $("#merGridTime1").bootgrid({
+    var gridTime1 = $("#gridTime1").bootgrid({
         navigation: 0,
         labels: {
             noResults: 'ไม่พบรายการ'
         }
     }).on("loaded.rs.jquery.bootgrid", function () {
-        merGridTime1.find(".command-open").on("click", function (e) {
+        gridTime1.find(".command-open").on("click", function (e) {
             var i = parseInt($(this).data("row-id"));
-            openmergedmap(_mertimes1[i]);
+            openmap(_times1[i]);
         });
     });
 
-    var merGridTime2 = $("#merGridTime2").bootgrid({
+    var gridTime2 = $("#gridTime2").bootgrid({
         navigation: 0,
         labels: {
             noResults: 'ไม่พบรายการ'
         }
     }).on("loaded.rs.jquery.bootgrid", function () {
-        merGridTime2.find(".command-open").on("click", function (e) {
+        gridTime2.find(".command-open").on("click", function (e) {
             var i = parseInt($(this).data("row-id"));
-            openmergedmap(_mertimes2[i]);
+            openmap(_times2[i]);
         });
     });
 
     function initialMapMergedData() {
         $.ajax({
             type: "GET",
-            url: _gServiceURL + "class/mergedclassdetail/" + _selectedMerId,
+            url: _gServiceURL + "rectutor/mergedclassdetail/" + _selectedRecId,
             contentType: "application/json; charset=utf-8",
             crossDomain: true,
             dataType: "json",
             success: function (data, status, jqXHR) {
+                $('#breadcrumbrecmerged').text('รายการแนะนำงานสอนเลขที่ ' + data.data.recId);
+                $('#headerrecmerged').text('รายการแนะนำงานสอนเลขที่ ' + data.data.recId);
+                _gSelectedMerId = data.data.merId;
                 var classDetail1 = data.data.classDetailView1;
-                var classDetail2 = data.data.classDetailView2;
-                $('#breadcrumbmerged').text('งานสอนเลขที่ ' + classDetail1.clsId + ' และ ' + classDetail2.clsId);
-                $('#headermerged').text('งานสอนเลขที่ ' + classDetail1.clsId + ' และ ' + classDetail2.clsId);
-                $('#lblMerClsId1').text(classDetail1.clsId);
-                $('#lblMerSubjectCat1').text(classDetail1.subjectAndGroupDetailName);
-                $('#lblMerProgram1').text(classDetail1.program);
-                $('#lblMerPrice1').text(classDetail1.recPrice);
-                $('#lblMerStuSex1').text(classDetail1.stuSex);
-                $('#lblMerLevel1').text(classDetail1.stuLevel);
-                $('#lblMerSchool1').text(classDetail1.stuSchool);
-                $('#lblMerNumOfStudent1').text(classDetail1.numOfStu);
-                $('#lblMerStuName1').text(classDetail1.stuName);
-                $('#lblMerStuTel1').text(classDetail1.stuTel);
-                $('#lblMerStuEmail1').text(classDetail1.stuEmail);
-                _mertimes1 = classDetail1.recommendTimelocationList;
-                for (var i = 0; i < _mertimes1.length; i++) {
-                    appendMerTime1(_mertimes1[i], i);
+                $('#lblClsId1').text(classDetail1.clsId);
+                $('#lblSubjectCat1').text(classDetail1.subjectAndGroupDetailName);
+                $('#lblProgram1').text(classDetail1.program);
+                $('#lblPrice1').text(classDetail1.recPrice);
+                $('#lblStuSex1').text(classDetail1.stuSex);
+                $('#lblLevel1').text(classDetail1.stuLevel);
+                $('#lblSchool1').text(classDetail1.stuSchool);
+                $('#lblNumOfStudent1').text(classDetail1.numOfStu);
+                _times1 = classDetail1.recommendTimelocationList;
+                for (var i = 0; i < _times1.length; i++) {
+                    appendTime1(_times1[i], i);
                 }
-
-                $('#lblMerClsId2').text(classDetail2.clsId);
-                $('#lblMerSubjectCat2').text(classDetail2.subjectAndGroupDetailName);
-                $('#lblMerProgram2').text(classDetail2.program);
-                $('#lblMerPrice2').text(classDetail2.recPrice);
-                $('#lblMerStuSex2').text(classDetail2.stuSex);
-                $('#lblMerLevel2').text(classDetail2.stuLevel);
-                $('#lblMerSchool2').text(classDetail2.stuSchool);
-                $('#lblMerNumOfStudent2').text(classDetail2.numOfStu);
-                $('#lblMerStuName2').text(classDetail2.stuName);
-                $('#lblMerStuTel2').text(classDetail2.stuTel);
-                $('#lblMerStuEmail2').text(classDetail2.stuEmail);
-                _mertimes2 = classDetail2.recommendTimelocationList;
-                for (var j = 0; j < _mertimes2.length; j++) {
-                    appendMerTime2(_mertimes2[j], j);
+                var classDetail2 = data.data.classDetailView2;
+                $('#lblClsId2').text(classDetail2.clsId);
+                $('#lblSubjectCat2').text(classDetail2.subjectAndGroupDetailName);
+                $('#lblProgram2').text(classDetail2.program);
+                $('#lblPrice2').text(classDetail2.recPrice);
+                $('#lblStuSex2').text(classDetail2.stuSex);
+                $('#lblLevel2').text(classDetail2.stuLevel);
+                $('#lblSchool2').text(classDetail2.stuSchool);
+                $('#lblNumOfStudent2').text(classDetail2.numOfStu);
+                _times2 = classDetail2.recommendTimelocationList;
+                for (var j = 0; j < _times2.length; j++) {
+                    appendTime2(_times2[j], j);
                 }
                 initmapformerged();
             },
@@ -300,7 +280,7 @@
 
     }
 
-    function appendMerTime1(time, i) {
+    function appendTime1(time, i) {
         gridTime1.bootgrid("append", [
             {
                 "day": time.day,
@@ -311,7 +291,7 @@
         ]);
     }
 
-    function appendMerTime2(time, i) {
+    function appendTime2(time, i) {
         gridTime2.bootgrid("append", [
             {
                 "day": time.day,
@@ -322,19 +302,19 @@
         ]);
     }
     function initmapformerged() {
-
-        _directionsDisplayMergedDetail = new google.maps.DirectionsRenderer();
+        
+        _directionsDisplayMerged = new google.maps.DirectionsRenderer();
         var latLog = new google.maps.LatLng(13.736334, 100.531102);
-        _mapMergedClassDetail = new google.maps.Map(document.getElementById('divMapMergedClassDetail'), {
+        _mapRecMergedClass = new google.maps.Map(document.getElementById('divMapMergedClass'), {
             center: latLog,
             zoom: 15
         });
-        _directionsDisplayMergedDetail.setMap(_mapMergedClassDetail);
+        _directionsDisplayMerged.setMap(_mapRecMergedClass);
     }
 
 
-    function openmergedmap(time) {
-        console.log("openmergedmap");
+    function openmap(time) {
+        console.log("OPENMAP");
         var travelMode = 'DRIVING';
         if (time.travelType == 'T') {
             travelMode = 'TRANSIT';
@@ -343,7 +323,7 @@
         var startlatLog = new google.maps.LatLng(time.startLat, time.startLong);
         var endlatLog = new google.maps.LatLng(time.latitude, time.longitude);
         var directionsService = new google.maps.DirectionsService();
-
+        
         directionsService.route({
             origin: startlatLog,
             destination: endlatLog,
@@ -351,22 +331,28 @@
         }, function (response, status) {
             if (status === 'OK') {
                 console.log("direction display");
-                console.log(_directionsDisplayMergedDetail);
-
-                _directionsDisplayMergedDetail.setDirections(response);
+                console.log(_directionsDisplayMerged);
+                
+                _directionsDisplayMerged.setDirections(response);
                 setTimeout(function () {
                     //your code to be executed after 1 second
-                    _mapMergedClassDetail.setZoom(12);
+                    _mapRecMergedClass.setZoom(12);
                 }, 1000);
             } else {
                 window.alert('Directions request failed due to ' + status);
             }
         });
-
-        $("#modalGoogleDirectionMergedDetailMap").modal('show');
+        
+        $("#modalGoogleDirectionMergedMap").modal('show');
 
     }
 
+    $("#btnPaymentMergedClass").on("click", function (e) {
+        console.log('Payment Merged');
+        _gRec.recId = _selectedRecId;
+        _gRec.recType = 'M';
+        jQuery("#divMainContainer").load("./html/pay.html");
+    });
 </script>
 
 </html>

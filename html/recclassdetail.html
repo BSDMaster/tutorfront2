@@ -11,19 +11,19 @@
             <li class="breadcrumb-item">
                 <a href="javascript:loadMainPage();">หน้าหลัก</a>
             </li>
-            <li class="breadcrumb-item active" id="breadcrumbclass">งานสอนเลขที่ </li>
+            <li class="breadcrumb-item active" id="breadcrumbrecclass">รายการแนะนำงานสอนเลขที่ </li>
         </ol>
     </div>
     <br>
     <div class="alert alert-dismissible alert-success" style="display: none;">
-        <button type="button" class="close" data-dismiss="alert"></button>
+        <button type="button" class="close" data-dismiss="alert">&_recclasstimes;</button>
         <strong>บันทึกข้อมูลสำเร็จ</strong>
     </div>
     <div class="alert alert-dismissible alert-danger" style="display: none;">
-        <button type="button" class="close" data-dismiss="alert"></button>
+        <button type="button" class="close" data-dismiss="alert">&_recclasstimes;</button>
         <strong>ไม่สามารถบันทึกข้อมูลได้</strong>
     </div>
-    <div class="label-header" id="headerclass">งานสอน</div>
+    <div class="label-header" id="headerrecclass">แนะนำงานสอน</div>
     <div style="margin-top:30px;">
         <div class="container-fluid">
             <div class="row">
@@ -31,19 +31,19 @@
                     <form class="form-horizontal">
                         <div class="form-group">
                             <label class="col-lg-3">รหัสงานสอน :</label>
-                            <label class="col-lg-9 labelnormal" id="lblClsClsId">คณิตศาสตร์</label>
+                            <label class="col-lg-9 labelnormal" id="lblClsId">คณิตศาสตร์</label>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-3">วิชา :</label>
-                            <label class="col-lg-9 labelnormal" id="lblClsSubjectCat">คณิตศาสตร์</label>
+                            <label class="col-lg-9 labelnormal" id="lblSubjectCat">คณิตศาสตร์</label>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-3">ภาษาที่ใช้สอน :</label>
-                            <label class="col-lg-9 labelnormal" id="lblClsProgram">ปกติ</label>
+                            <label class="col-lg-9 labelnormal" id="lblProgram">ปกติ</label>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-3">ค่าแนะนำงานสอน :</label>
-                            <label class="col-lg-9 labelnormal" id="lblClsPrice">2000.00</label>
+                            <label class="col-lg-9 labelnormal" id="lblPrice">2000.00</label>
                         </div>
                     </form>
                 </div>
@@ -58,32 +58,20 @@
                 <div class="col-lg-12">
                     <form class="form-horizontal">
                         <div class="form-group">
-                            <label class="col-lg-3">ชื่อ :</label>
-                            <label class="col-lg-9 labelnormal" id="lblClsStuName"></label>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-3">เบอร์โทรติดต่อ :</label>
-                            <label class="col-lg-9 labelnormal" id="lblClsStuTel"></label>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-3">อีเมล์ :</label>
-                            <label class="col-lg-9 labelnormal" id="lblClsStuEmail"></label>
-                        </div>
-                        <div class="form-group">
                             <label class="col-lg-3">เพศ :</label>
-                            <label class="col-lg-9 labelnormal" id="lblClsStuSex">ชาย</label>
+                            <label class="col-lg-9 labelnormal" id="lblStuSex">ชาย</label>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-3">ระดับชั้น :</label>
-                            <label class="col-lg-9 labelnormal" id="lblClsLevel">ประถมศึกษาปีที่ 6</label>
+                            <label class="col-lg-9 labelnormal" id="lblLevel">ประถมศึกษาปีที่ 6</label>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-3">สถานศึกษา :</label>
-                            <label class="col-lg-9 labelnormal" id="lblClsSchool">โรงเรียน</label>
+                            <label class="col-lg-9 labelnormal" id="lblSchool">โรงเรียน</label>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-3">จำนวนนักเรียน :</label>
-                            <label class="col-lg-9 labelnormal" id="lblClsNumOfStudent">1</label>
+                            <label class="col-lg-9 labelnormal" id="lblNumOfStudent">1</label>
                         </div>
                     </form>
                 </div>
@@ -93,7 +81,7 @@
     <br>
     <div class="label-header">ข้อมูลวัน เวลา สถานที่เรียน</div>
     <div style="margin:30px;">
-        <table id="gridClassTime" class="table table-condensed table-hover table-striped scroll">
+        <table id="gridTime" class="table table-condensed table-hover table-striped scroll">
             <thead>
                 <tr>
                     <th data-column-id="day" data-width="10%">วัน</th>
@@ -105,69 +93,74 @@
         </table>
     </div>
     <br>
-    <div class="modal fade" id="modalGoogleDirectionClassMap" tabindex="-1" role="dialog" aria-labelledby="modalGoogleDirectionClassLabel"
+    <div class="modal fade" id="modalGoogleDirectionMap" tabindex="-1" role="dialog" aria-labelledby="modalGoogleDirectionLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content contentmap">
                 <div class="modal-body mapbody">
-                    <div id="divMapClassDetail" class="map"></div>
+                    <div id="divMapClass" class="map"></div>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="container-center">
+        <p>
+            <button type="button" class="btn btn-primary btn-lg" id="btnPaymentClass">ชำระเงิน</button>
+            <button type="button" class="btn btn-secondary btn-lg">ปฏิเสธงานสอน</button>
+        </p>
     </div>
     <br>
     <br>
 </body>
 <script>
-    var _mapClassDetail;
-    var _directionsDisplayClassDetail;
-    var _timesClassDetail = [];
+    
+    var _mapRecClassDetail;
+    var _directionsDisplayRecClass;
+    var _recclasstimes = [];
     jQuery(document).ready(function () {
-        initialClassDetailData();
+        console.log("ready!", _cntLoadMain);
+        console.log("POST" + _selectedRecId);
+        initialData();
     });
 
-    var gridClassTime = $("#gridClassTime").bootgrid({
+    var gridTime = $("#gridTime").bootgrid({
         navigation: 0,
         labels: {
             noResults: 'ไม่พบรายการ'
         }
     }).on("loaded.rs.jquery.bootgrid", function () {
-        gridClassTime.find(".command-open").on("click", function (e) {
+        gridTime.find(".command-open").on("click", function (e) {
             var i = parseInt($(this).data("row-id"));
-            openMapClassDetail(i);
+            openmap(i);
         });
     });
 
-    function initialClassDetailData() {
+    function initialData() {
 
         $.ajax({
             type: "GET",
-            url: _gServiceURL + "class/classdetail/" + _gSelectedClsId,
+            url: _gServiceURL + "rectutor/classdetail/" + _selectedRecId,
             contentType: "application/json; charset=utf-8",
             crossDomain: true,
             dataType: "json",
             success: function (data, status, jqXHR) {
-
                 var classDetail = data.data.classDetailView;
-                console.log(classDetail);
-                $('#breadcrumbclass').text('งานสอนเลขที่ ' + classDetail.clsId);
-                $('#headerclass').text('งานสอนเลขที่ ' + classDetail.clsId);
-                $('#lblClsClsId').text(classDetail.clsId);
-                $('#lblClsSubjectCat').text(classDetail.subjectAndGroupDetailName);
-                $('#lblClsProgram').text(classDetail.program);
-                $('#lblClsPrice').text(classDetail.recPrice);
-                $('#lblClsStuSex').text(classDetail.stuSex);
-                $('#lblClsLevel').text(classDetail.stuLevel);
-                $('#lblClsSchool').text(classDetail.stuSchool);
-                $('#lblClsNumOfStudent').text(classDetail.numOfStu);
-                $('#lblClsStuName').text(classDetail.stuName);
-                $('#lblClsStuTel').text(classDetail.stuTel);
-                $('#lblClsStuEmail').text(classDetail.stuEmail);
-                _timesClassDetail = classDetail.recommendTimelocationList;
-                for (var i = 0; i < _timesClassDetail.length; i++) {
-                    appendClassTime(_timesClassDetail[i], i);
+                _gSelectedClsId = classDetail.clsId;
+                $('#breadcrumbrecclass').text('รายการแนะนำงานสอนเลขที่ ' + classDetail.recId);
+                $('#headerrecclass').text('รายการแนะนำงานสอนเลขที่ ' + classDetail.recId);
+                $('#lblClsId').text(classDetail.clsId);
+                $('#lblSubjectCat').text(classDetail.subjectAndGroupDetailName);
+                $('#lblProgram').text(classDetail.program);
+                $('#lblPrice').text(classDetail.recPrice);
+                $('#lblStuSex').text(classDetail.stuSex);
+                $('#lblLevel').text(classDetail.stuLevel);
+                $('#lblSchool').text(classDetail.stuSchool);
+                $('#lblNumOfStudent').text(classDetail.numOfStu);
+                _recclasstimes = classDetail.recommendTimelocationList;
+                for (var i = 0; i < _recclasstimes.length; i++) {
+                    appendTime(_recclasstimes[i], i);
                 }
-                initclassdetailmap();
+                initmap();
             },
             error: function (jqXHR, status) {
             }
@@ -176,31 +169,31 @@
 
     }
 
-    function appendClassTime(time, i) {
-        gridClassTime.bootgrid("append", [
+    function appendTime(time, i) {
+        gridTime.bootgrid("append", [
             {
                 "day": time.day,
                 "time": time.time,
                 "location": time.location,
-                "map": "<button type='button' class='btn btn-xs btn-default command-open' data-row-id='" + i + "'><div class='fa-waypoint'></div></button> "
+                "map": "<button id='mapBtn' type='button' class='btn btn-xs btn-default command-open' data-row-id='" + i + "'><div class='fa-waypoint'></div></button> "
             }
         ]);
     }
-    function initclassdetailmap() {
-        _directionsDisplayClassDetail = new google.maps.DirectionsRenderer();
+    function initmap() {
+        _directionsDisplayRecClass = new google.maps.DirectionsRenderer();
         var latLog = new google.maps.LatLng(13.736334, 100.531102);
-        _mapClassDetail = new google.maps.Map(document.getElementById('divMapClassDetail'), {
+        _mapRecClassDetail = new google.maps.Map(document.getElementById('divMapClass'), {
             center: latLog,
             zoom: 15
             //,disableDefaultUI: true
         });
-        _directionsDisplayClassDetail.setMap(_mapClassDetail);
+        _directionsDisplayRecClass.setMap(_mapRecClassDetail);
     }
 
 
-    function openMapClassDetail(id) {
+    function openmap(id) {
         console.log("OPENMAP");
-        var time = _timesClassDetail[id];
+        var time = _recclasstimes[id];
         var travelMode = 'DRIVING';
         if (time.travelType == 'T') {
             travelMode = 'TRANSIT';
@@ -217,22 +210,27 @@
         }, function (response, status) {
             if (status === 'OK') {
                 console.log("direction display");
-                console.log(_mapClassDetail);
+                console.log(_mapRecClassDetail);
 
-                _directionsDisplayClassDetail.setDirections(response);
+                _directionsDisplayRecClass.setDirections(response);
                 setTimeout(function () {
                     //your code to be executed after 1 second
-                    _mapClassDetail.setZoom(12);
+                    _mapRecClassDetail.setZoom(12);
                 }, 1000);
             } else {
                 window.alert('Directions request failed due to ' + status);
             }
         });
 
-        $("#modalGoogleDirectionClassMap").modal('show');
+        $("#modalGoogleDirectionMap").modal('show');
 
     }
 
+    $("#btnPaymentClass").on("click", function (e) {
+        _gRec.recId = _selectedRecId;
+        _gRec.recType = 'C';
+        jQuery("#divMainContainer").load("./html/pay.html");
+    });
 
 
 </script>

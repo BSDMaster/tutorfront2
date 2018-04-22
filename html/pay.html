@@ -29,7 +29,7 @@
   </div>
 
   <div class="label-header" id="headerpayment">รายการชำระเงินเลขที่</div>
-  <div>
+  <div style="margin-top:30px;">
     <table class="table table-hover" id="paymenttable">
       <tr class="table-primary" align="center">
         <th scope="col">รายการที่</th>
@@ -46,14 +46,9 @@
     <br>
   </div>
   <div class="text-center">
-    <button type="button" class="btn btn-success btn-lg" onClick="javascript:payment();">ยืนยันการชำระเงิน</button>
+    <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#modalConfirmPayment">ยืนยันการชำระเงิน</button>
     <button type="button" class="btn btn-danger btn-lg">ปฏิเสธงานสอน</button>
   </div>
-  <!-- Button trigger modal -->
-  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-    Launch demo modal
-  </button>
-
   <!-- Modal -->
   <div class="modal fade" id="modalConfirmPayment" tabindex="-1" role="dialog" aria-labelledby="confirmPaymentLabel">
     <div class="modal-dialog" role="document">
@@ -70,7 +65,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">ยกเลิก</button>
-          <button type="button" class="btn btn-primary btn-lg">ยืนยันการชำระเงิน</button>
+          <button type="button" class="btn btn-primary btn-lg" onClick="javascript:payment();">ยืนยันการชำระเงิน</button>
         </div>
       </div>
     </div>
@@ -80,21 +75,22 @@
     jQuery(document).ready(function () {
       console.log("ready!");
       if (_gUser.turId != null) {
-
+        console.log('select rec id ', _selectedRecId);
+        console.log('_gRec.recId', _gRec.recId);
+        _selectedRecId = _gRec.recId;
+        $('#divConfirmPaymentLabel').text('ท่านต้องการยืนยันการชำระเงินงานสอนเลขที่ ' + _selectedRecId)
+        $('#headerpayment').text('รายการชำระเงินเลขที่ ' + _selectedRecId);
+        $('#breadcrumbpayment').text('รายการชำระเงินเลขที่ ' + _selectedRecId);
+        $('#breadcrumrecclassdetail').text('รายการแนะนำงานสอนเลขที่ ' + _selectedRecId);
         setUpTable();
       }
     });
 
     function loadRecClassPage() {
-      _selectedRecId = _gRec.recId;
-      $('#divConfirmPaymentLabel').text('ท่านต้องการยืนยันการชำระเงินงานสอนเลขที่ '+ _selectedRecId)
-      $('#herderpayment').text('รายการรายการชำระเงินเลขที่ ' + _selectedRecId);
-      $('#breadcrumbpayment').text('รายการรายการชำระเงินเลขที่ ' + _selectedRecId);
-      $('#breadcrumrecclassdetail').text('รายการแนะนำงานสอนเลขที่ ' + _selectedRecId);
       if (_gRec.recType == 'M') {
-        jQuery("#divMainContainer").load('./html/mergedclassdetail.html');
+        jQuery("#divMainContainer").load('./html/recmergedclassdetail.html');
       } else {
-        jQuery("#divMainContainer").load('./html/classdetail.html');
+        jQuery("#divMainContainer").load('./html/recclassdetail.html');
       }
     }
     function setUpTable() {
@@ -143,6 +139,9 @@
       });
     }
     function payment() {
+      setTimeout(function () {
+        $("#modalConfirmPayment").modal('hide');
+      });
       var requestBody = {
         recId: _gRec.recId
       };
@@ -156,6 +155,16 @@
         success: function (data, status, jqXHR) {
 
           console.log("Payment Success");
+          
+          console.log(data.data);
+          var type = data.data.type;
+          if (type == 'M') {
+            _gSelectedMerId = data.data.merId;
+            jQuery("#divMainContainer").load('./html/mergedclassdetail.html');
+          } else {
+            _gSelectedClsId = data.data.clsId;
+            jQuery("#divMainContainer").load('./html/classdetail.html');
+          }
 
 
         },
