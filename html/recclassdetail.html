@@ -16,11 +16,11 @@
     </div>
     <br>
     <div class="alert alert-dismissible alert-success" style="display: none;">
-        <button type="button" class="close" data-dismiss="alert">&_recclasstimes;</button>
+        <button type="button" class="close" data-dismiss="alert"></button>
         <strong>บันทึกข้อมูลสำเร็จ</strong>
     </div>
     <div class="alert alert-dismissible alert-danger" style="display: none;">
-        <button type="button" class="close" data-dismiss="alert">&_recclasstimes;</button>
+        <button type="button" class="close" data-dismiss="alert"></button>
         <strong>ไม่สามารถบันทึกข้อมูลได้</strong>
     </div>
     <div class="label-header" id="headerrecclass">แนะนำงานสอน</div>
@@ -106,7 +106,7 @@
     <div class="container-center">
         <p>
             <button type="button" class="btn btn-primary btn-lg" id="btnPaymentClass">ชำระเงิน</button>
-            <button type="button" class="btn btn-secondary btn-lg">ปฏิเสธงานสอน</button>
+            <button type="button" class="btn btn-secondary btn-lg" id="btnCancelRecClass">ปฏิเสธงานสอน</button>
         </p>
     </div>
     <br>
@@ -118,8 +118,6 @@
     var _directionsDisplayRecClass;
     var _recclasstimes = [];
     jQuery(document).ready(function () {
-        console.log("ready!", _cntLoadMain);
-        console.log("POST" + _selectedRecId);
         initialData();
     });
 
@@ -231,6 +229,25 @@
         _gRec.recType = 'C';
         jQuery("#divMainContainer").load("./html/pay.html");
     });
+    $("#btnCancelRecClass").on("click", function (e) {
+        _gRec.recId = _selectedRecId;
+        _gRec.recType = 'N';
+        $.ajax({
+            type: "GET",
+            url: _gServiceURL + "rectutor/" + _selectedRecId,
+            contentType: "application/json; charset=utf-8",
+            crossDomain: true,
+            dataType: "json",
+            success: function (data, status, jqXHR) {
+                loadMainPage();
+            },
+            error: function (jqXHR, status) {
+            }
+
+        });
+
+    });
+    
 
 
 </script>

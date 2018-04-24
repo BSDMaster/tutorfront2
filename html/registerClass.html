@@ -30,7 +30,10 @@
             <a data-toggle="tab" href="#tabRegisterStudentDetail">1. ข้อมูลส่วนตัว</a>
         </li>
         <li class="nav-item">
-            <a data-toggle="tab" href="#tabRegisterClass">2. ลงทะเบียนเรียน</a>
+            <a data-toggle="tab" href="#tabRegisterClass">2. ข้อมูลวิชาเรียน</a>
+        </li>
+        <li class="nav-item">
+            <a data-toggle="tab" href="#tabTutorSpec">3. ข้อมูลติวเตอร์</a>
         </li>
     </ul>
     <br>
@@ -61,7 +64,7 @@
                                 </div>
                                 <div class="col-lg-6"></div>
                             </div>
-                            <div class="h2 inner-tab">ข้อมูลส่วนตัว</div>
+                            <div class="h2 inner-tab" style="margin-left:-30px;">ข้อมูลส่วนตัว</div>
                             <br>
                             <div class="form-group required">
                                 <label for="txtFirstName" class="col-lg-2 labelform">ชื่อ</label>
@@ -112,90 +115,7 @@
                                 </div>
                                 <div class="col-lg-6"></div>
                             </div>
-                            <div class="h2 inner-tab">วัน เวลาว่างและสถานที่เรียน</div>
-                            <br>
-                            <button id="btnAddStuTime" type="button" class="btn btn-primary container-btn-add-right" data-toggle="modal" data-target="#modalTimeDetail">
-                                เพิ่ม
-                            </button>
 
-                            <table id="gridStuTime" class="table table-condensed table-hover table-striped scroll">
-                                <thead>
-                                    <tr>
-                                        <th data-column-id="id" data-identifier="true" data-type="numeric" data-width="5%">#</th>
-                                        <th data-column-id="day" data-width="10%">วัน</th>
-                                        <th data-column-id="startTime" data-width="20%">เวลาเริ่ม</th>
-                                        <th data-column-id="endTime" data-width="20%">เวลาสิ้นสุด</th>
-                                        <th data-column-id="location" data-width="35%">สถานที่เรียน</th>
-                                        <th data-column-id="action" data-sortable="false" data-searchable="false" data-width="10%">Action</th>
-                                    </tr>
-                                </thead>
-                            </table>
-                            <div class="modal fade" id="modalTimeDetail" tabindex="-1" role="dialog" aria-labelledby="modalTimeDetailLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="modalTimeDetailLabel">เพิ่มวัน เวลา สถานที่เรียน</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form>
-                                                <div class="form-group required" id='groupCopyFromDay'>
-                                                    <label for="dropdownCopyFromDay" class="labelform">สำเนาจาก</label>
-                                                    <select class="custom-select" id="dropdownCopyFromDay">
-                                                    </select>
-                                                </div>
-                                                <div class="form-group required">
-                                                    <label for="dropdownDay" class="labelform">วัน</label>
-                                                    <select class="custom-select" id="dropdownDay">
-                                                    </select>
-                                                </div>
-                                                <div class="form-group required">
-                                                    <label for="dropdownStartTime" class="labelform">เวลาเริ่มต้น</label>
-                                                    <select class="custom-select" id="dropdownStartTime">
-                                                    </select>
-                                                </div>
-                                                <div class="form-group required">
-                                                    <label for="dropdownEndTime" class="labelform">เวลาสิ้นสุด</label>
-                                                    <select class="custom-select" id="dropdownEndTime">
-                                                    </select>
-                                                </div>
-                                                <div class="form-group required">
-                                                    <label for="txtPlace" class="labelform">สถานที่เรียน</label>
-                                                    <div class="input-group">
-                                                        <input type="text" class="form-control" id="txtPlace" readonly>
-                                                        <button id="btnStudentGoogleMap" type="button" class="btn btn-secondary input-group-btn btn-google-pin" data-toggle="modal"
-                                                            data-target="#modalStudentGoogleMap">
-                                                            <div class="img-google-pin"></div>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-primary" id="btnSaveAddTime">ตกลง</button>
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <!-- Modal Add Google map-->
-                            <div class="modal fade" id="modalStudentGoogleMap" tabindex="-1" role="dialog" aria-labelledby="modalStudentGoogleMapLabel"
-                                aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content contentmap">
-                                        <div class="modal-body mapbody">
-                                            <div style="display:block">
-                                                <input id="pac-input" class="controls" type="text" placeholder="Enter a location">
-                                            </div>
-                                            <div id="map" class="map"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </form>
                     </div>
 
@@ -334,77 +254,199 @@
                         </div>
                     </div>
                 </div>
+                <div class="h2 inner-tab">วัน เวลาว่างและสถานที่เรียน</div>
                 <br>
-                <br>
-                <form>
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-lg-12">
+                <button id="btnAddStuTime" type="button" class="btn btn-primary container-btn-add-right" data-toggle="modal" data-target="#modalTimeDetail">
+                    เพิ่ม
+                </button>
 
-                                <form class="form-horizontal">
-                                    <div class="h2 inner-tab">ข้อมูลติวเตอร์</div>
-                                    <div class="form-group col-lg-12">
-                                        <input type="checkbox" id="chkTutorSpec" checked>&nbsp&nbspระบุติวเตอร์</input>
+                <table id="gridStuTime" class="table table-condensed table-hover table-striped scroll">
+                    <thead>
+                        <tr>
+                            <th data-column-id="id" data-identifier="true" data-type="numeric" data-width="5%">#</th>
+                            <th data-column-id="day" data-width="10%">วัน</th>
+                            <th data-column-id="startTime" data-width="15%">เวลาเริ่ม</th>
+                            <th data-column-id="endTime" data-width="15%">เวลาสิ้นสุด</th>
+                            <th data-column-id="location" data-width="45%">สถานที่เรียน</th>
+                            <th data-column-id="action" data-sortable="false" data-searchable="false" data-width="10%">Action</th>
+                        </tr>
+                    </thead>
+                </table>
+                <div class="modal fade" id="modalTimeDetail" tabindex="-1" role="dialog" aria-labelledby="modalTimeDetailLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalTimeDetailLabel">เพิ่มวัน เวลา สถานที่เรียน</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group required" id='groupCopyFromDay'>
+                                        <label for="dropdownCopyFromDay" class="labelform">สำเนาจาก</label>
+                                        <select class="custom-select" id="dropdownCopyFromDay">
+                                        </select>
                                     </div>
-                                    <div id="divspecifictutor">
-                                        <div class="form-group col-lg-12">
-                                            <label for="dropdownTutorName" class="col-lg-2">ชื่อติวเตอร์ :</label>
-                                            <select class="form-control col-lg-5" id="dropdownTutorName">
-                                                <option selected value="null">ไม่ระบุ</option>
-                                                <option value="M">ชาย</option>
-                                                <option value="F">หญิง</option>
-                                            </select>
-                                            <div class="col-lg-5"></div>
-                                        </div>
+                                    <div class="form-group required">
+                                        <label for="dropdownDay" class="labelform">วัน</label>
+                                        <select class="custom-select" id="dropdownDay">
+                                        </select>
                                     </div>
-                                    <div id="divnonspecifictutor">
-                                        <div class="form-group col-lg-12">
-                                            <label for="dropdownTutorSex" class="col-lg-2">เพศของติวเตอร์ :</label>
-                                            <select class="form-control col-lg-5" id="dropdownTutorSex">
-                                                <option selected value="null">ไม่ระบุ</option>
-                                                <option value="M">ชาย</option>
-                                                <option value="F">หญิง</option>
-                                            </select>
-                                            <div class="col-lg-5"></div>
+                                    <div class="form-group required">
+                                        <label for="dropdownStartTime" class="labelform">เวลาเริ่มต้น</label>
+                                        <select class="custom-select" id="dropdownStartTime">
+                                        </select>
+                                    </div>
+                                    <div class="form-group required">
+                                        <label for="dropdownEndTime" class="labelform">เวลาสิ้นสุด</label>
+                                        <select class="custom-select" id="dropdownEndTime">
+                                        </select>
+                                    </div>
+                                    <div class="form-group required">
+                                        <label for="txtPlace" class="labelform">สถานที่เรียน</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="txtPlace" readonly>
+                                            <button id="btnStudentGoogleMap" type="button" class="btn btn-secondary input-group-btn btn-google-pin" data-toggle="modal"
+                                                data-target="#modalStudentGoogleMap">
+                                                <div class="img-google-pin"></div>
+                                            </button>
                                         </div>
-                                        <div class="form-group col-lg-12" style="margin-bottom:1px;">
-                                            <label class="col-lg-2"></label>
-                                            <div class="col-lg-5" style="display: inline-block;text-align:right;width: 100%;">
-                                                <button type="button" id="selectalluni" class="btn btn-secondary  btn-sm">Select All</button>
-                                                <button type="button" id="deselectalluni" class="btn btn-secondary  btn-sm">Deselect All</button>
-                                            </div>
-                                            <div class="col-lg-5"></div>
-                                        </div>
-                                        <div class="form-group col-lg-12" for="chkTutorUni">
-                                            <label class="col-lg-2">สถาบันของติวเตอร์ :</label>
-                                            <div id="chkTutorUni" class="col-lg-5 box-scroll"></div>
-                                            <div class="col-lg-5"></div>
-                                        </div>
-                                        <div class="form-group col-lg-12" style="margin-bottom:1px;">
-                                            <label class="col-lg-2"></label>
-                                            <div class="col-lg-5" style="display: inline-block;text-align:right;width: 100%;">
-                                                <button type="button" id="selectallfac" class="btn btn-secondary  btn-sm">Select All</button>
-                                                <button type="button" id="deselectallfac" class="btn btn-secondary  btn-sm">Deselect All</button>
-                                            </div>
-                                            <div class="col-lg-5"></div>
-                                        </div>
-                                        <div class="form-group col-lg-12" for="chkTutorFac">
-                                            <label class="col-lg-2">คณะของติวเตอร์ :</label>
-                                            <div id="chkTutorFac" class="col-lg-5 box-scroll"></div>
-                                            <div class="col-lg-5"></div>
-                                        </div>
-                                        <div class="form-group col-lg-12">
-                                            <input type="checkbox" id="chkExp">&nbsp&nbspต้องการติวเตอร์มีประสบการณ์</input>
-                                        </div>
-
                                     </div>
                                 </form>
                             </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" id="btnSaveAddTime">ตกลง</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                            </div>
                         </div>
                     </div>
-                </form>
-            </form>
+                </div>
 
+
+                <!-- Modal Add Google map-->
+                <div class="modal fade" id="modalStudentGoogleMap" tabindex="-1" role="dialog" aria-labelledby="modalStudentGoogleMapLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content contentmap">
+                            <div class="modal-body mapbody">
+                                <div style="display:block">
+                                    <input id="pac-input" class="controls" type="text" placeholder="Enter a location">
+                                </div>
+                                <div id="map" class="map"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+            </form>
+        </div>
+        <div class="tab-pane fade" id="tabTutorSpec">
+            <form>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <form class="form-horizontal">
+                                <div class="h2 inner-tab" style="margin-top: 0px;">ข้อมูลติวเตอร์</div>
+                                <div class="form-group">
+                                    <input type="checkbox" id="chkTutorSpec" checked>&nbsp&nbspระบุติวเตอร์</input>
+                                </div>
+                                <div id="divspecifictutor">
+                                    <div class="form-group col-lg-12">
+                                        <label for="dropdownTutorName" class="col-lg-2">ชื่อติวเตอร์ :</label>
+                                        <select class="form-control col-lg-5" id="dropdownTutorName">
+                                            <option selected value="null">ไม่ระบุ</option>
+                                            <option value="M">ชาย</option>
+                                            <option value="F">หญิง</option>
+                                        </select>
+                                        <div class="col-lg-5"></div>
+                                    </div>
+                                </div>
+                                <div id="divnonspecifictutor">
+                                    <div class="form-group col-lg-12">
+                                        <label for="dropdownTutorSex" class="col-lg-2">เพศของติวเตอร์ :</label>
+                                        <select class="form-control col-lg-5" id="dropdownTutorSex">
+                                            <option selected value="null">ไม่ระบุ</option>
+                                            <option value="M">ชาย</option>
+                                            <option value="F">หญิง</option>
+                                        </select>
+                                        <div class="col-lg-5"></div>
+                                    </div>
+                                    <div class="form-group col-lg-12" style="margin-bottom:1px;">
+                                        <label class="col-lg-2"></label>
+                                        <div class="col-lg-5" style="display: inline-block;text-align:right;width: 100%;">
+                                            <button type="button" id="selectalluni" class="btn btn-secondary  btn-sm">Select All</button>
+                                            <button type="button" id="deselectalluni" class="btn btn-secondary  btn-sm">Deselect All</button>
+                                        </div>
+                                        <div class="col-lg-5"></div>
+                                    </div>
+                                    <div class="form-group col-lg-12" for="chkTutorUni">
+                                        <label class="col-lg-2">สถาบันของติวเตอร์ :</label>
+                                        <div id="chkTutorUni" class="col-lg-5 box-scroll"></div>
+                                        <div class="col-lg-5"></div>
+                                    </div>
+                                    <div class="form-group col-lg-12" style="margin-bottom:1px;">
+                                        <label class="col-lg-2"></label>
+                                        <div class="col-lg-5" style="display: inline-block;text-align:right;width: 100%;">
+                                            <button type="button" id="selectallfac" class="btn btn-secondary  btn-sm">Select All</button>
+                                            <button type="button" id="deselectallfac" class="btn btn-secondary  btn-sm">Deselect All</button>
+                                        </div>
+                                        <div class="col-lg-5"></div>
+                                    </div>
+                                    <div class="form-group col-lg-12" for="chkTutorFac">
+                                        <label class="col-lg-2">คณะของติวเตอร์ :</label>
+                                        <div id="chkTutorFac" class="col-lg-5 box-scroll"></div>
+                                        <div class="col-lg-5"></div>
+                                    </div>
+                                    <div class="form-group col-lg-12">
+                                        <input type="checkbox" id="chkExp">&nbsp&nbspต้องการติวเตอร์มีประสบการณ์</input>
+                                    </div>
+                                </div>
+                                <br>
+                            </form>
+                        </div>
+                        <div class="h2 inner-tab" style="margin: 20px;">ลำดับปัจจัยที่ใช้ในการคัดเลือกติวเตอร์</div>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="form-group col-lg-12">
+                                    <div class="col-lg-7">
+                                        <table class="table table-bordered pagin-table">
+                                            <thead>
+                                                <tr>
+                                                    <th width="50px">#</th>
+                                                    <th>ปัจจัย</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="sort-table">
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>เพศของติวเตอร์</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2</td>
+                                                    <td>คณะของติวเตอร์</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3</td>
+                                                    <td>สถาบันของติวเตอร์</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>4</td>
+                                                    <td>ประสบการณ์ของติวเตอร์</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>5</td>
+                                                    <td>ผลประเมินงานสอนของติวเตอร์</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
         <br>
         <br>
@@ -1118,6 +1160,12 @@
             exp = "Y";
         }
         console.log('txtSchool : ' + school);
+        var row1 = parseInt($('#sort-table tr:nth-child(1) td:nth-child(1)').text());
+        var row2 = parseInt($('#sort-table tr:nth-child(2) td:nth-child(1)').text());
+        var row3 = parseInt($('#sort-table tr:nth-child(3) td:nth-child(1)').text());
+        var row4 = parseInt($('#sort-table tr:nth-child(4) td:nth-child(1)').text());
+        var row5 = parseInt($('#sort-table tr:nth-child(5) td:nth-child(1)').text());
+        var tutorSpecOrder = [row1, row2, row3, row4, row5];
 
         var bodyRequest = {
             stuEmail: txtEmail,
@@ -1135,7 +1183,8 @@
             tutorSex: tutorSex,
             universityChecked: universityChecked,
             facultyChecked: facultyChecked,
-            tutorExp: exp
+            tutorExp: exp,
+            tutorSpecOrder:tutorSpecOrder
         }
         console.log(bodyRequest);
         callrequestnewstudent(bodyRequest);

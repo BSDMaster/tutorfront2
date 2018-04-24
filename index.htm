@@ -280,9 +280,6 @@
           <li class="nav-item" id="nav-itm-stu-avatime">
             <a class="nav-link" href="javascript:changePage('./html/studentavatime.html');">แก้ไขวันและเวลาว่างของนักเรียน</a>
           </li>
-          <li class="nav-item" id="nav-itm-stu-tutorspec">
-            <a class="nav-link" href="javascript:changePage('./html/studenttutorspec.html');">แก้ไขลำดับปัจจัยที่ใช้ในการคัดเลือกติวเตอร์</a>
-          </li>
           <li class="nav-item" id="nav-itm-registerClass">
             <a class="nav-link" href="javascript:changePage('./html/studenteditclass.html');">สมัครเรียนเพิ่มเติม</a>
           </li>
@@ -433,10 +430,9 @@
         jQuery("#nav-itm-student-profile").hide();
         jQuery("#nav-itm-tutor-profile").show();
         jQuery("#nav-itm-stu-avatime").hide();
-        jQuery("#nav-itm-stu-tutorspec").hide();
 
       }
-      else {
+      else if (_gUserType == "student") {
         jQuery("#divMainContainer").load('./html/mainStudent.html');
         jQuery("#nav-itm-student-schedule").show();
         jQuery("#nav-itm-tutor-schedule").hide();
@@ -446,7 +442,16 @@
         jQuery("#nav-itm-student-profile").show();
         jQuery("#nav-itm-tutor-profile").hide();
         jQuery("#nav-itm-stu-avatime").show();
-        jQuery("#nav-itm-stu-tutorspec").show();
+      } else {
+        jQuery("#divMainContainer").load('./html/promote.html');
+        jQuery("#nav-itm-student-schedule").hide();
+        jQuery("#nav-itm-tutor-schedule").hide();
+        jQuery("#nav-itm-rate").show();
+        jQuery("#nav-itm-publishJob").hide();
+        jQuery("#nav-itm-registerClass").hide();
+        jQuery("#nav-itm-student-profile").hide();
+        jQuery("#nav-itm-tutor-profile").hide();
+        jQuery("#nav-itm-stu-avatime").hide();
       }
     }
     /*    else {

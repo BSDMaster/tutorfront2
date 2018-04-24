@@ -1,122 +1,308 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 
 </head>
+
 <body>
-<br><br>
-<div class="container">
-<ul class="nav nav-tabs">
-    <li class="nav-item active"><a data-toggle="tab" href="#home">งานสอนใหม่&nbsp;&nbsp;<span class="badge badge-pill badge-danger" id="badgenum"></span></a></li>
-    <li class="nav-item"><a data-toggle="tab" href="#profile">งานสอนที่ท่านสอนอยู่</a></li>
-</ul>
+    <br>
+    <br>
+    <div class="container">
+        <ul class="nav nav-tabs">
+            <li class="nav-item active">
+                <a data-toggle="tab" href="#tabnewrecommendtutor">แนะนำงานสอนใหม่&nbsp;&nbsp;
+                    <span class="badge badge-pill badge-danger" id="badgenum1"></span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a data-toggle="tab" href="#tabclassstatuspaidandready">งานสอนที่ชำระเงินแล้ว&nbsp;&nbsp;
+                    <span class="badge badge-pill badge-danger" id="badgenum2"></span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a data-toggle="tab" href="#tabtutorothers">อื่นๆ&nbsp;&nbsp;
+                    <span class="badge badge-pill badge-danger" id="badgenum3"></span>
+                </a>
+            </li>
+        </ul>
 
-<div id="myTabContent" class="tab-content">
-    <div class="tab-pane fade in active" id="home"><p>
-        <table class="table table-hover" id="waitingtable">
-            <tr class="table-primary">
-                <th scope="col">วิชาและระดับชั้น</th>
-                <th scope="col">วัน เวลาและสถานที่สอน</th>
-                <th scope="col">ค่าแนะนำ</th>
-                <th scope="col"></th>
-            </tr>
-        </table></p>
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade in active" id="tabnewrecommendtutor">
+                <p>
+                    <table id="gridTab1Tutor" class="table table-condensed table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th data-column-id="subject" data-width="30%">วิชาและระดับชั้น</th>
+                                <th data-column-id="time" data-width="40%">วัน เวลาและสถานที่สอน</th>
+                                <th data-column-id="price" data-width="20%">ค่าแนะนำ</th>
+                                <th data-column-id="pay" data-width="20%" data-sortable="false" data-searchable="false"></th>
+                            </tr>
+                        </thead>
+                    </table>
+            </div>
+            <div class="tab-pane fade" id="tabclassstatuspaidandready">
+                <p>
+                    <table id="gridTab2Tutor" class="table table-condensed table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th data-column-id="stuname" data-width="25%">ชื่อ สกุลนักเรียน</th>
+                                <th data-column-id="subject" data-width="25%">วิชาและระดับชั้น</th>
+                                <th data-column-id="time" data-width="35%">วัน เวลาและสถานที่สอน</th>
+                                <th data-column-id="detail" data-width="15%" data-sortable="false" data-searchable="false"></th>
+                            </tr>
+                        </thead>
+                    </table>
+                </p>
+            </div>
+            <div class="tab-pane fade" id="tabtutorothers">
+                <p>
+                    <table id="gridTab3Tutor" class="table table-condensed table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th data-column-id="stuname" data-width="20%">ชื่อ สกุลนักเรียน</th>
+                                <th data-column-id="subject" data-width="20%">วิชาและระดับชั้น</th>
+                                <th data-column-id="time" data-width="35%">วัน เวลาและสถานที่สอน</th>
+                                <th data-column-id="time" data-width="15%">สถานะ</th>
+                                <th data-column-id="detail" data-width="10%" data-sortable="false" data-searchable="false"></th>
+                            </tr>
+                        </thead>
+                    </table>
+                </p>
+                </p>
+            </div>
+        </div>
     </div>
-    <div class="tab-pane fade" id="profile"><p> 
-        <table class="table table-hover" id="currenttable">
-            <thead>
-            <tr class="table-primary">
-                <th scope="col">ชื่อ สกุลนักเรียน</th>
-                <th scope="col">วิชาและระดับชั้น</th>
-                <th scope="col">วัน เวลาและสถานที่สอน</th>
-                <th scope="col"></th>
-            </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table></p></p>
-    </div>
-</div>
-</div>
 
-<script>
-        _selectedRecId = 0;
-        _cntLoadMain = 0;
-        jQuery( document ).ready(function() {
-          console.log( "ready!",  _cntLoadMain);
-          if(_cntLoadMain==0){
-            _cntLoadMain++;
-         //   $('#waitingtable').empty();
-            if(_gUser.turId != null){
-                setUpTable();
+    <script>
+        var _workTutorTabOne;
+        var _workTutorTabTwo;
+        var _workTutorTabThree;
+        jQuery(document).ready(function () {
+            //   $('#waitingtable').empty();
+            if (_gUser.turId != null) {
+                // setUpTable();
+                initialTutorTab1();
+                initialTutorTab2();
+                initialTutorTab3();
             }
-          }
-           
+
 
         });
-        function setUpTable(){
-            //table_obj.empty();
-            var url = _gServiceURL+"rectutor/waitingacceptlist/"+_gUser.turId
-            console.log(url);
-            $.getJSON(url, function(json_data){
-                console.log(json_data);
-                var recommendTutors = json_data.data.recommendTutorViews;
-                console.log(recommendTutors);
-                var table_obj = $('#waitingtable');
-                if (json_data.data.size != 0) {
-                    $('#badgenum').text(json_data.data.size);
-                     $.each(recommendTutors, function(index, result){
-                    var table_row = $('<tr onClick="javascript:loadClassDetail('+result.recId+',\''+result.clsType+'\');">', {});
-                    
-                     var table_cell1 = $('<td>', {html: result.subjectAndGroupDetailName});
-                     var table_cell2 = $('<td>', {html: result.recTimeLoc});
-                     var table_cell3 = $('<td>', {html: result.recPrice});
-                     table_cell3.attr("align","right");
-                     //var table_cell4 = $('<td>', {html: '<a href=javascript:changePage(&#39;./html/schedule.html&#39;);>HTML Images'+index+'</a>'});
 
-                     //var table_cell4 = $('<td>',{html: '<button type="button" class="btn btn-success" onClick="javascript:changePage(&#39;./html/pay.html&#39;);">ชำระเงิน</button>'});
-                     
-                    // var table_cell4 = $('<td>',{html: '<button type="button" class="btn btn-success" onClick="javascript:accept(event,'+result.recId+',\''+result.clsType+'\');">รับงานสอน</button>'});
-                     var table_cell4 = $('<td>',{html: '<button type="button" class="btn btn-success btn-lg" href="#" onClick="javascript:accept(event,'+result.recId+',\''+result.clsType+'\');">รับงานสอน</button>'});
-                     table_cell4.attr("align","right");
-                     table_row.append(table_cell1,table_cell2,table_cell3,table_cell4);
-                     table_obj.append(table_row);
-                });
-                } else {
-                    $('#badgenum').hide();
-                    $('#waitingtable').hide();
+        var gridTab1Tutor = $("#gridTab1Tutor").bootgrid({
+            navigation: 0,
+            rowSelect: true,
+            labels: {
+                noResults: 'ไม่พบรายการ'
+            }
+        }).on("loaded.rs.jquery.bootgrid", function () {
+            gridTab1Tutor.find("tr").on("click", function (e) {
+                console.log("click");
+            });
+            gridTab1Tutor.find(".command-open").on("click", function (e) {
+                console.log("pay");
+                var i = parseInt($(this).data("row-id"));
+                payment(_workTutorTabOne[i]);
+            });
+            gridTab1Tutor.find(".command-detail").on("click", function (e) {
+                console.log("detail");
+                var i = parseInt($(this).data("row-id"));
+                loadRecClassDetail(_workTutorTabOne[i]);
+            });
+        });
+
+        var gridTab2Tutor = $("#gridTab2Tutor").bootgrid({
+            navigation: 0,
+            rowSelect: true,
+            labels: {
+                noResults: 'ไม่พบรายการ'
+            }
+        }).on("loaded.rs.jquery.bootgrid", function () {
+            gridTab2Tutor.find("tr").on("click", function (e) {
+                console.log("click");
+            });
+            gridTab2Tutor.find(".command-detail").on("click", function (e) {
+                console.log("detail");
+                var i = parseInt($(this).data("row-id"));
+                loadClassDetail(_workTutorTabTwo[i]);
+            });
+        });
+
+        var gridTab3Tutor = $("#gridTab3Tutor").bootgrid({
+            navigation: 0,
+            rowSelect: true,
+            labels: {
+                noResults: 'ไม่พบรายการ'
+            }
+        }).on("loaded.rs.jquery.bootgrid", function () {
+            gridTab3Tutor.find("tr").on("click", function (e) {
+                console.log("click");
+            });
+            gridTab3Tutor.find(".command-detail").on("click", function (e) {
+                console.log("detail");
+                var i = parseInt($(this).data("row-id"));
+                loadOthersClassDetail(_workTutorTabThree[i]);
+            });
+        });
+
+
+        function appendwortutortab1(work, i) {
+            gridTab1Tutor.bootgrid("append", [
+                {
+                    "subject": work.subjectAndGroupDetailName,
+                    "time": work.recTimeLoc,
+                    "price": work.recPrice,
+                    "pay": "<button type='button' class='btn btn-primary btn-lg command-detail' data-row-id='" + i + "'>ดูรายละเอียด</button>&nbsp;" +
+                        "<button type='button' class='btn btn-success btn-lg command-open' data-row-id='" + i + "'>รับงานสอน</button>"
                 }
-                
-                
-                
+            ]);
+        }
 
-               
+        function appendwortutortab2(work, i) {
+            gridTab2Tutor.bootgrid("append", [
+                {
+                    "stuname": work.stuName,
+                    "subject": work.subjectAndGroupDetailName,
+                    "time": work.recTimeLoc,
+                    "detail": "<button type='button' class='btn btn-primary btn-lg command-detail' data-row-id='" + i + "'>ดูรายละเอียด</button>"
+                }
+            ]);
+        }
+        function appendwortutortab3(work, i) {
+            gridTab3Tutor.bootgrid("append", [
+                {
+                    "stuname": work.stuName,
+                    "subject": work.subjectAndGroupDetailName,
+                    "time": work.recTimeLoc,
+                    "status": work.status,
+                    "detail": "<button type='button' class='btn btn-primary btn-lg command-detail' data-row-id='" + i + "'>ดูรายละเอียด</button>"
+                }
+            ]);
+        }
+
+        function initialTutorTab1() {
+            $.ajax({
+                type: "GET",
+                url: _gServiceURL + "rectutor/waitingacceptlist/" + _gUser.turId,
+                contentType: "application/json; charset=utf-8",
+                crossDomain: true,
+                dataType: "json",
+                success: function (data, status, jqXHR) {
+                    _workTutorTabOne = data.data.recommendTutorViews;
+                    console.log(_workTutorTabOne);
+                    if (data.data.size != 0) {
+                        $('#badgenum1').text(data.data.size);
+                        for (var i = 0; i < _workTutorTabOne.length; i++) {
+                            appendwortutortab1(_workTutorTabOne[i], i);
+                        }
+                    } else {
+                        $('#badgenum1').hide();
+                    }
+
+                },
+                error: function (jqXHR, status) {
+                    $('#badgenum1').hide();
+                }
+
             });
         }
-        function loadClassDetail(id,type){
-            _selectedRecId = id;
+
+        function initialTutorTab2() {
+            $.ajax({
+                type: "GET",
+                
+                url: _gServiceURL + "class/paidlist/tutor/" + _gUser.turId,
+                contentType: "application/json; charset=utf-8",
+                crossDomain: true,
+                dataType: "json",
+                success: function (data, status, jqXHR) {
+                    _workTutorTabTwo = data.data.recommendTutorViews;
+                    console.log(_workTutorTabTwo);
+                    if (data.data.size != 0) {
+                        $('#badgenum2').text(data.data.size);
+                        for (var i = 0; i < _workTutorTabTwo.length; i++) {
+                            appendwortutortab2(_workTutorTabTwo[i], i);
+                        }
+                    } else {
+                        $('#badgenum2').hide();
+                    }
+
+                },
+                error: function (jqXHR, status) {
+                    $('#badgenum2').hide();
+                }
+
+            });
+        }
+
+        function initialTutorTab3() {
+            $.ajax({
+                type: "GET",
+                url: _gServiceURL + "class/otherslist/tutor/" + _gUser.turId,
+                contentType: "application/json; charset=utf-8",
+                crossDomain: true,
+                dataType: "json",
+                success: function (data, status, jqXHR) {
+                    _workTutorTabThree = data.data.recommendTutorViews;
+                    console.log(_workTutorTabThree);
+                    if (data.data.size != 0) {
+                        $('#badgenum3').text(data.data.size);
+                        for (var i = 0; i < _workTutorTabThree.length; i++) {
+                            appendwortutortab3(_workTutorTabThree[i], i);
+                        }
+                    } else {
+                        $('#badgenum3').hide();
+                    }
+
+                },
+                error: function (jqXHR, status) {
+                    $('#badgenum3').hide();
+                }
+
+            });
+        }
+
+
+        function loadRecClassDetail(result) {
+            _selectedRecId = result.recId;
+            _gRec.recId = result.recId;
+            _gRec.recType = result.clsType;
             console.log(_selectedRecId);
-            if (type=='M') {
+            if (_gRec.recType == 'M') {
                 jQuery("#divMainContainer").load('./html/recmergedclassdetail.html');
             } else {
                 jQuery("#divMainContainer").load('./html/recclassdetail.html');
             }
-            
+
         }
-        function accept(event,id,type){
+
+        function loadClassDetail(result) {
+            _gSelectedClsId = result.clsId;
+            console.log(_gSelectedClsId);
+            jQuery("#divMainContainer").load('./html/classdetail.html');
+        }
+        function loadOthersClassDetail(result) {
+            _gSelectedClsId = result.clsId;
+            console.log(_gSelectedClsId);
+            jQuery("#divMainContainer").load('./html/classdetail.html');
+        }
+
+        function payment(result) {
             event.preventDefault();
             event.stopPropagation();
             console.log(event);
-            _gRec.recId = id;
-            _gRec.recType = type;
+            _gRec.recId = result.recId;
+            _gRec.recType = result.clsType;
 
             window.parent.changePage("./html/pay.html");
         }
 
-        
-        function decline(id,type){
-            
+
+        function decline(id, type) {
+
         }
- </script>
+    </script>
 </body>
+
 </html>

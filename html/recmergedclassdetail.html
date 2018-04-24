@@ -181,7 +181,7 @@
     <div class="container-center">
         <p>
             <button type="button" class="btn btn-primary btn-lg" id="btnPaymentMergedClass">ชำระเงิน</button>
-            <button type="button" class="btn btn-secondary btn-lg">ปฏิเสธงานสอน</button>
+            <button type="button" class="btn btn-secondary btn-lg" id="btnCancelRecMergedClass">ปฏิเสธงานสอน</button>
         </p>
     </div>
     <br>
@@ -205,9 +205,6 @@
     var _times1;
     var _times2;
     jQuery(document).ready(function () {
-
-        console.log("ready!", _cntLoadMain);
-        console.log("POST", _selectedRecId);
         initialMapMergedData();
     });
     var gridTime1 = $("#gridTime1").bootgrid({
@@ -352,6 +349,24 @@
         _gRec.recId = _selectedRecId;
         _gRec.recType = 'M';
         jQuery("#divMainContainer").load("./html/pay.html");
+    });
+    $("#btnCancelRecMergedClass").on("click", function (e) {
+        _gRec.recId = _selectedRecId;
+        _gRec.recType = 'M';
+        $.ajax({
+            type: "GET",
+            url: _gServiceURL + "rectutor/" + _selectedRecId,
+            contentType: "application/json; charset=utf-8",
+            crossDomain: true,
+            dataType: "json",
+            success: function (data, status, jqXHR) {
+                loadMainPage();
+            },
+            error: function (jqXHR, status) {
+            }
+
+        });
+
     });
 </script>
 

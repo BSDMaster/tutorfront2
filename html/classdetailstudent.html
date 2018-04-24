@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <div>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="javascript:loadMainPage();">หน้าหลัก</a>
+            </li>
+            <li class="breadcrumb-item active" id="breadcrumbstuclass">งานสอนเลขที่ </li>
+        </ol>
+    </div>
+    <br>
+    <div class="alert alert-dismissible alert-success" style="display: none;">
+        <button type="button" class="close" data-dismiss="alert"></button>
+        <strong>บันทึกข้อมูลสำเร็จ</strong>
+    </div>
+    <div class="alert alert-dismissible alert-danger" style="display: none;">
+        <button type="button" class="close" data-dismiss="alert"></button>
+        <strong>ไม่สามารถบันทึกข้อมูลได้</strong>
+    </div>
+    <div class="btn-group right" role="group" aria-label="Button group with nested dropdown">
+        <button type="button" class="btn btn-primary">Action</button>
+        <div class="btn-group show" role="group">
+            <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="true"></button>
+            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
+                <a class="dropdown-item" href="javascript:openevaluatetutor()">ประเมินติวเตอร์</a>
+                <a class="dropdown-item" href="#">ยกเลิกงานสอน</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="label-header" id="headerstuclass">งานสอน</div>
+    <div style="margin-top:30px;">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-lg-3">รหัสงานสอน :</label>
+                            <label class="col-lg-9 labelnormal" id="lblStuClsClsId">คณิตศาสตร์</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3">วิชา :</label>
+                            <label class="col-lg-9 labelnormal" id="lblStuClsSubjectCat">คณิตศาสตร์</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3">ภาษาที่ใช้สอน :</label>
+                            <label class="col-lg-9 labelnormal" id="lblStuClsProgram">ปกติ</label>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="label-header">ข้อมูลนักเรียน</div>
+    <div style="margin-top:30px;">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-lg-3">ชื่อ :</label>
+                            <label class="col-lg-9 labelnormal" id="lblStuClsStuName"></label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3">เบอร์โทรติดต่อ :</label>
+                            <label class="col-lg-9 labelnormal" id="lblStuClsStuTel"></label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3">อีเมล์ :</label>
+                            <label class="col-lg-9 labelnormal" id="lblStuClsStuEmail"></label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3">เพศ :</label>
+                            <label class="col-lg-9 labelnormal" id="lblStuClsStuSex">ชาย</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3">ระดับชั้น :</label>
+                            <label class="col-lg-9 labelnormal" id="lblStuClsLevel">ประถมศึกษาปีที่ 6</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3">สถานศึกษา :</label>
+                            <label class="col-lg-9 labelnormal" id="lblStuClsSchool">โรงเรียน</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3">จำนวนนักเรียน :</label>
+                            <label class="col-lg-9 labelnormal" id="lblStuClsNumOfStudent">1</label>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div style="display: none;" id="tutorSection">
+        <div class="label-header">ข้อมูลติวเตอร์</div>
+        <div style="margin-top:30px;">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-lg-3">ชื่อ :</label>
+                                <label class="col-lg-9 labelnormal" id="lblStuClsTurName"></label>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3">เบอร์โทรติดต่อ :</label>
+                                <label class="col-lg-9 labelnormal" id="lblStuClsTurTel"></label>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3">อีเมล์ :</label>
+                                <label class="col-lg-9 labelnormal" id="lblStuClsTurEmail"></label>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3">เพศ :</label>
+                                <label class="col-lg-9 labelnormal" id="lblStuClsTurSex">ชาย</label>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3">คณะ :</label>
+                                <label class="col-lg-9 labelnormal" id="lblStuClsTurFac"></label>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3">สถาบัน :</label>
+                                <label class="col-lg-9 labelnormal" id="lblStuClsTurUni"></label>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="label-header">ข้อมูลวัน เวลา สถานที่เรียน</div>
+    <div style="margin:30px;">
+        <table id="gridStuClassTime" class="table table-condensed table-hover table-striped scroll">
+            <thead>
+                <tr>
+                    <th data-column-id="day" data-width="10%">วัน</th>
+                    <th data-column-id="time" data-width="30%">เวลา</th>
+                    <th data-column-id="location" data-width="60%">สถานที่</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <br>
+    <!-- Modal -->
+    <div class="modal fade" id="modalTutorEvaluate" tabindex="-1" role="dialog" aria-labelledby="tutorEvaluateLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="tutorEvaluateLabel">ประเมินติวเตอร์</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+
+                </div>
+                <div class="modal-body" id="divTutorEvaLabel">
+                    กรูณาให้คะแนนติวเตอร์หลังจากที่ท่านเรียนจบแล้ว
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">ยกเลิก</button>
+                    <button type="button" class="btn btn-primary btn-lg" onClick="javascript:confirmevaluate();">ยืนยันการประเมิน</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    var _clsId;
+    var _stuTimesClassDetail = [];
+    jQuery(document).ready(function () {
+        initialStuClassDetailData();
+    });
+
+    var gridStuClassTime = $("#gridStuClassTime").bootgrid({
+        navigation: 0,
+        labels: {
+            noResults: 'ไม่พบรายการ'
+        }
+    });
+
+    function initialStuClassDetailData() {
+
+        $.ajax({
+            type: "GET",
+            url: _gServiceURL + "class/classdetail/" + _gSelectedClsId,
+            contentType: "application/json; charset=utf-8",
+            crossDomain: true,
+            dataType: "json",
+            success: function (data, status, jqXHR) {
+
+                var classDetail = data.data.classDetailView;
+                console.log(classDetail);
+                $('#breadcrumbstuclass').text('งานสอนเลขที่ ' + classDetail.clsId);
+                $('#headerstuclass').text('งานสอนเลขที่ ' + classDetail.clsId);
+                _clsId = classDetail.clsId;
+                $('#lblStuClsClsId').text(classDetail.clsId);
+                $('#lblStuClsSubjectCat').text(classDetail.subjectAndGroupDetailName);
+                $('#lblStuClsProgram').text(classDetail.program);
+                $('#lblStuClsPrice').text(classDetail.recPrice);
+                $('#lblStuClsStuSex').text(classDetail.stuSex);
+                $('#lblStuClsLevel').text(classDetail.stuLevel);
+                $('#lblStuClsSchool').text(classDetail.stuSchool);
+                $('#lblStuClsNumOfStudent').text(classDetail.numOfStu);
+                $('#lblStuClsStuName').text(classDetail.stuName);
+                $('#lblStuClsStuTel').text(classDetail.stuTel);
+                $('#lblStuClsStuEmail').text(classDetail.stuEmail);
+                if (classDetail.turName) {
+                    $('#lblStuClsTurName').text(classDetail.turName);
+                    $('#lblStuClsTurTel').text(classDetail.turTel);
+                    $('#lblStuClsTurEmail').text(classDetail.turEmail);
+                    $('#lblStuClsTurFac').text(classDetail.turFac);
+                    $('#lblStuClsTurUni').text(classDetail.turUni);
+                    $('#lblStuClsTurSex').text(classDetail.turSex);
+                    $('#tutorSection').show();
+                } else {
+                    $('#tutorSection').hide();
+                }
+                _stuTimesClassDetail = classDetail.recommendTimelocationList;
+                for (var i = 0; i < _stuTimesClassDetail.length; i++) {
+                    appendStuClassTime(_stuTimesClassDetail[i], i);
+                }
+            },
+            error: function (jqXHR, status) {
+            }
+
+        });
+
+    }
+
+    function appendStuClassTime(time, i) {
+        gridStuClassTime.bootgrid("append", [
+            {
+                "day": time.day,
+                "time": time.time,
+                "location": time.location
+            }
+        ]);
+    }
+
+    function openevaluatetutor() {
+        console.log("evaluate");
+        $("#modalTutorEvaluate").modal('show');
+    }
+
+    function confirmevaluate() {
+        var requestbody = {
+            clsId : _clsId,
+            evaluateScore : String(5)
+        }
+        console.log(requestbody);
+        $("#modalTutorEvaluate").modal('hide');
+        $.ajax({
+            type: "POST",
+            url: _gServiceURL + "class/classcomplete",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(requestbody),
+            crossDomain: true,
+            dataType: "json",
+            success: function (data, status, jqXHR) {
+                $(".alert-success").show();
+                $('html, body').animate({ scrollTop: $('.breadcrumbstuclass').offset().top }, 'fast');
+            },
+            error: function (jqXHR, status) {
+                $(".alert-danger").show();
+                $('html, body').animate({ scrollTop: $('.breadcrumbstuclass').offset().top }, 'fast');
+            }
+
+        });
+
+
+
+    }
+
+
+</script>
+
+</html>
