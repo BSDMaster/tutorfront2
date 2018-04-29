@@ -7,6 +7,22 @@
 
 <body>
     <br>
+    <div>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="javascript:loadMainPage();">หน้าหลัก</a>
+            </li>
+        </ol>
+    </div>
+    <br>
+    <div class="alert alert-dismissible alert-success" style="display: none;">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>บันทึกข้อมูลสำเร็จ</strong>
+    </div>
+    <div class="alert alert-dismissible alert-danger" style="display: none;">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>ไม่สามารถบันทึกข้อมูลได้</strong>
+    </div>
     <br>
     <div class="container">
         <ul class="nav nav-tabs">
@@ -16,13 +32,18 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a data-toggle="tab" href="#tabclassstatuspaidandready">งานสอนที่ชำระเงินแล้ว&nbsp;&nbsp;
+                <a data-toggle="tab" href="#tabclassstatuspaid">งานสอนที่รอการตรวจสอบผลการชำระเงิน&nbsp;&nbsp;
                     <span class="badge badge-pill badge-danger" id="badgenum2"></span>
                 </a>
             </li>
             <li class="nav-item">
-                <a data-toggle="tab" href="#tabtutorothers">อื่นๆ&nbsp;&nbsp;
+                <a data-toggle="tab" href="#tabclassstatusready">งานสอนพร้อมสอน&nbsp;&nbsp;
                     <span class="badge badge-pill badge-danger" id="badgenum3"></span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a data-toggle="tab" href="#tabtutorothers">อื่นๆ&nbsp;&nbsp;
+                    <span class="badge badge-pill badge-danger" id="badgenum4"></span>
                 </a>
             </li>
         </ul>
@@ -33,15 +54,16 @@
                     <table id="gridTab1Tutor" class="table table-condensed table-hover table-striped">
                         <thead>
                             <tr>
-                                <th data-column-id="subject" data-width="30%">วิชาและระดับชั้น</th>
-                                <th data-column-id="time" data-width="40%">วัน เวลาและสถานที่สอน</th>
-                                <th data-column-id="price" data-width="20%">ค่าแนะนำ</th>
+                                <th data-column-id="subject" data-width="20%">วิชาและระดับชั้น</th>
+                                <th data-column-id="time" data-width="50%">วัน เวลาและสถานที่สอน</th>
+                                <th data-column-id="price" data-width="10%">ค่าแนะนำ</th>
                                 <th data-column-id="pay" data-width="20%" data-sortable="false" data-searchable="false"></th>
                             </tr>
                         </thead>
                     </table>
+                </p>
             </div>
-            <div class="tab-pane fade" id="tabclassstatuspaidandready">
+            <div class="tab-pane fade" id="tabclassstatuspaid">
                 <p>
                     <table id="gridTab2Tutor" class="table table-condensed table-hover table-striped">
                         <thead>
@@ -55,15 +77,29 @@
                     </table>
                 </p>
             </div>
-            <div class="tab-pane fade" id="tabtutorothers">
+            <div class="tab-pane fade" id="tabclassstatusready">
                 <p>
                     <table id="gridTab3Tutor" class="table table-condensed table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th data-column-id="stuname" data-width="25%">ชื่อ สกุลนักเรียน</th>
+                                <th data-column-id="subject" data-width="25%">วิชาและระดับชั้น</th>
+                                <th data-column-id="time" data-width="35%">วัน เวลาและสถานที่สอน</th>
+                                <th data-column-id="detail" data-width="15%" data-sortable="false" data-searchable="false"></th>
+                            </tr>
+                        </thead>
+                    </table>
+                </p>
+            </div>
+            <div class="tab-pane fade" id="tabtutorothers">
+                <p>
+                    <table id="gridTab4Tutor" class="table table-condensed table-hover table-striped">
                         <thead>
                             <tr>
                                 <th data-column-id="stuname" data-width="20%">ชื่อ สกุลนักเรียน</th>
                                 <th data-column-id="subject" data-width="20%">วิชาและระดับชั้น</th>
                                 <th data-column-id="time" data-width="35%">วัน เวลาและสถานที่สอน</th>
-                                <th data-column-id="time" data-width="15%">สถานะ</th>
+                                <th data-column-id="status" data-width="15%">สถานะ</th>
                                 <th data-column-id="detail" data-width="10%" data-sortable="false" data-searchable="false"></th>
                             </tr>
                         </thead>
@@ -78,6 +114,7 @@
         var _workTutorTabOne;
         var _workTutorTabTwo;
         var _workTutorTabThree;
+        var _workTutorTabFour;
         jQuery(document).ready(function () {
             //   $('#waitingtable').empty();
             if (_gUser.turId != null) {
@@ -85,9 +122,8 @@
                 initialTutorTab1();
                 initialTutorTab2();
                 initialTutorTab3();
+                initialTutorTab4();
             }
-
-
         });
 
         var gridTab1Tutor = $("#gridTab1Tutor").bootgrid({
@@ -103,7 +139,7 @@
             gridTab1Tutor.find(".command-open").on("click", function (e) {
                 console.log("pay");
                 var i = parseInt($(this).data("row-id"));
-                payment(_workTutorTabOne[i]);
+                gotoPaymentPage(_workTutorTabOne[i]);
             });
             gridTab1Tutor.find(".command-detail").on("click", function (e) {
                 console.log("detail");
@@ -142,7 +178,24 @@
             gridTab3Tutor.find(".command-detail").on("click", function (e) {
                 console.log("detail");
                 var i = parseInt($(this).data("row-id"));
-                loadOthersClassDetail(_workTutorTabThree[i]);
+                loadVerifiedPaymentClassDetail(_workTutorTabThree[i]);
+            });
+        });
+
+        var gridTab4Tutor = $("#gridTab4Tutor").bootgrid({
+            navigation: 0,
+            rowSelect: true,
+            labels: {
+                noResults: 'ไม่พบรายการ'
+            }
+        }).on("loaded.rs.jquery.bootgrid", function () {
+            gridTab4Tutor.find("tr").on("click", function (e) {
+                console.log("click");
+            });
+            gridTab4Tutor.find(".command-detail").on("click", function (e) {
+                console.log("detail");
+                var i = parseInt($(this).data("row-id"));
+                loadOthersClassDetail(_workTutorTabFour[i]);
             });
         });
 
@@ -171,6 +224,16 @@
         }
         function appendwortutortab3(work, i) {
             gridTab3Tutor.bootgrid("append", [
+                {
+                    "stuname": work.stuName,
+                    "subject": work.subjectAndGroupDetailName,
+                    "time": work.recTimeLoc,
+                    "detail": "<button type='button' class='btn btn-primary btn-lg command-detail' data-row-id='" + i + "'>ดูรายละเอียด</button>"
+                }
+            ]);
+        }
+        function appendwortutortab4(work, i) {
+            gridTab4Tutor.bootgrid("append", [
                 {
                     "stuname": work.stuName,
                     "subject": work.subjectAndGroupDetailName,
@@ -211,7 +274,7 @@
         function initialTutorTab2() {
             $.ajax({
                 type: "GET",
-                
+
                 url: _gServiceURL + "class/paidlist/tutor/" + _gUser.turId,
                 contentType: "application/json; charset=utf-8",
                 crossDomain: true,
@@ -235,11 +298,11 @@
 
             });
         }
-
         function initialTutorTab3() {
             $.ajax({
                 type: "GET",
-                url: _gServiceURL + "class/otherslist/tutor/" + _gUser.turId,
+
+                url: _gServiceURL + "class/readylist/tutor/" + _gUser.turId,
                 contentType: "application/json; charset=utf-8",
                 crossDomain: true,
                 dataType: "json",
@@ -254,7 +317,6 @@
                     } else {
                         $('#badgenum3').hide();
                     }
-
                 },
                 error: function (jqXHR, status) {
                     $('#badgenum3').hide();
@@ -263,12 +325,37 @@
             });
         }
 
+        function initialTutorTab4() {
+            $.ajax({
+                type: "GET",
+                url: _gServiceURL + "class/otherslist/tutor/" + _gUser.turId,
+                contentType: "application/json; charset=utf-8",
+                crossDomain: true,
+                dataType: "json",
+                success: function (data, status, jqXHR) {
+                    _workTutorTabFour = data.data.recommendTutorViews;
+                    console.log(_workTutorTabFour);
+                    if (data.data.size != 0) {
+                        $('#badgenum4').text(data.data.size);
+                        for (var i = 0; i < _workTutorTabFour.length; i++) {
+                            appendwortutortab4(_workTutorTabFour[i], i);
+                        }
+                    } else {
+                        $('#badgenum4').hide();
+                    }
+
+                },
+                error: function (jqXHR, status) {
+                    $('#badgenum4').hide();
+                }
+
+            });
+        }
+
 
         function loadRecClassDetail(result) {
-            _selectedRecId = result.recId;
             _gRec.recId = result.recId;
             _gRec.recType = result.clsType;
-            console.log(_selectedRecId);
             if (_gRec.recType == 'M') {
                 jQuery("#divMainContainer").load('./html/recmergedclassdetail.html');
             } else {
@@ -288,20 +375,13 @@
             jQuery("#divMainContainer").load('./html/classdetail.html');
         }
 
-        function payment(result) {
-            event.preventDefault();
-            event.stopPropagation();
-            console.log(event);
+        function gotoPaymentPage(result) {
             _gRec.recId = result.recId;
             _gRec.recType = result.clsType;
-
+            console.log(_gRec.recId);
             window.parent.changePage("./html/pay.html");
         }
 
-
-        function decline(id, type) {
-
-        }
     </script>
 </body>
 

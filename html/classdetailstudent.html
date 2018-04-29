@@ -23,18 +23,22 @@
         <button type="button" class="close" data-dismiss="alert"></button>
         <strong>ไม่สามารถบันทึกข้อมูลได้</strong>
     </div>
-    <div class="btn-group right" role="group" aria-label="Button group with nested dropdown">
-        <button type="button" class="btn btn-primary">Action</button>
-        <div class="btn-group show" role="group">
-            <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="true"></button>
-            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
-                <a class="dropdown-item" href="javascript:openevaluatetutor()">ประเมินติวเตอร์</a>
-                <a class="dropdown-item" href="#">ยกเลิกงานสอน</a>
+    <div class="right">
+        <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+            <button type="button" class="btn btn-primary btn-lg">ยื่นคำร้อง</button>
+            <div class="btn-group show" role="group">
+                <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle btn-lg" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="true"></button>
+                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
+
+                    <a class="dropdown-item" href="javascript:toggleModalCancelClsByStudent()">ยกเลิกการลงทะเบียนเรียน</a>
+                    <a class="dropdown-item" href="javascript:toggleModalChangeTutor()">ขอเปลี่ยนติวเตอร์</a>
+                </div>
             </div>
         </div>
-    </div>
 
+        <button type="button" class="btn btn-success btn-lg" id="btnEvaluateTutor">ประเมินติวเตอร์</button>&nbsp;&nbsp;
+    </div>
     <div class="label-header" id="headerstuclass">งานสอน</div>
     <div style="margin-top:30px;">
         <div class="container-fluid">
@@ -52,6 +56,11 @@
                         <div class="form-group">
                             <label class="col-lg-3">ภาษาที่ใช้สอน :</label>
                             <label class="col-lg-9 labelnormal" id="lblStuClsProgram">ปกติ</label>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-3">สถานะ :</label>
+                            <label class="col-lg-9 labelnormal" id="lblStuClsStatus">คณิตศาสตร์</label>
                         </div>
                     </form>
                 </div>
@@ -171,6 +180,79 @@
             </div>
         </div>
     </div>
+    <!-- Cancel Class Modal -->
+    <div class="modal fade" id="modalCancelClsByStudent" tabindex="-1" role="dialog" aria-labelledby="cancelClsByStudentLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="cancelClsByStudentLabel">แจ้งขอยกเลิกการลงทะเบียน</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="divCancelClsByStuLabel">
+                        กรุณาระบุสาเหตุที่แจ้งขอยกเลิกลงทะเบียน และจำนวนชั่วโมงที่เรียนไปแล้ว (หากยังไม่ถึงกำหนดเรียนกรุณาเลือกเป็น 0 ชั่วโมง)
+                    </div>
+                    <div class="form-group">
+                        <label for="reasonCancelByStuTextarea">สาเหตุที่ขอยกเลิกการลงทะเบียน</label>
+                        <textarea class="form-control" id="reasonCancelByStuTextarea" rows="2"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="dropdownCancelByStuHours">จำนวนชั่วโมงที่เรียนไปแล้ว</label>
+                        <select class="custom-select" id="dropdownCancelByStuHours">
+                            <option selected="" value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">ยกเลิก</button>
+                    <button type="button" class="btn btn-primary btn-lg" onClick="javascript:cancelclassbystudent();">ยืนยันขอยกเลิกลงทะเบียน</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Change Tutor Modal -->
+    <div class="modal fade" id="modalChangeTutor" tabindex="-1" role="dialog" aria-labelledby="changeTutorLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="changeTutorLabel">แจ้งขอยกเลิกการลงทะเบียน</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="divChangeTutorLabel">
+                        กรุณาระบุสาเหตุที่ขอเปลี่ยนติวเตอร์ จำนวนชั่วโมงที่เรียนไปแล้ว (หากยังไม่ถึงกำหนดเรียนกรุณาเลือกเป็น 0 ชั่วโมง) และกดปุ่ม
+                        "ยืนยันขอยกเลิกลงทะเบียน" หากท่านต้องการขอยกเลิกลงทะเบียน
+                    </div>
+                    <div class="form-group">
+                        <label for="reasonChangeTutorTextarea">สาเหตุที่ขอยกเลิกการลงทะเบียน</label>
+                        <textarea class="form-control" id="reasonChangeTutorTextarea" rows="2"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="dropdownChangeTutorHours">จำนวนชั่วโมงที่เรียนไปแล้ว</label>
+                        <select class="custom-select" id="dropdownChangeTutorHours">
+                            <option selected="" value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">ยกเลิก</button>
+                    <button type="button" class="btn btn-primary btn-lg" onClick="javascript:changetutor();">ยืนยันขอยกเลิกลงทะเบียน</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 <script>
     var _clsId;
@@ -190,7 +272,7 @@
 
         $.ajax({
             type: "GET",
-            url: _gServiceURL + "class/classdetail/" + _gSelectedClsId,
+            url: _gServiceURL + "class/classdetail/student/" + _gSelectedClsId,
             contentType: "application/json; charset=utf-8",
             crossDomain: true,
             dataType: "json",
@@ -202,6 +284,7 @@
                 $('#headerstuclass').text('งานสอนเลขที่ ' + classDetail.clsId);
                 _clsId = classDetail.clsId;
                 $('#lblStuClsClsId').text(classDetail.clsId);
+                $('#lblStuClsStatus').text(classDetail.statusName);
                 $('#lblStuClsSubjectCat').text(classDetail.subjectAndGroupDetailName);
                 $('#lblStuClsProgram').text(classDetail.program);
                 $('#lblStuClsPrice').text(classDetail.recPrice);
@@ -212,7 +295,7 @@
                 $('#lblStuClsStuName').text(classDetail.stuName);
                 $('#lblStuClsStuTel').text(classDetail.stuTel);
                 $('#lblStuClsStuEmail').text(classDetail.stuEmail);
-                if (classDetail.turName) {
+                if (classDetail.statusId != 1 && classDetail.statusId != 5 && classDetail.statusId != 6 && classDetail.turName != null) {
                     $('#lblStuClsTurName').text(classDetail.turName);
                     $('#lblStuClsTurTel').text(classDetail.turTel);
                     $('#lblStuClsTurEmail').text(classDetail.turEmail);
@@ -244,7 +327,11 @@
             }
         ]);
     }
+    $("#btnEvaluateTutor").on("click", function (e) {
 
+        console.log("evaluate");
+        $("#modalTutorEvaluate").modal('show');
+    });
     function openevaluatetutor() {
         console.log("evaluate");
         $("#modalTutorEvaluate").modal('show');
@@ -252,8 +339,8 @@
 
     function confirmevaluate() {
         var requestbody = {
-            clsId : _clsId,
-            evaluateScore : String(5)
+            clsId: _clsId,
+            evaluateScore: String(5)
         }
         console.log(requestbody);
         $("#modalTutorEvaluate").modal('hide');
@@ -274,8 +361,93 @@
             }
 
         });
+    }
 
+    function toggleModalCancelClsByStudent() {
+        $('#modalCancelClsByStudent').modal('show');
+    }
 
+    function toggleModalChangeTutor() {
+        $('#modalChangeTutor').modal('show');
+    }
+
+    function cancelclassbystudent() {
+        console.log("cancelclassbystudent");
+        var reason = $('reasonCancelByStuTextarea').val();
+        var hours = $('#dropdownCancelByStuHours option:selected').val();
+        if (_gUser.stuId != null && reason && hours) {
+            var bodyRequest = {
+                clsId: parseInt(_gSelectedClsId),
+                requester: _gUser.stuName,
+                reason: reason,
+                hours: parseInt(hours)
+            };
+            console.log(bodyRequest);
+            $.ajax({
+                type: "POST",
+                url: _gServiceURL + "classrequest/requesttocancelbystudent/",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(bodyRequest),
+                crossDomain: true,
+                dataType: "json",
+                success: function (data, status, jqXHR) {
+                    var alert;
+                    var msg = data.message;
+                    if (data.status == 200) {
+                        alert = $(".alert-success");
+                    } else {
+                        alert = $(".alert-danger");
+                    }
+                    alert.find("strong").text(msg);
+                    alert.show();
+                },
+                error: function (jqXHR, status) {
+                    var alert = $(".alert-danger");
+                    alert.find("strong").text(jqXHR);
+                    alert.show();
+                }
+            });
+        }
+
+    }
+
+    function changetutor() {
+        console.log("changetutor");
+        var reason = $('reasonChangeTutorTextarea').val();
+        var hours = $('#dropdownChangeTutorHours option:selected').val();
+        if (_gUser.stuId != null && reason && hours) {
+            var bodyRequest = {
+                clsId: parseInt(_gSelectedClsId),
+                requester: _gUser.stuName,
+                reason: reason,
+                hours: parseInt(hours)
+            };
+            console.log(bodyRequest);
+            $.ajax({
+                type: "POST",
+                url: _gServiceURL + "classrequest/requesttochangetutor/",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(bodyRequest),
+                crossDomain: true,
+                dataType: "json",
+                success: function (data, status, jqXHR) {
+                    var alert;
+                    var msg = data.message;
+                    if (data.status == 200) {
+                        alert = $(".alert-success");
+                    } else {
+                        alert = $(".alert-danger");
+                    }
+                    alert.find("strong").text(msg);
+                    alert.show();
+                },
+                error: function (jqXHR, status) {
+                    var alert = $(".alert-danger");
+                    alert.find("strong").text(jqXHR);
+                    alert.show();
+                }
+            });
+        }
 
     }
 

@@ -23,6 +23,9 @@
         <button type="button" class="close" data-dismiss="alert"></button>
         <strong>ไม่สามารถบันทึกข้อมูลได้</strong>
     </div>
+    <div class="right">
+        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalConfirmCancelClsByTutor">ยกเลิกงานสอน</button>
+    </div>
     <div class="label-header" id="headerclass">งานสอน</div>
     <div style="margin-top:30px;">
         <div class="container-fluid">
@@ -44,6 +47,11 @@
                         <div class="form-group">
                             <label class="col-lg-3">ค่าแนะนำงานสอน :</label>
                             <label class="col-lg-9 labelnormal" id="lblClsPrice">2000.00</label>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-3">สถานะ :</label>
+                            <label class="col-lg-9 labelnormal" id="lblClsStatus">คณิตศาสตร์</label>
                         </div>
                     </form>
                 </div>
@@ -116,6 +124,34 @@
         </div>
     </div>
     <br>
+    <!-- Modal -->
+    <div class="modal fade" id="modalConfirmCancelClsByTutor" tabindex="-1" role="dialog" aria-labelledby="confirmCancelClsByTutorLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="confirmCancelClsByTutorLabel">แจ้งขอยกเลิกงานสอน</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+
+                </div>
+                <div class="modal-body">
+                    <div id="divConfirmCancelClsByTutorLabel">
+                        กรุณาระบุสาเหตุของของการยกเลิกงานสอน และกดปุ่ม "ยืนยันขอยกเลิกงานสอน" หากท่านต้องการยืนยันการขอยกเลิกงานสอน สถาบันได้จำกัดการยกเลิกงานสอน
+                        หากท่านขอยกเลิกงานสอนเกินกว่าจำนวนครั้งที่สถาบันกำหนด ท่านไม่ได้รับการแนะนำงานสอนใหม่ กรุณาติดต่อทางสถาบันเพื่อทำการปลดล็อค
+                    </div>
+                    <div class="form-group">
+                        <label for="reasonCancelClsByTutorTextarea">สาเหตุที่ขอยกเลิกการลงทะเบียน</label>
+                        <textarea class="form-control" id="exampleTextarea" rows="2"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">ยกเลิก</button>
+                    <button type="button" class="btn btn-primary btn-lg" onClick="javascript:cancelClsByTutor();">ยืนยันขอยกเลิกงานสอน</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <br>
 </body>
 <script>
@@ -142,7 +178,7 @@
 
         $.ajax({
             type: "GET",
-            url: _gServiceURL + "class/classdetail/" + _gSelectedClsId,
+            url: _gServiceURL + "class/classdetail/tutor/" + _gSelectedClsId,
             contentType: "application/json; charset=utf-8",
             crossDomain: true,
             dataType: "json",
@@ -153,6 +189,7 @@
                 $('#breadcrumbclass').text('งานสอนเลขที่ ' + classDetail.clsId);
                 $('#headerclass').text('งานสอนเลขที่ ' + classDetail.clsId);
                 $('#lblClsClsId').text(classDetail.clsId);
+                $('#lblClsStatus').text(classDetail.statusName);
                 $('#lblClsSubjectCat').text(classDetail.subjectAndGroupDetailName);
                 $('#lblClsProgram').text(classDetail.program);
                 $('#lblClsPrice').text(classDetail.recPrice);
@@ -232,7 +269,42 @@
         $("#modalGoogleDirectionClassMap").modal('show');
 
     }
-
+    function cancelClsByTutor() {
+        console.log("cancel class by tutor");
+        var reason = $('reasonCancelClsByTutorTextarea').val();
+        if (_gUser.turId != null) {
+            var bodyRequest = {
+                clsId: parseInt(_gSelectedClsId),
+                requester: _gUser.turName,
+                reason: reason
+            };
+            console.log(bodyRequest);
+            $.ajax({
+                type: "POST",
+                url: _gServiceURL + "classrequest/requesttocancelbytutor/",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(bodyRequest),
+                crossDomain: true,
+                dataType: "json",
+                success: function (data, status, jqXHR) {
+                    var alert;
+                    var msg = data.message;
+                    if (data.status == 200) {
+                        alert = $(".alert-success");
+                    } else {
+                        alert = $(".alert-danger");
+                    }
+                    alert.find("strong").text(msg);
+                    alert.show();
+                },
+                error: function (jqXHR, status) {
+                    var alert = $(".alert-danger");
+                    alert.find("strong").text(jqXHR);
+                    alert.show();
+                }
+            });
+        }
+    }
 
 
 </script>

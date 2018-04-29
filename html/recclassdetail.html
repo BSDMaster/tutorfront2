@@ -105,15 +105,36 @@
     </div>
     <div class="container-center">
         <p>
-            <button type="button" class="btn btn-primary btn-lg" id="btnPaymentClass">ชำระเงิน</button>
-            <button type="button" class="btn btn-secondary btn-lg" id="btnCancelRecClass">ปฏิเสธงานสอน</button>
+            <button type="button" class="btn btn-success btn-lg" id="btnPaymentClass">ชำระเงิน</button>
+            <button type="button" class="btn btn-danger btn-lg" id="btnCancelRecClass">ปฏิเสธงานสอน</button>
         </p>
     </div>
     <br>
     <br>
+    <!-- Modal -->
+    <div class="modal fade" id="modalConfirmDeclineRecCls" tabindex="-1" role="dialog" aria-labelledby="confirmDeclineRecClsLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="confirmDeclineRecClsLabel">ยืนยันปฏิเสธงานสอน</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+
+                </div>
+                <div class="modal-body" id="divConfirmDeclineRecClsLabel">
+                    กรุณายืนยันปฏิเสธงานสอนรหัส
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">ยกเลิก</button>
+                    <button type="button" class="btn btn-primary btn-lg" onClick="javascript:cancelRecCls();">ยืนยันปฏิเสธงานสอน</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 <script>
-    
+
     var _mapRecClassDetail;
     var _directionsDisplayRecClass;
     var _recclasstimes = [];
@@ -134,10 +155,10 @@
     });
 
     function initialData() {
-
+        $('#divConfirmDeclineRecClsLabel').text('ท่านต้องการยืนยันปฏิเสธการแนะนำงานสอนเลขที่ ' + _gRec.recId)
         $.ajax({
             type: "GET",
-            url: _gServiceURL + "rectutor/classdetail/" + _selectedRecId,
+            url: _gServiceURL + "rectutor/classdetail/" + _gRec.recId,
             contentType: "application/json; charset=utf-8",
             crossDomain: true,
             dataType: "json",
@@ -225,29 +246,40 @@
     }
 
     $("#btnPaymentClass").on("click", function (e) {
-        _gRec.recId = _selectedRecId;
-        _gRec.recType = 'C';
         jQuery("#divMainContainer").load("./html/pay.html");
     });
+
     $("#btnCancelRecClass").on("click", function (e) {
-        _gRec.recId = _selectedRecId;
-        _gRec.recType = 'N';
+        $("#modalConfirmDeclineRecCls").modal('show');
+    });
+
+    function cancelRecCls() {
         $.ajax({
             type: "GET",
-            url: _gServiceURL + "rectutor/" + _selectedRecId,
+            url: _gServiceURL + "rectutor/declinebytutor/" + _gRec.recId,
             contentType: "application/json; charset=utf-8",
             crossDomain: true,
             dataType: "json",
             success: function (data, status, jqXHR) {
-                loadMainPage();
+                var messages = data.message;
+                var alert;
+                if (data.status == 200) {
+                    loadMainPage();
+                    alert = $(".alert-success");
+                } else {
+                    alert = $(".alert-danger");
+                }
+                alert.find("strong").text(messages);
+                alert.show();
             },
             error: function (jqXHR, status) {
+                var alert = $(".alert-danger");
+                alert.find("strong").text(jqXHR);
+                alert.show();
             }
-
         });
+    }
 
-    });
-    
 
 
 </script>

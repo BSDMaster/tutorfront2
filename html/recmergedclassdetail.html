@@ -178,14 +178,6 @@
         </div>
     </div>
     <br>
-    <div class="container-center">
-        <p>
-            <button type="button" class="btn btn-primary btn-lg" id="btnPaymentMergedClass">ชำระเงิน</button>
-            <button type="button" class="btn btn-secondary btn-lg" id="btnCancelRecMergedClass">ปฏิเสธงานสอน</button>
-        </p>
-    </div>
-    <br>
-    <br>
     <div class="modal fade" id="modalGoogleDirectionMergedMap" tabindex="-1" role="dialog" aria-labelledby="modalGoogleDirectionMergedLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -196,7 +188,13 @@
             </div>
         </div>
     </div>
-
+    <br>
+    <div class="container-center">
+        <p>
+            <button type="button" class="btn btn-success btn-lg" id="btnPaymentMergedClass">ชำระเงิน</button>
+            <button type="button" class="btn btn-primary btn-lg" onClick="javascript:cancelRecMergedCls();">ยืนยันปฏิเสธงานสอน</button>
+        </p>
+    </div>
 
 </body>
 <script>
@@ -234,7 +232,7 @@
     function initialMapMergedData() {
         $.ajax({
             type: "GET",
-            url: _gServiceURL + "rectutor/mergedclassdetail/" + _selectedRecId,
+            url: _gServiceURL + "rectutor/mergedclassdetail/" + _gRec.recId,
             contentType: "application/json; charset=utf-8",
             crossDomain: true,
             dataType: "json",
@@ -299,7 +297,7 @@
         ]);
     }
     function initmapformerged() {
-        
+
         _directionsDisplayMerged = new google.maps.DirectionsRenderer();
         var latLog = new google.maps.LatLng(13.736334, 100.531102);
         _mapRecMergedClass = new google.maps.Map(document.getElementById('divMapMergedClass'), {
@@ -320,7 +318,7 @@
         var startlatLog = new google.maps.LatLng(time.startLat, time.startLong);
         var endlatLog = new google.maps.LatLng(time.latitude, time.longitude);
         var directionsService = new google.maps.DirectionsService();
-        
+
         directionsService.route({
             origin: startlatLog,
             destination: endlatLog,
@@ -329,7 +327,7 @@
             if (status === 'OK') {
                 console.log("direction display");
                 console.log(_directionsDisplayMerged);
-                
+
                 _directionsDisplayMerged.setDirections(response);
                 setTimeout(function () {
                     //your code to be executed after 1 second
@@ -339,35 +337,70 @@
                 window.alert('Directions request failed due to ' + status);
             }
         });
-        
+
         $("#modalGoogleDirectionMergedMap").modal('show');
 
     }
 
     $("#btnPaymentMergedClass").on("click", function (e) {
         console.log('Payment Merged');
-        _gRec.recId = _selectedRecId;
-        _gRec.recType = 'M';
         jQuery("#divMainContainer").load("./html/pay.html");
     });
+
     $("#btnCancelRecMergedClass").on("click", function (e) {
-        _gRec.recId = _selectedRecId;
-        _gRec.recType = 'M';
         $.ajax({
             type: "GET",
-            url: _gServiceURL + "rectutor/" + _selectedRecId,
+            url: _gServiceURL + "rectutor/decline/" + _gRec.recId,
             contentType: "application/json; charset=utf-8",
             crossDomain: true,
             dataType: "json",
             success: function (data, status, jqXHR) {
-                loadMainPage();
+                var messages = data.message;
+                var alert;
+                if (data.status == 200) {
+                    loadMainPage();
+                    alert = $(".alert-success");
+                } else {
+                    alert = $(".alert-danger");
+                }
+                alert.find("strong").text(messages);
+                alert.show();
             },
             error: function (jqXHR, status) {
+                var alert = $(".alert-danger");
+                alert.find("strong").text(jqXHR);
+                alert.show();
             }
-
         });
-
     });
+    function cancelRecMergedCls() {
+
+        $.ajax({
+            type: "GET",
+            url: _gServiceURL + "rectutor/declinebytutor/" + _gRec.recId,
+            contentType: "application/json; charset=utf-8",
+            crossDomain: true,
+            dataType: "json",
+            success: function (data, status, jqXHR) {
+                var messages = data.message;
+                var alert;
+                if (data.status == 200) {
+                    loadMainPage();
+                    alert = $(".alert-success");
+                } else {
+                    alert = $(".alert-danger");
+                }
+                alert.find("strong").text(messages);
+                alert.show();
+            },
+            error: function (jqXHR, status) {
+                var alert = $(".alert-danger");
+                alert.find("strong").text(jqXHR);
+                alert.show();
+            }
+        });
+    }
+
 </script>
 
 </html>

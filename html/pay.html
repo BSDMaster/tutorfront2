@@ -27,42 +27,48 @@
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <strong>ไม่สามารถบันทึกข้อมูลได้</strong>
   </div>
-
   <div class="label-header" id="headerpayment">รายการชำระเงินเลขที่</div>
-  <div style="margin-top:30px;">
-    <table class="table table-hover" id="paymenttable">
-      <tr class="table-primary" align="center">
-        <th scope="col">รายการที่</th>
-        <th scope="col">รหัสงานสอน</th>
-        <th scope="col">วิชาและระดับชั้น</th>
-        <th scope="col">วัน เวลาและสถานที่สอน</th>
-        <th scope="col">จำนวนชั่วโมง</th>
-        <th scope="col">ค่าแนะนำต่อชั่วโมง</th>
-        <th scope="col">ค่าแนะนำ</th>
+  <br>
+  <table id="gridPaymentList" class="table table-condensed table-hover table-striped">
+    <thead>
+      <tr>
+        <th data-column-id="order" data-width="8%" data-align="center" header-align="center">รายการที่</th>
+        <th data-column-id="clsid" data-width="8%" data-align="center" class="text-center">รหัสงานสอน</th>
+        <th data-column-id="subject" data-width="20%" class="text-center">วิชาและระดับชั้น</th>
+        <th data-column-id="time" data-width="30%" class="text-center">วัน เวลาและสถานที่สอน</th>
+        <th data-column-id="hours" data-width="10%" data-align="center" class="text-center">จำนวนชั่วโมง</th>
+        <th data-column-id="priceperhours" data-width="14%" data-align="right" class="text-center">ค่าแนะนำต่อชั่วโมง</th>
+        <th data-column-id="price" data-width="10%" data-align="right" class="text-center">ค่าแนะนำ</th>
       </tr>
-    </table>
-  </div>
+    </thead>
+  </table>
   <div>
     <br>
   </div>
   <div class="text-center">
-    <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#modalConfirmPayment">ยืนยันการชำระเงิน</button>
-    <button type="button" class="btn btn-danger btn-lg">ปฏิเสธงานสอน</button>
+    <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#modalConfirmPayment">แนบเอกสารการชำระเงิน</button>
+    <button type="button" class="btn btn-default btn-lg" onClick="javascript:loadMainPage();">ย้อนกลับ</button>
   </div>
   <!-- Modal -->
   <div class="modal fade" id="modalConfirmPayment" tabindex="-1" role="dialog" aria-labelledby="confirmPaymentLabel">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title" id="confirmPaymentLabel">ยืนยันการชำระเงิน</h4>
+          <h4 class="modal-title" id="confirmPaymentLabel">แนบเอกสารการชำระเงิน</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
 
         </div>
-        <div class="modal-body" id="divConfirmPaymentLabel">
-          ท่านต้องการยืนยันการชำระเงินงานสอนรหัส
+        <div class="modal-body">
+          <div id="divConfirmPaymentLabel">กรุณาแนบเอกสารหลักฐานการชำระเงิน เพื่อยืนยันรับงานสอนรหัส
+          </div>
+          <br>
+          <div class="form-group">
+            <input type="file" class="form-control-file" id="paymentFile">
+          </div>
         </div>
+
         <div class="modal-footer">
           <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">ยกเลิก</button>
           <button type="button" class="btn btn-primary btn-lg" onClick="javascript:payment();">ยืนยันการชำระเงิน</button>
@@ -75,14 +81,12 @@
     jQuery(document).ready(function () {
       console.log("ready!");
       if (_gUser.turId != null) {
-        console.log('select rec id ', _selectedRecId);
         console.log('_gRec.recId', _gRec.recId);
-        _selectedRecId = _gRec.recId;
-        $('#divConfirmPaymentLabel').text('ท่านต้องการยืนยันการชำระเงินงานสอนเลขที่ ' + _selectedRecId)
-        $('#headerpayment').text('รายการชำระเงินเลขที่ ' + _selectedRecId);
-        $('#breadcrumbpayment').text('รายการชำระเงินเลขที่ ' + _selectedRecId);
-        $('#breadcrumrecclassdetail').text('รายการแนะนำงานสอนเลขที่ ' + _selectedRecId);
-        setUpTable();
+        $('#divConfirmPaymentLabel').text(' กรุณาแนบเอกสารหลักฐานการชำระเงิน เพื่อยืนยันรการแนะนำงานสอนเลขที่ ' + _gRec.recId)
+        $('#headerpayment').text('รายการชำระเงินรายการแนะนำงานสอนเลขที่ ' + _gRec.recId);
+        $('#breadcrumbpayment').text('รายการชำระเงินรายการแนะนำงานสอนเลขที่ ' + _gRec.recId);
+        $('#breadcrumrecclassdetail').text('รายการแนะนำงานสอนเลขที่ ' + _gRec.recId);
+        setUpPaymentTable();
       }
     });
 
@@ -93,61 +97,101 @@
         jQuery("#divMainContainer").load('./html/recclassdetail.html');
       }
     }
-    function setUpTable() {
-      var url = "http://localhost:8080/tutormatchingservices-0.0.1-SNAPSHOT/rectutor/paymentlist/" + _gRec.recId
-      console.log(url);
-      $.getJSON(url, function (json_data) {
-        console.log(json_data);
-        var classes = json_data.data.classViews;
-        console.log(classes);
-        var table_obj = $('#paymenttable');
-        var totalRecPrice = 0;
-        if (json_data.data.size != 0) {
-          $.each(classes, function (index, result) {
-            var table_row = $('<tr>', {});
-            var table_cell1 = $('<td>', { html: index + 1 });
-            table_cell1.attr("align", "center");
-            var table_cell2 = $('<td>', { html: result.clsId });
-            table_cell2.attr("align", "center");
-            var table_cell3 = $('<td>', { html: result.subjectAndGroupDetailName });
-            var table_cell4 = $('<td>', { html: result.recTimeLoc });
-            var table_cell5 = $('<td>', { html: result.hours });
-            table_cell5.attr("align", "center");
-            var table_cell6 = $('<td>', { html: result.recPricePerHour });
-            table_cell6.attr("align", "right");
-            var table_cell7 = $('<td>', { html: result.recPrice });
-            table_cell7.attr("align", "right");
-            totalRecPrice = totalRecPrice + result.recPrice;
-            table_row.append(table_cell1, table_cell2, table_cell3, table_cell4, table_cell5, table_cell6, table_cell7);
-            table_obj.append(table_row);
-          });
-          var table_row = $('<tr class="table-active">', {});
-          var table_cell1 = $('<td>', {});
-          var table_cell2 = $('<td>', {});
-          var table_cell3 = $('<td>', {});
-          var table_cell4 = $('<td>', {});
-          var table_cell5 = $('<td>', {});
-          var table_cell6 = $('<td>', {});
-          var table_cell7 = $('<td>', { html: '<strong>' + json_data.data.totalRecPrice + '</strong>' });
-          table_cell7.attr("align", "right");
-          table_row.append(table_cell1, table_cell2, table_cell3, table_cell4, table_cell5, table_cell6, table_cell7);
-          table_obj.append(table_row);
-        } else {
-          $('#paymenttable').hide();
+
+    var gridPaymentList = $("#gridPaymentList").bootgrid({
+      navigation: 0,
+      rowSelect: true,
+      labels: {
+        noResults: 'ไม่พบรายการ',
+      }
+    });
+    function appendPaymentList(result, i) {
+      gridPaymentList.bootgrid("append", [
+        {
+          "order": i + 1,
+          "clsid": result.clsId,
+          "subject": result.subjectAndGroupDetailName,
+          "time": result.recTimeLoc,
+          "hours": result.hours,
+          "priceperhours": result.recPricePerHour,
+          "price": result.recPrice,
+        }
+      ]);
+    }
+    function setUpPaymentTable() {
+      $.ajax({
+        type: "GET",
+        url: _gServiceURL + "rectutor/paymentlist/" + _gRec.recId,
+        contentType: "application/json; charset=utf-8",
+        crossDomain: true,
+        dataType: "json",
+        success: function (data, status, jqXHR) {
+          var classes = data.data.classViews;
+          if (data.data.size != 0) {
+
+            for (var i = 0; i < classes.length; i++) {
+              appendPaymentList(classes[i], i);
+            }
+            var totalPrice = data.data.totalRecPrice;
+            gridPaymentList.bootgrid("append", [
+              {
+                "order": "",
+                "clsid": "",
+                "subject": "",
+                "time": "",
+                "hours": "",
+                "priceperhours": "",
+                "price": "<strong>" + totalPrice + "</strong>",
+              }]);
+            var delayInMilliseconds = 100; //1 second
+            setTimeout(function () {
+              $("#gridPaymentList tr:last").addClass('table-active');
+            }, delayInMilliseconds);
+
+          }
+
+        },
+        error: function (jqXHR, status) {
         }
 
       });
     }
+    /*
     function payment() {
-      setTimeout(function () {
-        $("#modalConfirmPayment").modal('hide');
+      
+      var uploadForm = new FormData();
+      var file = document.getElementById("paymentFile").files[0];
+      var fileName = _gRec.recId + "_" + document.getElementById("paymentFile").files[0].name.replace(/\s+/g, '');
+      console.log(fileName);
+    
+      uploadForm.append("file", file);
+      uploadForm.append("name", document.getElementById("paymentFile").files[0].name);
+      console.log(uploadForm);
+      $.ajax({
+        url: _gServiceURL + "rectutor/uploadPaymentFile",
+        data: uploadForm,
+  //      dataType: 'text',
+        processData: false,
+        contentType: 'multipart/form-data',
+        type: 'POST',
+        success: function (data) {
+          console.log(data);
+        }, error: function (jqXHR, status) {
+          // error handler
+          console.log(jqXHR);
+          alert('fail' + status.code);
+        }
       });
+    }*/
+
+    function payment() {
+      
       var requestBody = {
         recId: _gRec.recId
       };
       $.ajax({
         type: "POST",
-        url: "http://localhost:8080/tutormatchingservices-0.0.1-SNAPSHOT/rectutor/accept",
+        url: _gServiceURL + "/rectutor/payment/",
         data: JSON.stringify(requestBody),
         contentType: "application/json; charset=utf-8",
         crossDomain: true,
@@ -155,7 +199,7 @@
         success: function (data, status, jqXHR) {
 
           console.log("Payment Success");
-          
+
           console.log(data.data);
           var type = data.data.type;
           if (type == 'M') {
@@ -174,6 +218,9 @@
           console.log(jqXHR);
           alert('fail' + status.code);
         }
+      });
+      setTimeout(function () {
+        $("#modalConfirmPayment").modal('hide');
       });
     }
   </script>
