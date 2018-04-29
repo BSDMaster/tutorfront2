@@ -142,7 +142,7 @@
                     </div>
                     <div class="form-group">
                         <label for="reasonCancelClsByTutorTextarea">สาเหตุที่ขอยกเลิกการลงทะเบียน</label>
-                        <textarea class="form-control" id="exampleTextarea" rows="2"></textarea>
+                        <textarea class="form-control" id="reasonCancelClsByTutorTextarea" rows="2"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -271,8 +271,8 @@
     }
     function cancelClsByTutor() {
         console.log("cancel class by tutor");
-        var reason = $('reasonCancelClsByTutorTextarea').val();
-        if (_gUser.turId != null) {
+        var reason = $('#reasonCancelClsByTutorTextarea').val();
+        if (_gUser.turId != null && reason != null && reason != "") {
             var bodyRequest = {
                 clsId: parseInt(_gSelectedClsId),
                 requester: _gUser.turName,
@@ -303,7 +303,12 @@
                     alert.show();
                 }
             });
+        } else {
+            var alert = $(".alert-danger");
+            alert.find("strong").text('กรุณากรอกข้อมูลให้ครบถ้วน');
+            alert.show();
         }
+        $("#modalConfirmCancelClsByTutor").modal('hide');
     }
 
 
