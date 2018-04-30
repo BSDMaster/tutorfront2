@@ -1512,15 +1512,64 @@
     for (var i = 0; i < dataTime.length; i++) {
         $('#dropdownSpecStartTime').append('<option value="' + dataTime[i].val + '">' + dataTime[i].name + '</option>');
         $('#dropdownSpecEndTime').append('<option value="' + dataTime[i].val + '">' + dataTime[i].name + '</option>');
-        $('#dropdownSpecTutorDay').append('<option>' + dataTime[i].name + '</option>');
-        $('#dropdownSpecTutorDay').multiselect('rebuild');
     }
 
-    $("#dropdownSpecTutorDay").change(function () {
-        var startTime;
 
-        var endTime;
+    $("#btnCreateClassSpecific").on("click", function (e) {
+        // create new class
+        if (stuSpecAvatimes.length > 0) {
+            savespecifictutors();
+
+
+        } else {
+            $(".alert-danger").find("strong").text('โปรดระบุข้อมูลให้ครบถ้วน');
+            $(".alert-danger").show();
+            $('html, body').animate({ scrollTop: $('.breadcrumb').offset().top }, 'fast');
+        }
     });
+
+    function savespecifictutors() {
+        console.log("savespecifictutors");
+        var programId = parseInt($("input[name='radioProgs']:checked").val());
+        var subjId = parseInt($('#dropdownSpecSubject option:selected').val());
+        var subcId = parseInt($('#dropdownSpecLevel option:selected').val());
+        var turId = parseInt($('#dropdownSpecTutor option:selected').val());
+        var numStu = parseInt($('#dropdownSpecNumStu option:selected').val());
+        var bodyRequest = {
+            stuId: parseInt(_gUser.stuId),
+            subcId:subcId,
+            subjId:subjId,
+            turId:turId,
+            programId: programId,
+            numStu : numStu,
+            stuSpecAvatimes:stuSpecAvatimes
+        }
+        console.log(bodyRequest);
+        callRequestnewclassSpec(bodyRequest);
+    }
+
+    function callRequestnewclassSpec(bodyRequest) {
+        console.log(bodyRequest);
+        $.ajax({
+            type: "POST",
+            url: _gServiceURL + "class/requestnewclass/nonspecific",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(bodyRequest),
+            crossDomain: true,
+            dataType: "json",
+            success: function (data, status, jqXHR) {
+                $(".alert-danger").hide();
+                $(".alert-success").show();
+                $('html, body').animate({ scrollTop: $('.breadcrumb').offset().top }, 'fast');
+            },
+            error: function (jqXHR, status) {
+                $(".alert-success").hide();
+                $(".alert-danger").show();
+                $('html, body').animate({ scrollTop: $('.breadcrumb').offset().top }, 'fast');
+            }
+
+        });
+    }
 
 </script>
 
