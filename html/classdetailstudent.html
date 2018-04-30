@@ -24,7 +24,7 @@
         <strong>ไม่สามารถบันทึกข้อมูลได้</strong>
     </div>
     <div class="right">
-        <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+        <div class="btn-group" id="btnCreateRequest" role="group" aria-label="Button group with nested dropdown">
             <button type="button" class="btn btn-primary btn-lg">ยื่นคำร้อง</button>
             <div class="btn-group show" role="group">
                 <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle btn-lg" data-toggle="dropdown" aria-haspopup="true"
@@ -36,7 +36,7 @@
                 </div>
             </div>
         </div>
-
+        <button type="button" class="btn btn-success btn-lg" id="btnCancelClassBtStudent" onClick="javascript:toggleModalCancelClsByStudent();">ยกเลิกการลงทะเบียนเรียน</button>&nbsp;&nbsp;
         <button type="button" class="btn btn-success btn-lg" id="btnEvaluateTutor">ประเมินติวเตอร์</button>&nbsp;&nbsp;
     </div>
     <div class="label-header" id="headerstuclass">งานสอน</div>
@@ -233,7 +233,7 @@
                         <label for="reasonCancelByStuTextarea">สาเหตุที่ขอยกเลิกการลงทะเบียน</label>
                         <textarea class="form-control" id="reasonCancelByStuTextarea" rows="2"></textarea>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" id="divNumHours">
                         <label for="dropdownCancelByStuHours">จำนวนชั่วโมงที่เรียนไปแล้ว</label>
                         <select class="custom-select" id="dropdownCancelByStuHours">
                             <option selected="" value="0">0</option>
@@ -263,11 +263,10 @@
                 </div>
                 <div class="modal-body">
                     <div id="divChangeTutorLabel">
-                        กรุณาระบุสาเหตุที่ขอเปลี่ยนติวเตอร์ จำนวนชั่วโมงที่เรียนไปแล้ว (หากยังไม่ถึงกำหนดเรียนกรุณาเลือกเป็น 0 ชั่วโมง) และกดปุ่ม
-                        "ยืนยันขอยกเลิกลงทะเบียน" หากท่านต้องการขอยกเลิกลงทะเบียน
+                        กรุณาระบุสาเหตุที่ขอเปลี่ยนติวเตอร์ จำนวนชั่วโมงที่เรียนไปแล้ว และกดปุ่ม "ยืนยันขอยกเลิกลงทะเบียน" หากท่านต้องการขอยกเลิกลงทะเบียน
                     </div>
                     <div class="form-group">
-                        <label for="reasonChangeTutorTextarea">สาเหตุที่ขอยกเลิกการลงทะเบียน</label>
+                        <label for="reasonChangeTutorTextarea">สาเหตุที่ขอเปลี่ยนติวเตอร์</label>
                         <textarea class="form-control" id="reasonChangeTutorTextarea" rows="2"></textarea>
                     </div>
                     <div class="form-group">
@@ -283,7 +282,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">ยกเลิก</button>
-                    <button type="button" class="btn btn-primary btn-lg" onClick="javascript:changetutor();">ยืนยันขอยกเลิกลงทะเบียน</button>
+                    <button type="button" class="btn btn-primary btn-lg" onClick="javascript:changetutor();">ยืนยันขอเปลี่ยนติวเตอร์</button>
                 </div>
             </div>
         </div>
@@ -332,6 +331,23 @@
                 $('#lblStuClsStuName').text(classDetail.stuName);
                 $('#lblStuClsStuTel').text(classDetail.stuTel);
                 $('#lblStuClsStuEmail').text(classDetail.stuEmail);
+                if (classDetail.statusId == 1 || classDetail.statusId == 5 || classDetail.statusId == 6) {
+                    $('#divNumHours').hide();
+                    $('#btnCreateRequest').hide();
+                    $('#btnCancelClassBtStudent').show();
+                    $('#btnEvaluateTutor').hide();
+                } else if (classDetail.statusId == 7) {
+                    $('#divNumHours').show();
+                    $('#btnCreateRequest').show();
+                    $('#btnCancelClassBtStudent').hide();
+                    $('#btnEvaluateTutor').show();
+                } else {
+                    $('#divNumHours').hide();
+                    $('#btnCreateRequest').hide();
+                    $('#btnCancelClassBtStudent').hide();
+                    $('#btnEvaluateTutor').hide();
+                }
+
                 if (classDetail.statusId != 1 && classDetail.statusId != 5 && classDetail.statusId != 6 && classDetail.turName != null) {
                     $('#lblStuClsTurName').text(classDetail.turName);
                     $('#lblStuClsTurTel').text(classDetail.turTel);
@@ -375,9 +391,10 @@
     }
 
     function confirmevaluate() {
+        var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
         var requestbody = {
             clsId: _clsId,
-            evaluateScore: String(5)
+            evaluateScore: String(ratingValue)
         }
         console.log(requestbody);
         $("#modalTutorEvaluate").modal('hide');
@@ -389,12 +406,16 @@
             crossDomain: true,
             dataType: "json",
             success: function (data, status, jqXHR) {
+                loadMainPage();
                 $(".alert-success").show();
-                $('html, body').animate({ scrollTop: $('.breadcrumbstuclass').offset().top }, 'fast');
+                $('html, body').animate({ scrollTop: $('.breadcrumb').offset().top }, 'fast');
+                $('#btnCreateRequest').hide();
+                $('#btnCancelClassBtStudent').hide();
+                $('#btnEvaluateTutor').hide();
             },
             error: function (jqXHR, status) {
                 $(".alert-danger").show();
-                $('html, body').animate({ scrollTop: $('.breadcrumbstuclass').offset().top }, 'fast');
+                $('html, body').animate({ scrollTop: $('.breadcrumb').offset().top }, 'fast');
             }
 
         });
@@ -410,7 +431,7 @@
 
     function cancelclassbystudent() {
         console.log("cancelclassbystudent");
-        var reason = $('reasonCancelByStuTextarea').val();
+        var reason = $('#reasonCancelByStuTextarea').val();
         var hours = $('#dropdownCancelByStuHours option:selected').val();
         if (_gUser.stuId != null && reason && hours) {
             var bodyRequest = {
@@ -432,6 +453,9 @@
                     var msg = data.message;
                     if (data.status == 200) {
                         alert = $(".alert-success");
+                        $('#btnCreateRequest').hide();
+                        $('#btnCancelClassBtStudent').hide();
+                        $('#btnEvaluateTutor').hide();
                     } else {
                         alert = $(".alert-danger");
                     }
@@ -445,12 +469,12 @@
                 }
             });
         }
-
+        $('#modalCancelClsByStudent').modal('hide');
     }
 
     function changetutor() {
         console.log("changetutor");
-        var reason = $('reasonChangeTutorTextarea').val();
+        var reason = $('#reasonChangeTutorTextarea').val();
         var hours = $('#dropdownChangeTutorHours option:selected').val();
         if (_gUser.stuId != null && reason && hours) {
             var bodyRequest = {
@@ -472,6 +496,9 @@
                     var msg = data.message;
                     if (data.status == 200) {
                         alert = $(".alert-success");
+                        $('#btnCreateRequest').hide();
+                        $('#btnCancelClassBtStudent').hide();
+                        $('#btnEvaluateTutor').hide();
                     } else {
                         alert = $(".alert-danger");
                     }
@@ -485,7 +512,7 @@
                 }
             });
         }
-
+        $('#modalChangeTutor').modal('hide');
     }
 
     function initialEvaTutor() {
@@ -522,10 +549,11 @@
             for (i = 0; i < onStar; i++) {
                 $(stars[i]).addClass('selected');
             }
-
+            var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
+            console.log(ratingValue);
             // JUST RESPONSE (Not needed)
             /*
-            var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
+            
             var msg = "";
             if (ratingValue > 1) {
                 msg = "Thanks! You rated this " + ratingValue + " stars.";

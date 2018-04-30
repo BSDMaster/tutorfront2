@@ -65,15 +65,15 @@
             <div class="row">
                 <div class="col-lg-12">
                     <form class="form-horizontal">
-                        <div class="form-group">
+                        <div class="form-group" id="divStuNameSection">
                             <label class="col-lg-3">ชื่อ :</label>
                             <label class="col-lg-9 labelnormal" id="lblClsStuName"></label>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" id="divStuTelSection">
                             <label class="col-lg-3">เบอร์โทรติดต่อ :</label>
                             <label class="col-lg-9 labelnormal" id="lblClsStuTel"></label>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" id="divStuEmailSection">
                             <label class="col-lg-3">อีเมล์ :</label>
                             <label class="col-lg-9 labelnormal" id="lblClsStuEmail"></label>
                         </div>
@@ -141,7 +141,7 @@
                         หากท่านขอยกเลิกงานสอนเกินกว่าจำนวนครั้งที่สถาบันกำหนด ท่านไม่ได้รับการแนะนำงานสอนใหม่ กรุณาติดต่อทางสถาบันเพื่อทำการปลดล็อค
                     </div>
                     <div class="form-group">
-                        <label for="reasonCancelClsByTutorTextarea">สาเหตุที่ขอยกเลิกการลงทะเบียน</label>
+                        <label for="reasonCancelClsByTutorTextarea">สาเหตุที่ขอยกเลิกงานสอน</label>
                         <textarea class="form-control" id="reasonCancelClsByTutorTextarea" rows="2"></textarea>
                     </div>
                 </div>
@@ -188,6 +188,15 @@
                 console.log(classDetail);
                 $('#breadcrumbclass').text('งานสอนเลขที่ ' + classDetail.clsId);
                 $('#headerclass').text('งานสอนเลขที่ ' + classDetail.clsId);
+                if (classDetail.statusId == 6) {
+                    $('#divStuNameSection').hide();
+                    $('#divStuTelSection').hide();
+                    $('#divStuEmailSection').hide();
+                } else {
+                    $('#divStuNameSection').show();
+                    $('#divStuTelSection').show();
+                    $('#divStuEmailSection').show();
+                }
                 $('#lblClsClsId').text(classDetail.clsId);
                 $('#lblClsStatus').text(classDetail.statusName);
                 $('#lblClsSubjectCat').text(classDetail.subjectAndGroupDetailName);

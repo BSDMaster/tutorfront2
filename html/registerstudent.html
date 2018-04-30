@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <div>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="javascript:loadMainPage();">หน้าหลัก</a>
+            </li>
+            <li class="breadcrumb-item active">สมัครเรียน</li>
+        </ol>
+    </div>
+    <br>
+    <div class="alert alert-dismissible alert-success" style="display: none;">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>บันทึกข้อมูลสำเร็จ</strong>
+    </div>
+    <div class="alert alert-dismissible alert-danger" style="display: none;">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>ไม่สามารถบันทึกข้อมูลได้</strong>
+    </div>
+    <div class="label-header">สมัครเรียน</div>
+    <br>
+
+    <br>
+
+    <div class="container-fluid">
+        <div class="row" style="padding-left: 30px;">
+            <div class="col-lg-12">
+                <form class="form-horizontal">
+                    <div class="form-group required">
+                        <label for="txtEmail" class="col-lg-2 labelform">อีเมล์</label>
+                        <div class="col-lg-4">
+                            <input type="text" class="form-control" id="txtEmail">
+                        </div>
+                        <div class="col-lg-6"></div>
+                    </div>
+                    <div class="form-group required">
+                        <label for="txtNewPassword" class="col-lg-2 labelform">รหัสผ่านใหม่</label>
+                        <div class="col-lg-4">
+                            <input type="password" class="form-control" id="txtNewPassword">
+                        </div>
+                        <div class="col-lg-6"></div>
+                    </div>
+                    <div class="form-group required">
+                        <label for="txtConfirmPassword" class="col-lg-2 labelform">ยืนยันรหัสผ่าน</label>
+                        <div class="col-lg-4">
+                            <input type="password" class="form-control" id="txtConfirmPassword">
+                        </div>
+                        <div class="col-lg-6"></div>
+                    </div>
+                    <div class="h2 inner-tab" style="margin-left:-30px;">ข้อมูลส่วนตัว</div>
+                    <br>
+                    <div class="form-group required">
+                        <label for="txtFirstName" class="col-lg-2 labelform">ชื่อ</label>
+                        <div class="col-lg-4">
+                            <input type="text" class="form-control" id="txtFirstName">
+                        </div>
+                        <div class="col-lg-6"></div>
+                    </div>
+                    <div class="form-group required">
+                        <label for="txtLastName" class="col-lg-2 labelform">นามสกุล</label>
+                        <div class="col-lg-4">
+                            <input type="text" class="form-control" id="txtLastName">
+                        </div>
+                        <div class="col-lg-6"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtNickname" class="col-lg-2">ชื่อเล่น</label>
+                        <div class="col-lg-4">
+                            <input type="text" class="form-control" id="txtNickname">
+                        </div>
+                        <div class="col-lg-6"></div>
+                    </div>
+                    <div class="form-group required">
+                        <label for="txtTel" class="col-lg-2 labelform">เบอร์โทรมือถือ</label>
+                        <div class="col-lg-4">
+                            <input type="text" class="form-control" id="txtTel">
+                        </div>
+                        <div class="col-lg-6"></div>
+                    </div>
+                    <div class="form-group required">
+                        <label for="dropdownSex" class="col-lg-2 labelform">เพศ</label>
+                        <div class="col-lg-4">
+                            <select class="custom-select" id="dropdownSex" required></select>
+                        </div>
+                        <div class="col-lg-6"></div>
+                    </div>
+                    <div class="form-group required">
+                        <label for="dropdownLevel" class="col-lg-2 labelform">ระดับชั้น</label>
+                        <div class="col-lg-4">
+                            <select class="custom-select" id="dropdownLevel" required></select>
+                        </div>
+                        <div class="col-lg-6"></div>
+                    </div>
+                    <div class="form-group required">
+                        <label for="txtSchool" class="col-lg-2 labelform">สถานศึกษา</label>
+                        <div class="col-lg-4">
+                            <input type="text" class="form-control" id="txtSchool">
+                        </div>
+                        <div class="col-lg-6"></div>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div class="container-center">
+        <p>
+            <button type="button" class="btn btn-primary btn-lg" id="btnSaveNewStudent">บันทึก</button>
+            <button type="button" class="btn btn-secondary btn-lg">ยกเลิก</button>
+        </p>
+    </div>
+</body>
+<script>
+    _isInitGmapStartAndEndPlace = false;
+    var marker = null;
+    var avatimes = [];
+
+    /*----------- PAGE 1 -------------*/
+    var dataSex = [{
+        name: "ชาย", val: "M"
+    }, {
+        name: "หญิง", val: "F"
+    }];
+    for (var i = 0; i < dataSex.length; i++) {
+        $('#dropdownSex').append('<option value="' + dataSex[i].val + '">' + dataSex[i].name + '</option>');
+    }
+
+    for (var i = 0; i < dataLevel.length; i++) {
+        $('#dropdownLevel').append('<option value="' + dataLevel[i].val + '">' + dataLevel[i].name + '</option>');
+    }
+
+    $("#btnSaveNewStudent").on("click", function (e) {
+        var txtEmail = $('#txtEmail').val();
+        var txtPassword = $('#txtNewPassword').val();
+        var txtConfirmPassword = $('#txtConfirmPassword').val();
+        var txtFirstName = $('#txtFirstName').val();
+        var txtLastName = $('#txtLastName').val();
+        var txtNickname = $('#txtNickname').val();
+        var txtTel = $('#txtTel').val();
+        var sex = $('#dropdownSex option:selected').val();
+        var level = $('#dropdownLevel option:selected').val();
+        var school = $('#txtSchool').val();
+        console.log('txtSchool : ' + school);
+        // create new class
+        if (txtPassword != txtConfirmPassword) {
+            $(".alert-danger").find("strong").text('รหัสผ่านไม่ถูกต้อง');
+            $(".alert-danger").show();
+            $('html, body').animate({ scrollTop: $('.breadcrumb').offset().top }, 'fast');
+        } else if (!txtEmail || !txtPassword || !txtFirstName || !txtLastName || !txtTel
+            || !sex || avatimes.length == 0 || applySubjects.length == 0) {
+            $(".alert-danger").find("strong").text('โปรดระบุข้อมูลให้ครบถ้วน');
+            $(".alert-danger").show();
+            $('html, body').animate({ scrollTop: $('.breadcrumb').offset().top }, 'fast');
+        }
+        else {
+            
+        }
+    });
+
+    function registerStudentOrParent(){
+
+    }
+
+</script>
+
+</html>

@@ -347,19 +347,21 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <form class="form-horizontal">
-                                <div class="h2 inner-tab" style="margin-top: 0px;">ข้อมูลติวเตอร์</div>
                                 <div class="form-group">
                                     <input type="checkbox" id="chkTutorSpec" checked>&nbsp&nbspระบุติวเตอร์</input>
                                 </div>
                                 <div id="divspecifictutor">
                                     <div class="form-group col-lg-12">
                                         <label for="dropdownTutorName" class="col-lg-2">ชื่อติวเตอร์ :</label>
-                                        <select class="form-control col-lg-5" id="dropdownTutorName">
-                                            <option selected value="null">ไม่ระบุ</option>
-                                            <option value="M">ชาย</option>
-                                            <option value="F">หญิง</option>
+                                        <select class="custom-select col-lg-5" id="dropdownTutorName">
                                         </select>
                                         <div class="col-lg-5"></div>
+                                    </div>
+                                    <div class="form-group col-lg-12">
+                                        Tutor Time
+                                    </div>
+                                    <div class="form-group col-lg-12">
+                                        Specific time
                                     </div>
                                 </div>
                                 <div id="divnonspecifictutor">
@@ -405,41 +407,43 @@
                                 <br>
                             </form>
                         </div>
-                        <div class="h2 inner-tab" style="margin: 20px;">ลำดับปัจจัยที่ใช้ในการคัดเลือกติวเตอร์</div>
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="form-group col-lg-12">
-                                    <div class="col-lg-7">
-                                        <table class="table table-bordered pagin-table">
-                                            <thead>
-                                                <tr>
-                                                    <th width="50px">#</th>
-                                                    <th>ปัจจัย</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="sort-table">
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>เพศของติวเตอร์</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>2</td>
-                                                    <td>คณะของติวเตอร์</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3</td>
-                                                    <td>สถาบันของติวเตอร์</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>4</td>
-                                                    <td>ประสบการณ์ของติวเตอร์</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>5</td>
-                                                    <td>ผลประเมินงานสอนของติวเตอร์</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                        <div id="tutorOrder" class="col-lg-12">
+                            <div class="h2 inner-tab" style="margin: 20px;">ลำดับปัจจัยที่ใช้ในการคัดเลือกติวเตอร์</div>
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="form-group col-lg-12">
+                                        <div class="col-lg-7">
+                                            <table class="table table-bordered pagin-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th width="50px">#</th>
+                                                        <th width="200px">ปัจจัย</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="sort-table">
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>เพศของติวเตอร์</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>2</td>
+                                                        <td>คณะของติวเตอร์</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>3</td>
+                                                        <td>สถาบันของติวเตอร์</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>4</td>
+                                                        <td>ประสบการณ์ของติวเตอร์</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>5</td>
+                                                        <td>ผลประเมินงานสอนของติวเตอร์</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -1026,15 +1030,54 @@
         ]);
     }
 
+    // Page 3
+    var _gSpecificTutor;
+
     $('#chkTutorSpec').change(function () {
         if (this.checked) {
             $('#divnonspecifictutor').hide();
             $('#divspecifictutor').show();
+            $('#tutorOrder').hide();
+            findTutorBySubjectAndCat();
         } else {
             $('#divnonspecifictutor').show();
             $('#divspecifictutor').hide();
+            $('#tutorOrder').show();
         }
     });
+
+    function findTutorBySubjectAndCat() {
+        $('#dropDownTutorName').empty();
+        var programId = $("input[name='gridRadios']:checked").val();
+        var bodyRequest = {
+            subjectlist: applySubjects,
+            programId: parseInt(programId)
+        };
+        console.log(bodyRequest);
+        $.ajax({
+            type: "POST",
+            url: _gServiceURL + "tutor/findBySubjectAndCat",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(bodyRequest),
+            crossDomain: true,
+            dataType: "json",
+            success: function (data, status, jqXHR) {
+                console.log(data.data.tutorViews);
+                _gSpecificTutor = data.data.tutorViews;
+                $.each(_gSpecificTutor, function (i, item) {
+                    console.log(item);
+                    console.log(item.turId);
+                    console.log(item.turName);
+                    $('#dropDownTutorName').append( '<option value="'+item.turId+'">'+item.turName+'</option>' );
+                    
+                });
+            },
+            error: function (jqXHR, status) {
+            }
+
+        });
+
+    }
 
     $("#dropdownSubject").change(function () {
         $('#dropdownClass').empty();
@@ -1184,7 +1227,7 @@
             universityChecked: universityChecked,
             facultyChecked: facultyChecked,
             tutorExp: exp,
-            tutorSpecOrder:tutorSpecOrder
+            tutorSpecOrder: tutorSpecOrder
         }
         console.log(bodyRequest);
         callrequestnewstudent(bodyRequest);

@@ -50,6 +50,12 @@
                         </div>
                         <div class="col-lg-6"></div>
                     </div>
+                    <div class="form-group">
+                        <label for="lblVerifyStatus" class="col-lg-2">สถานะการตรวจสอบประวัติ</label>
+                        <div class="col-lg-4" id="lblVerifyStatus">
+                        </div>
+                        <div class="col-lg-6"></div>
+                    </div>
                     <div class="form-group required">
                         <label for="txtEmail" class="col-lg-2 labelform">อีเมล์</label>
                         <div class="col-lg-4">
@@ -97,8 +103,8 @@
                         </div>
                         <div class="col-lg-6"></div>
                     </div>
-                    <div class="form-group required">
-                        <label for="" class="col-lg-2 labelform">เอกสารสำเนาบัตรประชาชน</label>
+                    <div class="form-group">
+                        <label for="" class="col-lg-2">เอกสารสำเนาบัตรประชาชน</label>
                         <div class="col-lg-4">
                             <input type="file" class="form-control-file" id="inputIDCardFile">
                         </div>
@@ -234,6 +240,13 @@
             success: function (data, status, jqXHR) {
                 var tutor = data.data.tutorProfileView;
                 console.log(tutor);
+                if (tutor.verifyFlag == 'U') {
+                    $('#lblVerifyStatus').text('ไม่ผ่านการตรวจสอบ');
+                } else if (tutor.verifyFlag == 'Y') {
+                    $('#lblVerifyStatus').text('ตรวจสอบแล้ว');
+                } else {
+                    $('#lblVerifyStatus').text('รอการตรวจสอบ');
+                }
                 $('#txtFirstName').val(tutor.turFirstname);
                 $('#txtLastName').val(tutor.turLastname);
                 $('#txtNickname').val(tutor.turNickname);
@@ -251,7 +264,10 @@
         });
     }
 
+
     $("#btnUpdateTutor").on("click", function (e) {
+        // var vdoid = getYoutubeVideoID($('#txtClip').val());
+        //  console.log(vdoid);
         var txtFirstName = $('#txtFirstName').val();
         var txtLastName = $('#txtLastName').val();
         var txtNickname = $('#txtNickname').val();
@@ -261,7 +277,7 @@
         var sex = $('#dropdownSex option:selected').val();
         var uniId = parseInt($('#dropdownUniversity option:selected').val());
         var facId = parseInt($('#dropdownFaculty option:selected').val());
-        var turClip = "";//$('#txtClip').val();
+        var turClip = $('#txtClip').val();
         var inputIDCardFile = $('#inputIDCardFile').val();
         var bodyRequest = {
             turId: parseInt(_gUser.turId),

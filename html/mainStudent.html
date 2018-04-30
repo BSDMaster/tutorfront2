@@ -76,11 +76,11 @@
                 <table id="gridTab3Student" class="table table-condensed table-hover table-striped">
                     <thead>
                         <tr>
-                            <th data-column-id="tutorname" data-width="25%">ชื่อ สกุลติวเตอร์</th>
+                            <th data-column-id="tutorname" data-width="20%">ชื่อ สกุลติวเตอร์</th>
                             <th data-column-id="subject" data-width="25%">วิชาและระดับชั้น</th>
-                            <th data-column-id="time" data-width="35%">วัน เวลาและสถานที่เรียน</th>
-
-                            <th data-column-id="detail" data-width="15%" data-sortable="false" data-searchable="false"></th>
+                            <th data-column-id="time" data-width="30%">วัน เวลาและสถานที่เรียน</th>
+                            <th data-column-id="status" data-width="15%">สถานะ</th>
+                            <th data-column-id="detail" data-width="10%" data-sortable="false" data-searchable="false"></th>
                         </tr>
                     </thead>
                 </table>
@@ -184,6 +184,7 @@
                     "tutorname": work.tutorName,
                     "subject": work.subjectAndGroupDetailName,
                     "time": work.recTimeLoc,
+                    "status": work.status,
                     "detail": "<button type='button' class='btn btn-primary btn-lg command-detail' data-row-id='" + i + "'>ดูรายละเอียด</button>"
                 }
             ]);
