@@ -11,11 +11,11 @@
             <li class="breadcrumb-item">
                 <a href="javascript:loadMainPage();">หน้าหลัก</a>
             </li>
-            <li class="breadcrumb-item active">สมัครเรียนเพิ่มเติม</li>
+            <li class="breadcrumb-item active">ลงทะเบียนเรียน</li>
         </ol>
     </div>
     <br>
-    <div class="label-header">วิชาที่ต้องการสมัครเรียน</div>
+    <div class="label-header">ลงทะเบียนเรียน</div>
     <br>
     <div class="alert alert-dismissible alert-success" style="display: none;">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -25,175 +25,266 @@
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <strong>ไม่สามารถบันทึกข้อมูลได้</strong>
     </div>
-    <br>
-    <ul class="nav nav-tabs">
-        <li class="nav-item active">
-            <a data-toggle="tab" href="#tabEditRegisterClass">1. ข้อมูลวิชาเรียน</a>
-        </li>
-        <li class="nav-item">
-            <a data-toggle="tab" href="#tabEditTutorSpec">2. ข้อมูลติวเตอร์</a>
-        </li>
-    </ul>
-    <br>
-
-    <div id="addNewClassTabContent" class="tab-content">
-        <div class="tab-pane fade in active" id="tabEditRegisterClass">
-            <!-- Button trigger modal -->
-            <button id="btnAddNewClass" type="button" class="btn btn-primary container-btn-add-right" data-toggle="modal" data-target="#modalAddRegisterClass">
-                เพิ่ม
-            </button>
-
-            <table id="gridEditClass" class="table table-condensed table-hover table-striped scroll">
-                <thead>
-                    <tr>
-                        <th data-column-id="id" data-identifier="true" data-type="numeric" data-width="3%">#</th>
-                        <th data-column-id="class" data-width="10%">วิชา</th>
-                        <th data-column-id="level" data-width="15%">ระดับชั้น</th>
-                        <th data-column-id="numStu" data-width="10%">จำนวนนักเรียน</th>
-                        <th data-column-id="numDay" data-width="13%">จำนวนวันเรียน/สัปดาห์</th>
-                        <th data-column-id="hoursPerDay" data-width="13%">จำนวนชั่วโมงเรียน/ครั้ง</th>
-                        <th data-column-id="totalHours" data-width="17%">จำนวนชั่วโมงเรียนโดยประมาณ</th>
-                        <th data-column-id="pricePerson" data-width="11%">ราคา/ชั่วโมง/คน</th>
-                        <th data-column-id="action" data-sortable="false" data-searchable="false" data-width="8%">Action</th>
-                    </tr>
-                </thead>
-            </table>
-
-            <!-- Modal Add Class-->
-            <div class="modal fade" id="modalAddRegisterClass" tabindex="-1" role="dialog" aria-labelledby="modalAddRegisterClass" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="modalAddSubjectClassLabel">เพิ่มวิชา</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form>
-                                <div class="form-group">
-                                    <label for="dropdownSubject">วิชา</label>
-                                    <select class="form-control" id="dropdownSubject">
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="dropdownClass">ระดับชั้น</label>
-                                    <select class="form-control" id="dropdownClass">
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="dropdownNumStu">จำนวนผู้เรียน</label>
-                                    <select class="form-control" id="dropdownNumStu">
-                                        <option selected value="1">1 คน</option>
-                                        <option value="2">2 คน</option>
-                                        <option value="3">3 คน</option>
-                                        <option value="4">4 คนขึ้นไป</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="dropdownNumDayPerWeek">จำนวนวันเรียนต่อสัปดาห์</label>
-                                    <select class="form-control" id="dropdownNumDayPerWeek">
-                                        <option selected value="1">1 วัน</option>
-                                        <option value="2">2 วัน</option>
-                                        <option value="3">3 วัน</option>
-                                        <option value="4">4 วัน</option>
-                                        <option value="5">5 วัน</option>
-                                        <option value="6">6 วัน</option>
-                                        <option value="3">7 วัน</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="dropdownHours">จำนวนชั่วโมงเรียนต่อครั้ง</label>
-                                    <select class="form-control" id="dropdownHours">
-                                        <option selected value="2">2 ชั่วโมง</option>
-                                        <option value="3">3 ชั่วโมง</option>
-                                        <option value="4">4 ชั่วโมง</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="dropdownTotalHours">จำนวนชั่วโมงเรียนโดยประมาณ</label>
-                                    <select class="form-control" id="dropdownTotalHours">
-                                        <option selected value="15">15 ชั่วโมง</option>
-                                        <option value="20">20 ชั่วโมง</option>
-                                        <option value="30">30 ชั่วโมง</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="txtPrice">ราคาต่อชั่วโมงต่อคน</label>
-                                    <input type="text" class="form-control" id="txtPrice" readonly>
-                                    </select>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" id="btnSaveSubject">ตกลง</button>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
-                        </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="form-group" id="radioTutorSpec">
+                    <div class="custom-control custom-radio">
+                        <input type="radio" id="radioNonSpecificTutor" name="customRadio" class="custom-control-input" checked="">
+                        <label class="custom-control-label labelnormal" for="radioNonSpecificTutor">ลงทะเบียนเรียนแบบไม่ระบุติวเตอร์</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input type="radio" id="radioSpecificTutor" name="customRadio" class="custom-control-input">
+                        <label class="custom-control-label labelnormal" for="radioSpecificTutor">ลงทะเบียนเรียนแบบระบุติวเตอร์</label>
                     </div>
                 </div>
             </div>
-            <div>** หากเรียนมากกว่า 1 วิชาและต้องการระบุหลักสูตรหรือคุณสมบัติติวเตอร์แตกต่างกัน กรุณาเลือกเมนู "สมัครเรียนเพิ่มเติม"
-                หลังจากที่สมัครเรียนแล้ว
-            </div>
-            <br>
-            <form>
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <form class="form-horizontal">
-                                <div class="form-group required">
-                                    <label class="col-lg-1 labelform">หลักสูตร :</label>
-                                    <div class="col-lg-11">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="1" checked>
-                                            <label class="form-check-label" for="gridRadios1">
-                                                เรียนและใช้เอกสารประกอบการเรียนเป็นภาษาไทย
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="2">
-                                            <label class="form-check-label" for="gridRadios2">
-                                                เรียนเป็นภาษาไทย และใช้เอกสารประกอบการเรียนเป็นภาษาอังกฤษ
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="3">
-                                            <label class="form-check-label" for="gridRadios3">
-                                                เรียนและใช้เอกสารประกอบการเรียนเป็นภาษาอังกฤษ
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </form>
         </div>
-        <div class="tab-pane fade" id="tabEditTutorSpec">
-            <br>
-            <div class="label-header">ข้อมูลติวเตอร์</div>
-            <br>
-            <form>
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <form class="form-horizontal">
-                                <div class="form-group col-lg-12">
-                                    <input type="checkbox" id="chkTutorSpec" checked>&nbsp&nbspระบุติวเตอร์</input>
-                                </div>
-                                <div id="divspecifictutor">
-                                    <div class="form-group col-lg-12">
-                                        <label for="dropdownTutorName" class="col-lg-2">ชื่อติวเตอร์ :</label>
-                                        <select class="form-control col-lg-5" id="dropdownTutorName">
-                                            <option selected value="null">ไม่ระบุ</option>
-                                            <option value="M">ชาย</option>
-                                            <option value="F">หญิง</option>
+    </div>
+    <br>
+    <div id="divNonSpecificTutor">
+        <ul class="nav nav-tabs">
+            <li class="nav-item active">
+                <a data-toggle="tab" href="#tabEditRegisterClass">1. ข้อมูลวิชาเรียน</a>
+            </li>
+            <li class="nav-item">
+                <a data-toggle="tab" href="#tabEditTutorSpec">2. ข้อมูลติวเตอร์</a>
+            </li>
+        </ul>
+        <br>
+
+        <div id="addNewClassTabContent" class="tab-content">
+            <div class="tab-pane fade in active" id="tabEditRegisterClass">
+                <!-- Button trigger modal -->
+                <button id="btnAddNewClass" type="button" class="btn btn-primary container-btn-add-right" data-toggle="modal" data-target="#modalAddRegisterClass">
+                    เพิ่ม
+                </button>
+
+                <table id="gridEditClass" class="table table-condensed table-hover table-striped scroll">
+                    <thead>
+                        <tr>
+                            <th data-column-id="id" data-identifier="true" data-type="numeric" data-width="3%">#</th>
+                            <th data-column-id="class" data-width="10%">วิชา</th>
+                            <th data-column-id="level" data-width="15%">ระดับชั้น</th>
+                            <th data-column-id="numStu" data-width="10%">จำนวนนักเรียน</th>
+                            <th data-column-id="numDay" data-width="13%">จำนวนวันเรียน/สัปดาห์</th>
+                            <th data-column-id="hoursPerDay" data-width="13%">จำนวนชั่วโมงเรียน/ครั้ง</th>
+                            <th data-column-id="totalHours" data-width="17%">จำนวนชั่วโมงเรียนโดยประมาณ</th>
+                            <th data-column-id="pricePerson" data-width="11%">ราคา/ชั่วโมง/คน</th>
+                            <th data-column-id="action" data-sortable="false" data-searchable="false" data-width="8%">Action</th>
+                        </tr>
+                    </thead>
+                </table>
+
+                <!-- Modal Add Class-->
+                <div class="modal fade" id="modalAddRegisterClass" tabindex="-1" role="dialog" aria-labelledby="modalAddRegisterClass" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalAddSubjectClassLabel">เพิ่มวิชา</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="dropdownSubject">วิชา</label>
+                                        <select class="form-control" id="dropdownSubject">
                                         </select>
-                                        <div class="col-lg-5"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="dropdownClass">ระดับชั้น</label>
+                                        <select class="form-control" id="dropdownClass">
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="dropdownNumStu">จำนวนผู้เรียน</label>
+                                        <select class="form-control" id="dropdownNumStu">
+                                            <option selected value="1">1 คน</option>
+                                            <option value="2">2 คน</option>
+                                            <option value="3">3 คน</option>
+                                            <option value="4">4 คนขึ้นไป</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="dropdownNumDayPerWeek">จำนวนวันเรียนต่อสัปดาห์</label>
+                                        <select class="form-control" id="dropdownNumDayPerWeek">
+                                            <option selected value="1">1 วัน</option>
+                                            <option value="2">2 วัน</option>
+                                            <option value="3">3 วัน</option>
+                                            <option value="4">4 วัน</option>
+                                            <option value="5">5 วัน</option>
+                                            <option value="6">6 วัน</option>
+                                            <option value="3">7 วัน</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="dropdownHours">จำนวนชั่วโมงเรียนต่อครั้ง</label>
+                                        <select class="form-control" id="dropdownHours">
+                                            <option selected value="2">2 ชั่วโมง</option>
+                                            <option value="3">3 ชั่วโมง</option>
+                                            <option value="4">4 ชั่วโมง</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="dropdownTotalHours">จำนวนชั่วโมงเรียนโดยประมาณ</label>
+                                        <select class="form-control" id="dropdownTotalHours">
+                                            <option selected value="15">15 ชั่วโมง</option>
+                                            <option value="20">20 ชั่วโมง</option>
+                                            <option value="30">มากกว่าหรือเท่ากับ 30 ชั่วโมง</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtPrice">ราคาต่อชั่วโมงต่อคน</label>
+                                        <input type="text" class="form-control" id="txtPrice" readonly>
+                                        </select>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" id="btnSaveSubject">ตกลง</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>** หากเรียนมากกว่า 1 วิชาและต้องการระบุหลักสูตรหรือคุณสมบัติติวเตอร์แตกต่างกัน กรุณาเลือกเมนู "สมัครเรียนเพิ่มเติม"
+                    หลังจากที่สมัครเรียนแล้ว
+                </div>
+                <br>
+                <form>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <form class="form-horizontal">
+                                    <div class="form-group required">
+                                        <label class="col-lg-1 labelform">หลักสูตร :</label>
+                                        <div class="col-lg-11">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="1" checked>
+                                                <label class="form-check-label" for="gridRadios1">
+                                                    เรียนและใช้เอกสารประกอบการเรียนเป็นภาษาไทย
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="2">
+                                                <label class="form-check-label" for="gridRadios2">
+                                                    เรียนเป็นภาษาไทย และใช้เอกสารประกอบการเรียนเป็นภาษาอังกฤษ
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="3">
+                                                <label class="form-check-label" for="gridRadios3">
+                                                    เรียนและใช้เอกสารประกอบการเรียนเป็นภาษาอังกฤษ
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divStudentTime">
+                        <div class="h2 inner-tab">วัน เวลาว่างและสถานที่เรียน</div>
+                        <br>
+                        <button id="btnAddStuTime" type="button" class="btn btn-primary container-btn-add-right" data-toggle="modal" data-target="#modalTimeDetail">
+                            เพิ่ม
+                        </button>
+
+                        <table id="gridStuTime" class="table table-condensed table-hover table-striped scroll">
+                            <thead>
+                                <tr>
+                                    <th data-column-id="id" data-identifier="true" data-type="numeric" data-width="5%">#</th>
+                                    <th data-column-id="day" data-width="10%">วัน</th>
+                                    <th data-column-id="startTime" data-width="15%">เวลาเริ่ม</th>
+                                    <th data-column-id="endTime" data-width="15%">เวลาสิ้นสุด</th>
+                                    <th data-column-id="location" data-width="45%">สถานที่เรียน</th>
+                                    <th data-column-id="action" data-sortable="false" data-searchable="false" data-width="10%">Action</th>
+                                </tr>
+                            </thead>
+                        </table>
+                        <div class="modal fade" id="modalTimeDetail" tabindex="-1" role="dialog" aria-labelledby="modalTimeDetailLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="modalTimeDetailLabel">เพิ่มวัน เวลา สถานที่เรียน</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form>
+                                            <div class="form-group required" id='groupCopyFromDay'>
+                                                <label for="dropdownCopyFromDay" class="labelform">สำเนาจาก</label>
+                                                <select class="custom-select" id="dropdownCopyFromDay">
+                                                </select>
+                                            </div>
+                                            <div class="form-group required">
+                                                <label for="dropdownDay" class="labelform">วัน</label>
+                                                <select class="custom-select" id="dropdownDay">
+                                                </select>
+                                            </div>
+                                            <div class="form-group required">
+                                                <label for="dropdownStartTime" class="labelform">เวลาเริ่มต้น</label>
+                                                <select class="custom-select" id="dropdownStartTime">
+                                                </select>
+                                            </div>
+                                            <div class="form-group required">
+                                                <label for="dropdownEndTime" class="labelform">เวลาสิ้นสุด</label>
+                                                <select class="custom-select" id="dropdownEndTime">
+                                                </select>
+                                            </div>
+                                            <div class="form-group required">
+                                                <label for="txtPlace" class="labelform">สถานที่เรียน</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="txtPlace" readonly>
+                                                    <button id="btnStudentGoogleMap" type="button" class="btn btn-secondary input-group-btn btn-google-pin" data-toggle="modal"
+                                                        data-target="#modalStudentGoogleMap">
+                                                        <div class="img-google-pin"></div>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" id="btnSaveAddTime">ตกลง</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
                                     </div>
                                 </div>
-                                <div id="divnonspecifictutor">
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        <br>
+                        <!-- Modal Add Google map-->
+                        <div class="modal fade" id="modalStudentGoogleMap" tabindex="-1" role="dialog" aria-labelledby="modalStudentGoogleMapLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content contentmap">
+                                    <div class="modal-body mapbody">
+                                        <div style="display:block">
+                                            <input id="pac-input" class="controls" type="text" placeholder="Enter a location">
+                                        </div>
+                                        <div id="map" class="map"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+                    </div>
+                </form>
+            </div>
+            <div class="tab-pane fade" id="tabEditTutorSpec">
+                <br>
+                <div class="label-header">ข้อมูลติวเตอร์</div>
+                <br>
+                <form>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <form class="form-horizontal">
                                     <div class="form-group col-lg-12">
                                         <label for="dropdownTutorSex" class="col-lg-2">เพศของติวเตอร์ :</label>
                                         <select class="form-control col-lg-5" id="dropdownTutorSex">
@@ -232,86 +323,343 @@
                                     <div class="form-group col-lg-12">
                                         <input type="checkbox" id="chkExp">&nbsp&nbspต้องการติวเตอร์มีประสบการณ์</input>
                                     </div>
-                                </div>
+                            </div>
                             </form>
                         </div>
                     </div>
-                </div>
-                <div class="h2 inner-tab" style="margin: 20px;">ลำดับปัจจัยที่ใช้ในการคัดเลือกติวเตอร์</div>
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="form-group col-lg-12">
-                            <div class="col-lg-7">
-                                <table class="table table-bordered pagin-table">
-                                    <thead>
-                                        <tr>
-                                            <th width="50px">#</th>
-                                            <th>ปัจจัย</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="sort-table">
-                                        <tr>
-                                            <td>1</td>
-                                            <td>เพศของติวเตอร์</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>คณะของติวเตอร์</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>สถาบันของติวเตอร์</td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>ประสบการณ์ของติวเตอร์</td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td>ผลประเมินงานสอนของติวเตอร์</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                    <div class="h2 inner-tab" style="margin: 20px;">ลำดับปัจจัยที่ใช้ในการคัดเลือกติวเตอร์</div>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="form-group col-lg-12">
+                                <div class="col-lg-7">
+                                    <table class="table table-bordered pagin-table">
+                                        <thead>
+                                            <tr>
+                                                <th width="50px">#</th>
+                                                <th>ปัจจัย</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="sort-table">
+                                            <tr>
+                                                <td>1</td>
+                                                <td>เพศของติวเตอร์</td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td>คณะของติวเตอร์</td>
+                                            </tr>
+                                            <tr>
+                                                <td>3</td>
+                                                <td>สถาบันของติวเตอร์</td>
+                                            </tr>
+                                            <tr>
+                                                <td>4</td>
+                                                <td>ประสบการณ์ของติวเตอร์</td>
+                                            </tr>
+                                            <tr>
+                                                <td>5</td>
+                                                <td>ผลประเมินงานสอนของติวเตอร์</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
+
                         </div>
-
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-lg-4"></div>
-                    <div class="col-lg-4">
-                        <button type="button" class="btn btn-primary btn-lg" id="btnCreateClass">บันทึก</button>
-                        <button type="button" class="btn btn-secondary btn-lg" href="javascript:loadMainPage();">ยกเลิก</button>
+                    <div class="form-group">
+                        <div class="col-lg-4"></div>
+                        <div class="col-lg-4">
+                            <button type="button" class="btn btn-primary btn-lg" id="btnCreateClassNoSpecific">บันทึก</button>
+                            <button type="button" class="btn btn-secondary btn-lg" href="javascript:loadMainPage();">ยกเลิก</button>
+                        </div>
+                        <div class="col-lg-4"></div>
                     </div>
-                    <div class="col-lg-4"></div>
-                </div>
+            </div>
         </div>
+        </form>
+        </form>
     </div>
-    </form>
-    </form>
     </div>
     </div>
+    <div id="divSpecificTutor">
+        <form>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <form class="form-horizontal">
+                            <div class="form-group col-lg-12">
+                                <label for="dropdownSpecSubject" class="col-lg-3">ชื่อวิชา :</label>
+                                <select class="form-control col-lg-4" id="dropdownSpecSubject">
+                                    <option selected value="null">ไม่ระบุ</option>
+                                </select>
+                                <div class="col-lg-5"></div>
+                            </div>
+                            <div class="form-group col-lg-12">
+                                <label for="dropdownSpecLevel" class="col-lg-3">ระดับชั้น:</label>
+                                <select class="form-control col-lg-4" id="dropdownSpecLevel">
+                                    <option selected value="null">ไม่ระบุ</option>
+                                </select>
+                                <div class="col-lg-5"></div>
+                            </div>
+                            <div class="form-group col-lg-12">
+                                <label for="dropdownNumStu" class="col-lg-3">จำนวนผู้เรียน:</label>
+                                <select class="form-control col-lg-4" id="dropdownSpecNumStu">
+                                    <option selected value="1">1 คน</option>
+                                    <option value="2">2 คน</option>
+                                    <option value="3">3 คน</option>
+                                    <option value="4">4 คนขึ้นไป</option>
+                                </select>
+                                <div class="col-lg-5"></div>
+                            </div>
+                            <div class="form-group col-lg-12">
+                                <label for="dropdownTotalHours" class="col-lg-3">จำนวนชั่วโมงเรียนโดยประมาณ:</label>
+                                <select class="form-control col-lg-4" id="dropdownSpecTotalHours">
+                                    <option selected value="15">15 ชั่วโมง</option>
+                                    <option value="20">20 ชั่วโมง</option>
+                                    <option value="30">มากกว่าหรือเท่ากับ 30 ชั่วโมง</option>
+                                </select>
+                                <div class="col-lg-5"></div>
+                            </div>
+                            <div class="form-group col-lg-12">
+                                <label for="txtSpecPrice" class="col-lg-3">ราคาต่อชั่วโมงต่อคน:</label>
+                                <input type="text" class="form-control col-lg-4" id="txtSpecPrice" readonly>
+                                </select>
+                                <div class="col-lg-5"></div>
+                            </div>
+                            <div class="form-group col-lg-12">
+                                <label class="col-lg-3 labelform">หลักสูตร :</label>
+                                <div class="col-lg-9">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="radioProgs" id="radioProg1" value="1" checked>
+                                        <label class="form-check-label" for="radioProg1">
+                                            เรียนและใช้เอกสารประกอบการเรียนเป็นภาษาไทย
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="radioProgs" id="radioProg2" value="2">
+                                        <label class="form-check-label" for="radioProg2">
+                                            เรียนเป็นภาษาไทย และใช้เอกสารประกอบการเรียนเป็นภาษาอังกฤษ
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="radioProgs" id="radioProg3" value="3">
+                                        <label class="form-check-label" for="radioProg3">
+                                            เรียนและใช้เอกสารประกอบการเรียนเป็นภาษาอังกฤษ
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="h2 inner-tab" style="margin: 20px;">ข้อมูลติวเตอร์</div>
+                            <div class="form-group col-lg-12">
+                                <label for="dropdownSpecTutor" class="col-lg-3">ชื่อติวเตอร์ :</label>
+                                <select class="form-control col-lg-4" id="dropdownSpecTutor">
+                                    <option selected value="null">ไม่ระบุ</option>
+                                </select>
+                                <div class="col-lg-5"></div>
+                            </div>
+                            <div class="form-group col-lg-12">
+                                <label for="txtSpecTurSex" class="col-lg-3">เพศ</label>
+                                <input type="text" class="form-control col-lg-4" id="txtSpecTurSex" readonly>
+                                </select>
+                                <div class="col-lg-5"></div>
+                            </div>
+                            <div class="form-group col-lg-12">
+                                <label for="txtSpecTurFac" class="col-lg-3">คณะ</label>
+                                <input type="text" class="form-control col-lg-4" id="txtSpecTurFac" readonly>
+                                </select>
+                                <div class="col-lg-5"></div>
+                            </div>
+                            <div class="form-group col-lg-12">
+                                <label for="txtSpecTurUni" class="col-lg-3">สถาบัน</label>
+                                <input type="text" class="form-control col-lg-4" id="txtSpecTurUni" readonly>
+                                </select>
+                                <div class="col-lg-5"></div>
+                            </div>
+                            <div class="form-group col-lg-12">
+                                <label for="txtSpecTurExp" class="col-lg-3">ประสบการณ์สอน</label>
+                                <input type="text" class="form-control col-lg-4" id="txtSpecTurExp" readonly>
+                                </select>
+                                <div class="col-lg-5"></div>
+                            </div>
+                            <div class="form-group col-lg-12">
+                                <label for="txtSpecTurClip" class="col-lg-3">ตัวอย่างคลิปงานสอน</label>
+                                <input type="text" class="form-control col-lg-4" id="txtSpecTurClip" readonly>
+                                </select>
+                                <div class="col-lg-5"></div>
+                            </div>
 
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <table id="gridSpecTutorAva" class="table table-condensed table-hover table-striped scroll">
+                            <thead>
+                                <tr>
+                                    <th data-column-id="id" data-width="5%" data-identifier="true" data-type="numeric">#</th>
+                                    <th data-column-id="day" data-width="10%">วัน</th>
+                                    <th data-column-id="time" data-width="15%">เวลาว่าง</th>
+                                    <th data-column-id="startPlace" data-width="30%">สถานที่เริ่มต้นเดินทาง</th>
+                                    <th data-column-id="endPlace" data-width="30%">สถานที่สิ้นสุดเดินทาง</th>
+                                </tr>
+                            </thead>
+                        </table>
+                        <div class="h2 inner-tab" style="margin-right: 20px;">วัน เวลาและสถานที่เรียน</div>
+                        <!-- Button trigger modal -->
+                        <button id="btnAddStudentAva" type="button" class="btn btn-primary container-btn-add-right" data-toggle="modal" data-target="#modalStuAva">
+                            เพิ่ม
+                        </button>
+                        <br>
+                        <table id="gridStudentAva" class="table table-condensed table-hover table-striped scroll">
+                            <thead>
+                                <tr>
+                                    <th data-column-id="id" data-width="5%" data-identifier="true" data-type="numeric">#</th>
+                                    <th data-column-id="day" data-width="20%">วัน</th>
+                                    <th data-column-id="starttime" data-width="15%">เวลาเริ่มเรียน</th>
+                                    <th data-column-id="endtime" data-width="15%">เวลาเลิกเรียน</th>
+                                    <th data-column-id="place" data-width="45%">สถานที่เรียน</th>
+                                </tr>
+                            </thead>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+            <!-- Modal Student Time Management -->
+            <div class="modal fade" id="modalStuAva" tabindex="-1" role="dialog" aria-labelledby="modalStuAvaLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalStuAvaLabel">เพิ่มวัน เวลา สถานที่เรียน</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group required">
+                                    <label for="dropDownSpecTutorDay" class="labelform">วันเรียน</label>
+                                    <select multiple="multiple" class="custom-select" id="dropDownSpecTutorDay">
+                                        <option>จันทร์</option>
+                                    </select>
+                                </div>
+                                <div class="form-group required">
+                                    <label for="dropdownSpecStartTime" class="labelform">เวลาเริ่มต้น</label>
+                                    <select class="custom-select" id="dropdownSpecStartTime">
+                                    </select>
+                                </div>
+                                <div class="form-group required">
+                                    <label for="dropdownSpecEndTime" class="labelform">เวลาสิ้นสุด</label>
+                                    <select class="custom-select" id="dropdownSpecEndTime">
+                                    </select>
+                                </div>
+                                <div class="form-group required">
+                                    <label for="txtStudyPlace" class="labelform">สถานที่เรียน</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="txtStudyPlace" readonly>
+                                        <button id="btnSpecStudentGoogleMap" type="button" class="btn btn-secondary input-group-btn btn-google-pin" data-toggle="modal"
+                                            data-target="#modalSpecStudentGoogleMap">
+                                            <div class="img-google-pin"></div>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="btnSpecSaveAddTime">ตกลง</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Modal Add Google map-->
+            <div class="modal fade" id="modalSpecStudentGoogleMap" tabindex="-1" role="dialog" aria-labelledby="modalSpecStudentGoogleMapLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content contentmap">
+                        <div class="modal-body mapbody">
+                            <div style="display:block">
+                                <input id="pac-input" class="controls" type="text" placeholder="Enter a location">
+                            </div>
+                            <div id="map" class="map"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="form-group">
+                <div class="col-lg-4"></div>
+                <div class="col-lg-4">
+                    <button type="button" class="btn btn-primary btn-lg" id="btnCreateClassSpecific">บันทึก</button>
+                    <button type="button" class="btn btn-secondary btn-lg" href="javascript:loadMainPage();">ยกเลิก</button>
+                </div>
+                <div class="col-lg-4"></div>
+            </div>
+        </form>
+    </div>
 </body>
 <script>
+    _isInitGmapStartAndEndPlace = false;
+    var marker = null;
     var universities = [];
     var faculties = [];
     var subjects = [];
     var childcatagories = [];
     var applySubjects = [];
+    var stuavatimes = [];
     $('#sort-table').sortable();
+
+    for (var i = 0; i < dataTime.length; i++) {
+        $('#dropdownStartTime').append('<option value="' + dataTime[i].val + '">' + dataTime[i].name + '</option>');
+        $('#dropdownEndTime').append('<option value="' + dataTime[i].val + '">' + dataTime[i].name + '</option>');
+    }
+
 
     $(document).ready(function () {
         //    appendApplySubjectList(null, 0);
-        $('#chkTutorSpec').prop("checked", false);
-        $('#divnonspecifictutor').show();
-        $('#divspecifictutor').hide();
         initialUniList();
         initialFacList();
         initialSubjectDetailList();
+        if (_gHasClass == 'N') {
+            $('#divStudentTime').show();
+        } else {
+            $('#divStudentTime').hide();
+        }
+        if ($('#radioNonSpecificTutor').is(':checked')) {
+            console.log("radioNonSpecificTutor");
+            $('#divNonSpecificTutor').show();
+            $('#divSpecificTutor').hide();
+        }
+        if ($('#radioSpecificTutor').is(':checked')) {
+            console.log("radioSpecificTutor");
+            $('#divNonSpecificTutor').hide();
+            $('#divSpecificTutor').show();
+        }
 
     });
 
+    $('#radioTutorSpec').click(function () {
+        console.log("on radio click");
+        if ($('#radioNonSpecificTutor').is(':checked')) {
+            console.log("radioNonSpecificTutor");
+            $('#divNonSpecificTutor').show();
+            $('#divSpecificTutor').hide();
+        }
+        if ($('#radioSpecificTutor').is(':checked')) {
+            console.log("radioSpecificTutor");
+            $('#divNonSpecificTutor').hide();
+            $('#divSpecificTutor').show();
+        }
+    });
+
+
+    /* --- Non Specific Tutor ----*/
     var gridEditClass = $("#gridEditClass").bootgrid({
         navigation: 0,
         labels: {
@@ -407,10 +755,16 @@
                 for (var i = 0; i < subjects.length; i++) {
                     $('#dropdownSubject').append('<option value="' + subjects[i].subjId + '">' + subjects[i].subject.subjName + '</option>');
                 }
+                for (var i = 0; i < subjects.length; i++) {
+                    $('#dropdownSpecSubject').append('<option value="' + subjects[i].subjId + '">' + subjects[i].subject.subjName + '</option>');
+                }
                 if (subjects.length > 0) {
                     childcatagories = subjects[0].subjectCatagories;
                     for (var i = 0; i < childcatagories.length; i++) {
                         $('#dropdownClass').append('<option value="' + childcatagories[i].subcId + '">' + childcatagories[i].subcName + '</option>');
+                    }
+                    for (var i = 0; i < childcatagories.length; i++) {
+                        $('#dropdownSpecLevel').append('<option value="' + childcatagories[i].subcId + '">' + childcatagories[i].subcName + '</option>');
                     }
                 }
             },
@@ -515,16 +869,6 @@
         ]);
     }
 
-    $('#chkTutorSpec').change(function () {
-        if (this.checked) {
-            $('#divnonspecifictutor').hide();
-            $('#divspecifictutor').show();
-        } else {
-            $('#divnonspecifictutor').show();
-            $('#divspecifictutor').hide();
-        }
-    });
-
     $("#dropdownSubject").change(function () {
         $('#dropdownClass').empty();
         var subjId = this.value;
@@ -601,14 +945,337 @@
             $(this).prop('checked', false);
         });
     });
-    $("#btnCreateClass").on("click", function (e) {
+
+    // Student Ava Times
+
+    var gridStuTime = $("#gridStuTime").bootgrid({
+        navigation: 0,
+        labels: {
+            noResults: 'ไม่พบรายการ'
+        }
+    }).on("loaded.rs.jquery.bootgrid", function () {
+        gridStuTime.find(".command-edit").on("click", function (e) {
+            var i = parseInt($(this).data("row-id"));
+            edittime(i);
+        }).end().find(".command-delete").on("click", function (e) {
+            var i = parseInt($(this).data("row-id"));
+            var dayName = dataDay[stuavatimes[i].savDayId - 1].name;
+            var result = confirm("ต้องการลบรายการ " + dayName + " ใช่หรือไม่?");
+            if (result) {
+                stuavatimes.splice(i, 1);
+                refreshGridDetailDayList();
+            }
+        });
+    });
+
+
+    function appendTime(time, i) {
+        var dayName = dataDay[time.savDayId - 1].name;
+        console.log("time.savStartTime " + time.savStartTime);
+        console.log("time.savEndTime " + time.savEndTime);
+        var startTimes = dataTime.filter(function (el) {
+            return el.val == time.savStartTime;
+        });
+        var startTime = "";
+        if (startTimes[0]) {
+            startTime = startTimes[0];
+        }
+        var endTimes = dataTime.filter(function (el) {
+            return el.val == time.savEndTime;
+        });
+        var endTime = "";
+        if (endTimes[0]) {
+            endTime = endTimes[0];
+        }
+        console.log(startTime);
+        console.log(endTime);
+
+        gridStuTime.bootgrid("append", [
+            {
+                "id": i + 1,
+                "day": dayName,
+                "startTime": startTime.name,
+                "endTime": endTime.name,
+                "location": time.savLocation,
+                "action": "<button id='btnEditAvaTime' type='button' class='btn btn-xs btn-default command-edit' data-row-id='" + i + "'><div class='fa-pencil'></div></button> "
+                    + "<button id='btnDeleteAvaTime' type='button' class='btn btn-xs btn-default command-delete' data-row-id='" + i + "'><div class='fa-trash-o'></div></button>"
+            }
+        ]);
+    }
+
+    function edittime(i) {
+        assignDropDownValueDayEdit();
+        $('#btnSaveAddTime').val(i);
+        var location = new google.maps.LatLng(stuavatimes[i].savLat, stuavatimes[i].savLong);
+        $('#modalTimeDetailLabel').text('แก้ไขวัน เวลา สถานที่เรียน');
+        $('#dropdownDay').val(stuavatimes[i].savDayId);
+        $('#dropdownDay').prop('disabled', true);
+        $('#dropdownStartTime').val(stuavatimes[i].savStartTime);
+        $('#dropdownEndTime').val(stuavatimes[i].savEndTime);
+        $('#txtPlace').val(stuavatimes[i].savLocation);
+        $('#btnStudentGoogleMap').val(location);
+        $('#groupCopyFromDay').hide();
+        $('#modalTimeDetail').modal('show');
+    }
+
+
+
+    $("#btnAddStuTime").on("click", function (e) {
+        console.log("เพิ่ม");
+        assignDropDownValueDayAdd();
+        $('#btnSaveAddTime').val(-1);
+        $('#modalTimeDetailLabel').text('เพิ่มวัน เวลา สถานที่เรียน');
+        $('#dropdownCopyFromDay').val($("#dropdownCopyFromDay option:first").val());
+        $('#dropdownDay').val($("#dropdownDay option:first").val());
+        $('#dropdownDay').prop('disabled', false);
+        $('#dropdownStartTime').val($("#dropdownStartTime option:first").val());
+        $('#dropdownEndTime').val($("#dropdownEndTime option:first").val());
+        $('#txtPlace').val("");
+        var days = stuavatimes.filter(function (el) {
+            return el.savDayId == $('#dropdownCopyFromDay').val();
+        });
+        if (days) {
+            var applyDay = days[0];
+            var location = new google.maps.LatLng(applyDay.savLat, applyDay.savLong);
+            $('#dropdownStartTime').val(applyDay.savStartTime);
+            $('#dropdownEndTime').val(applyDay.savEndTime);
+            $('#txtPlace').val(applyDay.savLocation);
+            $('#btnStudentGoogleMap').val(location);
+        }
+        $('#groupCopyFromDay').show();
+    });
+    function assignDropDownValueDayAdd() {
+        $('#dropdownCopyFromDay').empty();
+        $('#dropdownDay').empty();
+        for (var i = 0; i < dataDay.length; i++) {
+            var days = stuavatimes.filter(function (el) {
+                return el.savDayId == dataDay[i].val;
+            });
+            if (days.length > 0) {
+                $('#dropdownCopyFromDay').append('<option value="' + dataDay[i].val + '">' + dataDay[i].name + '</option>');
+            } else {
+                $('#dropdownDay').append('<option value="' + dataDay[i].val + '">' + dataDay[i].name + '</option>');
+            }
+        }
+    }
+
+    function assignDropDownValueDayEdit() {
+        $('#dropdownCopyFromDay').empty();
+        $('#dropdownDay').empty();
+        for (var i = 0; i < dataDay.length; i++) {
+            $('#dropdownCopyFromDay').append('<option value="' + dataDay[i].val + '">' + dataDay[i].name + '</option>');
+            $('#dropdownDay').append('<option value="' + dataDay[i].val + '">' + dataDay[i].name + '</option>');
+        }
+    }
+
+    $("#dropdownCopyFromDay").change(function () {
+        var coppiedDay = $(this).val();
+        var days = stuavatimes.filter(function (el) {
+            return el.savDayId == coppiedDay;
+        });
+        if (days) {
+            var applyDay = days[0];
+            var location = new google.maps.LatLng(applyDay.savLat, applyDay.savLong);
+            $('#dropdownStartTime').val(applyDay.savStartTime);
+            $('#dropdownEndTime').val(applyDay.savEndTime);
+            $('#txtPlace').val(applyDay.savLocation);
+            $('#btnStudentGoogleMap').val(location);
+        }
+    });
+    $("#btnStudentGoogleMap").on("click", function (e) {
+        var address = $('#txtPlace').val();
+        $('#pac-input').val(address);
+
+        if (_isInitGmapStartAndEndPlace == false) {
+            _isInitGmapStartAndEndPlace = true;
+            initMap();
+        }
+        var location = $(this).val();
+        if (location) {
+            location = location.replace('(', '');
+            location = location.replace(')', '');
+            var loc = location.split(",");
+            var lat = parseFloat(loc[0]);
+            var lng = parseFloat(loc[1]);
+            var latLog = new google.maps.LatLng(lat, lng);
+            marker.setPosition(latLog);
+            var map = marker.map;
+            map.setCenter(latLog);
+        }
+    });
+
+    function initMap() {
+        console.log("INIT MAP");
+        var geocoder = new google.maps.Geocoder;
+        var latLog = new google.maps.LatLng(13.736334, 100.531102);
+        var map = new google.maps.Map(document.getElementById('map'), {
+            center: latLog,
+            zoom: 15,
+            disableDefaultUI: true
+        });
+        // Set marker
+        marker = new google.maps.Marker({
+            map: map,
+            position: latLog
+        });
+        google.maps.event.addListener(map, 'click', function (event) {
+            setPlaceMarker(event.latLng, geocoder);
+        });
+
+        // Search box and auto complete
+        var input = document.getElementById('pac-input');
+        var options = {
+            types: ['establishment']
+        };
+        var autocomplete = new google.maps.places.Autocomplete(input);
+        autocomplete.bindTo('bounds', map);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        autocomplete.addListener('place_changed', function () {
+            console.log("Place Changed");
+            var place = autocomplete.getPlace();
+            placeChangedByAutoComplete(autocomplete.getPlace(), map, geocoder);
+        });
+
+    }
+
+    function setPlaceMarker(location, geocoder) {
+        marker.setPosition(location);
+        console.log(location);
+        findAddressFromLocation(location, geocoder);
+    }
+
+    function placeChangedByAutoComplete(place, map, geocoder) {
+        console.log(place);
+        console.log(place.place_id);
+        if (!place.place_id) {
+            return;
+        }
+        geocoder.geocode({ 'placeId': place.place_id }, function (results, status) {
+            if (status !== 'OK') {
+                window.alert('Geocoder failed due to: ' + status);
+                return;
+            }
+            console.log(place.place_id);
+            map.setZoom(15);
+            map.setCenter(results[0].geometry.location);
+            // Set the position of the marker using the place ID and location.
+            marker.setPlace({
+                placeId: place.place_id,
+                location: results[0].geometry.location
+            });
+            var address = $('#pac-input').val();
+            $('#btnStudentGoogleMap').val(results[0].geometry.location);
+            $('#txtPlace').val(address);
+
+            $('#modalStudentGoogleMap').modal('hide');
+
+        });
+    }
+
+    function findAddressFromLocation(latLng, geocoder) {
+        geocoder.geocode({ 'latLng': latLng }, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                console.log(results[0]);
+                var address = results[0].formatted_address;
+                $('#pac-input').val(address);
+                $('#btnStudentGoogleMap').val(latLng);
+                $('#txtPlace').val(address);
+                $('#modalStudentGoogleMap').modal('hide');
+            }
+            else {
+                console.log("Geocoding failed: " + status);
+            }
+        });
+    }
+
+
+    function geocodeAddress(geocoder, resultsMap) {
+        var address = document.getElementById('address').value;
+        geocoder.geocode({ 'address': address }, function (results, status) {
+            if (status === 'OK') {
+                resultsMap.setCenter(results[0].geometry.location);
+
+                var marker = new google.maps.Marker({
+                    map: resultsMap,
+                    position: results[0].geometry.location
+                });
+            } else {
+                alert('Geocode was not successful for the following reason: ' + status);
+            }
+        });
+    }
+    function geocodePlaceId(geocoder, map, placeId) {
+        geocoder.geocode({ 'placeId': placeId }, function (results, status) {
+            if (status === 'OK') {
+                console.log('PLACE');
+                if (results[0]) {
+                    console.log(results[0]);
+                } else {
+                    window.alert('No results found');
+                }
+            } else {
+                window.alert('Geocoder failed due to: ' + status);
+            }
+        });
+    }
+    $("#btnSaveAddTime").on("click", function (e) {
+        var selectedDay = $("#dropdownDay option:selected").val();
+        var selectedStartTime = $("#dropdownStartTime option:selected").val();
+        var selectedEndTime = $("#dropdownEndTime option:selected").val();
+        var txtPlace = $("#txtPlace").val();
+        console.log(txtPlace);
+        var location = $('#btnStudentGoogleMap').val();
+        location = location.replace('(', '');
+        location = location.replace(')', '');
+        var loc = location.split(",");
+        console.log(loc);
+        var i = $(this).val();
+
+        if (i == -1) {
+            var timeloc = {
+                "savDayId": selectedDay,
+                "savEndTime": selectedEndTime,
+                "savLat": loc[0],
+                "savLocation": txtPlace,
+                "savLong": loc[1],
+                "savStartTime": selectedStartTime,
+                "savStuId": _gUser.stuId
+            };
+            console.log(timeloc);
+            stuavatimes.push(timeloc);
+        } else {
+            var timeloc = stuavatimes[i];
+            timeloc.savLocation = txtPlace;
+            timeloc.savLat = loc[0];
+            timeloc.savLong = loc[1];
+            timeloc.savStartTime = selectedStartTime;
+            timeloc.savEndTime = selectedEndTime;
+            stuavatimes[i] = timeloc;
+        }
+        refreshGridDetailDayList();
+        $('#modalTimeDetail').modal('hide');
+    });
+
+    function refreshGridDetailDayList() {
+        gridStuTime.bootgrid('clear');
+        for (var j = 0; j < stuavatimes.length; j++) {
+            console.log("data : " + stuavatimes[j]);
+            appendTime(stuavatimes[j], j);
+        }
+    }
+
+    $("#btnCreateClassNoSpecific").on("click", function (e) {
         // create new class
         if (applySubjects.length > 0) {
-            if ($('#chkTutorSpec').checked) {
-
-            } else {
+            if (_gHasClass == 'Y') {
                 savenotspecifictutors();
+            } else {
+                if (stuavatimes.length > 0) {
+                    savenotspecifictutors();
+                }
             }
+
         } else {
             $(".alert-danger").find("strong").text('โปรดระบุข้อมูลให้ครบถ้วน');
             $(".alert-danger").show();
@@ -641,26 +1308,41 @@
         var row4 = parseInt($('#sort-table tr:nth-child(4) td:nth-child(1)').text());
         var row5 = parseInt($('#sort-table tr:nth-child(5) td:nth-child(1)').text());
         var tutorSpecOrder = [row1, row2, row3, row4, row5];
-
-        var bodyRequest = {
-            stuId: parseInt(_gUser.stuId),
-            subjectlist: applySubjects,
-            programId: parseInt(programId),
-            tutorSex: tutorSex,
-            universityChecked: universityChecked,
-            facultyChecked: facultyChecked,
-            tutorExp: exp,
-            tutorSpecOrder: tutorSpecOrder
+        if (_gHasClass == 'Y') {
+            var bodyRequest = {
+                stuId: parseInt(_gUser.stuId),
+                hasClass: 'Y',
+                subjectlist: applySubjects,
+                programId: parseInt(programId),
+                tutorSex: tutorSex,
+                universityChecked: universityChecked,
+                facultyChecked: facultyChecked,
+                tutorExp: exp,
+                tutorSpecOrder: tutorSpecOrder
+            }
+        } else {
+            var bodyRequest = {
+                stuId: parseInt(_gUser.stuId),
+                hasClass: 'N',
+                studentAvailableTimelocations: stuavatimes,
+                subjectlist: applySubjects,
+                programId: parseInt(programId),
+                tutorSex: tutorSex,
+                universityChecked: universityChecked,
+                facultyChecked: facultyChecked,
+                tutorExp: exp,
+                tutorSpecOrder: tutorSpecOrder
+            }
         }
         console.log(bodyRequest);
-        callrequestnewclass(bodyRequest);
+        callRequestnewclassNon(bodyRequest);
     }
 
-    function callrequestnewclass(bodyRequest) {
+    function callRequestnewclassNon(bodyRequest) {
         console.log(bodyRequest);
         $.ajax({
             type: "POST",
-            url: _gServiceURL + "class/requestnewclass",
+            url: _gServiceURL + "class/requestnewclass/nonspecific",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(bodyRequest),
             crossDomain: true,
@@ -678,6 +1360,167 @@
 
         });
     }
+
+    /*-- Specific TUtor --*/
+
+    _gSpecificTutor = null;
+
+    var gridSpecTutorAva = $("#gridSpecTutorAva").bootgrid({
+        navigation: 0,
+        labels: {
+            noResults: 'ไม่พบรายการ'
+        }
+    });
+    var gridStudentAva = $("#gridStudentAva").bootgrid({
+        navigation: 0,
+        labels: {
+            noResults: 'ไม่พบรายการ'
+        }
+    });
+
+    $("#dropdownSpecSubject").change(function () {
+        $('#dropdownSpecLevel').empty();
+        var subjId = this.value;
+        var subjectBySubjid = subjects.filter(function (el) {
+            return el.subjId == subjId;
+        });
+        console.log(subjectBySubjid);
+
+        if (subjectBySubjid[0]) {
+            var subjectCatagories = subjectBySubjid[0].subjectCatagories;
+            console.log(subjectCatagories);
+            for (var i = 0; i < subjectCatagories.length; i++) {
+                $('#dropdownSpecLevel').append('<option value="' + subjectCatagories[i].subcId + '">' + subjectCatagories[i].subcName + '</option>');
+            }
+        }
+        getTutorList();
+    });
+
+    $("#dropdownSpecLevel").change(function () {
+        getSpecPrice();
+        getTutorList();
+    });
+    $("#dropdownSpecNumStu").change(function () {
+        getSpecPrice();
+    });
+
+    $("input[name='radioProgs']:checked").change(function () {
+        getTutorList();
+    });
+    function getSpecPrice() {
+        var subjId = parseInt($('#dropdownSpecSubject option:selected').val());
+        var subcId = parseInt($('#dropdownSpecLevel option:selected').val());
+        var numStu = parseInt($('#dropdownSpecNumStu option:selected').val());
+        console.log(_gServiceURL + "subjectprice/getprice/" + subjId + "/" + subcId + "/" + numStu);
+        $.ajax({
+            type: "GET",
+            url: _gServiceURL + "subjectprice/getprice/" + subjId + "/" + subcId + "/" + numStu,
+            contentType: "application/json; charset=utf-8",
+            crossDomain: true,
+            dataType: "json",
+            success: function (data, status, jqXHR) {
+                console.log(data.data);
+                var subjectPrice = data.data.subjectPrice;
+                $('#txtSpecPrice').val(subjectPrice.sprPrice);
+            },
+            error: function (jqXHR, status) {
+                console.log(jqXHR);
+                alert('fail' + status.code);
+            }
+        });
+    }
+
+    function getTutorList() {
+        $('#dropdownSpecTutor').empty();
+        _gSpecificTutor = null;
+        var subjId = parseInt($('#dropdownSpecSubject option:selected').val());
+        var subcId = parseInt($('#dropdownSpecLevel option:selected').val());
+        var programId = parseInt($("input[name='radioProgs']:checked").val());
+        var bodyRequest = {
+            subcId: subcId,
+            subjId: subjId,
+            programId: programId
+        };
+        console.log(bodyRequest);
+        $.ajax({
+            type: "POST",
+            url: _gServiceURL + "tutor/findBySubjCatAndProg",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(bodyRequest),
+            crossDomain: true,
+            dataType: "json",
+            success: function (data, status, jqXHR) {
+                console.log(data.data.tutorViews);
+                _gSpecificTutor = data.data.tutorViews;
+                for (var i = 0; i < _gSpecificTutor.length; i++) {
+                    $('#dropdownSpecTutor').append('<option value="' + _gSpecificTutor[i].turId + '">' + _gSpecificTutor[i].turName + '</option>');
+                }
+            },
+            error: function (jqXHR, status) {
+            }
+
+        });
+    }
+
+    $("#dropdownSpecTutor").change(function () {
+        var turId = this.value;
+        var specificTutorByTurId = _gSpecificTutor.filter(function (el) {
+            return el.turId == turId;
+        });
+        console.log(specificTutorByTurId);
+        $('#txtSpecTurSex').val(specificTutorByTurId[0].turSex);
+        $('#txtSpecTurFac').val(specificTutorByTurId[0].turFacName);
+        $('#txtSpecTurUni').val(specificTutorByTurId[0].turUniName);
+        $('#txtSpecTurExp').val(specificTutorByTurId[0].turExp);
+        $('#txtSpecTurClip').val(specificTutorByTurId[0].turClip);
+        var times = specificTutorByTurId[0].tutorAvailableTimeloacationViews;
+        console.log(times);
+        gridSpecTutorAva.bootgrid('clear');
+        for (var i = 0; i < times.length; i++) {
+            console.log(times[i].tavDayId);
+            appendTutorTime(times[i], i);
+        }
+
+    });
+
+    function appendTutorTime(time, i) {
+        console.log("TIME : ", time);
+        gridSpecTutorAva.bootgrid("append", [
+            {
+                "id": i + 1,
+                "day": time.tavDay,
+                "time": time.tavStartTime + " - " + time.tavEndTime,
+                "startPlace": time.tavStartLocation,
+                "endPlace": time.tavEndLocation
+            }
+        ]);
+
+
+    }
+    $('#btnAddStudentAva').click(function () {
+        var turId = $('#dropdownSpecTutor option:selected').val();
+        var specificTutorByTurId = _gSpecificTutor.filter(function (el) {
+            return el.turId == turId;
+        });
+        var times = specificTutorByTurId[0].tutorAvailableTimeloacationViews;
+        console.log(times);
+        for (var i = 0; i < times.length; i++) {
+            $('#dropdownSpecTutorDay').append('<option value="' + times[i].tavDayId + '">' + times[i].tavDay + '</option>');
+        }
+    });
+
+    for (var i = 0; i < dataTime.length; i++) {
+        $('#dropdownSpecStartTime').append('<option value="' + dataTime[i].val + '">' + dataTime[i].name + '</option>');
+        $('#dropdownSpecEndTime').append('<option value="' + dataTime[i].val + '">' + dataTime[i].name + '</option>');
+        $('#dropdownSpecTutorDay').append('<option>' + dataTime[i].name + '</option>');
+        $('#dropdownSpecTutorDay').multiselect('rebuild');
+    }
+
+    $("#dropdownSpecTutorDay").change(function () {
+        var startTime;
+
+        var endTime;
+    });
 
 </script>
 

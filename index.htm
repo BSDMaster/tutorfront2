@@ -54,7 +54,8 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.css" rel="stylesheet">
 
   <!--Eva Tutor-->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg"
+    crossorigin="anonymous">
 
   <script>
     _gUserEmail = 'student1@gmail.com';  //bypass login
@@ -75,8 +76,11 @@
     _gUser.turName = null;
     _gUser.stuId = null;
     _gUser.stuName = null;
+    _gUser.parId = null;
+    _gUser.parName = null;
     _gNoResultFound = 'ไม่พบรายการ';
     _gServiceURL = 'http://localhost:8080/tutormatchingservices-0.0.1-SNAPSHOT/';
+    _gHasClass = 'Y';
     //day
     dataDay = [{
       name: "จันทร์", val: "1"
@@ -194,39 +198,39 @@
       name: "20.00 น.", val: "20"
     }];
     dataLevel = [{
-        name: "อนุบาลศึกษาปีที่ 1", val: "อนุบาลศึกษาปีที่ 1"
+      name: "อนุบาลศึกษาปีที่ 1", val: "อนุบาลศึกษาปีที่ 1"
     }, {
-        name: "อนุบาลศึกษาปีที่ 2", val: "อนุบาลศึกษาปีที่ 2"
+      name: "อนุบาลศึกษาปีที่ 2", val: "อนุบาลศึกษาปีที่ 2"
     }, {
-        name: "อนุบาลศึกษาปีที่ 3", val: "อนุบาลศึกษาปีที่ 3"
+      name: "อนุบาลศึกษาปีที่ 3", val: "อนุบาลศึกษาปีที่ 3"
     }, {
-        name: "ประถมศึกษาปีที่ 1", val: "ประถมศึกษาปีที่ 1"
+      name: "ประถมศึกษาปีที่ 1", val: "ประถมศึกษาปีที่ 1"
     }, {
-        name: "ประถมศึกษาปีที่ 2", val: "ประถมศึกษาปีที่ 2"
+      name: "ประถมศึกษาปีที่ 2", val: "ประถมศึกษาปีที่ 2"
     }, {
-        name: "ประถมศึกษาปีที่ 3", val: "ประถมศึกษาปีที่ 3"
+      name: "ประถมศึกษาปีที่ 3", val: "ประถมศึกษาปีที่ 3"
     }, {
-        name: "ประถมศึกษาปีที่ 4", val: "ประถมศึกษาปีที่ 4"
+      name: "ประถมศึกษาปีที่ 4", val: "ประถมศึกษาปีที่ 4"
     }, {
-        name: "ประถมศึกษาปีที่ 5", val: "ประถมศึกษาปีที่ 5"
+      name: "ประถมศึกษาปีที่ 5", val: "ประถมศึกษาปีที่ 5"
     }, {
-        name: "ประถมศึกษาปีที่ 6", val: "ประถมศึกษาปีที่ 6"
+      name: "ประถมศึกษาปีที่ 6", val: "ประถมศึกษาปีที่ 6"
     }, {
-        name: "มัธยมศึกษาปีที่ 1", val: "มัธยมศึกษาปีที่ 1"
+      name: "มัธยมศึกษาปีที่ 1", val: "มัธยมศึกษาปีที่ 1"
     }, {
-        name: "มัธยมศึกษาปีที่ 2", val: "มัธยมศึกษาปีที่ 2"
+      name: "มัธยมศึกษาปีที่ 2", val: "มัธยมศึกษาปีที่ 2"
     }, {
-        name: "มัธยมศึกษาปีที่ 3", val: "มัธยมศึกษาปีที่ 3"
+      name: "มัธยมศึกษาปีที่ 3", val: "มัธยมศึกษาปีที่ 3"
     }, {
-        name: "มัธยมศึกษาปีที่ 4", val: "มัธยมศึกษาปีที่ 4"
+      name: "มัธยมศึกษาปีที่ 4", val: "มัธยมศึกษาปีที่ 4"
     }, {
-        name: "มัธยมศึกษาปีที่ 5", val: "มัธยมศึกษาปีที่ 5"
+      name: "มัธยมศึกษาปีที่ 5", val: "มัธยมศึกษาปีที่ 5"
     }, {
-        name: "มัธยมศึกษาปีที่ 6", val: "มัธยมศึกษาปีที่ 6"
+      name: "มัธยมศึกษาปีที่ 6", val: "มัธยมศึกษาปีที่ 6"
     }, {
-        name: "ระดับปริญญาตรี", val: "ระดับปริญญาตรี"
+      name: "ระดับปริญญาตรี", val: "ระดับปริญญาตรี"
     }, {
-        name: "อื่นๆ", val: "อื่นๆ"
+      name: "อื่นๆ", val: "อื่นๆ"
     }];
   </script>
 </head>
@@ -241,7 +245,7 @@
             <a class="nav-link" href="javascript:changePage('./html/rate.html');">อัตราค่าเรียน</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="javascript:changePage('./html/registerClass.html');">สมัครเรียน</a>
+            <a class="nav-link" href="javascript:changePage('./html/registerstudent.html');">สมัครเรียน</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="javascript:changePage('./html/registertutor.html');">สมัครสมาชิกติวเตอร์</a>
@@ -353,6 +357,7 @@
         crossDomain: true,
         dataType: "json",
         success: function (data, status, jqXHR) {
+          _gUserType = "tutor";
           _gUser.turId = data.data.id;
           _gUser.turName = data.data.name;
           jQuery("#divShowUser").html(_gUser.turName);
@@ -377,35 +382,24 @@
         crossDomain: true,
         dataType: "json",
         success: function (data, status, jqXHR) {
-          _gUser.stuId = data.data.id;
-          _gUser.stuName = data.data.name;
-          jQuery("#divShowUser").html(_gUser.stuName);
-          console.log(_gUser.stuId);
-          console.log(_gUser.stuName);
-          loadMainPage();
-        },
-
-        error: function (jqXHR, status) {
-          // error handler
-          console.log(jqXHR);
-        }
-      });
-    }
-
-    function parentLogin(data) {
-      $.ajax({
-        type: "POST",
-        url: _gServiceURL + "parent/login",
-        data: JSON.stringify(data),
-        contentType: "application/json; charset=utf-8",
-        crossDomain: true,
-        dataType: "json",
-        success: function (data, status, jqXHR) {
-          //   _gUser.parId = data.data.id;
-          //   _gUser.parName = data.data.name;
-          //    jQuery("#divShowUser").html(_gUser.parName);
-          //    console.log(_gUser.parId);
-          //    console.log(_gUser.parName);
+          console.log(data);
+          var regisType = data.data.type;
+          _gHasClass = data.data.hasClass;
+          if (regisType == "P") {
+            _gUserType = "parent";
+            _gUser.parId = data.data.id;
+            _gUser.parName = data.data.name;
+            jQuery("#divShowUser").html(_gUser.parName);
+            console.log(_gUser.parId);
+            console.log(_gUser.parName);
+          } else {
+            _gUserType = "student";
+            _gUser.stuId = data.data.id;
+            _gUser.stuName = data.data.name;
+            jQuery("#divShowUser").html(_gUser.stuName);
+            console.log(_gUser.stuId);
+            console.log(_gUser.stuName);
+          }
           loadMainPage();
         },
 
@@ -437,7 +431,25 @@
 
       }
       else if (_gUserType == "student") {
-        jQuery("#divMainContainer").load('./html/mainStudent.html');
+        if (_gHasClass == 'N') {
+          jQuery("#divMainContainer").load('./html/studenteditclass.html');
+        } else {
+          jQuery("#divMainContainer").load('./html/mainStudent.html');
+        }
+        jQuery("#nav-itm-student-schedule").hide();
+        jQuery("#nav-itm-tutor-schedule").hide();
+        jQuery("#nav-itm-rate").show();
+        jQuery("#nav-itm-publishJob").hide();
+        jQuery("#nav-itm-registerClass").show();
+        jQuery("#nav-itm-student-profile").show();
+        jQuery("#nav-itm-tutor-profile").hide();
+        jQuery("#nav-itm-stu-avatime").show();
+      } else if (_gUserType == "parent") {
+        if (_gHasClass == 'N') {
+          jQuery("#divMainContainer").load('./html/parenteditclass.html');
+        } else {
+          jQuery("#divMainContainer").load('./html/mainStudent.html');
+        }
         jQuery("#nav-itm-student-schedule").hide();
         jQuery("#nav-itm-tutor-schedule").hide();
         jQuery("#nav-itm-rate").show();

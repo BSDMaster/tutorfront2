@@ -25,13 +25,21 @@
     </div>
     <div class="label-header">สมัครเรียน</div>
     <br>
-
-    <br>
-
     <div class="container-fluid">
         <div class="row" style="padding-left: 30px;">
             <div class="col-lg-12">
                 <form class="form-horizontal">
+                    <div class="form-group required">
+                        <label for="dropdownType" class="col-lg-2 labelform">ประเภทสมาชิก</label>
+                        <div class="col-lg-4">
+                            <select class="custom-select" id="dropdownType">
+                                <option value="S" selected="">นักเรียน</option>
+                                <option value="P">ผู้ปกครอง</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-6"></div>
+                    </div>
+                    <br>
                     <div class="form-group required">
                         <label for="txtEmail" class="col-lg-2 labelform">อีเมล์</label>
                         <div class="col-lg-4">
@@ -55,49 +63,49 @@
                     </div>
                     <div class="h2 inner-tab" style="margin-left:-30px;">ข้อมูลส่วนตัว</div>
                     <br>
-                    <div class="form-group required">
+                    <div class="form-group required" id="divFirstName">
                         <label for="txtFirstName" class="col-lg-2 labelform">ชื่อ</label>
                         <div class="col-lg-4">
                             <input type="text" class="form-control" id="txtFirstName">
                         </div>
                         <div class="col-lg-6"></div>
                     </div>
-                    <div class="form-group required">
+                    <div class="form-group required" id="divLastName">
                         <label for="txtLastName" class="col-lg-2 labelform">นามสกุล</label>
                         <div class="col-lg-4">
                             <input type="text" class="form-control" id="txtLastName">
                         </div>
                         <div class="col-lg-6"></div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" id="divNickName">
                         <label for="txtNickname" class="col-lg-2">ชื่อเล่น</label>
                         <div class="col-lg-4">
                             <input type="text" class="form-control" id="txtNickname">
                         </div>
                         <div class="col-lg-6"></div>
                     </div>
-                    <div class="form-group required">
+                    <div class="form-group required" id="divTel">
                         <label for="txtTel" class="col-lg-2 labelform">เบอร์โทรมือถือ</label>
                         <div class="col-lg-4">
                             <input type="text" class="form-control" id="txtTel">
                         </div>
                         <div class="col-lg-6"></div>
                     </div>
-                    <div class="form-group required">
+                    <div class="form-group required" id="divSex">
                         <label for="dropdownSex" class="col-lg-2 labelform">เพศ</label>
                         <div class="col-lg-4">
                             <select class="custom-select" id="dropdownSex" required></select>
                         </div>
                         <div class="col-lg-6"></div>
                     </div>
-                    <div class="form-group required">
+                    <div class="form-group required" id="divLevel">
                         <label for="dropdownLevel" class="col-lg-2 labelform">ระดับชั้น</label>
                         <div class="col-lg-4">
                             <select class="custom-select" id="dropdownLevel" required></select>
                         </div>
                         <div class="col-lg-6"></div>
                     </div>
-                    <div class="form-group required">
+                    <div class="form-group required" id="divSchool">
                         <label for="txtSchool" class="col-lg-2 labelform">สถานศึกษา</label>
                         <div class="col-lg-4">
                             <input type="text" class="form-control" id="txtSchool">
@@ -139,36 +147,130 @@
         $('#dropdownLevel').append('<option value="' + dataLevel[i].val + '">' + dataLevel[i].name + '</option>');
     }
 
+    $('#dropdownType').change(function () {
+        var val = $('#dropdownType option:selected').val();
+        console.log("dropdownType : ", val);
+        if (val == 'P') {
+            $('#divNickName').hide();
+            $('#divLevel').hide();
+            $('#divSchool').hide();
+        } else {
+            $('#divNickName').show();
+            $('#divLevel').show();
+            $('#divSchool').show();
+        }
+    });
+
     $("#btnSaveNewStudent").on("click", function (e) {
         var txtEmail = $('#txtEmail').val();
         var txtPassword = $('#txtNewPassword').val();
         var txtConfirmPassword = $('#txtConfirmPassword').val();
         var txtFirstName = $('#txtFirstName').val();
         var txtLastName = $('#txtLastName').val();
-        var txtNickname = $('#txtNickname').val();
         var txtTel = $('#txtTel').val();
         var sex = $('#dropdownSex option:selected').val();
-        var level = $('#dropdownLevel option:selected').val();
-        var school = $('#txtSchool').val();
-        console.log('txtSchool : ' + school);
+        var val = $('#dropdownType option:selected').val();
+        console.log("dropdownType : ", val);
+
         // create new class
         if (txtPassword != txtConfirmPassword) {
             $(".alert-danger").find("strong").text('รหัสผ่านไม่ถูกต้อง');
             $(".alert-danger").show();
             $('html, body').animate({ scrollTop: $('.breadcrumb').offset().top }, 'fast');
         } else if (!txtEmail || !txtPassword || !txtFirstName || !txtLastName || !txtTel
-            || !sex || avatimes.length == 0 || applySubjects.length == 0) {
+            || !sex) {
             $(".alert-danger").find("strong").text('โปรดระบุข้อมูลให้ครบถ้วน');
             $(".alert-danger").show();
             $('html, body').animate({ scrollTop: $('.breadcrumb').offset().top }, 'fast');
         }
         else {
-            
+            if (val == 'P') {
+                regisParent(txtEmail, txtPassword, txtFirstName, txtLastName, txtTel, sex);
+            } else {
+                var txtNickname = $('#txtNickname').val();
+                var level = $('#dropdownLevel option:selected').val();
+                var school = $('#txtSchool').val();
+                registerStudent(txtEmail, txtPassword, txtFirstName, txtLastName, txtNickname, txtTel, sex, level, school);
+            }
+
         }
     });
 
-    function registerStudentOrParent(){
+    function registerStudent(txtEmail, txtPassword, txtFirstName, txtLastName, txtNickname, txtTel, sex, level, school) {
+        // if pass redirect to create class
+        _gNewRegisStudent = 'Y';
+        var bodyRequest = {
+            stuEmail: txtEmail,
+            stuPassword: txtPassword,
+            stuFirstname: txtFirstName,
+            stuLastname: txtLastName,
+            stuNickname: txtNickname,
+            stuPhonenum: txtTel,
+            stuSex: sex,
+            stuLevel: level,
+            stuSchool: school,
+        }
+        console.log(bodyRequest);
+        $.ajax({
+            type: "POST",
+            url: _gServiceURL + "student/registerstudent",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(bodyRequest),
+            crossDomain: true,
+            dataType: "json",
+            success: function (data, status, jqXHR) {
+                _gUserType = "student";
+                _gHasClass = 'N';
+                _gUser.stuId = data.data.stuId;
+                _gUser.stuName = data.data.stuName;
+                jQuery("#divShowUser").html(_gUser.stuName);
+                console.log(_gUser.stuId);
+                console.log(_gUser.stuName);
+                loadMainPage();
+            },
+            error: function (jqXHR, status) {
+                $(".alert-success").hide();
+                $(".alert-danger").show();
+                $('html, body').animate({ scrollTop: $('.breadcrumb').offset().top }, 'fast');
+            }
 
+        });
+    }
+    function regisParent(txtEmail, txtPassword, txtFirstName, txtLastName, txtTel, sex) {
+        _gNewRegisStudent = 'Y';
+        var bodyRequest = {
+            parEmail: txtEmail,
+            parPassword: txtPassword,
+            parFirstname: txtFirstName,
+            parLastname: txtLastName,
+            parPhonenum: txtTel,
+            parSex: sex
+        }
+        console.log(bodyRequest);
+        $.ajax({
+            type: "POST",
+            url: _gServiceURL + "parent/register",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(bodyRequest),
+            crossDomain: true,
+            dataType: "json",
+            success: function (data, status, jqXHR) {
+                _gUserType = "parent";
+                _gHasClass = 'N';
+                _gUser.parId = data.data.parId;
+                _gUser.parName = data.data.parName;
+                jQuery("#divShowUser").html(_gUser.parName);
+                console.log(_gUser.parId);
+                console.log(_gUser.parName);
+                loadMainPage();
+            },
+            error: function (jqXHR, status) {
+                $(".alert-success").hide();
+                $(".alert-danger").show();
+                $('html, body').animate({ scrollTop: $('.breadcrumb').offset().top }, 'fast');
+            }
+
+        });
     }
 
 </script>
