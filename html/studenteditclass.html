@@ -1529,6 +1529,17 @@
     });
 
     function savespecifictutors() {
+        /*
+        var timeloc = {
+            "carDayId": selectedDay,
+            "carEndtime": selectedEndTime,
+            "carLocLat": loc[0],
+            "carLocName": txtPlace,
+            "carLocLong": loc[1],
+            "carStarttime": selectedStartTime
+        };
+        console.log(timeloc);
+        stuavatimes.push(timeloc);*/
         console.log("savespecifictutors");
         var programId = parseInt($("input[name='radioProgs']:checked").val());
         var subjId = parseInt($('#dropdownSpecSubject option:selected').val());
@@ -1537,12 +1548,12 @@
         var numStu = parseInt($('#dropdownSpecNumStu option:selected').val());
         var bodyRequest = {
             stuId: parseInt(_gUser.stuId),
-            subcId:subcId,
-            subjId:subjId,
-            turId:turId,
+            subcId: subcId,
+            subjId: subjId,
+            turId: turId,
             programId: programId,
-            numStu : numStu,
-            stuSpecAvatimes:stuSpecAvatimes
+            numStu: numStu,
+            stuSpecAvatimes: stuSpecAvatimes
         }
         console.log(bodyRequest);
         callRequestnewclassSpec(bodyRequest);
@@ -1552,7 +1563,7 @@
         console.log(bodyRequest);
         $.ajax({
             type: "POST",
-            url: _gServiceURL + "class/requestnewclass/nonspecific",
+            url: _gServiceURL + "class/requestnewclass/specific",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(bodyRequest),
             crossDomain: true,
