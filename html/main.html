@@ -55,8 +55,9 @@
                         <thead>
                             <tr>
                                 <th data-column-id="subject" data-width="20%">วิชาและระดับชั้น</th>
-                                <th data-column-id="time" data-width="50%">วัน เวลาและสถานที่สอน</th>
+                                <th data-column-id="time" data-width="40%">วัน เวลาและสถานที่สอน</th>
                                 <th data-column-id="price" data-width="10%">ค่าแนะนำ</th>
+                                <th data-column-id="type" data-width="10%">ประเภท</th>
                                 <th data-column-id="pay" data-width="20%" data-sortable="false" data-searchable="false"></th>
                             </tr>
                         </thead>
@@ -68,10 +69,11 @@
                     <table id="gridTab2Tutor" class="table table-condensed table-hover table-striped">
                         <thead>
                             <tr>
-                                <th data-column-id="stuname" data-width="25%">ชื่อ สกุลนักเรียน</th>
-                                <th data-column-id="subject" data-width="25%">วิชาและระดับชั้น</th>
-                                <th data-column-id="time" data-width="35%">วัน เวลาและสถานที่สอน</th>
-                                <th data-column-id="detail" data-width="15%" data-sortable="false" data-searchable="false"></th>
+                                <th data-column-id="subject" data-width="20%">วิชาและระดับชั้น</th>
+                                <th data-column-id="time" data-width="50%">วัน เวลาและสถานที่สอน</th>
+                                <th data-column-id="price" data-width="10%">ค่าแนะนำ</th>
+                                <th data-column-id="type" data-width="10%">ประเภท</th>
+                                <th data-column-id="detail" data-width="10%" data-sortable="false" data-searchable="false"></th>
                             </tr>
                         </thead>
                     </table>
@@ -201,11 +203,18 @@
 
 
         function appendwortutortab1(work, i) {
+            var spec = "";
+            if (work.isSpec=='Y') {
+                 spec = "ระบุติวเตอร์";
+            } else {
+                spec = "ไม่ระบุติวเตอร์";
+            }
             gridTab1Tutor.bootgrid("append", [
                 {
                     "subject": work.subjectAndGroupDetailName,
                     "time": work.recTimeLoc,
                     "price": work.recPrice,
+                    "type": spec,
                     "pay": "<button type='button' class='btn btn-primary btn-lg command-detail' data-row-id='" + i + "'>ดูรายละเอียด</button>&nbsp;" +
                         "<button type='button' class='btn btn-success btn-lg command-open' data-row-id='" + i + "'>รับงานสอน</button>"
                 }
@@ -213,11 +222,18 @@
         }
 
         function appendwortutortab2(work, i) {
+            var spec = "";
+            if (work.isSpec=='Y') {
+                 spec = "ระบุติวเตอร์";
+            } else {
+                spec = "ไม่ระบุติวเตอร์";
+            }
             gridTab2Tutor.bootgrid("append", [
                 {
-                    "stuname": work.stuName,
                     "subject": work.subjectAndGroupDetailName,
                     "time": work.recTimeLoc,
+                    "price": work.recPrice,
+                    "type": spec,
                     "detail": "<button type='button' class='btn btn-primary btn-lg command-detail' data-row-id='" + i + "'>ดูรายละเอียด</button>"
                 }
             ]);

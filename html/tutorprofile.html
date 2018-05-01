@@ -56,6 +56,18 @@
                         </div>
                         <div class="col-lg-6"></div>
                     </div>
+                    <div class="form-group">
+                        <label for="lblLockStatus" class="col-lg-2">สถานะ</label>
+                        <div class="col-lg-4" id="lblLockStatus">
+                        </div>
+                        <div class="col-lg-6"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lblEvaScore" class="col-lg-2">คะแนนการประเมิน</label>
+                        <div class="col-lg-4" id="lblEvaScore">
+                        </div>
+                        <div class="col-lg-6"></div>
+                    </div>
                     <div class="form-group required">
                         <label for="txtEmail" class="col-lg-2 labelform">อีเมล์</label>
                         <div class="col-lg-4">
@@ -128,13 +140,6 @@
                         <label for="txtOthers" class="col-lg-2">ข้อมูลงานสอนเพิ่มเติม</label>
                         <div class="col-lg-4">
                             <textarea class="form-control" id="txtOthers" rows="3"></textarea>
-                        </div>
-                        <div class="col-lg-6"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="" class="col-lg-2">รูปโปรไฟล์</label>
-                        <div class="col-lg-4">
-                            <input type="file" class="form-control-file" id="txtProfilePic">
                         </div>
                         <div class="col-lg-6"></div>
                     </div>
@@ -240,13 +245,19 @@
             success: function (data, status, jqXHR) {
                 var tutor = data.data.tutorProfileView;
                 console.log(tutor);
-                if (tutor.verifyFlag == 'U') {
+                if (tutor.verifyFlag == 'R') {
                     $('#lblVerifyStatus').text('ไม่ผ่านการตรวจสอบ');
                 } else if (tutor.verifyFlag == 'Y') {
                     $('#lblVerifyStatus').text('ตรวจสอบแล้ว');
                 } else {
                     $('#lblVerifyStatus').text('รอการตรวจสอบ');
                 }
+                if (tutor.isBlock == 'Y') {
+                    $('#lblLockStatus').text('ล็อค');
+                } else {
+                    $('#lblLockStatus').text('รอการตรวจสอบ');
+                }
+                $('#lblEvaScore').text(tutor.turEvaScore);
                 $('#txtFirstName').val(tutor.turFirstname);
                 $('#txtLastName').val(tutor.turLastname);
                 $('#txtNickname').val(tutor.turNickname);

@@ -510,7 +510,8 @@
                         </table>
                         <div class="h2 inner-tab" style="margin-right: 20px;">วัน เวลาและสถานที่เรียน</div>
                         <!-- Button trigger modal -->
-                        <button id="btnAddStudentAva" type="button" class="btn btn-primary container-btn-add-right" data-toggle="modal" data-target="#modalStuAva">
+                        <button id="btnAddStudentAva" type="button" class="btn btn-primary container-btn-add-right" data-toggle="modal" data-target="#modalStuAva"
+                            onclick="javascript:addStudentSpecTime();">
                             เพิ่ม
                         </button>
                         <br>
@@ -518,10 +519,11 @@
                             <thead>
                                 <tr>
                                     <th data-column-id="id" data-width="5%" data-identifier="true" data-type="numeric">#</th>
-                                    <th data-column-id="day" data-width="20%">วัน</th>
-                                    <th data-column-id="starttime" data-width="15%">เวลาเริ่มเรียน</th>
-                                    <th data-column-id="endtime" data-width="15%">เวลาเลิกเรียน</th>
-                                    <th data-column-id="place" data-width="45%">สถานที่เรียน</th>
+                                    <th data-column-id="day" data-width="10%">วัน</th>
+                                    <th data-column-id="startTime" data-width="15%">เวลาเริ่มเรียน</th>
+                                    <th data-column-id="endTime" data-width="15%">เวลาเลิกเรียน</th>
+                                    <th data-column-id="location" data-width="45%">สถานที่เรียน</th>
+                                    <th data-column-id="action" data-width="10%">Action</th>
                                 </tr>
                             </thead>
                         </table>
@@ -541,11 +543,14 @@
                         </div>
                         <div class="modal-body">
                             <form>
-                                <div class="form-group required">
-                                    <label for="dropDownSpecTutorDay" class="labelform">วันเรียน</label>
-                                    <select multiple="multiple" class="custom-select" id="dropDownSpecTutorDay">
-                                        <option>จันทร์</option>
+                                <div class="form-group required" id="divDropdownDayOfTutorSpec">
+                                    <label for="dropDownDayOfTutorSpec" class="labelform">วันเรียน</label>
+                                    <select multiple="" class="custom-select" id="dropdownDayOfTutorSpec">
                                     </select>
+                                </div>
+                                <div class="form-group required" id="divTxtDayOfTutorSpec">
+                                    <label for="txtSpecDay" class="labelform">วันเรียน</label>
+                                    <input type="text" class="form-control" id="txtSpecDay" readonly>
                                 </div>
                                 <div class="form-group required">
                                     <label for="dropdownSpecStartTime" class="labelform">เวลาเริ่มต้น</label>
@@ -570,7 +575,7 @@
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" id="btnSpecSaveAddTime">ตกลง</button>
+                            <button type="button" class="btn btn-primary" id="btnSpecSaveAddTime" onclick="javascript:addStudentTimeSpec();" value="-1">ตกลง</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
                         </div>
                     </div>
@@ -585,9 +590,9 @@
                     <div class="modal-content contentmap">
                         <div class="modal-body mapbody">
                             <div style="display:block">
-                                <input id="pac-input" class="controls" type="text" placeholder="Enter a location">
+                                <input id="spec-pac-input" class="controls pac-input" style="width: 600px;" type="text" placeholder="Enter a location">
                             </div>
-                            <div id="map" class="map"></div>
+                            <div id="spec-map" class="map"></div>
                         </div>
                     </div>
                 </div>
@@ -606,13 +611,16 @@
 </body>
 <script>
     _isInitGmapStartAndEndPlace = false;
+    _isInitGmapStartAndEndPlaceSpec = false;
     var marker = null;
+    var specmarker = null;
     var universities = [];
     var faculties = [];
     var subjects = [];
     var childcatagories = [];
     var applySubjects = [];
     var stuavatimes = [];
+    var stuSpecAvatimes = [];
     $('#sort-table').sortable();
 
     for (var i = 0; i < dataTime.length; i++) {
@@ -1351,6 +1359,7 @@
                 $(".alert-danger").hide();
                 $(".alert-success").show();
                 $('html, body').animate({ scrollTop: $('.breadcrumb').offset().top }, 'fast');
+                loadMainPage();
             },
             error: function (jqXHR, status) {
                 $(".alert-success").hide();
@@ -1376,6 +1385,19 @@
         labels: {
             noResults: 'ไม่พบรายการ'
         }
+    }).on("loaded.rs.jquery.bootgrid", function () {
+        gridStudentAva.find(".command-edit").on("click", function (e) {
+            var i = parseInt($(this).data("row-id"));
+            editStudentSpecTime(i);
+        }).end().find(".command-delete").on("click", function (e) {
+            var i = parseInt($(this).data("row-id"));
+            var dayName = dataDay[stuSpecAvatimes[i].carDayId - 1].name;
+            var result = confirm("ต้องการลบรายการ " + dayName + " ใช่หรือไม่?");
+            if (result) {
+                stuSpecAvatimes.splice(i, 1);
+                refreshGridDetailDaySpecList();
+            }
+        });
     });
 
     $("#dropdownSpecSubject").change(function () {
@@ -1394,11 +1416,16 @@
             }
         }
         getTutorList();
+        stuSpecAvatimes = [];
+        refreshGridDetailDaySpecList();
     });
 
     $("#dropdownSpecLevel").change(function () {
         getSpecPrice();
         getTutorList();
+        stuSpecAvatimes = [];
+        refreshGridDetailDaySpecList();
+
     });
     $("#dropdownSpecNumStu").change(function () {
         getSpecPrice();
@@ -1406,6 +1433,8 @@
 
     $("input[name='radioProgs']:checked").change(function () {
         getTutorList();
+        stuSpecAvatimes = [];
+        refreshGridDetailDaySpecList();
     });
     function getSpecPrice() {
         var subjId = parseInt($('#dropdownSpecSubject option:selected').val());
@@ -1497,30 +1526,277 @@
 
 
     }
-    $('#btnAddStudentAva').click(function () {
+    function addStudentSpecTime() {
+        $('#dropdownDayOfTutorSpec').empty();
         var turId = $('#dropdownSpecTutor option:selected').val();
         var specificTutorByTurId = _gSpecificTutor.filter(function (el) {
             return el.turId == turId;
         });
+
         var times = specificTutorByTurId[0].tutorAvailableTimeloacationViews;
-        console.log(times);
+        var newTimes;
         for (var i = 0; i < times.length; i++) {
-            $('#dropdownSpecTutorDay').append('<option value="' + times[i].tavDayId + '">' + times[i].tavDay + '</option>');
+            var days = stuSpecAvatimes.filter(function (el) {
+                return el.carDayId == times[i].tavDayId;
+            });
+            if (days.length == 0) {
+                $('#dropdownDayOfTutorSpec').append('<option value="' + times[i].tavDayId + '">' + times[i].tavDay + '</option>');
+            }
         }
-    });
+        console.log(times);
+        $('#btnSpecSaveAddTime').val(-1);
+        $('#modalStuAvaLabel').text('เพิ่มวัน เวลา สถานที่เรียน');
+        $('#divTxtDayOfTutorSpec').hide();
+        $('#divDropdownDayOfTutorSpec').show();
+        $('#dropdownSpecStartTime').val($("#dropdownSpecStartTime option:first").val());
+        $('#dropdownSpecEndTime').val($("#dropdownSpecEndTime option:first").val());
+        $('#txtStudyPlace').val('');
+        //$('#modalStuAva').modal('show');
+
+    }
 
     for (var i = 0; i < dataTime.length; i++) {
         $('#dropdownSpecStartTime').append('<option value="' + dataTime[i].val + '">' + dataTime[i].name + '</option>');
         $('#dropdownSpecEndTime').append('<option value="' + dataTime[i].val + '">' + dataTime[i].name + '</option>');
     }
 
+    // Google map for spec tutor
+    $("#btnSpecStudentGoogleMap").on("click", function (e) {
+        var address = $('#txtStudyPlace').val();
+        $('#spec-pac-input').val(address);
+
+        if (_isInitGmapStartAndEndPlaceSpec == false) {
+            _isInitGmapStartAndEndPlaceSpec = true;
+            initMapSpec();
+        }
+        var location = $(this).val();
+        if (location) {
+            location = location.replace('(', '');
+            location = location.replace(')', '');
+            var loc = location.split(",");
+            var lat = parseFloat(loc[0]);
+            var lng = parseFloat(loc[1]);
+            var latLog = new google.maps.LatLng(lat, lng);
+            specmarker.setPosition(latLog);
+            var map = marker.map;
+            map.setCenter(latLog);
+        }
+    });
+
+    function initMapSpec() {
+        console.log("INIT MAP SPEC");
+        var geocoder = new google.maps.Geocoder;
+        var latLog = new google.maps.LatLng(13.736334, 100.531102);
+        var map = new google.maps.Map(document.getElementById('spec-map'), {
+            center: latLog,
+            zoom: 15,
+            disableDefaultUI: true
+        });
+        // Set marker
+        specmarker = new google.maps.Marker({
+            map: map,
+            position: latLog
+        });
+        google.maps.event.addListener(map, 'click', function (event) {
+            setPlaceMarkerSpec(event.latLng, geocoder);
+        });
+
+        // Search box and auto complete
+        var input = document.getElementById('spec-pac-input');
+        var options = {
+            types: ['establishment']
+        };
+        var autocomplete = new google.maps.places.Autocomplete(input);
+        autocomplete.bindTo('bounds', map);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        autocomplete.addListener('place_changed', function () {
+            console.log("Place Changed");
+            var place = autocomplete.getPlace();
+            placeChangedByAutoCompleteSpec(autocomplete.getPlace(), map, geocoder);
+        });
+
+    }
+
+    function setPlaceMarkerSpec(location, geocoder) {
+        specmarker.setPosition(location);
+        console.log(location);
+        findAddressFromLocationSpec(location, geocoder);
+    }
+
+    function placeChangedByAutoCompleteSpec(place, map, geocoder) {
+        console.log(place);
+        console.log(place.place_id);
+        if (!place.place_id) {
+            return;
+        }
+        geocoder.geocode({ 'placeId': place.place_id }, function (results, status) {
+            if (status !== 'OK') {
+                window.alert('Geocoder failed due to: ' + status);
+                return;
+            }
+            console.log(place.place_id);
+            map.setZoom(15);
+            map.setCenter(results[0].geometry.location);
+            // Set the position of the marker using the place ID and location.
+            specmarker.setPlace({
+                placeId: place.place_id,
+                location: results[0].geometry.location
+            });
+            var address = $('#spec-pac-input').val();
+            $('#btnSpecStudentGoogleMap').val(results[0].geometry.location);
+            $('#txtStudyPlace').val(address);
+
+            $('#modalSpecStudentGoogleMap').modal('hide');
+
+        });
+    }
+
+    function findAddressFromLocationSpec(latLng, geocoder) {
+        geocoder.geocode({ 'latLng': latLng }, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                console.log(results[0]);
+                var address = results[0].formatted_address;
+                $('#spec-pac-input').val(address);
+                $('#btnSpecStudentGoogleMap').val(latLng);
+                $('#txtStudyPlace').val(address);
+                $('#modalSpecStudentGoogleMap').modal('hide');
+            }
+            else {
+                console.log("Geocoding failed: " + status);
+            }
+        });
+    }
+
+    function addStudentTimeSpec() {
+
+        var i = parseInt($('#btnSpecSaveAddTime').val());
+        var selectedStartTime = $("#dropdownSpecStartTime option:selected").val();
+        var selectedEndTime = $("#dropdownSpecEndTime option:selected").val();
+        console.log(selectedStartTime);
+        console.log(selectedEndTime);
+        var txtPlace = $("#txtStudyPlace").val();
+        console.log(txtPlace);
+        var location = $('#btnSpecStudentGoogleMap').val();
+        location = location.replace('(', '');
+        location = location.replace(')', '');
+        var loc = location.split(",");
+        console.log(loc);
+        var diffTime = Math.abs(parseInt(selectedStartTime) - parseInt(selectedEndTime))
+        console.log('time : ', diffTime);
+        console.log('start : ', parseInt(selectedStartTime));
+        console.log('end : ', parseInt(selectedEndTime));
+        if (diffTime < 2 || parseInt(selectedStartTime) > parseInt(selectedEndTime)) {
+            console.log('not pass');
+            alert('กรุณาตรวจสอบช่วงเวลาเรียนอีกครั้งหนึ่ง ผู้เรียนจะต้องลงเรียนมากกว่า 2 ชั่วโมงต่อวัน');
+        } else if (txtPlace == null || txtPlace == "") {
+            console.log('not pass');
+            alert('กรุณากรอกข้อมูลให้ครบถ้วน');
+        } else if (i == -1 && $('#dropdownDayOfTutorSpec option:selected').val().length == 0) {
+            console.log('not pass ', $('#dropdownDayOfTutorSpec option:selected').val().length);
+            alert('กรุณากรอกข้อมูลให้ครบถ้วน');
+        }
+        else {
+            
+            if (i == -1) {
+                $('#dropdownDayOfTutorSpec option:selected').each(function () {
+                    var timeloc = {
+                        "carDayId": parseInt($(this).val()),
+                        "carEndtime": selectedEndTime,
+                        "carLocLat": loc[0],
+                        "carLocName": txtPlace,
+                        "carLocLong": loc[1],
+                        "carStarttime": selectedStartTime
+                    };
+                    console.log(timeloc);
+                    stuSpecAvatimes.push(timeloc);
+                });
+            } else {
+
+                var timeloc = stuSpecAvatimes[i];
+                timeloc.carLocName = txtPlace;
+                timeloc.carLocLat = loc[0];
+                timeloc.carLocLong = loc[1];
+                timeloc.carStarttime = selectedStartTime;
+                timeloc.carEndtime = selectedEndTime;
+                stuSpecAvatimes[i] = timeloc;
+
+
+            }
+            refreshGridDetailDaySpecList();
+            $('#modalStuAva').modal('hide');
+        }
+    }
+
+    function refreshGridDetailDaySpecList() {
+        gridStudentAva.bootgrid('clear');
+        for (var j = 0; j < stuSpecAvatimes.length; j++) {
+            console.log("data : " + stuSpecAvatimes[j]);
+            appendTimeStudentSpec(stuSpecAvatimes[j], j);
+        }
+    }
+
+    function appendTimeStudentSpec(time, i) {
+        var dayName = dataDay[time.carDayId - 1].name;
+        console.log("time.carStarttime " + time.carStarttime);
+        console.log("time.carEndtime " + time.carEndtime);
+        var startTimes = dataTime.filter(function (el) {
+            return el.val == time.carStarttime;
+        });
+        var startTime = "";
+        if (startTimes[0]) {
+            startTime = startTimes[0];
+        }
+        var endTimes = dataTime.filter(function (el) {
+            return el.val == time.carEndtime;
+        });
+        var endTime = "";
+        if (endTimes[0]) {
+            endTime = endTimes[0];
+        }
+        console.log(startTime);
+        console.log(endTime);
+        gridStudentAva.bootgrid("append", [
+            {
+                "id": i + 1,
+                "day": dayName,
+                "startTime": startTime.name,
+                "endTime": endTime.name,
+                "location": time.carLocName,
+                "action": "<button id='btnEditSpecAvaTime' type='button' class='btn btn-xs btn-default command-edit' data-row-id='" + i + "'><div class='fa-pencil'></div></button> "
+                    + "<button id='btnDeleteSpecAvaTime' type='button' class='btn btn-xs btn-default command-delete' data-row-id='" + i + "'><div class='fa-trash-o'></div></button>"
+            }
+        ]);
+    }
+    function editStudentSpecTime(i) {
+        $('#btnSpecSaveAddTime').val(i);
+        var location = new google.maps.LatLng(stuSpecAvatimes[i].carLat, stuSpecAvatimes[i].carLong);
+        $('#modalStuAvaLabel').text('แก้ไขวัน เวลา สถานที่เรียน');
+        $('#divTxtDayOfTutorSpec').show();
+        $('#divDropdownDayOfTutorSpec').hide();
+        $('#txtSpecDay').val(dataDay[stuSpecAvatimes[i].carDayId - 1].name);
+        $('#divTxtDayOfTutorSpec').prop('disabled', true);
+        $('#dropdownSpecStartTime').val(stuSpecAvatimes[i].carStarttime);
+        $('#dropdownSpecEndTime').val(stuSpecAvatimes[i].carEndtime);
+        $('#txtStudyPlace').val(stuSpecAvatimes[i].carLocName);
+        $('#btnSpecStudentGoogleMap').val(location);
+        $('#modalStuAva').modal('show');
+    }
+
+
 
     $("#btnCreateClassSpecific").on("click", function (e) {
         // create new class
-        if (stuSpecAvatimes.length > 0) {
-            savespecifictutors();
+        var programId = parseInt($("input[name='radioProgs']:checked").val());
+        var subjId = parseInt($('#dropdownSpecSubject option:selected').val());
+        var subcId = parseInt($('#dropdownSpecLevel option:selected').val());
+        var turId = parseInt($('#dropdownSpecTutor option:selected').val());
+        var numStu = parseInt($('#dropdownSpecNumStu option:selected').val());
+        var totalHours = parseInt($('#dropdownSpecTotalHours option:selected').val());
 
-
+        if (programId != null && subjId != null && subcId != null && turId != null && numStu != null && totalHours != null
+            && stuSpecAvatimes.length > 0) {
+            savespecifictutors(programId, subjId, subcId, turId, numStu, totalHours, stuSpecAvatimes);
         } else {
             $(".alert-danger").find("strong").text('โปรดระบุข้อมูลให้ครบถ้วน');
             $(".alert-danger").show();
@@ -1528,24 +1804,10 @@
         }
     });
 
-    function savespecifictutors() {
-        /*
-        var timeloc = {
-            "carDayId": selectedDay,
-            "carEndtime": selectedEndTime,
-            "carLocLat": loc[0],
-            "carLocName": txtPlace,
-            "carLocLong": loc[1],
-            "carStarttime": selectedStartTime
-        };
-        console.log(timeloc);
-        stuavatimes.push(timeloc);*/
+    function savespecifictutors(programId, subjId, subcId, turId, numStu, totalHours, stuSpecAvatimes) {
+
         console.log("savespecifictutors");
-        var programId = parseInt($("input[name='radioProgs']:checked").val());
-        var subjId = parseInt($('#dropdownSpecSubject option:selected').val());
-        var subcId = parseInt($('#dropdownSpecLevel option:selected').val());
-        var turId = parseInt($('#dropdownSpecTutor option:selected').val());
-        var numStu = parseInt($('#dropdownSpecNumStu option:selected').val());
+
         var bodyRequest = {
             stuId: parseInt(_gUser.stuId),
             subcId: subcId,
@@ -1553,6 +1815,7 @@
             turId: turId,
             programId: programId,
             numStu: numStu,
+            totalHours: totalHours,
             stuSpecAvatimes: stuSpecAvatimes
         }
         console.log(bodyRequest);
@@ -1572,6 +1835,9 @@
                 $(".alert-danger").hide();
                 $(".alert-success").show();
                 $('html, body').animate({ scrollTop: $('.breadcrumb').offset().top }, 'fast');
+                
+                _gHasClass = data.data._gHasClass;
+                loadMainPage();
             },
             error: function (jqXHR, status) {
                 $(".alert-success").hide();

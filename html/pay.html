@@ -43,6 +43,11 @@
     </thead>
   </table>
   <div>
+    กรุณาชำระเงินที่บัญชีตามด้านล่างนี้ และกดปุ่มเพื่อแนบเอกสารหลักฐานการชำระเงิน 
+    <div id="divBankAccountDetail" style="white-space: pre;">
+    </div>
+  </div>
+  <div>
     <br>
   </div>
   <div class="text-center">
@@ -127,6 +132,7 @@
         dataType: "json",
         success: function (data, status, jqXHR) {
           var classes = data.data.classViews;
+          $('#divBankAccountDetail').text(data.data.paymentInfo);
           if (data.data.size != 0) {
 
             for (var i = 0; i < classes.length; i++) {
