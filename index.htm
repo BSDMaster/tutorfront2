@@ -291,6 +291,9 @@
           <li class="nav-item" id="nav-itm-registerClass">
             <a class="nav-link" href="javascript:changePage('./html/studenteditclass.html');">สมัครเรียนเพิ่มเติม</a>
           </li>
+          <li class="nav-item" id="nav-itm-registerClass-forparent">
+            <a class="nav-link" href="javascript:changePage('./html/parenteditclass.html');">สมัครเรียนเพิ่มเติม</a>
+          </li>
           <li class="nav-item">
             <a class="nav-link" href="javascript:changePage('./html/contact.html');">ติดต่อเรา</a>
           </li>
@@ -360,9 +363,13 @@
           _gUserType = "tutor";
           _gUser.turId = data.data.id;
           _gUser.turName = data.data.name;
-          jQuery("#divShowUser").html(_gUser.turName);
-          console.log(_gUser.turId);
-          loadMainPage();
+          if (data.data.id != null) {
+            jQuery("#divShowUser").html(_gUser.turName);
+            console.log(_gUser.turId);
+            loadMainPage();
+          } else {
+            alert("กรุณาตรวจสอบอีเมล์และรหัสผ่าน");
+          }
         },
 
         error: function (jqXHR, status) {
@@ -392,15 +399,19 @@
             jQuery("#divShowUser").html(_gUser.parName);
             console.log(_gUser.parId);
             console.log(_gUser.parName);
-          } else {
+            loadMainPage();
+          } else if (regisType == "S") {
             _gUserType = "student";
             _gUser.stuId = data.data.id;
             _gUser.stuName = data.data.name;
             jQuery("#divShowUser").html(_gUser.stuName);
             console.log(_gUser.stuId);
             console.log(_gUser.stuName);
+            loadMainPage();
+          } else {
+            alert("กรุณาตรวจสอบอีเมล์และรหัสผ่าน");
           }
-          loadMainPage();
+
         },
 
         error: function (jqXHR, status) {
@@ -425,6 +436,7 @@
         jQuery("#nav-itm-rate").hide();
         jQuery("#nav-itm-publishJob").show();
         jQuery("#nav-itm-registerClass").hide();
+        jQuery("#nav-itm-registerClass-forparent").hide();
         jQuery("#nav-itm-student-profile").hide();
         jQuery("#nav-itm-tutor-profile").show();
         jQuery("#nav-itm-stu-avatime").hide();
@@ -441,6 +453,7 @@
         jQuery("#nav-itm-rate").show();
         jQuery("#nav-itm-publishJob").hide();
         jQuery("#nav-itm-registerClass").show();
+        jQuery("#nav-itm-registerClass-forparent").hide();
         jQuery("#nav-itm-student-profile").show();
         jQuery("#nav-itm-tutor-profile").hide();
         jQuery("#nav-itm-stu-avatime").show();
@@ -448,16 +461,17 @@
         if (_gHasClass == 'N') {
           jQuery("#divMainContainer").load('./html/parenteditclass.html');
         } else {
-          jQuery("#divMainContainer").load('./html/mainStudent.html');
+          jQuery("#divMainContainer").load('./html/mainParent.html');
         }
         jQuery("#nav-itm-student-schedule").hide();
         jQuery("#nav-itm-tutor-schedule").hide();
         jQuery("#nav-itm-rate").show();
         jQuery("#nav-itm-publishJob").hide();
-        jQuery("#nav-itm-registerClass").show();
+        jQuery("#nav-itm-registerClass").hide();
+        jQuery("#nav-itm-registerClass-forparent").show();
         jQuery("#nav-itm-student-profile").show();
         jQuery("#nav-itm-tutor-profile").hide();
-        jQuery("#nav-itm-stu-avatime").show();
+        jQuery("#nav-itm-stu-avatime").hide();
       } else {
         jQuery("#divMainContainer").load('./html/promote.html');
         jQuery("#nav-itm-student-schedule").hide();

@@ -450,13 +450,23 @@
         console.log("cancelclassbystudent");
         var reason = $('#reasonCancelByStuTextarea').val();
         var hours = $('#dropdownCancelByStuHours option:selected').val();
-        if (_gUser.stuId != null && reason && hours) {
-            var bodyRequest = {
-                clsId: parseInt(_gSelectedClsId),
-                requester: _gUser.stuName,
-                reason: reason,
-                hours: parseInt(hours)
-            };
+        if (reason && hours) {
+            var bodyRequest = {};
+            if (_gUser.parId != null) {
+                bodyRequest = {
+                    clsId: parseInt(_gSelectedClsId),
+                    requester: _gUser.parName,
+                    reason: reason,
+                    hours: parseInt(hours)
+                };
+            } else {
+                bodyRequest = {
+                    clsId: parseInt(_gSelectedClsId),
+                    requester: _gUser.stuName,
+                    reason: reason,
+                    hours: parseInt(hours)
+                };
+            }
             console.log(bodyRequest);
             $.ajax({
                 type: "POST",

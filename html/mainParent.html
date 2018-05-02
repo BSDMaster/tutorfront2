@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <br>
+    <div>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="javascript:loadMainPage();">หน้าหลัก</a>
+            </li>
+        </ol>
+    </div>
+    <br>
+    <div class="alert alert-dismissible alert-success" style="display: none;">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>บันทึกข้อมูลสำเร็จ</strong>
+    </div>
+    <div class="alert alert-dismissible alert-danger" style="display: none;">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>ไม่สามารถบันทึกข้อมูลได้</strong>
+    </div>
+    <br>
+    <div class="container">
+        <ul class="nav nav-tabs">
+            <li class="nav-item active">
+                <a data-toggle="tab" href="#tabParentFindingTutor">วิชาที่อยู่ระหว่างจัดหาติวเตอร์&nbsp;&nbsp;
+                    <span class="badge badge-pill badge-danger" id="parbadgenum1"></span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a data-toggle="tab" href="#tabParentPendingConfirm">คอร์สที่รอติวเตอร์รับงานสอน&nbsp;&nbsp;
+                    <span class="badge badge-pill badge-danger" id="parbadgenum2"></span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a data-toggle="tab" href="#tabParentCurrentCourse">คอร์สที่พร้อมเริ่มเรียน&nbsp;&nbsp;
+                    <span class="badge badge-pill badge-danger" id="parbadgenum3"></span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a data-toggle="tab" href="#tabParentOther">อื่นๆ&nbsp;&nbsp;
+                    <span class="badge badge-pill badge-danger" id="parbadgenum4"></span>
+                </a>
+            </li>
+        </ul>
+
+        <div id="parentMainContent" class="tab-content">
+            <!-- Open, Reopen, Reserved -->
+            <div class="tab-pane fade in active" id="tabParentFindingTutor">
+                <table id="gridTab1Parent" class="table table-condensed table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th data-column-id="clsid" data-width="10%" data-align="center">รหัสงานสอน</th>
+                            <th data-column-id="stuname" data-width="20%">ชื่อนักเรียน</th>
+                            <th data-column-id="subject" data-width="20%">วิชาและระดับชั้น</th>
+                            <th data-column-id="time" data-width="40%">วัน เวลาและสถานที่เรียน</th>
+                            <th data-column-id="detail" data-width="10%" data-sortable="false" data-searchable="false"></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <!-- Pending Confirm -->
+            <div class="tab-pane fade" id="tabParentPendingConfirm">
+                <table id="gridTab2Parent" class="table table-condensed table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th data-column-id="clsid" data-width="10%" data-align="center">รหัสงานสอน</th>
+                            <th data-column-id="tutorname" data-width="15%">ชื่อ สกุลติวเตอร์</th>
+                            <th data-column-id="stuname" data-width="15%">ชื่อนักเรียน</th>
+                            <th data-column-id="subject" data-width="15%">วิชาและระดับชั้น</th>
+                            <th data-column-id="time" data-width="35%">วัน เวลาและสถานที่เรียน</th>
+                            <th data-column-id="detail" data-width="10%" data-sortable="false" data-searchable="false"></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <!-- Ready -->
+            <div class="tab-pane fade" id="tabParentCurrentCourse">
+                <table id="gridTab3Parent" class="table table-condensed table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th data-column-id="clsid" data-width="10%" data-align="center">รหัสงานสอน</th>
+                            <th data-column-id="tutorname" data-width="15%">ชื่อ สกุลติวเตอร์</th>
+                            <th data-column-id="stuname" data-width="15%">ชื่อนักเรียน</th>
+                            <th data-column-id="subject" data-width="15%">วิชาและระดับชั้น</th>
+                            <th data-column-id="time" data-width="35%">วัน เวลาและสถานที่เรียน</th>
+                            <th data-column-id="detail" data-width="10%" data-sortable="false" data-searchable="false"></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <!-- Request to change tutor, Request to cancel class by student or parent, Request to cancel class by tutor -->
+            <div class="tab-pane fade" id="tabParentOther">
+                <table id="gridTab4Parent" class="table table-condensed table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th data-column-id="tutorname" data-width="10%">ชื่อ สกุลติวเตอร์</th>
+                            <th data-column-id="stuname" data-width="10%">ชื่อนักเรียน</th>
+                            <th data-column-id="subject" data-width="15%">วิชาและระดับชั้น</th>
+                            <th data-column-id="time" data-width="35%">วัน เวลาและสถานที่เรียน</th>
+                            <th data-column-id="status" data-width="20%">สถานะ</th>
+                            <th data-column-id="detail" data-width="10%" data-sortable="false" data-searchable="false"></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        var _workParentTabOne;
+        var _workParentTabTwo;
+        var _workParentTabThree;
+        var _workParentTabFour;
+        jQuery(document).ready(function () {
+            console.log("ready!");
+            if (_gUser.parId != null) {
+                // setUpTable();
+                initialParentTab1();
+                initialParentTab2();
+                initialParentTab3();
+                initialParentTab4();
+            }
+
+        });
+
+        var gridTab1Parent = $("#gridTab1Parent").bootgrid({
+            navigation: 0,
+            rowSelect: true,
+            labels: {
+                noResults: 'ไม่พบรายการ'
+            }
+        }).on("loaded.rs.jquery.bootgrid", function () {
+            gridTab1Parent.find("tr").on("click", function (e) {
+                console.log("click");
+            });
+            gridTab1Parent.find(".command-detail").on("click", function (e) {
+                console.log("detail");
+                var i = parseInt($(this).data("row-id"));
+                loadClassDetailParent1(_workParentTabOne[i]);
+            });
+        });
+
+        var gridTab2Parent = $("#gridTab2Parent").bootgrid({
+            navigation: 0,
+            rowSelect: true,
+            labels: {
+                noResults: 'ไม่พบรายการ'
+            }
+        }).on("loaded.rs.jquery.bootgrid", function () {
+            gridTab2Parent.find("tr").on("click", function (e) {
+                console.log("click");
+            });
+            gridTab2Parent.find(".command-detail").on("click", function (e) {
+                console.log("detail");
+                var i = parseInt($(this).data("row-id"));
+                loadClassDetailParent2(_workParentTabTwo[i]);
+            });
+        });
+
+        var gridTab3Parent = $("#gridTab3Parent").bootgrid({
+            navigation: 0,
+            rowSelect: true,
+            labels: {
+                noResults: 'ไม่พบรายการ'
+            }
+        }).on("loaded.rs.jquery.bootgrid", function () {
+            gridTab3Parent.find("tr").on("click", function (e) {
+                console.log("click");
+            });
+            gridTab3Parent.find(".command-detail").on("click", function (e) {
+                console.log("detail");
+                var i = parseInt($(this).data("row-id"));
+                loadClassDetailParent3(_workParentTabThree[i]);
+            });
+        });
+
+        var gridTab4Parent = $("#gridTab4Parent").bootgrid({
+            navigation: 0,
+            rowSelect: true,
+            labels: {
+                noResults: 'ไม่พบรายการ'
+            }
+        }).on("loaded.rs.jquery.bootgrid", function () {
+            gridTab4Parent.find("tr").on("click", function (e) {
+                console.log("click");
+            });
+            gridTab4Parent.find(".command-detail").on("click", function (e) {
+                console.log("detail");
+                var i = parseInt($(this).data("row-id"));
+                loadClassDetailParent4(_workParentTabFour[i]);
+            });
+        });
+
+
+        function appendparenttab1(work, i) {
+            gridTab1Parent.bootgrid("append", [
+
+                {
+                    "clsid": work.clsId,
+                    "subject": work.subjectAndGroupDetailName,
+                    "time": work.recTimeLoc,
+                    "stuname": work.stuName,
+                    "detail": "<button type='button' class='btn btn-primary btn-lg command-detail' data-row-id='" + i + "'>ดูรายละเอียด</button>"
+                }
+            ]);
+        }
+
+        function appendparenttab2(work, i) {
+            gridTab2Parent.bootgrid("append", [
+                {
+                    "clsid": work.clsId,
+                    "tutorname": work.tutorName,
+                    "subject": work.subjectAndGroupDetailName,
+                    "time": work.recTimeLoc,
+                    "stuname": work.stuName,
+                    "detail": "<button type='button' class='btn btn-primary btn-lg command-detail' data-row-id='" + i + "'>ดูรายละเอียด</button>"
+                }
+            ]);
+        }
+
+        function appendparenttab3(work, i) {
+            gridTab3Parent.bootgrid("append", [
+                {
+                    "clsid": work.clsId,
+                    "tutorname": work.tutorName,
+                    "subject": work.subjectAndGroupDetailName,
+                    "time": work.recTimeLoc,
+                    "stuname": work.stuName,
+                    "detail": "<button type='button' class='btn btn-primary btn-lg command-detail' data-row-id='" + i + "'>ดูรายละเอียด</button>"
+                }
+            ]);
+        }
+        function appendparenttab4(work, i) {
+            gridTab4Parent.bootgrid("append", [
+                {
+                    "tutorname": work.tutorName,
+                    "subject": work.subjectAndGroupDetailName,
+                    "time": work.recTimeLoc,
+                    "status": work.status,
+                    "stuname": work.stuName,
+                    "detail": "<button type='button' class='btn btn-primary btn-lg command-detail' data-row-id='" + i + "'>ดูรายละเอียด</button>"
+                }
+            ]);
+        }
+
+        function initialParentTab1() {
+            $.ajax({
+                type: "GET",
+                url: _gServiceURL + "class/parent/openlist/" + _gUser.parId,
+                contentType: "application/json; charset=utf-8",
+                crossDomain: true,
+                dataType: "json",
+                success: function (data, status, jqXHR) {
+                    _workParentTabOne = data.data.recommendTutorViews;
+                    console.log(_workParentTabOne);
+                    if (data.data.size != 0) {
+                        $('#parbadgenum1').text(data.data.size);
+                        for (var i = 0; i < _workParentTabOne.length; i++) {
+                            appendparenttab1(_workParentTabOne[i], i);
+                        }
+                    } else {
+                        $('#parbadgenum1').hide();
+                    }
+
+                },
+                error: function (jqXHR, status) {
+                    $('#parbadgenum1').hide();
+                }
+
+            });
+        }
+
+
+        function initialParentTab2() {
+            $.ajax({
+                type: "GET",
+
+                url: _gServiceURL + "class/parent/pendingconfirm/" + _gUser.parId,
+                contentType: "application/json; charset=utf-8",
+                crossDomain: true,
+                dataType: "json",
+                success: function (data, status, jqXHR) {
+                    _workParentTabTwo = data.data.recommendTutorViews;
+                    console.log(_workParentTabTwo);
+                    if (data.data.size != 0) {
+                        $('#parbadgenum2').text(data.data.size);
+                        for (var i = 0; i < _workParentTabTwo.length; i++) {
+                            appendparenttab2(_workParentTabTwo[i], i);
+                        }
+                    } else {
+                        $('#parbadgenum2').hide();
+                    }
+
+                },
+                error: function (jqXHR, status) {
+                    $('#parbadgenum2').hide();
+                }
+
+            });
+        }
+
+
+        function initialParentTab3() {
+            $.ajax({
+                type: "GET",
+
+                url: _gServiceURL + "class/parent/readylist/" + _gUser.parId,
+                contentType: "application/json; charset=utf-8",
+                crossDomain: true,
+                dataType: "json",
+                success: function (data, status, jqXHR) {
+                    _workParentTabThree = data.data.recommendTutorViews;
+                    console.log(_workParentTabThree);
+                    if (data.data.size != 0) {
+                        $('#parbadgenum3').text(data.data.size);
+                        for (var i = 0; i < _workParentTabThree.length; i++) {
+                            appendparenttab3(_workParentTabThree[i], i);
+                        }
+                    } else {
+                        $('#parbadgenum3').hide();
+                    }
+
+                },
+                error: function (jqXHR, status) {
+                    $('#parbadgenum3').hide();
+                }
+
+            });
+        }
+
+        function initialParentTab4() {
+            $.ajax({
+                type: "GET",
+                url: _gServiceURL + "class/parent/otherslist/" + _gUser.parId,
+                contentType: "application/json; charset=utf-8",
+                crossDomain: true,
+                dataType: "json",
+                success: function (data, status, jqXHR) {
+                    _workParentTabFour = data.data.recommendTutorViews;
+                    console.log(_workParentTabFour);
+                    if (data.data.size != 0) {
+                        $('#parbadgenum4').text(data.data.size);
+                        for (var i = 0; i < _workParentTabFour.length; i++) {
+                            appendparenttab4(_workParentTabFour[i], i);
+                        }
+                    } else {
+                        $('#parbadgenum4').hide();
+                    }
+
+                },
+                error: function (jqXHR, status) {
+                    $('#parbadgenum4').hide();
+                }
+
+            });
+        }
+
+
+        function loadClassDetailParent1(result) {
+            _gSelectedClsId = result.clsId;
+            console.log(_gSelectedClsId);
+            jQuery("#divMainContainer").load('./html/classdetailstudent.html');
+        }
+
+        function loadClassDetailParent2(result) {
+            _gSelectedClsId = result.clsId;
+            console.log(_gSelectedClsId);
+            jQuery("#divMainContainer").load('./html/classdetailstudent.html');
+        }
+        function loadClassDetailParent3(result) {
+            _gSelectedClsId = result.clsId;
+            console.log(_gSelectedClsId);
+            jQuery("#divMainContainer").load('./html/classdetailstudent.html');
+        }
+
+        function loadClassDetailParent4(result) {
+            _gSelectedClsId = result.clsId;
+            console.log(_gSelectedClsId);
+            jQuery("#divMainContainer").load('./html/classdetailstudent.html');
+        }
+
+    </script>
+</body>
+
+</html>
