@@ -33,9 +33,9 @@
                 <label for="txtLoginPassword">Password</label>
                 <input class="form-control" id="txtLoginPassword" type="password">
             </div>
-            <button type="button" class="btn btn-primary" id="btnLogin">Login with</button>
-            <!--<fb:login-button autologoutlink="true" onlogin="OnRequestPermission();">
-            </fb:login-button>-->
+            <button type="button" class="btn btn-primary" id="btnLogin">Login</button>
+            <fb:login-button autologoutlink="true" onlogin="OnRequestPermission();">
+            </fb:login-button>
         </div>
     </div>
     <script>
@@ -78,7 +78,7 @@
 
         // Load the SDK asynchronously
         
-        function login() {
+        function FBlogin() {
             FB.login(function (response) {
 
                 // handle the response
@@ -87,7 +87,7 @@
             }, { scope: 'read_stream,publish_stream,publish_actions,read_friendlists' });
         }
 
-        function logout() {
+        function FBlogout() {
             FB.logout(function (response) {
                 // user is now logged out
             });

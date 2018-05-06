@@ -1008,7 +1008,7 @@
         });
 
         function updateApply(updateTutorView) {
-
+            console.log('updateApply');
             $.ajax({
                 type: "POST",
                 url: _gServiceURL + "tutor/updateapplyjob",
@@ -1017,9 +1017,19 @@
                 crossDomain: true,
                 dataType: "json",
                 success: function (data, status, jqXHR) {
-                    $(".alert-danger").hide();
-                    $(".alert-success").show();
-                    $('html, body').animate({ scrollTop: $('.breadcrumb').offset().top }, 'fast');
+                    console.log(data.data);
+                    if (data.data.hasTutorTime) {
+                        _gHasTutorTime = data.data.hasTutorTime;
+                        loadMainPage();
+                        $(".alert-danger").hide();
+                        $(".alert-success").show();
+                        $('html, body').animate({ scrollTop: $('.breadcrumb').offset().top }, 'fast');
+                    } else {
+                        $(".alert-success").hide();
+                        $(".alert-danger").show();
+                        $('html, body').animate({ scrollTop: $('.breadcrumb').offset().top }, 'fast');
+                    }
+
                 },
                 error: function (jqXHR, status) {
                     $(".alert-success").hide();
