@@ -8,6 +8,7 @@
             padding-bottom: 40px;
         }
     </style>
+
 </head>
 
 <body>
@@ -32,10 +33,13 @@
                 <label for="txtLoginPassword">Password</label>
                 <input class="form-control" id="txtLoginPassword" type="password">
             </div>
-            <button type="button" class="btn btn-primary" id="btnLogin">Login</button>
+            <button type="button" class="btn btn-primary" id="btnLogin">Login with</button>
+            <!--<fb:login-button autologoutlink="true" onlogin="OnRequestPermission();">
+            </fb:login-button>-->
         </div>
     </div>
     <script>
+
         $(document).ready(function () {
             // The on tab shown event
             _gUserType = 'student';
@@ -43,14 +47,26 @@
             jQuery("#txtLoginPassword").val('1234');
             $('.nav-tabs a').on('shown.bs.tab', function (e) {
                 var tabIndex = parseInt(e.currentTarget.tabIndex);
-                
-                if(tabIndex == 0){
+
+                if (tabIndex == 0) {
                     _gUserType = "student";
                 }
-                else{
+                else {
                     _gUserType = "tutor";
                 }
             });
+
+            console.log("FB=", FB);
+            FB.init({
+                appId: '891024357736463',
+                status: true,
+                cookie: true,
+                xfbml: true
+            });
+
+            var status = FB.getLoginStatus();
+
+            console.log(status);
         });
 
         jQuery("#btnLogin").click(function () {
@@ -59,6 +75,25 @@
             var password = jQuery("#txtLoginPassword").val();
             window.parent.login(email, password, _gUserType);
         });
+
+        // Load the SDK asynchronously
+        
+        function login() {
+            FB.login(function (response) {
+
+                // handle the response
+                console.log("Response goes here!");
+
+            }, { scope: 'read_stream,publish_stream,publish_actions,read_friendlists' });
+        }
+
+        function logout() {
+            FB.logout(function (response) {
+                // user is now logged out
+            });
+        }
+
+
 
 
     </script>
