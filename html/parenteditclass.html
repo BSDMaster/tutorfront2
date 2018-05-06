@@ -719,7 +719,7 @@
                                             <th data-column-id="day" data-width="10%">วัน</th>
                                             <th data-column-id="time" data-width="15%">เวลาว่าง</th>
                                             <th data-column-id="startPlace" data-width="30%">สถานที่เริ่มต้นเดินทาง</th>
-                                            <th data-column-id="endPlace" data-width="30%">สถานที่สิ้นสุดเดินทาง</th>
+                                            <th data-column-id="endPlace" data-width="30%">สถานที่สุดท้ายของวัน</th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -1584,18 +1584,17 @@
         var row2 = parseInt($('#sort-table tr:nth-child(2) td:nth-child(1)').text());
         var row3 = parseInt($('#sort-table tr:nth-child(3) td:nth-child(1)').text());
         var row4 = parseInt($('#sort-table tr:nth-child(4) td:nth-child(1)').text());
-  //      var row5 = parseInt($('#sort-table tr:nth-child(5) td:nth-child(1)').text());
         var tutorSpecOrder;
-        if (row1 == 2) {
+        if (row1 == 2 || row1 == '2') {
             tutorSpecOrder = [row1, 3, row2, row3, row4];
-        } else if (row2 == 2) {
+        } else if (row2 == 2  || row2 == '2') {
             tutorSpecOrder = [row1, row2, 3, row3, row4];
-        } else if (row3 == 2) {
+        } else if (row3 == 2  || row3 == '2') {
             tutorSpecOrder = [row1, row2, row3, 3, row4];
         } else {
             tutorSpecOrder = [row1, row2, row3, row4, 3];
         }
-    //    var tutorSpecOrder = [row1, row2, row3, row4, row5];
+
         if (_gHasClass == 'Y') {
             var bodyRequest = {
                 parId: parseInt(_gUser.parId),

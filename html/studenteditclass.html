@@ -215,6 +215,17 @@
                                     </div>
                                     <div class="modal-body">
                                         <form>
+                                            <div class="form-group required" id="divMultipleDay">
+                                                <label for="dropdownMultipleDay" class="labelform">วันเรียน</label>
+                                                <select multiple="" class="custom-select" id="dropdownMultipleDay">
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group required" id="divTxtDayOfTutor">
+                                                <label for="txtDay" class="labelform">วันเรียน</label>
+                                                <input type="text" class="form-control" id="txtDay" readonly>
+                                            </div>
+                                            <!--
                                             <div class="form-group required" id='groupCopyFromDay'>
                                                 <label for="dropdownCopyFromDay" class="labelform">สำเนาจาก</label>
                                                 <select class="custom-select" id="dropdownCopyFromDay">
@@ -224,7 +235,7 @@
                                                 <label for="dropdownDay" class="labelform">วัน</label>
                                                 <select class="custom-select" id="dropdownDay">
                                                 </select>
-                                            </div>
+                                            </div>-->
                                             <div class="form-group required">
                                                 <label for="dropdownStartTime" class="labelform">เวลาเริ่มต้น</label>
                                                 <select class="custom-select" id="dropdownStartTime">
@@ -347,10 +358,6 @@
                                             <tr>
                                                 <td>2</td>
                                                 <td>คณะและสถาบันของติวเตอร์</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>สถาบันของติวเตอร์</td>
                                             </tr>
                                             <tr>
                                                 <td>4</td>
@@ -504,7 +511,7 @@
                                     <th data-column-id="day" data-width="10%">วัน</th>
                                     <th data-column-id="time" data-width="15%">เวลาว่าง</th>
                                     <th data-column-id="startPlace" data-width="30%">สถานที่เริ่มต้นเดินทาง</th>
-                                    <th data-column-id="endPlace" data-width="30%">สถานที่สิ้นสุดเดินทาง</th>
+                                    <th data-column-id="endPlace" data-width="30%">สถานที่สุดท้ายของวัน</th>
                                 </tr>
                             </thead>
                         </table>
@@ -1012,17 +1019,16 @@
     }
 
     function edittime(i) {
-        assignDropDownValueDayEdit();
         $('#btnSaveAddTime').val(i);
         var location = new google.maps.LatLng(stuavatimes[i].savLat, stuavatimes[i].savLong);
         $('#modalTimeDetailLabel').text('แก้ไขวัน เวลา สถานที่เรียน');
-        $('#dropdownDay').val(stuavatimes[i].savDayId);
-        $('#dropdownDay').prop('disabled', true);
+        $('#txtDay').val(dataDay[stuavatimes[i].savDayId - 1].name);
         $('#dropdownStartTime').val(stuavatimes[i].savStartTime);
         $('#dropdownEndTime').val(stuavatimes[i].savEndTime);
         $('#txtPlace').val(stuavatimes[i].savLocation);
         $('#btnStudentGoogleMap').val(location);
-        $('#groupCopyFromDay').hide();
+        $('#divMultipleDay').hide();
+        $('#divTxtDayOfTutor').show();
         $('#modalTimeDetail').modal('show');
     }
 
@@ -1033,63 +1039,25 @@
         assignDropDownValueDayAdd();
         $('#btnSaveAddTime').val(-1);
         $('#modalTimeDetailLabel').text('เพิ่มวัน เวลา สถานที่เรียน');
-        $('#dropdownCopyFromDay').val($("#dropdownCopyFromDay option:first").val());
-        $('#dropdownDay').val($("#dropdownDay option:first").val());
-        $('#dropdownDay').prop('disabled', false);
         $('#dropdownStartTime').val($("#dropdownStartTime option:first").val());
         $('#dropdownEndTime').val($("#dropdownEndTime option:first").val());
         $('#txtPlace').val("");
-        var days = stuavatimes.filter(function (el) {
-            return el.savDayId == $('#dropdownCopyFromDay').val();
-        });
-        if (days) {
-            var applyDay = days[0];
-            var location = new google.maps.LatLng(applyDay.savLat, applyDay.savLong);
-            $('#dropdownStartTime').val(applyDay.savStartTime);
-            $('#dropdownEndTime').val(applyDay.savEndTime);
-            $('#txtPlace').val(applyDay.savLocation);
-            $('#btnStudentGoogleMap').val(location);
-        }
-        $('#groupCopyFromDay').show();
+
+        $('#divMultipleDay').show();
+        $('#divTxtDayOfTutor').hide();
     });
     function assignDropDownValueDayAdd() {
-        $('#dropdownCopyFromDay').empty();
-        $('#dropdownDay').empty();
+        $('#dropdownMultipleDay').empty();
         for (var i = 0; i < dataDay.length; i++) {
             var days = stuavatimes.filter(function (el) {
                 return el.savDayId == dataDay[i].val;
             });
-            if (days.length > 0) {
-                $('#dropdownCopyFromDay').append('<option value="' + dataDay[i].val + '">' + dataDay[i].name + '</option>');
-            } else {
-                $('#dropdownDay').append('<option value="' + dataDay[i].val + '">' + dataDay[i].name + '</option>');
+            if (days.length == 0) {
+                $('#dropdownMultipleDay').append('<option value="' + dataDay[i].val + '">' + dataDay[i].name + '</option>');
             }
         }
     }
-
-    function assignDropDownValueDayEdit() {
-        $('#dropdownCopyFromDay').empty();
-        $('#dropdownDay').empty();
-        for (var i = 0; i < dataDay.length; i++) {
-            $('#dropdownCopyFromDay').append('<option value="' + dataDay[i].val + '">' + dataDay[i].name + '</option>');
-            $('#dropdownDay').append('<option value="' + dataDay[i].val + '">' + dataDay[i].name + '</option>');
-        }
-    }
-
-    $("#dropdownCopyFromDay").change(function () {
-        var coppiedDay = $(this).val();
-        var days = stuavatimes.filter(function (el) {
-            return el.savDayId == coppiedDay;
-        });
-        if (days) {
-            var applyDay = days[0];
-            var location = new google.maps.LatLng(applyDay.savLat, applyDay.savLong);
-            $('#dropdownStartTime').val(applyDay.savStartTime);
-            $('#dropdownEndTime').val(applyDay.savEndTime);
-            $('#txtPlace').val(applyDay.savLocation);
-            $('#btnStudentGoogleMap').val(location);
-        }
-    });
+    
     $("#btnStudentGoogleMap").on("click", function (e) {
         var address = $('#txtPlace').val();
         $('#pac-input').val(address);
@@ -1228,9 +1196,12 @@
         });
     }
     $("#btnSaveAddTime").on("click", function (e) {
-        var selectedDay = $("#dropdownDay option:selected").val();
+
+        var i = $(this).val();
         var selectedStartTime = $("#dropdownStartTime option:selected").val();
         var selectedEndTime = $("#dropdownEndTime option:selected").val();
+        console.log(selectedStartTime);
+        console.log(selectedEndTime);
         var txtPlace = $("#txtPlace").val();
         console.log(txtPlace);
         var location = $('#btnStudentGoogleMap').val();
@@ -1238,31 +1209,50 @@
         location = location.replace(')', '');
         var loc = location.split(",");
         console.log(loc);
-        var i = $(this).val();
-
-        if (i == -1) {
-            var timeloc = {
-                "savDayId": selectedDay,
-                "savEndTime": selectedEndTime,
-                "savLat": loc[0],
-                "savLocation": txtPlace,
-                "savLong": loc[1],
-                "savStartTime": selectedStartTime,
-                "savStuId": _gUser.stuId
-            };
-            console.log(timeloc);
-            stuavatimes.push(timeloc);
-        } else {
-            var timeloc = stuavatimes[i];
-            timeloc.savLocation = txtPlace;
-            timeloc.savLat = loc[0];
-            timeloc.savLong = loc[1];
-            timeloc.savStartTime = selectedStartTime;
-            timeloc.savEndTime = selectedEndTime;
-            stuavatimes[i] = timeloc;
+        var diffTime = Math.abs(parseInt(selectedStartTime) - parseInt(selectedEndTime))
+        console.log('time : ', diffTime);
+        console.log('start : ', parseInt(selectedStartTime));
+        console.log('end : ', parseInt(selectedEndTime));
+        if (diffTime < 2 || parseInt(selectedStartTime) > parseInt(selectedEndTime)) {
+            console.log('not pass');
+            alert('กรุณาตรวจสอบช่วงเวลาเรียนอีกครั้งหนึ่ง ผู้เรียนจะต้องลงเรียนมากกว่า 2 ชั่วโมงต่อวัน');
+        } else if (txtPlace == null || txtPlace == "") {
+            console.log('not pass');
+            alert('กรุณากรอกข้อมูลให้ครบถ้วน');
+        } else if (i == -1 && $('#dropdownMultipleDay option:selected').val().length == 0) {
+            console.log('not pass ', $('#dropdownMultipleDay option:selected').val().length);
+            alert('กรุณากรอกข้อมูลให้ครบถ้วน');
         }
-        refreshGridDetailDayList();
-        $('#modalTimeDetail').modal('hide');
+        else {
+            if (i == -1) {
+                $('#dropdownMultipleDay option:selected').each(function () {
+                    var timeloc = {
+                        "savDayId": parseInt($(this).val()),
+                        "savEndTime": selectedEndTime,
+                        "savLat": loc[0],
+                        "savLocation": txtPlace,
+                        "savLong": loc[1],
+                        "savStartTime": selectedStartTime,
+                        "savStuId": _gUser.stuId
+                    };
+                    console.log(timeloc);
+                    stuavatimes.push(timeloc);
+                });
+            } else {
+
+                var timeloc = stuavatimes[i];
+                timeloc.savLocation = txtPlace;
+                timeloc.savLat = loc[0];
+                timeloc.savLong = loc[1];
+                timeloc.savStartTime = selectedStartTime;
+                timeloc.savEndTime = selectedEndTime;
+                stuavatimes[i] = timeloc;
+
+
+            }
+            refreshGridDetailDayList();
+            $('#modalTimeDetail').modal('hide');
+        }
     });
 
     function refreshGridDetailDayList() {
@@ -1314,8 +1304,18 @@
         var row2 = parseInt($('#sort-table tr:nth-child(2) td:nth-child(1)').text());
         var row3 = parseInt($('#sort-table tr:nth-child(3) td:nth-child(1)').text());
         var row4 = parseInt($('#sort-table tr:nth-child(4) td:nth-child(1)').text());
-        var row5 = parseInt($('#sort-table tr:nth-child(5) td:nth-child(1)').text());
-        var tutorSpecOrder = [row1, row2, row3, row4, row5];
+        var tutorSpecOrder;
+        if (row1 == 2 || row1 == '2') {
+            tutorSpecOrder = [row1, 3, row2, row3, row4];
+        } else if (row2 == 2 || row2 == '2') {
+            tutorSpecOrder = [row1, row2, 3, row3, row4];
+        } else if (row3 == 2 || row3 == '2') {
+            tutorSpecOrder = [row1, row2, row3, 3, row4];
+        } else {
+            tutorSpecOrder = [row1, row2, row3, row4, 3];
+        }
+
+
         if (_gHasClass == 'Y') {
             var bodyRequest = {
                 stuId: parseInt(_gUser.stuId),
@@ -1359,6 +1359,7 @@
                 $(".alert-danger").hide();
                 $(".alert-success").show();
                 $('html, body').animate({ scrollTop: $('.breadcrumb').offset().top }, 'fast');
+                _gHasClass = 'Y';
                 loadMainPage();
             },
             error: function (jqXHR, status) {
@@ -1697,7 +1698,7 @@
             alert('กรุณากรอกข้อมูลให้ครบถ้วน');
         }
         else {
-            
+
             if (i == -1) {
                 $('#dropdownDayOfTutorSpec option:selected').each(function () {
                     var timeloc = {
@@ -1835,7 +1836,7 @@
                 $(".alert-danger").hide();
                 $(".alert-success").show();
                 $('html, body').animate({ scrollTop: $('.breadcrumb').offset().top }, 'fast');
-                
+
                 _gHasClass = data.data._gHasClass;
                 loadMainPage();
             },

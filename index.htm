@@ -81,7 +81,8 @@
     _gNoResultFound = 'ไม่พบรายการ';
     _gServiceURL = 'http://localhost:8080/tutormatchingservices-0.0.1-SNAPSHOT/';
     _gHasClass = 'Y';
-    //day
+    _gHasTutorTime = 'Y';
+     //day
     dataDay = [{
       name: "จันทร์", val: "1"
     }, {
@@ -248,7 +249,7 @@
             <a class="nav-link" href="javascript:changePage('./html/registerstudent.html');">สมัครเรียน</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="javascript:changePage('./html/registertutor.html');">สมัครสมาชิกติวเตอร์</a>
+            <a class="nav-link" href="javascript:changePage('./html/tutorSubscription.html');">สมัครสมาชิกติวเตอร์</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="javascript:changePage('./html/contact.html');">ติดต่อเรา</a>
@@ -360,6 +361,7 @@
         crossDomain: true,
         dataType: "json",
         success: function (data, status, jqXHR) {
+          _gHasTutorTime = data.data.hasTutorTime;
           _gUserType = "tutor";
           _gUser.turId = data.data.id;
           _gUser.turName = data.data.name;
@@ -430,7 +432,11 @@
       //_gUserType
       console.log("_gUserType=", _gUserType);
       if (_gUserType == "tutor") {
-        jQuery("#divMainContainer").load('./html/main.html');
+        if (_gHasTutorTime == 'N') {
+          jQuery("#divMainContainer").load('./html/publishJob.html');
+        } else {
+          jQuery("#divMainContainer").load('./html/main.html');
+        }
         jQuery("#nav-itm-student-schedule").hide();
         jQuery("#nav-itm-tutor-schedule").hide();
         jQuery("#nav-itm-rate").hide();
