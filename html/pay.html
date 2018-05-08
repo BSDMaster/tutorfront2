@@ -32,12 +32,13 @@
   <table id="gridPaymentList" class="table table-condensed table-hover table-striped">
     <thead>
       <tr>
-        <th data-column-id="order" data-width="8%" data-align="center" header-align="center">รายการที่</th>
+        <th data-column-id="order" data-width="7%" data-align="center" header-align="center">รายการที่</th>
         <th data-column-id="clsid" data-width="8%" data-align="center" class="text-center">รหัสงานสอน</th>
-        <th data-column-id="subject" data-width="20%" class="text-center">วิชาและระดับชั้น</th>
+        <th data-column-id="subject" data-width="15%" class="text-center">วิชาและระดับชั้น</th>
         <th data-column-id="time" data-width="30%" class="text-center">วัน เวลาและสถานที่สอน</th>
+        <th data-column-id="num" data-width="10%" data-align="center" class="text-center">จำนวนนักเรียน</th>
         <th data-column-id="hours" data-width="10%" data-align="center" class="text-center">จำนวนชั่วโมง</th>
-        <th data-column-id="priceperhours" data-width="14%" data-align="right" class="text-center">ค่าแนะนำต่อชั่วโมง</th>
+        <th data-column-id="priceperhours" data-width="10%" data-align="right" class="text-center">ค่าแนะนำต่อชั่วโมง</th>
         <th data-column-id="price" data-width="10%" data-align="right" class="text-center">ค่าแนะนำ</th>
       </tr>
     </thead>
@@ -118,6 +119,7 @@
           "subject": result.subjectAndGroupDetailName,
           "time": result.recTimeLoc,
           "hours": result.hours,
+          "num":result.numPerCls,
           "priceperhours": result.recPricePerHour,
           "price": result.recPrice,
         }
@@ -146,6 +148,7 @@
                 "subject": "",
                 "time": "",
                 "hours": "",
+                "num" : "",
                 "priceperhours": "",
                 "price": "<strong>" + totalPrice + "</strong>",
               }]);

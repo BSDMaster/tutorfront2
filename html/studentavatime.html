@@ -74,15 +74,14 @@
                 </div>
                 <div class="modal-body">
                     <form>
-                        <div class="form-group required" id='groupCopyFromDay'>
-                            <label for="dropdownCopyFromDay" class="labelform">สำเนาจาก</label>
-                            <select class="custom-select" id="dropdownCopyFromDay">
+                        <div class="form-group required" id="divEditDropdownDay">
+                            <label for="dropdownEditStudentDay" class="labelform">วันเรียน</label>
+                            <select multiple="" class="custom-select" id="dropdownEditStudentDay">
                             </select>
                         </div>
-                        <div class="form-group required">
-                            <label for="dropdownDay" class="labelform">วัน</label>
-                            <select class="custom-select" id="dropdownDay">
-                            </select>
+                        <div class="form-group required" id="divEditTxtDay">
+                            <label for="txtEditDay" class="labelform">วันเรียน</label>
+                            <input type="text" class="form-control" id="txtEditDay" readonly>
                         </div>
                         <div class="form-group required">
                             <label for="dropdownStartTime" class="labelform">เวลาเริ่มต้น</label>
@@ -209,7 +208,14 @@
         }
         console.log(startTime);
         console.log(endTime);
-
+        var actionTag = "";
+        if (time.savNumcls > 0) {
+            actionTag = "<button id='btnEditAvaTime' type='button' disabled class='btn btn-xs btn-default command-edit' data-row-id='" + i + "'><div class='fa-pencil'></div></button> "
+                + "<button id='btnDeleteAvaTime' type='button' disabled class='btn btn-xs btn-default command-delete' data-row-id='" + i + "'><div class='fa-trash-o'></div></button>";
+        } else {
+            actionTag = "<button id='btnEditAvaTime' type='button' class='btn btn-xs btn-default command-edit' data-row-id='" + i + "'><div class='fa-pencil'></div></button> "
+                + "<button id='btnDeleteAvaTime' type='button' class='btn btn-xs btn-default command-delete' data-row-id='" + i + "'><div class='fa-trash-o'></div></button>";
+        }
         gridStuTime.bootgrid("append", [
             {
                 "id": i + 1,
@@ -217,24 +223,23 @@
                 "startTime": startTime.name,
                 "endTime": endTime.name,
                 "location": time.savLocation,
-                "action": "<button id='btnEditAvaTime' type='button' class='btn btn-xs btn-default command-edit' data-row-id='" + i + "'><div class='fa-pencil'></div></button> "
-                    + "<button id='btnDeleteAvaTime' type='button' class='btn btn-xs btn-default command-delete' data-row-id='" + i + "'><div class='fa-trash-o'></div></button>"
+                "action": actionTag
             }
         ]);
     }
 
     function edittime(i) {
-        assignDropDownValueDayEdit();
         $('#btnSaveAddTime').val(i);
         var location = new google.maps.LatLng(avatimes[i].savLat, avatimes[i].savLong);
         $('#modalTimeDetailLabel').text('แก้ไขวัน เวลา สถานที่เรียน');
-        $('#dropdownDay').val(avatimes[i].savDayId);
-        $('#dropdownDay').prop('disabled', true);
+        $('#divEditTxtDay').show();
+        $('#divEditDropdownDay').hide();
+        $('#txtEditDay').val(dataDay[stuSpecAvatimes[i].carDayId - 1].name);
+        $('#divEditTxtDay').prop('disabled', true);
         $('#dropdownStartTime').val(avatimes[i].savStartTime);
         $('#dropdownEndTime').val(avatimes[i].savEndTime);
         $('#txtPlace').val(avatimes[i].savLocation);
         $('#btnStudentGoogleMap').val(location);
-        $('#groupCopyFromDay').hide();
         $('#modalTimeDetail').modal('show');
     }
 
@@ -244,66 +249,28 @@
         assignDropDownValueDayAdd();
         $('#btnSaveAddTime').val(-1);
         $('#modalTimeDetailLabel').text('เพิ่มวัน เวลา สถานที่เรียน');
-        $('#dropdownCopyFromDay').val($("#dropdownCopyFromDay option:first").val());
-        $('#dropdownDay').val($("#dropdownDay option:first").val());
-        $('#dropdownDay').prop('disabled', false);
+        $('#divEditDropdownDay').show();
+        $('#divEditTxtDay').hide();
         $('#dropdownStartTime').val($("#dropdownStartTime option:first").val());
         $('#dropdownEndTime').val($("#dropdownEndTime option:first").val());
         $('#txtPlace').val("");
-        var days = avatimes.filter(function (el) {
-            return el.savDayId == $('#dropdownCopyFromDay').val();
-        });
-        if (days) {
-            var applyDay = days[0];
-            var location = new google.maps.LatLng(applyDay.savLat, applyDay.savLong);
-            $('#dropdownStartTime').val(applyDay.savStartTime);
-            $('#dropdownEndTime').val(applyDay.savEndTime);
-            $('#txtPlace').val(applyDay.savLocation);
-            $('#btnStudentGoogleMap').val(location);
-        }
-        $('#groupCopyFromDay').show();
-    });
-    $("#btnEditAvaTime").on("click", function (e) {
-        //assignDropDownValueDayEdit();
     });
     function assignDropDownValueDayAdd() {
-        $('#dropdownCopyFromDay').empty();
-        $('#dropdownDay').empty();
+        $('#dropdownEditStudentDay').empty();
+        console.log("dropdownEditStudentDay");
         for (var i = 0; i < dataDay.length; i++) {
             var days = avatimes.filter(function (el) {
                 return el.savDayId == dataDay[i].val;
             });
-            if (days.length > 0) {
-                $('#dropdownCopyFromDay').append('<option value="' + dataDay[i].val + '">' + dataDay[i].name + '</option>');
-            } else {
-                $('#dropdownDay').append('<option value="' + dataDay[i].val + '">' + dataDay[i].name + '</option>');
+            console.log(days.length);
+            if (days.length == 0) {
+                console.log('day append');
+                $('#dropdownEditStudentDay').append('<option value="' + dataDay[i].val + '">' + dataDay[i].name + '</option>');
             }
         }
     }
 
-    function assignDropDownValueDayEdit() {
-        $('#dropdownCopyFromDay').empty();
-        $('#dropdownDay').empty();
-        for (var i = 0; i < dataDay.length; i++) {
-            $('#dropdownCopyFromDay').append('<option value="' + dataDay[i].val + '">' + dataDay[i].name + '</option>');
-            $('#dropdownDay').append('<option value="' + dataDay[i].val + '">' + dataDay[i].name + '</option>');
-        }
-    }
 
-    $("#dropdownCopyFromDay").change(function () {
-        var coppiedDay = $(this).val();
-        var days = avatimes.filter(function (el) {
-            return el.savDayId == coppiedDay;
-        });
-        if (days) {
-            var applyDay = days[0];
-            var location = new google.maps.LatLng(applyDay.savLat, applyDay.savLong);
-            $('#dropdownStartTime').val(applyDay.savStartTime);
-            $('#dropdownEndTime').val(applyDay.savEndTime);
-            $('#txtPlace').val(applyDay.savLocation);
-            $('#btnStudentGoogleMap').val(location);
-        }
-    });
     $("#btnStudentGoogleMap").on("click", function (e) {
         var address = $('#txtPlace').val();
         $('#pac-input').val(address);
@@ -442,7 +409,6 @@
         });
     }
     $("#btnSaveAddTime").on("click", function (e) {
-        var selectedDay = $("#dropdownDay option:selected").val();
         var selectedStartTime = $("#dropdownStartTime option:selected").val();
         var selectedEndTime = $("#dropdownEndTime option:selected").val();
         var txtPlace = $("#txtPlace").val();
@@ -453,30 +419,49 @@
         var loc = location.split(",");
         console.log(loc);
         var i = $(this).val();
-
-        if (i == -1) {
-            var timeloc = {
-                "savDayId": selectedDay,
-                "savEndTime": selectedEndTime,
-                "savLat": loc[0],
-                "savLocation": txtPlace,
-                "savLong": loc[1],
-                "savStartTime": selectedStartTime,
-                "savStuId": _gUser.stuId
-            };
-            console.log(timeloc);
-            avatimes.push(timeloc);
-        } else {
-            var timeloc = avatimes[i];
-            timeloc.savLocation = txtPlace;
-            timeloc.savLat = loc[0];
-            timeloc.savLong = loc[1];
-            timeloc.savStartTime = selectedStartTime;
-            timeloc.savEndTime = selectedEndTime;
-            avatimes[i] = timeloc;
+        var diffTime = Math.abs(parseInt(selectedStartTime) - parseInt(selectedEndTime))
+        console.log('time : ', diffTime);
+        console.log('start : ', parseInt(selectedStartTime));
+        console.log('end : ', parseInt(selectedEndTime));
+        if (diffTime < 2 || parseInt(selectedStartTime) > parseInt(selectedEndTime)) {
+            console.log('not pass');
+            alert('กรุณาตรวจสอบช่วงเวลาเรียนอีกครั้งหนึ่ง ผู้เรียนจะต้องลงเรียนมากกว่า 2 ชั่วโมงต่อวัน');
+        } else if (txtPlace == null || txtPlace == "") {
+            console.log('not pass');
+            alert('กรุณากรอกข้อมูลให้ครบถ้วน');
+        } else if (i == -1 && $('#dropdownEditStudentDay option:selected').val().length == 0) {
+            console.log('not pass ', $('#dropdownEditStudentDay option:selected').val().length);
+            alert('กรุณากรอกข้อมูลให้ครบถ้วน');
         }
-        refreshGridDetailDayList();
-        $('#modalTimeDetail').modal('hide');
+        else {
+            if (i == -1) {
+                $('#dropdownEditStudentDay option:selected').each(function () {
+                    var timeloc = {
+                        "savDayId": parseInt($(this).val()),
+                        "savEndTime": selectedEndTime,
+                        "savLat": loc[0],
+                        "savLocation": txtPlace,
+                        "savLong": loc[1],
+                        "savStartTime": selectedStartTime,
+                        "savStuId": _gUser.stuId,
+                        "savNumcls" : parseInt(0)
+                    };
+                    console.log(timeloc);
+                    avatimes.push(timeloc);
+                });
+            } else {
+
+                var timeloc = avatimes[i];
+                timeloc.savLocation = txtPlace;
+                timeloc.savLat = loc[0];
+                timeloc.savLong = loc[1];
+                timeloc.savStartTime = selectedStartTime;
+                timeloc.savEndTime = selectedEndTime;
+                avatimes[i] = timeloc;
+            }
+            refreshGridDetailDayList();
+            $('#modalTimeDetail').modal('hide');
+        }
     });
 
     function refreshGridDetailDayList() {

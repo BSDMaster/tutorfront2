@@ -1240,7 +1240,14 @@
         }
         console.log(startTime);
         console.log(endTime);
-
+        var actionTag = "";
+        if (time.savNumcls > 0) {
+            actionTag = "<button id='btnEditAvaTime' type='button' disabled class='btn btn-xs btn-default command-edit' data-row-id='" + i + "'><div class='fa-pencil'></div></button> "
+                    + "<button id='btnDeleteAvaTime' type='button' disabled class='btn btn-xs btn-default command-delete' data-row-id='" + i + "'><div class='fa-trash-o'></div></button>";
+        } else {
+            actionTag = "<button id='btnEditAvaTime' type='button' class='btn btn-xs btn-default command-edit' data-row-id='" + i + "'><div class='fa-pencil'></div></button> "
+                    + "<button id='btnDeleteAvaTime' type='button' class='btn btn-xs btn-default command-delete' data-row-id='" + i + "'><div class='fa-trash-o'></div></button>";
+        }
         gridStuTime.bootgrid("append", [
             {
                 "id": i + 1,
@@ -1248,8 +1255,7 @@
                 "startTime": startTime.name,
                 "endTime": endTime.name,
                 "location": time.savLocation,
-                "action": "<button id='btnEditAvaTime' type='button' class='btn btn-xs btn-default command-edit' data-row-id='" + i + "'><div class='fa-pencil'></div></button> "
-                    + "<button id='btnDeleteAvaTime' type='button' class='btn btn-xs btn-default command-delete' data-row-id='" + i + "'><div class='fa-trash-o'></div></button>"
+                "action": actionTag
             }
         ]);
     }
@@ -1473,7 +1479,8 @@
                         "savLocation": txtPlace,
                         "savLong": loc[1],
                         "savStartTime": selectedStartTime,
-                        "savStuId": stuId
+                        "savStuId": stuId,
+                        "savNumcls" : parseInt(0)
                     };
                     console.log(timeloc);
                     stuavatimes.push(timeloc);
@@ -1658,6 +1665,7 @@
                 $(".alert-danger").hide();
                 $(".alert-success").show();
                 $('html, body').animate({ scrollTop: $('.breadcrumb').offset().top }, 'fast');
+                _gHasClass = data.data._gHasClass;
                 loadMainPage();
             },
             error: function (jqXHR, status) {
@@ -2134,7 +2142,6 @@
                 $(".alert-danger").hide();
                 $(".alert-success").show();
                 $('html, body').animate({ scrollTop: $('.breadcrumb').offset().top }, 'fast');
-
                 _gHasClass = data.data._gHasClass;
                 loadMainPage();
             },

@@ -471,6 +471,16 @@
             if (endTimes[0]) {
                 endTime = endTimes[0];
             }
+
+            var actionTag = "";
+            if (parseInt(applyDay.tavNumcls) > 0) {
+                console.log('tavNumcls > 0');
+                actionTag = "<button id='editBtn' type='button' disabled class='btn btn-xs btn-default command-edit' data-row-id='" + i + "'><div class='fa-pencil'></div></button> "
+                        + "<button id='deleteBtn' type='button' disabled class='btn btn-xs btn-default command-delete' data-row-id='" + i + "'><div class='fa-trash-o'></div></button>";
+            } else {
+                actionTag = "<button id='editBtn' type='button' class='btn btn-xs btn-default command-edit' data-row-id='" + i + "'><div class='fa-pencil'></div></button> "
+                        + "<button id='deleteBtn' type='button' class='btn btn-xs btn-default command-delete' data-row-id='" + i + "'><div class='fa-trash-o'></div></button>";
+            }
             gridDetail.bootgrid("append", [
                 {
                     "id": i + 1,
@@ -483,8 +493,7 @@
                     "bus": chkBus,
                     "bts": chkBTS,
                     "taxi": chkTaxi,
-                    "action": "<button id='editBtn' type='button' class='btn btn-xs btn-default command-edit' data-row-id='" + i + "'><div class='fa-pencil'></div></button> "
-                        + "<button id='deleteBtn' type='button' class='btn btn-xs btn-default command-delete' data-row-id='" + i + "'><div class='fa-trash-o'></div></button>"
+                    "action": actionTag
 
                 }
             ]);
@@ -704,7 +713,8 @@
                             tavTraBus: chkBus,
                             tavTraTrain: chkBTS,
                             tavTraTaxi: chkTaxi,
-                            tavTurId: _gUser.turId
+                            tavTurId: _gUser.turId,
+                            tavNumcls: parseInt(0)
                         };
 
                         console.log(newDay);
@@ -1020,6 +1030,7 @@
                     console.log(data.data);
                     if (data.data.hasTutorTime) {
                         _gHasTutorTime = data.data.hasTutorTime;
+
                         loadMainPage();
                         $(".alert-danger").hide();
                         $(".alert-success").show();

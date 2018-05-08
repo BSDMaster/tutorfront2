@@ -1005,6 +1005,15 @@
         console.log(startTime);
         console.log(endTime);
 
+        var actionTag = "";
+        if (time.savNumcls > 0) {
+            actionTag = "<button id='btnEditAvaTime' type='button' disabled class='btn btn-xs btn-default command-edit' data-row-id='" + i + "'><div class='fa-pencil'></div></button> "
+                + "<button id='btnDeleteAvaTime' type='button' disabled class='btn btn-xs btn-default command-delete' data-row-id='" + i + "'><div class='fa-trash-o'></div></button>";
+        } else {
+            actionTag = "<button id='btnEditAvaTime' type='button' class='btn btn-xs btn-default command-edit' data-row-id='" + i + "'><div class='fa-pencil'></div></button> "
+                + "<button id='btnDeleteAvaTime' type='button' class='btn btn-xs btn-default command-delete' data-row-id='" + i + "'><div class='fa-trash-o'></div></button>";
+        }
+
         gridStuTime.bootgrid("append", [
             {
                 "id": i + 1,
@@ -1012,8 +1021,7 @@
                 "startTime": startTime.name,
                 "endTime": endTime.name,
                 "location": time.savLocation,
-                "action": "<button id='btnEditAvaTime' type='button' class='btn btn-xs btn-default command-edit' data-row-id='" + i + "'><div class='fa-pencil'></div></button> "
-                    + "<button id='btnDeleteAvaTime' type='button' class='btn btn-xs btn-default command-delete' data-row-id='" + i + "'><div class='fa-trash-o'></div></button>"
+                "action": actionTag
             }
         ]);
     }
@@ -1057,7 +1065,7 @@
             }
         }
     }
-    
+
     $("#btnStudentGoogleMap").on("click", function (e) {
         var address = $('#txtPlace').val();
         $('#pac-input').val(address);
@@ -1233,7 +1241,8 @@
                         "savLocation": txtPlace,
                         "savLong": loc[1],
                         "savStartTime": selectedStartTime,
-                        "savStuId": _gUser.stuId
+                        "savStuId": _gUser.stuId,
+                        "savNumcls": parseInt(0)
                     };
                     console.log(timeloc);
                     stuavatimes.push(timeloc);
@@ -1359,7 +1368,7 @@
                 $(".alert-danger").hide();
                 $(".alert-success").show();
                 $('html, body').animate({ scrollTop: $('.breadcrumb').offset().top }, 'fast');
-                _gHasClass = 'Y';
+                _gHasClass = data.data._gHasClass;
                 loadMainPage();
             },
             error: function (jqXHR, status) {
@@ -1687,7 +1696,43 @@
         console.log('time : ', diffTime);
         console.log('start : ', parseInt(selectedStartTime));
         console.log('end : ', parseInt(selectedEndTime));
-        if (diffTime < 2 || parseInt(selectedStartTime) > parseInt(selectedEndTime)) {
+
+
+        var turId = $('#dropdownSpecTutor option:selected').val();
+        var specificTutorByTurId = _gSpecificTutor.filter(function (el) {
+            return el.turId == turId;
+        });
+        var times = specificTutorByTurId[0].tutorAvailableTimeloacationViews;
+
+        var isPass = 'Y';
+        if (i == -1) {
+            $('#dropdownDayOfTutorSpec option:selected').each(function () {
+                console.log($(this).val());
+                var newDayId = $(this).val();
+                var specificDayByDayId = times.filter(function (el) {
+                    return el.tavDayId == parseInt(newDayId);
+                });
+
+                console.log(specificDayByDayId[0].tavStartTime);
+                console.log(specificDayByDayId[0].tavEndTime);
+
+                if (parseFloat(specificDayByDayId[0].tavStartTime) > parseFloat(selectedStartTime) || parseFloat(specificDayByDayId[0].tavEndTime) < parseFloat(selectedEndTime)) {
+                    isPass = 'N';
+                }
+            });
+        } else {
+            var newDayId = stuSpecAvatimes[i].carDayId;
+            var specificDayByDayId = times.filter(function (el) {
+                return el.tavDayId == parseInt(newDayId);
+            });
+            if (parseFloat(specificDayByDayId[0].tavStartTime) > parseFloat(selectedStartTime) || parseFloat(specificDayByDayId[0].tavEndTime) < parseFloat(selectedEndTime)) {
+                isPass = 'N';
+            }
+        }
+        if (isPass == 'N') {
+            console.log('not pass');
+            alert('กรุณาตรวจสอบช่วงเวลาเรียนอีกครั้งหนึ่ง ผู้เรียนจะต้องลงเรียนในช่วงเวลาที่ติวเตอร์ว่างเท่านั้น');
+        } else if (diffTime < 2 || parseInt(selectedStartTime) > parseInt(selectedEndTime)) {
             console.log('not pass');
             alert('กรุณาตรวจสอบช่วงเวลาเรียนอีกครั้งหนึ่ง ผู้เรียนจะต้องลงเรียนมากกว่า 2 ชั่วโมงต่อวัน');
         } else if (txtPlace == null || txtPlace == "") {
@@ -1698,7 +1743,6 @@
             alert('กรุณากรอกข้อมูลให้ครบถ้วน');
         }
         else {
-
             if (i == -1) {
                 $('#dropdownDayOfTutorSpec option:selected').each(function () {
                     var timeloc = {
@@ -1712,6 +1756,7 @@
                     console.log(timeloc);
                     stuSpecAvatimes.push(timeloc);
                 });
+
             } else {
 
                 var timeloc = stuSpecAvatimes[i];

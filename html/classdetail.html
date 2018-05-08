@@ -24,7 +24,7 @@
         <strong>ไม่สามารถบันทึกข้อมูลได้</strong>
     </div>
     <div class="right">
-        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalConfirmCancelClsByTutor">ยกเลิกงานสอน</button>
+        <button type="button" class="btn btn-primary btn-lg" id="btnCancelClassByTutor" data-toggle="modal" data-target="#modalConfirmCancelClsByTutor">ยกเลิกงานสอน</button>
     </div>
     <div class="label-header" id="headerclass">งานสอน</div>
     <div style="margin-top:30px;">
@@ -147,6 +147,20 @@
                         <label for="reasonCancelClsByTutorTextarea">สาเหตุที่ขอยกเลิกงานสอน</label>
                         <textarea class="form-control" id="reasonCancelClsByTutorTextarea" rows="2"></textarea>
                     </div>
+                    <div class="form-group" id="divNumHours">
+                        <label for="dropdownCancelByTutorHours">จำนวนชั่วโมงที่เรียนไปแล้ว</label>
+                        <select class="custom-select" id="dropdownCancelByTutorHours">
+                            <option selected="" value="0">0 ชั่วโมง</option>
+                            <option value="1">1 ชั่วโมง</option>
+                            <option value="2">2 ชั่วโมง</option>
+                            <option value="3">3 ชั่วโมง</option>
+                            <option value="4">4 ชั่วโมง</option>
+                            <option value="5">5 ชั่วโมง</option>
+                            <option value="6">6 ชั่วโมง</option>
+                            <option value="7">7 ชั่วโมง</option>
+                            <option value="8">8 ชั่วโมงขึ้นไป</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">ยกเลิก</button>
@@ -200,6 +214,12 @@
                     $('#divStuTelSection').show();
                     $('#divStuEmailSection').show();
                 }
+                if (classDetail.statusId == 7) {
+                    $('#btnCancelClassByTutor').show();
+                } else {
+                    $('#btnCancelClassByTutor').hide();
+                }
+
                 $('#lblClsClsId').text(classDetail.clsId);
                 $('#lblClsStatus').text(classDetail.statusName);
                 $('#lblClsSubjectCat').text(classDetail.subjectAndGroupDetailName);
@@ -291,11 +311,14 @@
     function cancelClsByTutor() {
         console.log("cancel class by tutor");
         var reason = $('#reasonCancelClsByTutorTextarea').val();
+
+        var hours = $('#dropdownCancelByTutorHours option:selected').val();
         if (_gUser.turId != null && reason != null && reason != "") {
             var bodyRequest = {
                 clsId: parseInt(_gSelectedClsId),
                 requester: _gUser.turName,
-                reason: reason
+                reason: reason,
+                hours: parseInt(hours)
             };
             console.log(bodyRequest);
             $.ajax({

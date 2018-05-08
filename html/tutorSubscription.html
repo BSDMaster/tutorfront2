@@ -190,6 +190,13 @@
                 todayHighlight: true,
                 autoclose: true,
             })
+            if (_gFBUser.email) {
+                $('#txtFirstName').val(_gFBUser.firstName);
+                $('#txtLastName').val(_gFBUser.lastName);
+                $('#txtEmail').val(_gFBUser.email);
+                $('#txtNewPassword').hide();
+                $('#txtConfirmPassword').hide();
+            }
             initialUniversities();
         });
 
@@ -203,7 +210,7 @@
                 crossDomain: true,
                 dataType: "json",
                 success: function (data, status, jqXHR) {
-                    console.log(data.data.dataUniversities);
+                    console.log(data.data.universityViews);
                     var messages = data.message;
                     var alert;
                     if (data.status == 200) {
@@ -445,6 +452,17 @@
             if (endTimes[0]) {
                 endTime = endTimes[0];
             }
+            var actionTag = "";
+            if (time.tavNumcls > 0) {
+                actionTag = "<button id='editBtn' type='button' disable class='btn btn-xs btn-default command-edit' data-row-id='" + i + "'><div class='fa-pencil'></div></button> "
+                    + "<button id='deleteBtn' type='button' disable class='btn btn-xs btn-default command-delete' data-row-id='" + i + "'><div class='fa-trash-o'></div></button>";
+
+            } else {
+                actionTag = "<button id='editBtn' type='button' class='btn btn-xs btn-default command-edit' data-row-id='" + i + "'><div class='fa-pencil'></div></button> "
+                    + "<button id='deleteBtn' type='button' class='btn btn-xs btn-default command-delete' data-row-id='" + i + "'><div class='fa-trash-o'></div></button>";
+            }
+
+
             gridDetail.bootgrid("append", [
                 {
                     "id": i + 1,
@@ -457,8 +475,7 @@
                     "bus": chkBus,
                     "bts": chkBTS,
                     "taxi": chkTaxi,
-                    "action": "<button id='editBtn' type='button' class='btn btn-xs btn-default command-edit' data-row-id='" + i + "'><div class='fa-pencil'></div></button> "
-                        + "<button id='deleteBtn' type='button' class='btn btn-xs btn-default command-delete' data-row-id='" + i + "'><div class='fa-trash-o'></div></button>"
+                    "action": actionTag
 
                 }
             ]);
@@ -702,7 +719,8 @@
                     tavTraDrive: chkCar,
                     tavTraBus: chkBus,
                     tavTraTrain: chkBTS,
-                    tavTraTaxi: chkTaxi
+                    tavTraTaxi: chkTaxi,
+                    tavNumcls: parseInt(0)
                 };
                 applyDays.push(newDay);
             } else {
@@ -982,33 +1000,58 @@
             var facId = parseInt($('#dropdownFaculty option:selected').val());
             var turClip = $('#txtClip').val();
             var inputIDCardFile = $('#inputIDCardFile').val();
+            if (_gFBUser.email) {
+               if (!txtEmail || !txtFirstName || !txtLastName || !txtTel || !sex
+                    || !uniId || !facId) {
+                    $(".alert-danger").find("strong").text('โปรดระบุข้อมูลให้ครบถ้วน');
+                    $(".alert-danger").show();
+                    $('html, body').animate({ scrollTop: $('.breadcrumb').offset().top }, 'fast');
+                }
+                else {
 
-            if (txtPassword != txtConfirmPassword) {
-                $(".alert-danger").find("strong").text('รหัสผ่านไม่ถูกต้อง');
-                $(".alert-danger").show();
-                $('html, body').animate({ scrollTop: $('.breadcrumb').offset().top }, 'fast');
-            } else if (!txtEmail || !txtPassword || !txtFirstName || !txtLastName || !txtTel || !sex
-                || !uniId || !facId) {
-                $(".alert-danger").find("strong").text('โปรดระบุข้อมูลให้ครบถ้วน');
-                $(".alert-danger").show();
-                $('html, body').animate({ scrollTop: $('.breadcrumb').offset().top }, 'fast');
-            }
-            else {
+                    var tutorView = {
+                        turEmail: txtEmail,
+                        turNickname: txtNickname,
+                        turAddress: txtAddress,
+                        turBirthdate: pickerBirthdate,
+                        turClip: turClip,
+                        turFile: inputIDCardFile,
+                        turSex: sex,
+                        turUniId: uniId,
+                        turFacId: facId,
+                        turTel: txtTel
+                    }
+                }
+                console.log(tutorView);
+                applyJob(tutorView);
+            } else {
+                if (txtPassword != txtConfirmPassword) {
+                    $(".alert-danger").find("strong").text('รหัสผ่านไม่ถูกต้อง');
+                    $(".alert-danger").show();
+                    $('html, body').animate({ scrollTop: $('.breadcrumb').offset().top }, 'fast');
+                } else if (!txtEmail || !txtPassword || !txtFirstName || !txtLastName || !txtTel || !sex
+                    || !uniId || !facId) {
+                    $(".alert-danger").find("strong").text('โปรดระบุข้อมูลให้ครบถ้วน');
+                    $(".alert-danger").show();
+                    $('html, body').animate({ scrollTop: $('.breadcrumb').offset().top }, 'fast');
+                }
+                else {
 
-                var tutorView = {
-                    turEmail: txtEmail,
-                    turPassword: txtPassword,
-                    turFirstname: txtFirstName,
-                    turLastname: txtLastName,
-                    turNickname: txtNickname,
-                    turAddress: txtAddress,
-                    turBirthdate: pickerBirthdate,
-                    turClip: turClip,
-                    turFile: inputIDCardFile,
-                    turSex: sex,
-                    turUniId: uniId,
-                    turFacId: facId,
-                    turTel: txtTel
+                    var tutorView = {
+                        turEmail: txtEmail,
+                        turPassword: txtPassword,
+                        turFirstname: txtFirstName,
+                        turLastname: txtLastName,
+                        turNickname: txtNickname,
+                        turAddress: txtAddress,
+                        turBirthdate: pickerBirthdate,
+                        turClip: turClip,
+                        turFile: inputIDCardFile,
+                        turSex: sex,
+                        turUniId: uniId,
+                        turFacId: facId,
+                        turTel: txtTel
+                    }
                 }
                 console.log(tutorView);
                 applyJob(tutorView);

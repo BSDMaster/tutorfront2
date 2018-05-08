@@ -5,7 +5,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-  <title>Tutor</title>
+  <title>TUTOR MATCHING</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <meta name="description" content="">
@@ -75,6 +75,11 @@
       stuId: null,
       stuName: null
     };
+    _gFBUser = {
+      email : null,
+      firstName : null,
+      lastName : null
+    }
     _gUser.turId = null;
     _gUser.turName = null;
     _gUser.stuId = null;
@@ -82,7 +87,7 @@
     _gUser.parId = null;
     _gUser.parName = null;
     _gNoResultFound = 'ไม่พบรายการ';
-    //   _gServiceURL = 'https://14039143.ngrok.io/tutormatchingservices-0.0.1-SNAPSHOT/';
+   // _gServiceURL = 'https://d1a75d86.ngrok.io/tutormatchingservices-0.0.1-SNAPSHOT/';
     _gServiceURL = 'http://localhost:8080/tutormatchingservices-0.0.1-SNAPSHOT/';
     _gHasClass = 'Y';
     _gHasTutorTime = 'Y';
@@ -272,7 +277,7 @@
 
       <!--<div class="navbar-header">-->
 
-      <a class="navbar-brand mb-0 h1" href="javascript:loadMainPage();">Tutor</a>
+      <a class="navbar-brand mb-0 h1" href="javascript:loadMainPage();" id="divUserType">Tutor</a>
       <!--  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
     </div>-->
@@ -355,6 +360,24 @@
       }
     }
 
+    function fblogin(email, firstName, lastName, userType) {
+      _gUserEmail = email;
+      _gFBUser.email = email;
+      _gFBUser.firstName = firstName;
+      _gFBUser.lastName = lastName;
+      var data = {
+        email: email
+      }
+
+      //testOnly
+      if (userType == "tutor") {
+        tutorFBLogin(data);
+      }
+      else {
+        studentFBLogin(data);
+      }
+    }
+
     function tutorLogin(data) {
       console.log("tutor login");
       $.ajax({
@@ -427,6 +450,80 @@
       });
     }
 
+    function tutorFBLogin(data) {
+      console.log("tutor fb login");
+      $.ajax({
+        type: "POST",
+        url: _gServiceURL + "tutor/fblogin",
+        data: JSON.stringify(data),
+        contentType: "application/json; charset=utf-8",
+        crossDomain: true,
+        dataType: "json",
+        success: function (data, status, jqXHR) {
+          if (data.data.id) {
+            _gHasTutorTime = data.data.hasTutorTime;
+            _gUserType = "tutor";
+            _gUser.turId = data.data.id;
+            _gUser.turName = data.data.name;
+            jQuery("#divShowUser").html(_gUser.turName);
+            console.log(_gUser.turId);
+            loadMainPage();
+          } else {
+            changePage('./html/tutorSubscription.html');
+          }
+        },
+
+        error: function (jqXHR, status) {
+          // error handler
+          console.log(jqXHR);
+          //alert('fail' + status.code);
+        }
+      });
+    }
+
+    function studentFBLogin(data) {
+      $.ajax({
+        type: "POST",
+        url: _gServiceURL + "student/fblogin",
+        data: JSON.stringify(data),
+        contentType: "application/json; charset=utf-8",
+        crossDomain: true,
+        dataType: "json",
+        success: function (data, status, jqXHR) {
+          console.log(data);
+          if (data.data.type) {
+            var regisType = data.data.type;
+            _gHasClass = data.data.hasClass;
+            if (regisType == "P") {
+              _gUserType = "parent";
+              _gUser.parId = data.data.id;
+              _gUser.parName = data.data.name;
+              jQuery("#divShowUser").html(_gUser.parName);
+              console.log(_gUser.parId);
+              console.log(_gUser.parName);
+              loadMainPage();
+            } else if (regisType == "S") {
+              _gUserType = "student";
+              _gUser.stuId = data.data.id;
+              _gUser.stuName = data.data.name;
+              jQuery("#divShowUser").html(_gUser.stuName);
+              console.log(_gUser.stuId);
+              console.log(_gUser.stuName);
+              loadMainPage();
+            }
+          } else {
+            changePage('./html/registerstudent.html');
+          }
+
+        },
+
+        error: function (jqXHR, status) {
+          // error handler
+          console.log(jqXHR);
+        }
+      });
+    }
+
     function loadMainPage() {
       //   if (_gUser.turId != null) {
       jQuery("#divFirstNavBar").css('display', 'none');
@@ -435,7 +532,9 @@
 
       //_gUserType
       console.log("_gUserType=", _gUserType);
+      
       if (_gUserType == "tutor") {
+        $('#divUserType').text("ติวเตอร์");
         if (_gHasTutorTime == 'N') {
           jQuery("#divMainContainer").load('./html/publishJob.html');
         } else {
@@ -453,6 +552,8 @@
 
       }
       else if (_gUserType == "student") {
+
+        $('#divUserType').text("นักเรียน");
         if (_gHasClass == 'N') {
           jQuery("#divMainContainer").load('./html/studenteditclass.html');
         } else {
@@ -468,6 +569,8 @@
         jQuery("#nav-itm-tutor-profile").hide();
         jQuery("#nav-itm-stu-avatime").show();
       } else if (_gUserType == "parent") {
+
+        $('#divUserType').text("ผู้ปกครอง");
         if (_gHasClass == 'N') {
           jQuery("#divMainContainer").load('./html/parenteditclass.html');
         } else {
