@@ -54,7 +54,7 @@
                             <label class="col-lg-9 labelnormal" id="lblStuClsSubjectCat">คณิตศาสตร์</label>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-3">ภาษาที่ใช้สอน :</label>
+                            <label class="col-lg-3">ลักษณะการเรียน :</label>
                             <label class="col-lg-9 labelnormal" id="lblStuClsProgram">ปกติ</label>
                         </div>
                         <div class="form-group">
@@ -193,42 +193,43 @@
     </div>
     <br>
     <div style="display: none;" id="tutorSection">
-            <div class="label-header">ข้อมูลติวเตอร์</div>
-            <div style="margin-top:30px;">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <form class="form-horizontal">
-                                <div class="form-group">
-                                    <label class="col-lg-3">ชื่อ :</label>
-                                    <label class="col-lg-9 labelnormal" id="lblStuClsTurName"></label>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-lg-3">เบอร์โทรติดต่อ :</label>
-                                    <label class="col-lg-9 labelnormal" id="lblStuClsTurTel"></label>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-lg-3">อีเมล์ :</label>
-                                    <label class="col-lg-9 labelnormal" id="lblStuClsTurEmail"></label>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-lg-3">เพศ :</label>
-                                    <label class="col-lg-9 labelnormal" id="lblStuClsTurSex">ชาย</label>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-lg-3">คณะ :</label>
-                                    <label class="col-lg-9 labelnormal" id="lblStuClsTurFac"></label>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-lg-3">สถาบัน :</label>
-                                    <label class="col-lg-9 labelnormal" id="lblStuClsTurUni"></label>
-                                </div>
-                            </form>
-                        </div>
+        <div class="label-header">ข้อมูลติวเตอร์</div>
+        <div style="margin-top:30px;">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-lg-3">ชื่อ :</label>
+                                <label class="col-lg-9 labelnormal" id="lblStuClsTurName"></label>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3">เบอร์โทรติดต่อ :</label>
+                                <label class="col-lg-9 labelnormal" id="lblStuClsTurTel"></label>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3">อีเมล์ :</label>
+                                <label class="col-lg-9 labelnormal" id="lblStuClsTurEmail"></label>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3">เพศ :</label>
+                                <label class="col-lg-9 labelnormal" id="lblStuClsTurSex">ชาย</label>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3">คณะ :</label>
+                                <label class="col-lg-9 labelnormal" id="lblStuClsTurFac"></label>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3">สถาบัน :</label>
+                                <label class="col-lg-9 labelnormal" id="lblStuClsTurUni"></label>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
-        </div><div style="display: none;" id="tutorForNonSpec">
+        </div>
+    </div>
+    <div style="display: none;" id="tutorForNonSpec">
         <div class="label-header">ข้อมูลคุณสมบัติติวเตอร์</div>
         <div style="margin-top:30px;">
             <div class="container-fluid">
@@ -380,9 +381,14 @@
                         <label for="dropdownChangeTutorHours">จำนวนชั่วโมงที่เรียนไปแล้ว</label>
                         <select class="custom-select" id="dropdownChangeTutorHours">
                             <option selected="" value="0">0</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
+                            <option value="1">1 ชั่วโมง</option>
+                            <option value="2">2 ชั่วโมง</option>
+                            <option value="3">3 ชั่วโมง</option>
+                            <option value="4">4 ชั่วโมง</option>
+                            <option value="5">5 ชั่วโมง</option>
+                            <option value="6">6 ชั่วโมง</option>
+                            <option value="7">7 ชั่วโมง</option>
+                            <option value="8">8 ชั่วโมงขึ้นไป</option>
                         </select>
                     </div>
                 </div>
@@ -618,10 +624,16 @@
         console.log("changetutor");
         var reason = $('#reasonChangeTutorTextarea').val();
         var hours = $('#dropdownChangeTutorHours option:selected').val();
-        if (_gUser.stuId != null && reason && hours) {
+        if ((_gUser.stuId != null || _gUser.parId != null) && reason && hours) {
+            var requester = "";
+            if (_gUser.stuId != null) {
+                requester = _gUser.stuName;
+            } else {
+                requester = _gUser.parName;
+            }
             var bodyRequest = {
                 clsId: parseInt(_gSelectedClsId),
-                requester: _gUser.stuName,
+                requester: requester,
                 reason: reason,
                 hours: parseInt(hours)
             };

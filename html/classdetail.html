@@ -41,7 +41,7 @@
                             <label class="col-lg-9 labelnormal" id="lblClsSubjectCat">คณิตศาสตร์</label>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-3">ภาษาที่ใช้สอน :</label>
+                            <label class="col-lg-3">ลักษณะการเรียน :</label>
                             <label class="col-lg-9 labelnormal" id="lblClsProgram">ปกติ</label>
                         </div>
                         <div class="form-group">
@@ -57,6 +57,37 @@
                             <label class="col-lg-9 labelnormal" id="lblClsStatus">คณิตศาสตร์</label>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <div id="divParentInfo">
+        <div class="label-header">ข้อมูลผู้ปกครอง</div>
+        <div style="margin-top:30px;">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-lg-3">ชื่อ :</label>
+                                <label class="col-lg-9 labelnormal" id="lblStuClsParName"></label>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3">เบอร์โทรติดต่อ :</label>
+                                <label class="col-lg-9 labelnormal" id="lblStuClsParTel"></label>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3">อีเมล์ :</label>
+                                <label class="col-lg-9 labelnormal" id="lblStuClsParEmail"></label>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3">เพศ :</label>
+                                <label class="col-lg-9 labelnormal" id="lblStuClsParSex">ชาย</label>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -209,11 +240,21 @@
                     $('#divStuNameSection').hide();
                     $('#divStuTelSection').hide();
                     $('#divStuEmailSection').hide();
+                    $('#divParentInfo').hide();
+
                 } else {
                     $('#divStuNameSection').show();
                     $('#divStuTelSection').show();
                     $('#divStuEmailSection').show();
+                    if (classDetail.parId) {
+                        $('#divParentInfo').show();
+                        $('#lblStuClsParName').text(classDetail.parName);
+                        $('#lblStuClsParTel').text(classDetail.parTel);
+                        $('#lblStuClsParEmail').text(classDetail.parEmail);
+                        $('#lblStuClsParSex').text(classDetail.parSex);
+                    }
                 }
+
                 if (classDetail.statusId == 7) {
                     $('#btnCancelClassByTutor').show();
                 } else {

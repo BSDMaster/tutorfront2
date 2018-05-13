@@ -213,10 +213,10 @@
           var type = data.data.type;
           if (type == 'M') {
             _gSelectedMerId = data.data.merId;
-            jQuery("#divMainContainer").load('./html/mergedclassdetail.html');
+            loadMainPage();
           } else {
             _gSelectedClsId = data.data.clsId;
-            jQuery("#divMainContainer").load('./html/classdetail.html');
+            loadMainPage();
           }
 
 

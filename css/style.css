@@ -294,3 +294,8 @@ div.container-center p {
   .divnewline {
     word-wrap: break-word;
   }
+
+
+.dragorder {
+    cursor:all-scroll;
+}
