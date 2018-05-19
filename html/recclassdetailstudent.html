@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <div>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="javascript:loadMainPage();">หน้าหลัก</a>
+            </li>
+            <li class="breadcrumb-item active" id="breadcrumbrecclass">รายการแนะนำงานสอนเลขที่ </li>
+        </ol>
+    </div>
+    <br>
+    <div class="alert alert-dismissible alert-success" style="display: none;">
+        <button type="button" class="close" data-dismiss="alert"></button>
+        <strong>บันทึกข้อมูลสำเร็จ</strong>
+    </div>
+    <div class="alert alert-dismissible alert-danger" style="display: none;">
+        <button type="button" class="close" data-dismiss="alert"></button>
+        <strong>ไม่สามารถบันทึกข้อมูลได้</strong>
+    </div>
+    <div class="label-header" id="headerrecclass">แนะนำงานสอน</div>
+    <div style="margin-top:30px;">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-lg-3">รหัสงานสอน :</label>
+                            <label class="col-lg-9 labelnormal" id="lblClsId">คณิตศาสตร์</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3">วิชา :</label>
+                            <label class="col-lg-9 labelnormal" id="lblSubjectCat">คณิตศาสตร์</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3">ภาษาที่ใช้สอน :</label>
+                            <label class="col-lg-9 labelnormal" id="lblProgram">ปกติ</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3">ประเภทงานสอน :</label>
+                            <label class="col-lg-9 labelnormal" id="lblSpec">ไม่ระบุติวเตอร์</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3">ค่าเรียนต่อชั่วโมงต่อคน :</label>
+                            <label class="col-lg-9 labelnormal" id="lblPricePerPerson">คณิตศาสตร์</label>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="label-header">ข้อมูลนักเรียน</div>
+    <div style="margin-top:30px;">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-lg-3">ชื่อ :</label>
+                            <label class="col-lg-9 labelnormal" id="lblStuName"></label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3">เบอร์โทรติดต่อ :</label>
+                            <label class="col-lg-9 labelnormal" id="lblStuTel"></label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3">เพศ :</label>
+                            <label class="col-lg-9 labelnormal" id="lblStuSex">ชาย</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3">ระดับชั้น :</label>
+                            <label class="col-lg-9 labelnormal" id="lblLevel">ประถมศึกษาปีที่ 6</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3">สถานศึกษา :</label>
+                            <label class="col-lg-9 labelnormal" id="lblSchool">โรงเรียน</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3">จำนวนนักเรียน :</label>
+                            <label class="col-lg-9 labelnormal" id="lblNumOfStudent">1</label>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div style="display: none;" id="tutorForNonSpec">
+        <div class="label-header">ข้อมูลคุณสมบัติติวเตอร์</div>
+        <div style="margin-top:30px;">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-lg-3">เพศ :</label>
+                                <div class="col-lg-9 divnewline" id="lblSpecTurSex"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3">คณะ :</label>
+                                <div class="col-lg-9 divnewline" id="lblSpecTurFac"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3">สถาบัน :</label>
+                                <div class="col-lg-9 divnewline" id="lblSpecTurUni"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3">ประสบการณ์ :</label>
+                                <div class="col-lg-9 divnewline" id="lblSpecTurExp"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3">ลำดับปัจจัยในการคัดเลือกติวเตอร์ :</label>
+                                <div class="col-lg-9 divnewline" id="lblSpecTurVarOrder"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="label-header">ข้อมูลติวเตอร์</div>
+    <div style="margin-top:30px;">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-lg-3">ชื่อ :</label>
+                            <label class="col-lg-9 labelnormal" id="lblTurName"></label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3">เพศ :</label>
+                            <label class="col-lg-9 labelnormal" id="lblTurSex">ชาย</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3">คณะ :</label>
+                            <label class="col-lg-9 labelnormal" id="lblTurFac"></label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3">สถาบัน :</label>
+                            <label class="col-lg-9 labelnormal" id="lblTurUni"></label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3">ประสบการณ์สอน :</label>
+                            <label class="col-lg-9 labelnormal" id="lblTurExp">1</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3">รูปภาพ</label>
+                            <div class="col-lg-9">
+                                <div style="width: 200px;height: auto; margin-top: 10px;">
+                                    <img id="imgTurProfilePic" src="./images/icons8-full_image.png" style="width: 100%;max-height: 100%" />
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <br>
+    <div class="label-header">ข้อมูลวัน เวลา สถานที่เรียน</div>
+    <div style="margin:30px;">
+        <table id="gridTime" class="table table-condensed table-hover table-striped scroll">
+            <thead>
+                <tr>
+                    <th data-column-id="day" data-width="10%">วัน</th>
+                    <th data-column-id="time" data-width="40%">เวลา</th>
+                    <th data-column-id="location" data-width="50%">สถานที่</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <br>
+    <div class="container-center">
+        <p>
+            <button type="button" class="btn btn-success btn-lg" id="btnConfirmTutorClass">ยืนยันการเลือกติวเตอร์</button>
+            <button type="button" class="btn btn-danger btn-lg" id="btnCancelComfirmTutorClass">ปฏิเสธติวเตอร์</button>
+        </p>
+    </div>
+    <br>
+    <br>
+    <!-- Modal -->
+    <div class="modal fade" id="modalConfirmTutorCls" tabindex="-1" role="dialog" aria-labelledby="confirmTutorClsLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="confirmTutorClsLabel">ยืนยันติวเตอร์</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="divConfirmTutorClsLabel">
+                    กรุณายืนยันติวเตอร์
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">ยกเลิก</button>
+                    <button type="button" class="btn btn-primary btn-lg" onClick="javascript:confirmTutorRecCls();">ยืนยันติวเตอร์</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="modalConfirmCancelTutorCls" tabindex="-1" role="dialog" aria-labelledby="confirmCancelTutorClsLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="confirmCancelTutorClsLabel">ยืนยันปฎิเสธติวเตอร์</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="divConfirmCancelTutorClsLabel">
+                    กรุณายืนยันปฎิเสธติวเตอร์
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">ยกเลิก</button>
+                    <button type="button" class="btn btn-primary btn-lg" onClick="javascript:confirmCancelTutorRecCls();">ยืนยันปฎิเสธติวเตอร์</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+
+    var _mapRecClassDetail;
+    var _directionsDisplayRecClass;
+    var _recclasstimes = [];
+    jQuery(document).ready(function () {
+        initialData();
+    });
+
+    var gridTime = $("#gridTime").bootgrid({
+        navigation: 0,
+        labels: {
+            noResults: 'ไม่พบรายการ'
+        }
+    }).on("loaded.rs.jquery.bootgrid", function () {
+        gridTime.find(".command-open").on("click", function (e) {
+            var i = parseInt($(this).data("row-id"));
+            //            openmap(i);
+        });
+    });
+
+    function initialData() {
+        $('#divConfirmTutorClsLabel').text('ท่านต้องการยืนยันติวเตอร์จากการแนะนำงานสอนเลขที่ ' + _gRec.recId);
+        $('#divConfirmCancelTutorClsLabel').text('ท่านต้องการยืนยันปฏิเสธการแนะนำงานสอนเลขที่ ' + _gRec.recId)
+        $.ajax({
+            type: "GET",
+            url: _gServiceURL + "rectutor/classdetail/" + _gRec.recId,
+            contentType: "application/json; charset=utf-8",
+            crossDomain: true,
+            dataType: "json",
+            success: function (data, status, jqXHR) {
+                var classDetail = data.data.classDetailView;
+                _gSelectedClsId = classDetail.clsId;
+                console.log("initialData");
+                console.log(classDetail);
+                $('#breadcrumbrecclass').text('รายการแนะนำงานสอนเลขที่ ' + classDetail.recId);
+                $('#headerrecclass').text('รายการแนะนำงานสอนเลขที่ ' + classDetail.recId);
+                $('#lblClsId').text(classDetail.clsId);
+                $('#lblSubjectCat').text(classDetail.subjectAndGroupDetailName);
+                $('#lblProgram').text(classDetail.program);
+                $('#lblPrice').text(classDetail.recPrice);
+
+                $('#lblTurName').text(classDetail.turName);
+                $('#lblTurSex').text(classDetail.turSex);
+                $('#lblTurFac').text(classDetail.turFac);
+                $('#lblTurUni').text(classDetail.turUni);
+                $('#lblTurExp').text(classDetail.turExp);
+                if (classDetail.turProfilepic) {
+                    $('#imgTurProfilePic').attr('src', classDetail.turProfilepic);
+                }
+
+                $('#lblStuName').text(classDetail.stuName);
+                $('#lblStuTel').text(classDetail.stuTel);
+                $('#lblStuSex').text(classDetail.stuSex);
+                $('#lblLevel').text(classDetail.stuLevel);
+                $('#lblStuSex').text(classDetail.stuSex);
+                $('#lblLevel').text(classDetail.stuLevel);
+                $('#lblSchool').text(classDetail.stuSchool);
+                $('#lblNumOfStudent').text(classDetail.numOfStu);
+                $('#lblPricePerPerson').text(classDetail.pricePerPerson);
+                var spec = "";
+                if (classDetail.isSpec == 'Y') {
+                    spec = "ระบุติวเตอร์";
+                    $('#tutorForNonSpec').hide();
+                } else {
+                    spec = "ไม่ระบุติวเตอร์";
+                    $('#tutorForNonSpec').show();
+                    $('#lblSpecTurSex').text(classDetail.turSpecSex);
+                    $('#lblSpecTurFac').text(classDetail.turSpecFac);
+                    $('#lblSpecTurUni').text(classDetail.turSpecUni);
+                    $('#lblSpecTurExp').text(classDetail.turSpecExp);
+                    $('#lblSpecTurVarOrder').text(classDetail.classVarOrder);
+                }
+                $('#lblSpec').text(spec);
+                _recclasstimes = classDetail.recommendTimelocationList;
+                for (var i = 0; i < _recclasstimes.length; i++) {
+                    appendTime(_recclasstimes[i], i);
+                }
+            },
+            error: function (jqXHR, status) {
+            }
+
+        });
+
+    }
+
+    function appendTime(time, i) {
+        gridTime.bootgrid("append", [
+            {
+                "day": time.day,
+                "time": time.time,
+                "location": time.location
+            }
+        ]);
+    }
+
+
+    $("#btnConfirmTutorClass").on("click", function (e) {
+        $("#modalConfirmTutorCls").modal('show');
+    });
+
+    $("#btnCancelComfirmTutorClass").on("click", function (e) {
+        $("#modalConfirmCancelTutorCls").modal('show');
+    });
+
+    function confirmTutorRecCls() {
+
+        $("#modalConfirmTutorCls").modal('hide');
+        $.ajax({
+            type: "GET",
+            url: _gServiceURL + "rectutor/confirmtutor/" + _gRec.recId,
+            contentType: "application/json; charset=utf-8",
+            crossDomain: true,
+            dataType: "json",
+            success: function (data, status, jqXHR) {
+                var messages = data.message;
+                /*
+                var alert;
+                if (data.status == 200) {
+                    alert = $(".alert-success");
+                } else {
+                    alert = $(".alert-danger");
+                }
+                alert.find("strong").text(messages);
+                alert.show();
+*/
+                loadMainPage();
+            },
+            error: function (jqXHR, status) {
+                var alert = $(".alert-danger");
+                alert.find("strong").text(jqXHR);
+                alert.show();
+            }
+        });
+    }
+
+
+    function confirmCancelTutorRecCls() {
+
+        $("#modalConfirmCancelTutorCls").modal('hide');
+        $.ajax({
+            type: "GET",
+            url: _gServiceURL + "rectutor/declinebystudent/" + _gRec.recId,
+            contentType: "application/json; charset=utf-8",
+            crossDomain: true,
+            dataType: "json",
+            success: function (data, status, jqXHR) {
+                var messages = data.message;
+                /*
+                var alert;
+                if (data.status == 200) {
+                    alert = $(".alert-success");
+                } else {
+                    alert = $(".alert-danger");
+                }
+                alert.find("strong").text(messages);
+                alert.show();
+*/
+                loadMainPage();
+            },
+            error: function (jqXHR, status) {
+                var alert = $(".alert-danger");
+                alert.find("strong").text(jqXHR);
+                alert.show();
+            }
+        });
+    }
+
+
+
+</script>
+
+</html>

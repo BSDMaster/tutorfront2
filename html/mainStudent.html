@@ -32,6 +32,11 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a data-toggle="tab" href="#tabPendingSelectTutor">คอร์สที่รอยืนยันเลือกติวเตอร์&nbsp;&nbsp;
+                    <span class="badge badge-pill badge-danger" id="stubadgenum5"></span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a data-toggle="tab" href="#tabPendingConfirm">คอร์สที่รอติวเตอร์รับงานสอน&nbsp;&nbsp;
                     <span class="badge badge-pill badge-danger" id="stubadgenum2"></span>
                 </a>
@@ -57,6 +62,20 @@
                             <th data-column-id="clsid" data-width="10%" data-align="center">รหัสงานสอน</th>
                             <th data-column-id="subject" data-width="20%">วิชาและระดับชั้น</th>
                             <th data-column-id="time" data-width="60%">วัน เวลาและสถานที่เรียน</th>
+                            <th data-column-id="detail" data-width="10%" data-sortable="false" data-searchable="false"></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <!-- Pending Select tutor -->
+            <div class="tab-pane fade" id="tabPendingSelectTutor">
+                <table id="gridTab5Student" class="table table-condensed table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th data-column-id="clsid" data-width="10%" data-align="center">รหัสงานสอน</th>
+                            <th data-column-id="tutorname" data-width="15%">ชื่อ สกุลติวเตอร์</th>
+                            <th data-column-id="subject" data-width="20%">วิชาและระดับชั้น</th>
+                            <th data-column-id="time" data-width="45%">วัน เวลาและสถานที่เรียน</th>
                             <th data-column-id="detail" data-width="10%" data-sortable="false" data-searchable="false"></th>
                         </tr>
                     </thead>
@@ -113,6 +132,7 @@
         var _workStudentTabTwo;
         var _workStudentTabThree;
         var _workStudentTabFour;
+        var _workStudentTabFive;
         jQuery(document).ready(function () {
             console.log("ready!");
             if (_gUser.stuId != null) {
@@ -121,6 +141,7 @@
                 initialStudentTab2();
                 initialStudentTab3();
                 initialStudentTab4();
+                initialStudentTab5();
             }
 
         });
@@ -193,6 +214,23 @@
             });
         });
 
+        var gridTab5Student = $("#gridTab5Student").bootgrid({
+            navigation: 0,
+            rowSelect: true,
+            labels: {
+                noResults: 'ไม่พบรายการ'
+            }
+        }).on("loaded.rs.jquery.bootgrid", function () {
+            gridTab5Student.find("tr").on("click", function (e) {
+                console.log("click");
+            });
+            gridTab5Student.find(".command-detail").on("click", function (e) {
+                console.log("detail");
+                var i = parseInt($(this).data("row-id"));
+                loadClassDetailStudent5(_workStudentTabFive[i]);
+            });
+        });
+
 
         function appendstudenttab1(work, i) {
             gridTab1Student.bootgrid("append", [
@@ -241,6 +279,17 @@
             ]);
         }
 
+        function appendstudenttab5(work, i) {
+            gridTab5Student.bootgrid("append", [
+                {
+                    "clsid": work.clsId,
+                    "tutorname": work.tutorName,
+                    "subject": work.subjectAndGroupDetailName,
+                    "time": work.recTimeLoc,
+                    "detail": "<button type='button' class='btn btn-primary btn-lg command-detail' data-row-id='" + i + "'>ดูรายละเอียด</button>"
+                }
+            ]);
+        }
         function initialStudentTab1() {
             $.ajax({
                 type: "GET",
@@ -334,7 +383,7 @@
                 crossDomain: true,
                 dataType: "json",
                 success: function (data, status, jqXHR) {
-                    _workStudentTabThree = data.data.recommendTutorViews;
+                    _workStudentTabFour = data.data.recommendTutorViews;
                     console.log(_workStudentTabFour);
                     if (data.data.size != 0) {
                         $('#stubadgenum4').text(data.data.size);
@@ -348,6 +397,33 @@
                 },
                 error: function (jqXHR, status) {
                     $('#stubadgenum4').hide();
+                }
+
+            });
+        }
+
+        function initialStudentTab5() {
+            $.ajax({
+                type: "GET",
+                url: _gServiceURL + "rectutor/student/waitingconfirmtutorlist/" + _gUser.stuId,
+                contentType: "application/json; charset=utf-8",
+                crossDomain: true,
+                dataType: "json",
+                success: function (data, status, jqXHR) {
+                    _workStudentTabFive = data.data.recommendTutorViews;
+                    console.log(_workStudentTabFive);
+                    if (data.data.size != 0) {
+                        $('#stubadgenum5').text(data.data.size);
+                        for (var i = 0; i < _workStudentTabFive.length; i++) {
+                            appendstudenttab5(_workStudentTabFive[i], i);
+                        }
+                    } else {
+                        $('#stubadgenum5').hide();
+                    }
+
+                },
+                error: function (jqXHR, status) {
+                    $('#stubadgenum5').hide();
                 }
 
             });
@@ -374,7 +450,13 @@
         function loadClassDetailStudent4(result) {
             _gSelectedClsId = result.clsId;
             console.log(_gSelectedClsId);
-            jQuery("#divMainContainer").load('./html/..html');
+            jQuery("#divMainContainer").load('./html/classdetailstudent.html');
+        }
+
+        function loadClassDetailStudent5(result) {
+            _gRec.recId = result.recId;
+            console.log(_gRec.recId);
+            jQuery("#divMainContainer").load('./html/recclassdetailstudent.html');
         }
 
     </script>

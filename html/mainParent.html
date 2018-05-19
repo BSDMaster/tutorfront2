@@ -32,6 +32,11 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a data-toggle="tab" href="#tabParentPendingSelectTutor">คอร์สที่รอยืนยันเลือกติวเตอร์&nbsp;&nbsp;
+                    <span class="badge badge-pill badge-danger" id="parbadgenum5"></span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a data-toggle="tab" href="#tabParentPendingConfirm">คอร์สที่รอติวเตอร์รับงานสอน&nbsp;&nbsp;
                     <span class="badge badge-pill badge-danger" id="parbadgenum2"></span>
                 </a>
@@ -58,6 +63,20 @@
                             <th data-column-id="stuname" data-width="10%">ชื่อนักเรียน</th>
                             <th data-column-id="subject" data-width="20%">วิชาและระดับชั้น</th>
                             <th data-column-id="time" data-width="50%">วัน เวลาและสถานที่เรียน</th>
+                            <th data-column-id="detail" data-width="10%" data-sortable="false" data-searchable="false"></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <!-- Pending Select tutor -->
+            <div class="tab-pane fade" id="tabParentPendingSelectTutor">
+                <table id="gridTab5Parent" class="table table-condensed table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th data-column-id="clsid" data-width="10%" data-align="center">รหัสงานสอน</th>
+                            <th data-column-id="tutorname" data-width="15%">ชื่อ สกุลติวเตอร์</th>
+                            <th data-column-id="subject" data-width="20%">วิชาและระดับชั้น</th>
+                            <th data-column-id="time" data-width="45%">วัน เวลาและสถานที่เรียน</th>
                             <th data-column-id="detail" data-width="10%" data-sortable="false" data-searchable="false"></th>
                         </tr>
                     </thead>
@@ -117,6 +136,8 @@
         var _workParentTabTwo;
         var _workParentTabThree;
         var _workParentTabFour;
+        var _workStudentTabFive;
+
         jQuery(document).ready(function () {
             console.log("ready!");
             if (_gUser.parId != null) {
@@ -125,6 +146,7 @@
                 initialParentTab2();
                 initialParentTab3();
                 initialParentTab4();
+                initialParentTab5();
             }
 
         });
@@ -197,6 +219,22 @@
             });
         });
 
+        var gridTab5Parent = $("#gridTab5Parent").bootgrid({
+            navigation: 0,
+            rowSelect: true,
+            labels: {
+                noResults: 'ไม่พบรายการ'
+            }
+        }).on("loaded.rs.jquery.bootgrid", function () {
+            gridTab5Parent.find("tr").on("click", function (e) {
+                console.log("click");
+            });
+            gridTab5Parent.find(".command-detail").on("click", function (e) {
+                console.log("detail");
+                var i = parseInt($(this).data("row-id"));
+                loadClassDetailParent5(_workParentTabFive[i]);
+            });
+        });
 
         function appendparenttab1(work, i) {
             gridTab1Parent.bootgrid("append", [
@@ -244,6 +282,18 @@
                     "time": work.recTimeLoc,
                     "status": work.status,
                     "stuname": work.stuName,
+                    "detail": "<button type='button' class='btn btn-primary btn-lg command-detail' data-row-id='" + i + "'>ดูรายละเอียด</button>"
+                }
+            ]);
+        }
+
+        function appendparenttab5(work, i) {
+            gridTab5Parent.bootgrid("append", [
+                {
+                    "clsid": work.clsId,
+                    "tutorname": work.tutorName,
+                    "subject": work.subjectAndGroupDetailName,
+                    "time": work.recTimeLoc,
                     "detail": "<button type='button' class='btn btn-primary btn-lg command-detail' data-row-id='" + i + "'>ดูรายละเอียด</button>"
                 }
             ]);
@@ -361,6 +411,31 @@
             });
         }
 
+        function initialParentTab5() {
+            $.ajax({
+                type: "GET",
+                url: _gServiceURL + "rectutor/parent/waitingconfirmtutorlist/" + _gUser.parId,
+                contentType: "application/json; charset=utf-8",
+                crossDomain: true,
+                dataType: "json",
+                success: function (data, status, jqXHR) {
+                    _workParentTabFive = data.data.recommendTutorViews;
+                    console.log(_workParentTabFive);
+                    if (data.data.size != 0) {
+                        $('#parbadgenum5').text(data.data.size);
+                        for (var i = 0; i < _workParentTabFive.length; i++) {
+                            appendparenttab5(_workParentTabFive[i], i);
+                        }
+                    } else {
+                        $('#parbadgenum5').hide();
+                    }
+                },
+                error: function (jqXHR, status) {
+                    $('#parbadgenum5').hide();
+                }
+            });
+        }
+
 
         function loadClassDetailParent1(result) {
             _gSelectedClsId = result.clsId;
@@ -384,6 +459,13 @@
             console.log(_gSelectedClsId);
             jQuery("#divMainContainer").load('./html/classdetailstudent.html');
         }
+
+        function loadClassDetailParent5(result) {
+            _gRec.recId = result.recId;
+            console.log(_gRec.recId);
+            jQuery("#divMainContainer").load('./html/recclassdetailstudent.html');
+        }
+
 
     </script>
 </body>

@@ -78,7 +78,7 @@
                     <div class="form-group required">
                         <label for="txtTel" class="col-lg-2 labelform">เบอร์โทรมือถือ</label>
                         <div class="col-lg-4">
-                            <input type="text" class="form-control" id="txtTel"  pattern="^[0-9]*$" >
+                            <input type="text" class="form-control" id="txtTel" pattern="^[0-9]*$">
                         </div>
                         <div class="col-lg-6"></div>
                     </div>
@@ -140,6 +140,16 @@
                         <label for="txtOthers" class="col-lg-2">ข้อมูลงานสอนเพิ่มเติม</label>
                         <div class="col-lg-4">
                             <textarea class="form-control" id="txtOthers" rows="3"></textarea>
+                        </div>
+                        <div class="col-lg-6"></div>
+                    </div>
+                    <div class="form-group required">
+                        <label for="" class="col-lg-2 labelform">รูปภาพ</label>
+                        <div class="col-lg-4">
+                            <input type="file" class="form-control-file" id="profilePicFile" accept=".jpg, .jpeg, .png">
+                            <div  style="width: 200px;height: auto; margin-top: 10px;">
+                                <img id="imgProfilePic"  src="./images/icons8-full_image.png" style="width: 100%;max-height: 100%"/>
+                            </div>
                         </div>
                         <div class="col-lg-6"></div>
                     </div>
@@ -255,7 +265,10 @@
                 if (tutor.isBlock == 'Y') {
                     $('#lblLockStatus').text('ล็อค');
                 } else {
-                    $('#lblLockStatus').text('รอการตรวจสอบ');
+                    $('#lblLockStatus').text('ปกติ');
+                }
+                if (tutor.turProfilepic) {
+                    $('#imgProfilePic').attr('src', tutor.turProfilepic);
                 }
                 $('#lblEvaScore').text(tutor.turEvaScore);
                 $('#txtFirstName').val(tutor.turFirstname);
@@ -263,6 +276,7 @@
                 $('#txtNickname').val(tutor.turNickname);
                 $('#txtTel').val(tutor.turTel);
                 $('#txtAddress').val(tutor.turAddress);
+                $('#txtEmail').val(tutor.turEmail);
                 // $('#pickerBirthdate').val();
                 $('#dropdownSex').val(tutor.turSex);
                 $('#dropdownUniversity').val(tutor.university.uniId);
@@ -279,6 +293,7 @@
     $("#btnUpdateTutor").on("click", function (e) {
         // var vdoid = getYoutubeVideoID($('#txtClip').val());
         //  console.log(vdoid);
+
         var txtFirstName = $('#txtFirstName').val();
         var txtLastName = $('#txtLastName').val();
         var txtNickname = $('#txtNickname').val();
@@ -313,6 +328,49 @@
             crossDomain: true,
             dataType: "json",
             success: function (data, status, jqXHR) {
+                var turId = data.data.tutorId;
+                uploadProfilePicture(turId);
+
+            },
+            error: function (jqXHR, status) {
+                $(".alert-danger").show();
+                $('html, body').animate({ scrollTop: $('.breadcrumb').offset().top }, 'fast');
+            }
+
+        });
+    });
+
+    function readURL(input) {
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#imgProfilePic').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#profilePicFile").change(function () {
+        
+        readURL(this);
+    });
+
+    function uploadProfilePicture(turId) {
+        var documentData = new FormData();
+        documentData.append('file', $('#profilePicFile')[0].files[0]);
+        console.log(documentData);
+        $.ajax({
+            url: _gServiceURL + "tutor/updateprofilepic/" + turId,
+            type: 'POST',
+            data: documentData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (data, status, jqXHR) {
+
                 $(".alert-success").show();
                 $('html, body').animate({ scrollTop: $('.breadcrumb').offset().top }, 'fast');
             },
@@ -322,7 +380,7 @@
             }
 
         });
-    });
+    }
 </script>
 
 </html>

@@ -62,6 +62,10 @@
                             <label class="col-lg-9 labelnormal" id="lblStuClsSpec">ปกติ</label>
                         </div>
                         <div class="form-group">
+                            <label class="col-lg-3">ค่าเรียนต่อชั่วโมงต่อคน :</label>
+                            <label class="col-lg-9 labelnormal" id="lblStuClsPricePerPerson">คณิตศาสตร์</label>
+                        </div>
+                        <div class="form-group">
                             <label class="col-lg-3">สถานะ :</label>
                             <label class="col-lg-9 labelnormal" id="lblStuClsStatus">คณิตศาสตร์</label>
                         </div>
@@ -140,95 +144,8 @@
             </div>
         </div>
     </div>
+
     <br>
-    <div style="display: none;" id="tutorSection">
-        <div class="label-header">ข้อมูลติวเตอร์</div>
-        <div style="margin-top:30px;">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <form class="form-horizontal">
-                            <div class="form-group">
-                                <label class="col-lg-3">ชื่อ :</label>
-                                <label class="col-lg-9 labelnormal" id="lblStuClsTurName"></label>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-lg-3">เบอร์โทรติดต่อ :</label>
-                                <label class="col-lg-9 labelnormal" id="lblStuClsTurTel"></label>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-lg-3">อีเมล์ :</label>
-                                <label class="col-lg-9 labelnormal" id="lblStuClsTurEmail"></label>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-lg-3">เพศ :</label>
-                                <label class="col-lg-9 labelnormal" id="lblStuClsTurSex">ชาย</label>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-lg-3">คณะ :</label>
-                                <label class="col-lg-9 labelnormal" id="lblStuClsTurFac"></label>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-lg-3">สถาบัน :</label>
-                                <label class="col-lg-9 labelnormal" id="lblStuClsTurUni"></label>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <br>
-    <div class="label-header">ข้อมูลวัน เวลา สถานที่เรียน</div>
-    <div style="margin:30px;">
-        <table id="gridStuClassTime" class="table table-condensed table-hover table-striped scroll">
-            <thead>
-                <tr>
-                    <th data-column-id="day" data-width="10%">วัน</th>
-                    <th data-column-id="time" data-width="30%">เวลา</th>
-                    <th data-column-id="location" data-width="60%">สถานที่</th>
-                </tr>
-            </thead>
-        </table>
-    </div>
-    <br>
-    <div style="display: none;" id="tutorSection">
-        <div class="label-header">ข้อมูลติวเตอร์</div>
-        <div style="margin-top:30px;">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <form class="form-horizontal">
-                            <div class="form-group">
-                                <label class="col-lg-3">ชื่อ :</label>
-                                <label class="col-lg-9 labelnormal" id="lblStuClsTurName"></label>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-lg-3">เบอร์โทรติดต่อ :</label>
-                                <label class="col-lg-9 labelnormal" id="lblStuClsTurTel"></label>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-lg-3">อีเมล์ :</label>
-                                <label class="col-lg-9 labelnormal" id="lblStuClsTurEmail"></label>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-lg-3">เพศ :</label>
-                                <label class="col-lg-9 labelnormal" id="lblStuClsTurSex">ชาย</label>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-lg-3">คณะ :</label>
-                                <label class="col-lg-9 labelnormal" id="lblStuClsTurFac"></label>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-lg-3">สถาบัน :</label>
-                                <label class="col-lg-9 labelnormal" id="lblStuClsTurUni"></label>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <div style="display: none;" id="tutorForNonSpec">
         <div class="label-header">ข้อมูลคุณสมบัติติวเตอร์</div>
         <div style="margin-top:30px;">
@@ -262,6 +179,67 @@
             </div>
         </div>
     </div>
+    <br>
+    <div style="display: none;" id="tutorSection">
+        <div class="label-header">ข้อมูลติวเตอร์</div>
+        <div style="margin-top:30px;">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-lg-3">ชื่อ :</label>
+                                <label class="col-lg-9 labelnormal" id="lblStuClsTurName"></label>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3">เบอร์โทรติดต่อ :</label>
+                                <label class="col-lg-9 labelnormal" id="lblStuClsTurTel"></label>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3">อีเมล์ :</label>
+                                <label class="col-lg-9 labelnormal" id="lblStuClsTurEmail"></label>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3">เพศ :</label>
+                                <label class="col-lg-9 labelnormal" id="lblStuClsTurSex">ชาย</label>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3">คณะ :</label>
+                                <label class="col-lg-9 labelnormal" id="lblStuClsTurFac"></label>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3">สถาบัน :</label>
+                                <label class="col-lg-9 labelnormal" id="lblStuClsTurUni"></label>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3">รูปภาพ</label>
+                                <div class="col-lg-9">
+                                    <div style="width: 200px;height: auto; margin-top: 10px;">
+                                        <img id="imgStuClsTurProfilePic" src="./images/icons8-full_image.png" style="width: 100%;max-height: 100%" />
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="label-header">ข้อมูลวัน เวลา สถานที่เรียน</div>
+    <div style="margin:30px;">
+        <table id="gridStuClassTime" class="table table-condensed table-hover table-striped scroll">
+            <thead>
+                <tr>
+                    <th data-column-id="day" data-width="10%">วัน</th>
+                    <th data-column-id="time" data-width="30%">เวลา</th>
+                    <th data-column-id="location" data-width="60%">สถานที่</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <br>
+    
     <!-- Modal -->
     <div class="modal fade" id="modalTutorEvaluate" tabindex="-1" role="dialog" aria-labelledby="tutorEvaluateLabel">
         <div class="modal-dialog" role="document">
@@ -444,6 +422,7 @@
                 $('#lblStuClsStuName').text(classDetail.stuName);
                 $('#lblStuClsStuTel').text(classDetail.stuTel);
                 $('#lblStuClsStuEmail').text(classDetail.stuEmail);
+                $('#lblStuClsPricePerPerson').text(classDetail.pricePerPerson);
                 if (classDetail.parId) {
                     $('#divParentInfo').show();
                     $('#lblStuClsParName').text(classDetail.parName);
@@ -493,6 +472,9 @@
                     $('#lblStuClsTurFac').text(classDetail.turFac);
                     $('#lblStuClsTurUni').text(classDetail.turUni);
                     $('#lblStuClsTurSex').text(classDetail.turSex);
+                    if (classDetail.turProfilepic) {
+                        $('#imgStuClsTurProfilePic').attr('src', classDetail.turProfilepic);
+                    }
                     $('#tutorSection').show();
                 } else {
                     $('#tutorSection').hide();
