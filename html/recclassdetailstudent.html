@@ -164,7 +164,7 @@
             </div>
         </div>
     </div>
-    
+
     <br>
     <div class="label-header">ข้อมูลวัน เวลา สถานที่เรียน</div>
     <div style="margin:30px;">
@@ -335,7 +335,9 @@
 
     function confirmTutorRecCls() {
 
-        $("#modalConfirmTutorCls").modal('hide');
+        var delayInMilliseconds = 1000; //1 second
+
+
         $.ajax({
             type: "GET",
             url: _gServiceURL + "rectutor/confirmtutor/" + _gRec.recId,
@@ -344,6 +346,7 @@
             dataType: "json",
             success: function (data, status, jqXHR) {
                 var messages = data.message;
+
                 /*
                 var alert;
                 if (data.status == 200) {
@@ -354,20 +357,26 @@
                 alert.find("strong").text(messages);
                 alert.show();
 */
-                loadMainPage();
+                setTimeout(function () {
+
+                    loadMainPage();
+
+                }, delayInMilliseconds);
             },
             error: function (jqXHR, status) {
+
                 var alert = $(".alert-danger");
                 alert.find("strong").text(jqXHR);
                 alert.show();
             }
         });
+
+        $("#modalConfirmTutorCls").modal('hide');
     }
 
 
     function confirmCancelTutorRecCls() {
 
-        $("#modalConfirmCancelTutorCls").modal('hide');
         $.ajax({
             type: "GET",
             url: _gServiceURL + "rectutor/declinebystudent/" + _gRec.recId,
@@ -394,6 +403,8 @@
                 alert.show();
             }
         });
+
+        $("#modalConfirmCancelTutorCls").modal('hide');
     }
 
 
